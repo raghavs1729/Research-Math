@@ -1,0 +1,14 @@
+k=1  (ii): OK  (iii): OK  (iv): OK   [mod q^300]
+k=2  (ii): OK  (iii): OK  (iv): OK   [mod q^300]
+k=3  (ii): OK  (iii): OK  (iv): OK   [mod q^300]
+k=4  (ii): OK  (iii): OK  (iv): OK   [mod q^300]
+k=5  (ii): OK  (iii): OK  (iv): OK   [mod q^300]
+k=6  (ii): OK  (iii): OK  (iv): OK   [mod q^300]
+k=7  (ii): OK  (iii): OK  (iv): OK   [mod q^300]
+k=8  (ii): OK  (iii): OK  (iv): OK   [mod q^300]
+negative controls detected: True
+ALL OK
+
+real	0m57.302s
+user	0m56.981s
+sys	0m0.036s

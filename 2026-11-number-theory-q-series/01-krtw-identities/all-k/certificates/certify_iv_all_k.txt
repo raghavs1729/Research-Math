@@ -1,0 +1,16 @@
+[D1] OK [T,h] = -x O T on point masses (32 cases, window R<=10, S<=5)
+[D2] OK omega(h F) = omega(P^-1 F) on point masses (32 cases)
+[D3] OK K^Om_k = x^-1 (K^b_k - K_k), k <= 8, mod q^40, all powers of x
+[D3neg] OK negative control (Omega without its last term) detected
+[D4] OK v_x(h_x phi(.,0)) = eps/(1+x) v_x(phi(.,0)) for N <= 5 (eigenvectors from the triangular system)
+[D4b] OK omega(h phi_{N,M}) = eps/(1+x) omega(phi_{N,M}) for N <= 5 by finite Cauchy sums
+[D5] OK spectral weight identity (N <= 12) and lam_n^2 bO_n = alpha*_n (n <= 12), symbolic
+[D6] OK (xq)(x^2Q;Q) K^Om_k = sum lam^k t (eps-1-x)/(x(1+x)), k <= 8, mod q^40, all x
+[D6neg] OK negative control (eps -> eps + x(1+x)q) detected
+[D7] OK (xq)_inf B^(k)_{k+1}(x) = sum_n lam_n^{k+1} bO_n, k <= 8, mod q^40, all x
+[D8] OK sum_n lam_n^{k+1} bO_n at x = 1 = (q^k,q^{k+4},q^{2k+4};q^{2k+4})_inf mod q^200, k <= 10
+ALL CHECKS PASSED
+
+real	0m12.922s
+user	0m12.741s
+sys	0m0.016s

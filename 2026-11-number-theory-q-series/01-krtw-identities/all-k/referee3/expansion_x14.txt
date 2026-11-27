@@ -1,0 +1,21 @@
+=== q = 2/7, exact in Q[[x]] mod x^14 ===
+(R,S)=(0,0): sum_modes u~ phi == u mod x^14: True;  without mode (0, 0): equal = False
+(R,S)=(0,1): sum_modes u~ phi == u mod x^14: True;  without mode (1, 1): equal = False
+(R,S)=(0,2): sum_modes u~ phi == u mod x^14: True;  without mode (2, 2): equal = False
+(R,S)=(1,0): sum_modes u~ phi == u mod x^14: True;  without mode (1, 0): equal = False
+(R,S)=(1,1): sum_modes u~ phi == u mod x^14: True;  without mode (2, 1): equal = False
+(R,S)=(1,2): sum_modes u~ phi == u mod x^14: True;  without mode (3, 2): equal = False
+(R,S)=(2,0): sum_modes u~ phi == u mod x^14: True;  without mode (1, 0): equal = False
+(R,S)=(2,1): sum_modes u~ phi == u mod x^14: True;  without mode (2, 1): equal = False
+(R,S)=(2,2): sum_modes u~ phi == u mod x^14: True;  without mode (3, 2): equal = False
+=== q = -3/5, exact in Q[[x]] mod x^14 ===
+(R,S)=(0,0): sum_modes u~ phi == u mod x^14: True;  without mode (0, 0): equal = False
+(R,S)=(0,1): sum_modes u~ phi == u mod x^14: True;  without mode (1, 1): equal = False
+(R,S)=(0,2): sum_modes u~ phi == u mod x^14: True;  without mode (2, 2): equal = False
+(R,S)=(1,0): sum_modes u~ phi == u mod x^14: True;  without mode (1, 0): equal = False
+(R,S)=(1,1): sum_modes u~ phi == u mod x^14: True;  without mode (2, 1): equal = False
+(R,S)=(1,2): sum_modes u~ phi == u mod x^14: True;  without mode (3, 2): equal = False
+(R,S)=(2,0): sum_modes u~ phi == u mod x^14: True;  without mode (1, 0): equal = False
+(R,S)=(2,1): sum_modes u~ phi == u mod x^14: True;  without mode (2, 1): equal = False
+(R,S)=(2,2): sum_modes u~ phi == u mod x^14: True;  without mode (3, 2): equal = False
+THEOREM 6.4 EXPANSION CHECK PASSED

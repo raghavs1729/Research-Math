@@ -1,0 +1,16 @@
+L7.1: all N >= M >= 0, N <= 10: OK
+t closed: all N >= M >= 0, N <= 10: OK
+C4.2: all N >= M >= 0, N <= 10: OK
+C5.2: all N >= M >= 0, N <= 10: OK
+L4.1: all N >= M >= 0, N <= 10: OK
+   negative control (L7.1 with (xq;q)_3 instead of (xq;q)_4 at (2,1)): equal = False
+bOm closed form = definition, n <= 24: OK
+alpha*_e = lam_e^2 bOm_e, e <= 24: OK
+Bailey pair beta_n = 1/(Q;Q)_n, alpha_n(a), a in {xq, x}, n <= 6: OK
+(B-iv) Gamma formula (identity of numerators over (q)_(R-d)(aq)_(R+d+c)) and sum = (aq)_c, c<=4, d<=3: OK
+(B-v) alpha_n, beta_n, gamma_n and the 'likewise' coefficient sums 1, 0: OK
+base-Q facts of Sec. 5 (c1+c2 = 1-aQ, b_e, sum 0 for Q^S phi^Q_e(S;aQ^2)): OK
+Prop 4.1 elimination, bracket = (e_N^2-(1+x)^2)(e_M^2-(1+x)^2), e_n^2-(1+x)^2 = q^-2n(1-q^2n)(1-x^2q^2n): OK
+Prop 5.1 elimination and Fricke factorisation of the bracket: OK
+iv Lemma 4.1 factorisations of eps - mu - 2x, and the (B4) E-identity: OK
+ALL ALGEBRA CHECKS PASSED

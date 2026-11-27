@@ -1,0 +1,19 @@
+# (a) iv-all-k Lemma 1.1, bivariate mod q^60, all powers of x
+k=1: K^Om (Omega literal) == sum_i omega(T^(i-1) O T^(k-i) u): True; negative control (last Omega term dropped) first difference at (x^d, q^n) = (0, 0)
+k=2: K^Om (Omega literal) == sum_i omega(T^(i-1) O T^(k-i) u): True; negative control (last Omega term dropped) first difference at (x^d, q^n) = (0, 0)
+k=3: K^Om (Omega literal) == sum_i omega(T^(i-1) O T^(k-i) u): True; negative control (last Omega term dropped) first difference at (x^d, q^n) = (0, 0)
+k=4: K^Om (Omega literal) == sum_i omega(T^(i-1) O T^(k-i) u): True; negative control (last Omega term dropped) first difference at (x^d, q^n) = (0, 0)
+k=5: K^Om (Omega literal) == sum_i omega(T^(i-1) O T^(k-i) u): True; negative control (last Omega term dropped) first difference at (x^d, q^n) = (0, 0)
+k=6: K^Om (Omega literal) == sum_i omega(T^(i-1) O T^(k-i) u): True; negative control (last Omega term dropped) first difference at (x^d, q^n) = (0, 0)
+# (b) x = 1 evaluations mod q^300
+k=1: sum lam^(k+1) bOm at x=1 = (q^k,q^(k+4),q^(2k+4);q^(2k+4)): True;  (Q;Q)_inf J_k(1) = (q^(k+1),q^(k+3),q^(2k+4);q^(2k+4)): True
+k=2: sum lam^(k+1) bOm at x=1 = (q^k,q^(k+4),q^(2k+4);q^(2k+4)): True;  (Q;Q)_inf J_k(1) = (q^(k+1),q^(k+3),q^(2k+4);q^(2k+4)): True
+k=3: sum lam^(k+1) bOm at x=1 = (q^k,q^(k+4),q^(2k+4);q^(2k+4)): True;  (Q;Q)_inf J_k(1) = (q^(k+1),q^(k+3),q^(2k+4);q^(2k+4)): True
+k=4: sum lam^(k+1) bOm at x=1 = (q^k,q^(k+4),q^(2k+4);q^(2k+4)): True;  (Q;Q)_inf J_k(1) = (q^(k+1),q^(k+3),q^(2k+4);q^(2k+4)): True
+k=5: sum lam^(k+1) bOm at x=1 = (q^k,q^(k+4),q^(2k+4);q^(2k+4)): True;  (Q;Q)_inf J_k(1) = (q^(k+1),q^(k+3),q^(2k+4);q^(2k+4)): True
+k=6: sum lam^(k+1) bOm at x=1 = (q^k,q^(k+4),q^(2k+4);q^(2k+4)): True;  (Q;Q)_inf J_k(1) = (q^(k+1),q^(k+3),q^(2k+4);q^(2k+4)): True
+k=7: sum lam^(k+1) bOm at x=1 = (q^k,q^(k+4),q^(2k+4);q^(2k+4)): True;  (Q;Q)_inf J_k(1) = (q^(k+1),q^(k+3),q^(2k+4);q^(2k+4)): True
+k=8: sum lam^(k+1) bOm at x=1 = (q^k,q^(k+4),q^(2k+4);q^(2k+4)): True;  (Q;Q)_inf J_k(1) = (q^(k+1),q^(k+3),q^(2k+4);q^(2k+4)): True
+k=9: sum lam^(k+1) bOm at x=1 = (q^k,q^(k+4),q^(2k+4);q^(2k+4)): True;  (Q;Q)_inf J_k(1) = (q^(k+1),q^(k+3),q^(2k+4);q^(2k+4)): True
+k=10: sum lam^(k+1) bOm at x=1 = (q^k,q^(k+4),q^(2k+4);q^(2k+4)): True;  (Q;Q)_inf J_k(1) = (q^(k+1),q^(k+3),q^(2k+4);q^(2k+4)): True
+ALL CHECKS PASSED

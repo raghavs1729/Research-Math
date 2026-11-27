@@ -46,15 +46,16 @@
    {≤}{{$\le$}}1 {⁻¹}{{$^{-1}$}}2 {∀}{{$\forall$}}1 {∧}{{$\wedge$}}1 {∨}{{$\vee$}}1
    {⟨}{{$\langle$}}1 {⟩}{{$\rangle$}}1 {·}{{$\cdot$}}1 {−}{{$-$}}1 {∞}{{$\infty$}}1 {×}{{$\times$}}1}
 
-\title[An Andrews--Gordon-type identity of KRTW]{An Andrews--Gordon-type identity of Kanade, Russell,
-Tsuchioka and Warnaar: a proof for every level, fully formalized in Lean}
+\title[The four Andrews--Gordon-type identities of KRTW]{The four Andrews--Gordon-type identities of Kanade,
+Russell, Tsuchioka and Warnaar: proofs for every level, with the first formalized in Lean}
 \author{Raghav Sharma}
 \email{raghavsharma1729@gmail.com}
 \thanks{\textbf{AI disclosure.} The results, proofs, computer code and Lean formalizations in this
 paper were produced by AI (Anthropic's Claude models) working under the direction of the author.
 Correctness was checked by independent AI referees (separate model instances instructed to find errors,
-using their own code) and, for the formalized statements, by the Lean kernel. No human expert has
-refereed this work yet. Code, certificates and the Lean project:
+using their own code; two independent reads of every proof, see §\ref{ssec:reads}) and, for the formalized
+statements (identity~(i) only), by the Lean kernel. No human expert has refereed this work yet. Code,
+certificates and the Lean project:
 \url{https://github.com/raghavs1729/Research-Math}, folder \texttt{2026-11-number-theory-q-series/}.}
 \date{27 November 2026}
 
@@ -66,20 +67,21 @@ Hall--Littlewood polynomials, Capparelli--Meurman--Primc--Primc conjectures, Lea
 
 \begin{abstract}
 Kanade, Russell, Tsuchioka and Warnaar (Selecta Math.\ 2026) conjectured four Andrews--Gordon-type
-identities for $2k$-fold sums in the bases $q$ and $q^2$; for $k\le2$ they follow from known results. We prove the
-first of them for every $k$. The new step reduces the $2k$-fold sum to a known $k$-fold sum through a
-finite identity with a boundary parameter, proved from the $q$-binomial theorem; the $k$-fold sum is
-then evaluated by Bailey's lemma and the Jacobi triple product (a known evaluation, re-proved here).
-With a theorem of Griffin, Ono and Warnaar this proves their Hall--Littlewood conjecture at $z=1$ for
-every $k$. The identity, in the printed product form and for every $k$, is formalized in Lean~4 with
-Mathlib, using only the standard axioms. We also prove the second and third identities for $k=3$, the
-first open case, by exact chains of Euler and Durfee moves, and hence the Hall--Littlewood conjecture
-at $z=q$ for $k=3$. For general $k$ we reduce both identities to a factorisation conjecture with a
-parameter $x$, give closed Bailey-type forms of its factors, and show that it is equivalent, given a
-$C_2$ Rogers--Selberg identity of Bartlett and Warnaar, to a Hall--Littlewood identity. The results,
-proofs, code and Lean formalization were produced by AI (Anthropic's Claude models) directed by the
-author; they were checked by independent AI referees and, for the Lean part, by the Lean kernel. No
-human expert has refereed this work yet.
+identities for $2k$-fold sums in the bases $q$ and $q^2$; for $k\le2$ they follow from known results. We prove
+all four for every $k$. For the first, the $2k$-fold sum is reduced to a known $k$-fold sum through a finite
+identity with a boundary parameter, proved from the $q$-binomial theorem; this identity, in the printed
+product form and for every $k$, is formalized in Lean~4 with Mathlib. For the other three we introduce a
+parameter $x$ and write the $2k$-fold sum as a matrix element of a transfer operator on functions of two
+variables. We diagonalise this operator without computing its eigenfunctions: two commuting difference
+operators give one-step recursions for the values of the eigenfunctions at infinity, the left and right
+eigenfunctions of each mode pair at a single point, and the resulting spectral expansion is a product of
+two Bailey-type series. This proves the factorisation $K_k(x)=B_{k+1}(x)J_k(x)$ conjectured in the first version of
+this paper, and hence the second and third identities. For the fourth, the inserted weight is a
+commutator with the transfer operator up to a factor, so its insertions telescope, and the same spectral
+expansion applies. With theorems of Griffin, Ono and Warnaar this proves KRTW's Hall--Littlewood conjecture
+at $z=1$ and at $z=q$ for every $k$. The results, proofs, code and Lean formalization were produced by AI
+(Anthropic's Claude models) directed by the author; they were checked by independent AI referees and, for
+the first identity, by the Lean kernel. No human expert has refereed this work yet.
 \end{abstract}
 
 \maketitle
@@ -89,7 +91,7 @@ human expert has refereed this work yet.
 
 \subsection{The conjectures}
 Throughout, $(a;q)_n=\prod_{j=0}^{n-1}(1-aq^j)$, $(q)_n=(q;q)_n$,
-$(a_1,\dots,a_s;q)_\infty=\prod_i\prod_{j\ge0}(1-a_iq^j)$, and $1/(q)_n:=0$ for $n<0$. Following~\cite{GOW}
+$(a_1,\dots,a_s;q)_\infty=\prod_i\prod_{j\ge0}(1-a_iq^j)$, and $1/(q)_n=1/(q^2;q^2)_n:=0$ for $n<0$. Following~\cite{GOW}
 we write $\theta(a;p)=(a,p/a;p)_\infty$ and $\theta(a_1,\dots,a_s;p)=\theta(a_1;p)\cdots\theta(a_s;p)$; the
 Jacobi triple product reads $\sum_{n\in\Z}(-1)^nz^np^{n(n-1)/2}=(p;p)_\infty\theta(z;p)$.
 
@@ -179,48 +181,54 @@ combined with the Jacobi triple product. By a theorem of Griffin, Ono and Warnaa
 KRTW's Conjecture~2.2, identity~\eqref{eq:conj22}, holds at $z=1$ for every $k\ge0$.
 \end{corollary}
 
-The second group of results concerns \eqref{eq:ii} and~\eqref{eq:iii}. Write $Q=q^2$ and put
+The second group of results concerns \eqref{eq:ii}--\eqref{eq:iv}. Write $Q=q^2$ and put
 \begin{align*}
 K_k(x)&:=\sum_{r,s}x^{\sum_i(r_i+2s_i)}\,W_k(r,s),\\
 B_m(x)&:=\sum_{N_1\ge\dots\ge N_m\ge0}\frac{x^{N_1+\dots+N_m}q^{N_1^2+\dots+N_m^2}}{(q)_{N_1-N_2}\cdots(q)_{N_{m-1}-N_m}(Q;Q)_{N_m}},\\
 C_k(x)&:=\sum_{0\le s_1\le\dots\le s_k}\frac{x^{s_1+\dots+s_k}q^{s_1^2+\dots+s_k^2}}{\prod_{i=1}^k(Q;Q)_{s_i-s_{i-1}}},
 \qquad J_k(x):=\frac{C_k(x)}{C_1(x)},\quad C_1(x)=(-xq;Q)_\infty .
 \end{align*}
-Thus \eqref{eq:iii} and \eqref{eq:ii} are the evaluations of $K_k(1)$ and $K_k(q)$.
+Thus \eqref{eq:iii} and \eqref{eq:ii} are the evaluations of $K_k(1)$ and $K_k(q)$. The first version of this
+paper conjectured the following factorisation, tested it for $k\le7$, and proved it for $k\le3$.
 
-\begin{conjecture}[$F_k$]\label{conj:F}
+\begin{theorem}[$F_k$]\label{thm:F}
 For every $k\ge1$, in $\Z[x][[q]]$,
 \[K_k(x)=B_{k+1}(x)\,J_k(x),\qquad\text{equivalently}\qquad K_k(x)\,C_1(x)=B_{k+1}(x)\,C_k(x).\]
-\end{conjecture}
-
-\begin{theorem}\label{thm:k3}
-Conjecture~$(F_k)$ holds for $k\le3$. Consequently identities \eqref{eq:ii} and \eqref{eq:iii} hold for
-$k\le3$; for $k=3$ they read
-\begin{align*}
-\sum\prod_{i=1}^3\frac{q^{(r_i+s_i)^2+s_i^2+r_i+2s_i}}{(q)_{r_i-r_{i+1}}(q^2;q^2)_{s_i-s_{i-1}}}
-&=\frac{(q,q^2,q^8,q^9,q^{10},q^{10};q^{10})_\infty}{(q^2;q^2)_\infty(q;q)_\infty},\\
-\sum\prod_{i=1}^3\frac{q^{(r_i+s_i)^2+s_i^2}}{(q)_{r_i-r_{i+1}}(q^2;q^2)_{s_i-s_{i-1}}}
-&=\frac{(q^4,q^5,q^5,q^6,q^{10},q^{10};q^{10})_\infty}{(q^2;q^2)_\infty(q;q)_\infty},
-\end{align*}
-both sums running over $r_1\ge r_2\ge r_3\ge0$, $0\le s_1\le s_2\le s_3$, with $r_4=s_0:=0$.
 \end{theorem}
 
-The case $k=1$ of $(F_k)$ is a termwise identity. The cases $k=2,3$ of $(F_k)$ are new as identities in
-$x$; for $k=2$ their specialisations \eqref{eq:ii}, \eqref{eq:iii} follow from known results
-(§\ref{ssec:known}), for $k=3$ they are new. Again by~\cite{GOW} (now their Theorem~1.3) we obtain:
+\begin{theorem}\label{thm:k3}
+Identities \eqref{eq:ii} and \eqref{eq:iii} hold for every $k\ge1$.
+\end{theorem}
+
+For the fourth identity let $K^\Omega_k(x)$ be $K_k(x)$ with the factor $\Omega$ inserted in the summand, and let
+$B^{(k)}_{k+1}(x)$ be $B_{k+1}(x)$ with the additional factor $q^{N_k+N_{k+1}}$ in the summand. Thus \eqref{eq:iv} is the
+evaluation of $K^\Omega_k(1)$.
+
+\begin{theorem}\label{thm:iv}
+For every $k\ge1$, $K^\Omega_k(x)=B^{(k)}_{k+1}(x)\,J_k(x)$ in $\Z[x][[q]]$, and identity~\eqref{eq:iv} holds.
+\end{theorem}
+
+The proofs are in §\ref{sec:k3}. There $K_k(x)$ is written as a matrix element $\omega(T^{k-1}u)$ of a transfer
+operator $T$ acting on functions of two variables $(R,S)$. $T$ is triangular in a Bailey-type basis, with
+eigenvalues $x^{N+M}q^{N^2+M^2}$ ($N\ge M\ge0$), but its eigenfunctions are not hypergeometric terms, and we do
+not compute them. Two difference operators $H'$, $G$ that commute with $T$ give, on the lowest slice and read at
+$R=\infty$, a one-step recursion for the value at infinity of each eigenfunction; the same works for the
+transposed chain, whose eigenfunctions give the left eigenvectors; the left and right eigenvectors of a mode
+meet in a single point; and completeness follows from $x$-adic valuations. The resulting spectral expansion of
+$K_k$ is the double-sum form of $B_{k+1}J_k$ given by Bailey's lemma. For \eqref{eq:iv}, the insertion of $\Omega$
+at a level is the operator $O=q^{R+2S}\cdot(S\mapsto S+1)$, and $Th-hT=-xOT$ for a rank-one operator~$h$ that already
+occurs in $H'$; so the $k$ insertions telescope to a boundary term, whose spectral weights factor again.
+Theorem~\ref{thm:k3} and a theorem of Griffin, Ono and Warnaar~\cite[Theorem~1.3]{GOW} give:
 
 \begin{corollary}\label{cor:zq}
-Identity~\eqref{eq:ii} for a given $k\ge1$ is equivalent to KRTW's Conjecture~2.2 at $z=q$ for that
-$k$. In particular Conjecture~2.2 holds at $z=q$ for $k\le 3$.
+Identity~\eqref{eq:ii} for a given $k\ge1$ is equivalent to KRTW's Conjecture~2.2 at $z=q$ for that $k$. Hence
+Conjecture~2.2 holds at $z=q$ for every $k\ge1$.
 \end{corollary}
 
-For general $k$ we prove closed Bailey-type formulas for $B_{k+1}(x)$, $J_k(x)$ and their product
-(Theorem~\ref{thm:B}); the product is the $C_2$ Rogers--Selberg series of Bartlett and
-Warnaar~\cite{BW} at the point $(\sqrt x,-\sqrt x)$, so that $(F_k)$ is equivalent, given their $C_2$
-Rogers--Selberg identity, to a Hall--Littlewood identity $(HL_k)$ of the same shape as~\eqref{eq:conj22}
-(Corollary~\ref{cor:HL}). Conjecture~$(F_k)$ and its $\Omega$-analogue~\eqref{eq:FOmega} imply
-\eqref{eq:ii}--\eqref{eq:iv} for all~$k$ (Proposition~\ref{prop:Fimplies}); they remain conjectures for
-$k\ge4$, resp.\ $k\ge2$ (the $\Omega$-analogue is a termwise identity for $k=1$).
+We also recall closed Bailey-type formulas for $B_{k+1}(x)$, $J_k(x)$ and their product (Theorem~\ref{thm:B}); the
+product is the $C_2$ Rogers--Selberg series of Bartlett and Warnaar~\cite{BW} at the point $(\sqrt x,-\sqrt x)$,
+so that, given their $C_2$ Rogers--Selberg identity, Theorem~\ref{thm:F} is a Hall--Littlewood identity $(HL_k)$
+of the same shape as~\eqref{eq:conj22} along the grading~$x$ (Corollary~\ref{cor:HL}).
 
 \subsection{Formalization}
 Theorem~\ref{thm:main}, in the product form printed by KRTW and for every $k$, and the first equality
@@ -230,7 +238,10 @@ Mathlib~\cite{Lean4,Mathlib}; the main theorem is \fpath{KRTW.krtw_identity}. Th
 \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound}. A reader can therefore check
 Theorem~\ref{thm:main} without trusting this paper: read the eleven short definitions of the statement
 file against the display of~\cite{KRTW}, run \texttt{lake build}, and run the two supplied checks that the
-proved statements are the trusted ones and depend only on the standard axioms (§\ref{sec:lean}).
+proved statements are the trusted ones and depend only on the standard axioms (§\ref{sec:lean}). Only
+identity~\eqref{eq:i} is formalized: Theorems~\ref{thm:F}, \ref{thm:k3}, \ref{thm:iv}, Theorem~\ref{thm:B} and the
+corollaries are not; for them the evidence is the proofs, the independent referee reads (§\ref{ssec:reads}) and
+the certified computations (§\ref{sec:num}).
 
 \subsection{What is new, what was known, what is open}\label{ssec:novelty}
 \emph{Known.} The evaluation of the reduced $k$-fold sum,
@@ -248,41 +259,69 @@ Stanton~\cite[Theorem~5.2]{BIS} (this identification was checked exponent by exp
 referees). Hence
 Proposition~\ref{prop:bailey} below is a re-proof; we did not find its $x$-refined form
 \eqref{eq:melclosed} stated in these papers, but it is the same Bailey chain, and we claim no novelty
-for it. The Durfee and Euler identities behind the moves of §\ref{sec:k3} are classical; iterating them
-on quadratic forms is the ``linking'' of the knots--quivers literature~\cite{EKL,KLNS} and the
-``lifting'' of the Nahm-sum literature~\cite{Wang22,CRW,CW}. The Bailey-type formulas (B1)--(B5) of
-Theorem~\ref{thm:B} are short consequences of Bailey's lemma; we do not claim them as new.
+for it. The Bailey-type formulas (B1)--(B5) of Theorem~\ref{thm:B} and the change-of-$a$ step in the proof of
+Theorem~\ref{thm:iv} are short consequences of Bailey's lemma; at $x=1$ they are Bressoud's even-modulus
+identities~\cite{Bressoud79,Bressoud80}; we do not claim them as new. The Bailey-basis facts of §\ref{ssec:basis}
+are classical.
 
 \emph{New.} The first equality~\eqref{eq:xref} of Theorem~\ref{thm:x}, with its finite form
-(Theorem~\ref{thm:R} and Lemma~\ref{lem:key}); hence Theorem~\ref{thm:main} and
-Corollary~\ref{cor:z1} for $k\ge3$. The factorisations $(F_2)$, $(F_3)$; Theorem~\ref{thm:k3} for $k=3$, hence
-Corollary~\ref{cor:zq} for $k=3$. The reformulation of \eqref{eq:ii}--\eqref{eq:iii} for all $k$ as the
-factorisation~$(F_k)$ and its Hall--Littlewood form (Corollary~\ref{cor:HL}). The Lean formalization.
+(Theorem~\ref{thm:R} and Lemma~\ref{lem:key}); hence Theorem~\ref{thm:main} and Corollary~\ref{cor:z1} for $k\ge3$.
+Theorem~\ref{thm:F} for $k\ge2$ (the first version proved $k=2,3$ by chains of Euler and Durfee moves);
+Theorem~\ref{thm:k3} and Corollary~\ref{cor:zq} for $k\ge3$ (the first version proved $k=3$);
+Theorem~\ref{thm:iv} for $k\ge3$, and its $x$-refinement for $k\ge2$; the method of §\ref{sec:k3} (commuting
+difference operators, values at infinity, single-point biorthogonality, and the telescoping of the
+$\Omega$-insertions); the Hall--Littlewood form $(HL_k)$ for every $k$, given (RS) (Corollary~\ref{cor:HL}). The Lean
+formalization of~\eqref{eq:i}.
 
-\emph{Open.} Identities \eqref{eq:ii}, \eqref{eq:iii} for $k\ge4$ and \eqref{eq:iv} for $k\ge3$;
-Conjecture~$(F_k)$ for $k\ge4$; KRTW's Conjecture~2.2 for general $z$ and their Conjecture~4.9; Primc's
-$D_3^{(2)}$ conjecture at level $k\ge3$.
+\emph{Open.} KRTW's Conjecture~2.2 for general $z$ and their Conjecture~4.9 for $k\ge3$; Primc's $D_3^{(2)}$
+conjecture at level $k\ge3$; a formalization of \eqref{eq:ii}--\eqref{eq:iv}.
 
-\emph{Searches.} The novelty statements rest on searches of 26 November 2026: arXiv listings and
-metadata searches up to 24 November 2026 (queries on Capparelli--Meurman--Primc, Hall--Littlewood and
-Rogers--Ramanujan, Andrews--Gordon, Primc's conjecture, Melzer, the authors of~\cite{KRTW}); the
-Semantic Scholar list of papers citing~\cite{KRTW}; and the full texts of the most relevant recent
-papers, among them~\cite{Bartholdi,Ding,Kursungoz,Russell,Warnaar2026,KL,DJ}. None contains a proof
-of \eqref{eq:i}--\eqref{eq:iv} for $k\ge3$. No full-text search engine (MathSciNet, zbMATH, Google
+\emph{Searches.} The novelty statements rest on searches of 26 and 27 November 2026: arXiv listings and
+metadata searches up to the submissions of 25 November 2026 (queries on Capparelli--Meurman--Primc,
+Hall--Littlewood and Rogers--Ramanujan, Andrews--Gordon, Primc's conjecture, Melzer, Bailey, and every arXiv
+paper by Kanade, Russell, Tsuchioka or Warnaar posted after~\cite{KRTW}); the OpenAlex and Semantic Scholar
+lists of works citing~\cite{KRTW}; and the full texts of the most relevant recent papers, among
+them~\cite{Bartholdi,Ding,Kursungoz,Russell,Warnaar2026,KL,DJ}. None contains a proof of
+\eqref{eq:i}--\eqref{eq:iv} for $k\ge3$. No full-text search engine (MathSciNet, zbMATH, Google
 Scholar) was available, so an unindexed earlier proof cannot be excluded.
 
+\subsection{Verification status}\label{ssec:reads}
+Each proof was read by two AI referees: separate model instances instructed to find errors, each writing its
+own code. The second referee of each proof formed its verdict independently of the first report (for §\ref{sec:k3}
+it was not shown that report or its code). The reports are in the repository, the first four in
+\fpath{01-krtw-identities/}, the others in \fpath{01-krtw-identities/all-k/}.
+\begin{center}\footnotesize
+\begin{tabular}{@{}p{0.34\textwidth}p{0.42\textwidth}p{0.16\textwidth}@{}}
+\toprule
+Result & referee reads (reports) & further checks\\
+\midrule
+Theorems~\ref{thm:main}, \ref{thm:x}, \ref{thm:R}; Corollary~\ref{cor:z1} & 2: \fpath{REFEREE-KRTW-general.md},\newline \fpath{REFEREE-2-KRTW.md} & Lean (for~(i))\\
+Theorem~\ref{thm:B} & 2: \fpath{REFEREE-KRTW-F-moves.md},\newline \fpath{REFEREE-2-KRTW-F.md} & certificates\\
+Theorems~\ref{thm:F}, \ref{thm:k3} (§§\ref{ssec:transfer}--\ref{ssec:proofF}) & 2: \fpath{REFEREE-F-all-k.md},\newline \fpath{REFEREE-3-all-k.md} & certificates\\
+Theorem~\ref{thm:iv} (§\ref{ssec:iv}) & 2: \fpath{REFEREE-iv-all-k.md},\newline \fpath{REFEREE-3-all-k.md} & certificates\\
+\bottomrule
+\end{tabular}
+\end{center}
+None of the reads found an error or a gap in the proofs of the results listed; the defects they raised (in side
+remarks, the exposition and the literature discussion) were corrected. Corollaries~\ref{cor:z1}, \ref{cor:zq}, \ref{cor:y} and~\ref{cor:HL} rest in addition on the
+cited theorems of Griffin, Ono and Warnaar and of Bartlett and Warnaar, which were not re-checked.
+
 \subsection{A note on versions}
-This is the version of 27 November 2026. Work on \eqref{eq:ii}--\eqref{eq:iv} for all $k$ is in progress
-separately; §\ref{sec:k3} is written so that a later version can replace Theorem~\ref{thm:k3} by a
-statement for all $k$ without changing the rest of the paper.
+This is version~2 (27 November 2026). Version~1 (the same day) proved \eqref{eq:i} for every $k$, proved
+\eqref{eq:ii}, \eqref{eq:iii} for $k\le3$ by exact chains of Euler and Durfee moves found by computer search, and
+stated $(F_k)$ and its $\Omega$-analogue as conjectures. Version~2 replaces that part (old §7 and the appendix) by
+§\ref{sec:k3}, which proves both for every $k$; §§\ref{sec:setting}--\ref{sec:cor} and the Lean section are
+unchanged apart from cross-references. The move chains for $k\le3$ remain in the repository, with their certificates, as an independent
+check.
 
 \subsection{Organisation}
 §\ref{sec:setting} fixes the formal setting. §\ref{sec:lemmas} proves the four lemmas,
 §\ref{sec:R} the finite identity, §\ref{sec:x} Theorems~\ref{thm:x} and~\ref{thm:main},
-§\ref{sec:cor} the corollaries. §\ref{sec:k3} treats \eqref{eq:ii}--\eqref{eq:iv}: the moves, the
-proof of Theorem~\ref{thm:k3}, Theorem~\ref{thm:B} and the Hall--Littlewood form. §\ref{sec:lean}
-describes the formalization, §\ref{sec:num} the numerical checks. Appendix~\ref{app:data} lists the
-data of the move chains.
+§\ref{sec:cor} the corollaries. §\ref{sec:k3} treats \eqref{eq:ii}--\eqref{eq:iv}: the closed forms and the reduction to
+identities in $x$ (§\ref{ssec:closed}), the transfer operator and its spectral theory
+(§§\ref{ssec:transfer}--\ref{ssec:spec}), the proof of Theorem~\ref{thm:F} (§\ref{ssec:proofF}), identity~\eqref{eq:iv}
+(§\ref{ssec:iv}) and the Hall--Littlewood form (§\ref{ssec:HL}). §\ref{sec:lean} describes the formalization,
+§\ref{sec:num} the numerical checks.
 
 \section{Formal setting}\label{sec:setting}
 
@@ -518,7 +557,8 @@ $(q,q^{k+1},q^{k+2};q^{k+2})_\infty$, and $(-q;q)_\infty=1/(q;q^2)_\infty$ by Eu
 \begin{remark}\label{rem:k2}
 For $k=2$, Theorem~\ref{thm:x} has a short proof: \eqref{eq:starinf}, one application of
 \eqref{eq:star2}, and $R\to\infty$. An earlier version of this work proved the case $k=2$ by a chain of
-fourteen moves of the kind used in §\ref{sec:k3}, found by computer search.
+fourteen Euler and Durfee moves found by computer search (the method of the first version of
+this paper for $(F_2)$, $(F_3)$).
 \end{remark}
 
 \section{Corollaries}\label{sec:cor}
@@ -573,14 +613,17 @@ the sum of the $k+1$ principally specialised level-$k$ characters of $A_1^{(1)}$
 Theorem~\ref{thm:x}, the second is only numerical.
 \end{remark}
 
-\section{Identities (ii)--(iv)}\label{sec:k3}
+\section{Identities (ii)--(iv) for every \texorpdfstring{$k$}{k}}\label{sec:k3}
 
-This section is self-contained and may be replaced in a later version. We use $Q=q^2$ and the series
-$K_k,B_m,C_k,J_k$ of §\ref{sec:intro}. Each of them lies in $\Z[x][[q]]$: every coefficient of $q^N$ is a
-polynomial in $x$, because the $q$-exponents grow with the summation indices. The substitutions $x=1$,
-$x=q$ are therefore defined and are ring homomorphisms to $\Z[[q]]$.
+We use $Q=q^2$ and the series $K_k$, $B_m$, $C_k$, $J_k$, $K^\Omega_k$, $B^{(k)}_{k+1}$ of §\ref{sec:intro}. Each of
+them lies in $\Z[x][[q]]$: every coefficient of $q^N$ is a polynomial in $x$, because the $q$-exponents grow with
+the summation indices (for $K^\Omega_k$ expand $\Omega$ into its $2k-1$ monomials, all with exponents $\ge0$). The
+substitutions $x=1$, $x=q$ are therefore defined and are ring homomorphisms to $\Z[[q]]$.
+§\ref{ssec:closed} recalls closed forms of $B_{k+1}$ and $J_k$ and reduces \eqref{eq:ii}--\eqref{eq:iv} to
+identities in~$x$; §§\ref{ssec:transfer}--\ref{ssec:proofF} prove $(F_k)$; §\ref{ssec:iv} proves
+Theorem~\ref{thm:iv}; §\ref{ssec:HL} gives the Hall--Littlewood form.
 
-\subsection{Closed forms for all \texorpdfstring{$k$}{k}}
+\subsection{Closed forms for all \texorpdfstring{$k$}{k}}\label{ssec:closed}
 For $e\in\{1,2\}$ and $m\ge1$ put
 \[
 \mathfrak J^{(e)}_m(x):=\sum_{\sigma_1\ge\dots\ge\sigma_m\ge0}\frac{x^{2\sum\sigma_i}q^{2\sum\sigma_i^2}}{\prod_{i<m}(Q;Q)_{\sigma_i-\sigma_{i+1}}\cdot(Q;Q)_{\sigma_m}(-xq^e;Q)_{\sigma_m}} .
@@ -623,13 +666,13 @@ coefficientwise exactly as in the proof of Proposition~\ref{prop:bailey}.
 \emph{(B1).} Base $p=q$, $a=x$. The pair $\beta_n=1/(Q;Q)_n$ (a classical Bailey pair, cf.\ Slater's
 list~\cite{Slater} and the Bailey lattice of Agarwal, Andrews and Bressoud~\cite{AAB}; (B1) is an
 $x$-form of Bressoud's identities~\cite{Bressoud79,Bressoud80}),
-$\alpha_n=(-1)^nq^{n^2}(x^2;Q)_n(1-xq^{2n})/((Q;Q)_n(1-x))$ is a Bailey pair relative to $x$. Indeed, by Bailey
+$\alpha_n=(-1)^nq^{n^2}(a^2;Q)_n(1-aq^{2n})/((Q;Q)_n(1-a))$ is a Bailey pair relative to $a$, for any~$a$. Indeed, by Bailey
 inversion
 \[\alpha_n=\frac{1-aq^{2n}}{1-a}\sum_{j\le n}\frac{(a;q)_{n+j}(-1)^{n-j}q^{(n-j)(n-j-1)/2}\beta_j}{(q)_{n-j}};\]
 with $\beta_j=1/((q)_j(-q)_j)$ the sum is
 $\frac{(a)_n(-1)^nq^{n(n-1)/2}}{(q)_n}\,{}_2\phi_1(q^{-n},aq^n;-q;q,q)$, and the $q$-Chu--Vandermonde sum
 ${}_2\phi_1(q^{-n},b;c;q,q)=(c/b)_nb^n/(c)_n$ \cite[(1.5.3)]{GR} together with
-$(-q^{1-n}/a)_n=(-a)_na^{-n}q^{-n(n-1)/2}$ gives the claim. Apply (L$\infty$) $k+1$ times and the limit:
+$(-q^{1-n}/a)_n=(-a)_na^{-n}q^{-n(n-1)/2}$ gives the claim. Take $a=x$ and apply (L$\infty$) $k+1$ times and the limit:
 the $\beta$-side is $B_{k+1}(x)/(q)_\infty$ and the $\alpha$-side is
 $((q)_\infty(xq)_\infty)^{-1}\sum_nx^{(k+1)n}q^{(k+1)n^2}\alpha_n$.
 
@@ -660,15 +703,27 @@ with $E=q^{-m}(1-xq^{2n})(1-x^2q^{4m})+q^{-n}(1-xq^{2m})(1-x^2q^{4n})$. With $u=
 expanding that $uvE=(u+v)(1+xuv)(1-xu^2)(1-xv^2)$, which gives $L_k(x)$.
 \end{proof}
 
+Put $\varpi_n:=x^nq^{n^2}$ and
+\begin{equation}\label{eq:betas}
+\begin{gathered}
+\beta^B_n:=\frac{(-1)^nq^{n^2}(x^2;Q)_n(1-xq^{2n})}{(Q;Q)_n(1-x)},\qquad
+\beta^J_m:=\frac{(-1)^mq^{m^2-m}(x^2;Q)_m(1-x^2q^{4m})}{(Q;Q)_m(1-x^2)},\\
+b^\Omega_n:=\beta^B_n\,\frac{q^{-2n}+x-1+x^2q^{2n}}{x(1+x)},
+\end{gathered}
+\end{equation}
+so that (B1), (B2) read $(xq;q)_\infty B_{k+1}=\sum_n\varpi_n^{k+1}\beta^B_n$ and
+$(x^2Q;Q)_\infty J_k=\sum_m\varpi_m^{k+1}\beta^J_m$. One has $b^\Omega_0=1$ and, for $n\ge1$ (use
+$(x^2;Q)_n/(1-x)=(1+x)(x^2Q;Q)_{n-1}$),
+\begin{equation}\label{eq:bOmega}
+b^\Omega_n=\frac{(-1)^nq^{n^2-2n}(x^2Q;Q)_{n-1}(1-xq^{2n})\bigl(1-(1-x)q^{2n}+x^2q^{4n}\bigr)}{x\,(Q;Q)_n},
+\end{equation}
+so $\varpi_n^{k+1}b^\Omega_n$ is $x^{(k+1)n-1}q^{(k+2)n^2-2n}$ times a polynomial in $x$ with coefficients in $\Z[[q]]$.
+
 \begin{proposition}\label{prop:Fimplies}
 \begin{enumerate}[label=(\alph*)]
 \item If $(F_k)$ holds for some $k\ge1$, then \eqref{eq:ii} and \eqref{eq:iii} hold for that $k$.
-\item Let $K^\Omega_k(x)$ be $K_k(x)$ with the factor $\Omega$ inserted, and let $B^{(k)}_{k+1}(x)$ be $B_{k+1}(x)$
-with the additional factor $q^{N_k+N_{k+1}}$ in the summand. If
-\begin{equation}\label{eq:FOmega}
-K^\Omega_k(x)=B^{(k)}_{k+1}(x)\,J_k(x)
-\end{equation}
-holds for some $k\ge1$, then \eqref{eq:iv} holds for that $k$.
+\item If $(xq;q)_\infty K^\Omega_k(x)=J_k(x)\sum_{n\ge0}\varpi_n^{k+1}b^\Omega_n$ holds in $\Z[x][[q]]$ for some $k\ge1$,
+then \eqref{eq:iv} holds for that $k$.
 \end{enumerate}
 \end{proposition}
 \begin{proof}
@@ -684,138 +739,558 @@ triple product throughout). Hence, under $(F_k)$,
 $K_k(1)=\vartheta(q^{k+2};q^{2k+4})\vartheta(q^{k+1};q^{2k+4})/((q)_\infty(Q;Q)_\infty)$ and
 $K_k(q)=\vartheta(q;q^{2k+4})\vartheta(q^2;q^{2k+4})/((q)_\infty(Q;Q)_\infty)$, which are the right sides of
 \eqref{eq:iii} and~\eqref{eq:ii}.
-(b) $K^\Omega_k(1)$ is the left side of~\eqref{eq:iv}. By Bressoud's even-modulus
-identity~\cite{Bressoud79,Bressoud80} (quoted in~\cite[(3.6)]{KRTW}),
+(b) $K^\Omega_k(1)$ is the left side of~\eqref{eq:iv}. By~\eqref{eq:bOmega}, at $x=1$ we have $b^\Omega_0=1$ and
+$b^\Omega_n=(-1)^nq^{n^2-2n}(1+q^{4n})$ for $n\ge1$, so
 \[
-B^{(k)}_{k+1}(1)=\sum_{N_1\ge\dots\ge N_{k+1}\ge0}\frac{q^{N_1^2+\dots+N_{k+1}^2+N_k+N_{k+1}}}{(q)_{N_1-N_2}\cdots(q)_{N_k-N_{k+1}}(q^2;q^2)_{N_{k+1}}}
-=\frac{(q^k,q^{k+4},q^{2k+4};q^{2k+4})_\infty}{(q)_\infty};
+\sum_{n\ge0}\varpi_n^{k+1}b^\Omega_n\Big|_{x=1}=1+\sum_{n\ge1}(-1)^n\bigl(q^{(k+2)n^2-2n}+q^{(k+2)n^2+2n}\bigr)
+=\sum_{n\in\Z}(-1)^nq^{(k+2)n^2-2n}=\vartheta(q^k;q^{2k+4})
 \]
-together with $J_k(1)$ from (a) this is the right side of~\eqref{eq:iv}. (We did not re-derive Bressoud's
-identity; this instance was checked numerically for $k\le7$.)
+by the Jacobi triple product. With $(xq;q)_\infty|_{x=1}=(q)_\infty$ and $J_k(1)$ from (a),
+$K^\Omega_k(1)=\vartheta(q^k;q^{2k+4})\vartheta(q^{k+1};q^{2k+4})/((q)_\infty(Q;Q)_\infty)$, the right side
+of~\eqref{eq:iv}.
 \end{proof}
 
 \begin{remark}\label{rem:k1}
 For $k=1$, $J_1=1$, and $K_1(x)=B_2(x)$ holds term by term (put $N_2=s_1$, $N_1=r_1+s_1$). So
 $(F_1)$ is trivial, and \eqref{eq:ii}, \eqref{eq:iii} for $k=1$ follow from (B1); the evaluation of
-$B_2(1)$ is an instance of Bressoud's identities.
+$B_2(1)$ is an instance of Bressoud's identities. Likewise $\Omega=q^{r_1+2s_1}$ for $k=1$, so
+$K^\Omega_1(x)=K_1(xq)=B_2(xq)=B^{(1)}_2(x)$.
 \end{remark}
 
-\subsection{Generalized Nahm data and two moves}
-A \emph{datum} is $\mathcal D=(G,\ell,w,\delta)$: a symmetric $r\times r$ matrix $G$ over $\Q$, a linear term
-$\ell\in\Q^r$, a weight $w\in\Z_{\ge1}^r$ and bases $\delta\in\{1,2,4,\dots\}^r$, such that
-$\frac12n^{\mathsf T}Gn+\ell\cdot n\in\Z$ for $n\in\N^r$. Put
+The rest of this section proves the two hypotheses of Proposition~\ref{prop:Fimplies} for every $k$.
+
+\subsection{The transfer operator}\label{ssec:transfer}
+\emph{Ring.} In §§\ref{ssec:transfer}--\ref{ssec:iv} we work in $\mathbb F:=\Q(q)((x))$, the field of formal
+Laurent series in $x$ over $\Q(q)$, with the $x$-adic valuation $\operatorname{ord}$; rational functions of $x$ and
+$q$ are elements of $\mathbb F$ (expanded in $x$). For each $D$, the coefficient of $x^D$ in each of the series of
+§\ref{sec:intro} and of Theorem~\ref{thm:B} is a finite sum of rational functions of $q$ that are regular at $q=0$
+(the exponent of $x$ bounds the summation indices; $C_1\equiv1\bmod x$, which is used only to define $J_k$). The
+coefficientwise Taylor map from such series to $\Q[[q]][[x]]$ is an injective ring homomorphism, and
+$\Z[x][[q]]\subset\Q[[x,q]]=\Q[[q]][[x]]$. Hence identities between these series may be proved in~$\mathbb F$, and
+(B1), (B2), proved in $\Z[x][[q]]$, hold in~$\mathbb F$. Infinite products such as $(xq;q)_\infty$, $(x^2Q;Q)_\infty$ and
+$1/(aq;q)_\infty$ ($a=xq^{2s}$) do not converge $x$-adically in~$\mathbb F$ ($\Q(q)$ carries the discrete topology); they
+denote the elements of $\mathbb F$ given by their Euler expansions, e.g.\
+$(xq;q)_\infty=\sum_n(-1)^nq^{n(n+1)/2}x^n/(q)_n$ and $1/(zq;q)_\infty=\sum_nz^nq^n/(q)_n$, whose $x$-coefficients are rational
+functions of $q$ regular at $q=0$; every identity used between such products and the series above (for instance
+(B-ii) below) holds in $\mathbb F$ by the same transfer.
+
+\emph{Functions.} Let $\mathcal V$ be the space of functions $F\colon\N^2\to\mathbb F$ with
+$\inf\operatorname{ord}F>-\infty$, extended by $F(R,S):=0$ when $R<0$ or $S<0$. Put
+$w(r,s):=x^{r+2s}q^{(r+s)^2+s^2}$ (so $\operatorname{ord}w(r,s)=r+2s$) and
 \[
-F(\mathcal D):=\sum_{n\in\N^r}\frac{x^{w\cdot n}q^{\frac12n^{\mathsf T}Gn+\ell\cdot n}}{\prod_i(q^{\delta_i};q^{\delta_i})_{n_i}}\in\Z((q))[[x]].
+(TF)(R,S):=\sum_{r=0}^R\sum_{s\ge S}\frac{w(r,s)F(r,s)}{(q)_{R-r}(Q;Q)_{s-S}},\qquad u(R,S):=\frac1{(q)_R},\qquad
+\omega(F):=\sum_{r,s\ge0}\frac{w(r,s)F(r,s)}{(Q;Q)_s}.
 \]
-Only the finitely many $n$ with $w\cdot n=e$ contribute to the coefficient of $x^{e}$, so no
-positivity of $G$ is needed; in all data below the exponents are $\ge0$. The indices $1,\dots,r$ are called
-\emph{species}.
-
-\begin{lemma}[SPLIT]\label{lem:split}
-Let $\mathcal D'$ be obtained from $\mathcal D$ by replacing a species $u$ of base $d=\delta_u$ by two
-species $u',u''$ of base $2d$, both with the row of $u$ ($G'_{u'u'}=G'_{u''u''}=G'_{u'u''}=G_{uu}$,
-$G'_{u'k}=G'_{u''k}=G_{uk}$), with $\ell'_{u'}=\ell_u$, $\ell'_{u''}=\ell_u+d$ and $w'_{u'}=w'_{u''}=w_u$. Then
-$F(\mathcal D')=F(\mathcal D)$.
-\end{lemma}
-\begin{proof}
-$1/(z;q^d)_\infty=1/((z;q^{2d})_\infty(zq^d;q^{2d})_\infty)$; comparing coefficients of $z^n$ (Euler),
-$1/(q^d;q^d)_n=\sum_{s+t=n}q^{dt}/((q^{2d};q^{2d})_s(q^{2d};q^{2d})_t)$. Substitute this for the factor
-$1/(q^d;q^d)_{n_u}$: the rest of the summand depends on $(s,t)$ only through $n_u=s+t$.
-\end{proof}
-
-\begin{lemma}[FUSE/DEFUSE]\label{lem:fuse}
-Let $u\ne v$ be species with $\delta_u=\delta_v=d$, and let $\mathcal D'$ have one more species $c$ with
-$\delta_c=d$, $w_c=w_u+w_v$, $\ell_c=\ell_u+\ell_v$, $G'_{cc}=G_{uu}+G_{vv}+2G_{uv}$, $G'_{uc}=G_{uu}+G_{uv}$,
-$G'_{vc}=G_{vv}+G_{uv}$, $G'_{ck}=G_{uk}+G_{vk}$ ($k\ne u,v,c$), $G'_{uv}=G_{uv}+d$, and all other entries as in
-$\mathcal D$. Then $F(\mathcal D')=F(\mathcal D)$.
-\end{lemma}
-\begin{proof}
-The Durfee rectangle identity $1/((p)_A(p)_B)=\sum_{c\ge0}p^{(A-c)(B-c)}/((p)_c(p)_{A-c}(p)_{B-c})$, $p=q^d$
-\cite[§3.3]{AndrewsBook}, is substituted for $1/((p)_{n_u}(p)_{n_v})$, followed by $n_u=n'_u+c$,
-$n_v=n'_v+c$; the map $(n'_u,n'_v,c)\mapsto(n'_u+c,n'_v+c)$ is a bijection onto the summation range of
-the identity. The quadratic form in $(n'_u,n'_v,c,\dots)$ has the entries of $G'$ except that the
-coefficient of $n'_un'_v$ is still $G_{uv}$; the factor $p^{n'_un'_v}$ adds $d$ to it. For each power of
-$x$ both sides are finite sums.
-\end{proof}
-
-FUSE$(u,v)$ is Lemma~\ref{lem:fuse} read from $\mathcal D$ to $\mathcal D'$; DEFUSE is the same identity
-read backwards, applicable to a datum whenever a species $c$ has exactly the row, $\ell$ and $w$ prescribed
-in terms of $u$ and $v$ (with $G_{uv}:=G'_{uv}-d$).
-
-\subsection{Proof of Theorem~\ref{thm:k3}}
-Encode the sums as data. For $K_k$: species $a_j=r_j-r_{j+1}$ (base $q$, $j=1,\dots,k$) and
-$b_l=s_l-s_{l-1}$ (base $Q$), so $r_i=\sum_{j\ge i}a_j$, $s_i=\sum_{l\le i}b_l$; exponent
-$\sum_i(r_i+s_i)^2+s_i^2$; weight $\sum_i(r_i+2s_i)$. For $B_m$: species $n_j=N_j-N_{j+1}$ (base $q$,
-$j<m$), $n_m=N_m$ (base $Q$); exponent $\sum N_i^2$, weight $\sum N_i$. For $C_k$: species
-$e_l=s_l-s_{l-1}$ (base $Q$). Finally $\mathrm{AG}_1(x^2;Q):=\sum_\sigma x^{2\sigma}q^{2\sigma^2}/(Q;Q)_\sigma$
-(one species $g_1$ of base $Q$).
-
-By (B2) with $k=3$ and the Rogers--Selberg identity
-\[\sum_\sigma\frac{a^\sigma p^{\sigma^2}}{(p;p)_\sigma}=\frac1{(ap;p)_\infty}\sum_m\frac{(-1)^ma^{2m}p^{m(5m-1)/2}(a;p)_m(1-ap^{2m})}{(p;p)_m(1-a)}\]
-(Rogers; see~\cite{Andrews1984}; it is two steps (L$\infty$) applied to (U)) with $p=Q$, $a=x^2$, we have
-\begin{equation}\label{eq:J3}
-J_3(x)=\mathrm{AG}_1(x^2;Q)=\sum_{\sigma\ge0}\frac{x^{2\sigma}q^{2\sigma^2}}{(Q;Q)_\sigma}.
+The sums converge $x$-adically for $F\in\mathcal V$, and $T\mathcal V\subset\mathcal V$. Unwinding the definitions
+(level $i$ of $K_k$ is the pair $(r_i,s_i)$; the factor $1/(q)_{r_k}$ is $u$, and the factor $1/(Q;Q)_{s_1}$ is
+in~$\omega$),
+\begin{equation}\label{eq:Kop}
+K_k(x)=\omega(T^{k-1}u)\qquad(k\ge1).
 \end{equation}
 
-First SPLIT every base-$q$ species (Lemma~\ref{lem:split}); the primed copy keeps the linear term, the
-doubly primed copy has linear term $+1$. All species then have base $Q$. In the tables, $(u|c)$ denotes
-the species $u$ after a DEFUSE that removed $c$, and $[u+v]$ the species created by FUSE$(u,v)$.
+\emph{Operators.} $P$ and $Y$ are the multiplications by $q^R$ and $q^{2S}$; $\mathsf SF(R,S):=F(R-1,S)$,
+$\mathsf UF(R,S):=F(R,S+1)$; $\mathcal W$ is the multiplication by $w$. Then $\mathsf SP=q^{-1}P\mathsf S$,
+$\mathsf UY=QY\mathsf U$, all other pairs among $P,Y,\mathsf S,\mathsf U$ commute, and
+\begin{equation}\label{eq:TEW}
+T=E\mathcal W,\quad E:=\sum_{j,b\ge0}\frac{\mathsf S^j\mathsf U^b}{(q)_j(Q;Q)_b},\qquad
+\mathcal W\mathsf S=xq^{-1}P^2Y\mathsf S\mathcal W,\quad \mathcal W\mathsf U=x^{-2}q^{-2}P^{-2}Y^{-2}\mathsf U\mathcal W
+\end{equation}
+(because $w(R,S)/w(R-1,S)=xq^{2R+2S-1}$ and $w(R,S)/w(R,S+1)=x^{-2}q^{-2R-4S-2}$).
 
-\emph{$k=2$.} $K$-side (start $a_1',a_2',b_1,b_2,a_1'',a_2''$): FUSE $a_1',b_2$; DEFUSE $a_2''$ = fusion of
-$a_1',a_1''$; DEFUSE $[a_1'+b_2]$ = fusion of $(a_1'|a_2''),a_2'$ (rank 5). $B$-side (start
-$n_1',n_2',n_3,n_1'',n_2''$): DEFUSE $n_2''$ = fusion of $n_1',n_1''$; DEFUSE $n_3$ = fusion of
-$(n_1'|n_2''),n_2'$. The species $((n_1'|n_2'')|n_3)$ is now free (no coupling) with exponent $n^2$,
-weight $1$ and base $Q$, i.e.\ it contributes the factor $C_1(x)$; removing it and adjoining the datum of
-$C_2$ gives a datum for $B_3C_2/C_1=B_3J_2$, and one more move, FUSE $(n_2'|n_3),e_1$, gives the end of
-the $K$-side up to a permutation of the species. Hence $K_2=B_3J_2$. The common value is
+\subsection{Two commuting difference operators}\label{ssec:comm}
+Let
+\begin{align*}
+H'&:=(Y^{-1}+x)P^{-1}(1-\mathsf S)+xP(1+xY)-x^2PY\mathsf U,\\
+G&:=P^{-2}Y^{-1}(1-\mathsf S)(1-q\mathsf S)+Y^{-1}-x(1+q^{-1})\mathsf S+x^2(1+P^2)Y(1-\mathsf U).
+\end{align*}
+
+\begin{proposition}\label{prop:comm}
+$TH'=H'T$ and $TG=GT$ on $\mathcal V$.
+\end{proposition}
+\begin{proof}
+Every operator below is a series $\sum_{j,b}c_{j,b}(P,Y)\mathsf S^j\mathsf U^b$ with Laurent-polynomial coefficients
+written to the left (``normal order''). They are applied to the class of functions $F$ on $\Z^2$ supported in
+$\{R\ge0,\ S\ge-1\}$ with $\operatorname{ord}F(R,S)\ge R+2S+c$ for some constant $c$ (it contains $\mathcal WF$ and $H'\mathcal WF$
+for $F\in\mathcal V$); on it such a series converges, because $F(R,S+b)$ has order $\ge2b+R+2S+c$, and all
+rearrangements below are finite recombinations of $x$-adically convergent sums. Products are normal-ordered with
+$\mathsf S^jP^m=q^{-jm}P^m\mathsf S^j$, $\mathsf U^bY^n=Q^{bn}Y^n\mathsf U^b$, and equal normal-ordered coefficients give
+equal operators on $\mathcal W\mathcal V$. We compute with functions on $\Z^2$ that vanish outside $\N^2$:
+$\mathsf U$, $E$ and $H'$ can produce values off $\N^2$ (e.g.\ $(H'F)(R,-1)=-x^2q^{R-2}F(R,0)$), but the restriction
+of $E\mathcal W$ to $\N^2$ is $T$, it reads only $R'\le R$ and $S'\ge S$, and $E\mathcal WF$ vanishes for $R<0$; so
+an identity $E\mathcal WH'=H'E\mathcal W$ on $\Z^2$, restricted to $\N^2$, is $TH'=H'T$ on $\mathcal V$ (likewise for
+$G$ and for the operators of §\ref{ssec:iv}).
+By~\eqref{eq:TEW}, $\mathcal WH'=\tilde H'\mathcal W$ with
 \[
-K_2(x)=\sum_{p,u,v,\alpha,\gamma\ge0}\frac{x^{4p+2u+2v+\alpha+\gamma}q^{p^2+(p+u+v)^2+(p+u+\alpha)^2+(p+v+\gamma)^2+\gamma}}{(Q;Q)_p(Q;Q)_u(Q;Q)_v(Q;Q)_\alpha(Q;Q)_\gamma};
+\tilde H'=(Y^{-1}+x)P^{-1}-xq^{-1}P(1+xY)\mathsf S+xP(1+xY)-q^{-2}P^{-1}Y^{-1}\mathsf U .
 \]
-summing $\alpha,\gamma$ by Euler and $p$ by the Durfee identity gives
-$K_2(x)=(-xq;q)_\infty\mathfrak J^{(1)}_1(x)\mathfrak J^{(2)}_1(x)$, in accordance with (B5).
+It suffices to show $H'E=E\tilde H'$; then $TH'=E\mathcal WH'=E\tilde H'\mathcal W=H'E\mathcal W=H'T$. Using
+$1/(q)_j-1/(q)_{j-1}=q^j/(q)_j$ and $1/(Q;Q)_{b-1}=(1-Q^b)/(Q;Q)_b$, the coefficient of $\mathsf S^j\mathsf U^b$,
+multiplied by $(q)_j(Q;Q)_b$, is
+\begin{align*}
+\text{in }H'E:&\quad (Y^{-1}+x)q^jP^{-1}+xP(1+xY)-x^2PY(1-Q^b),\\
+\text{in }E\tilde H':&\quad (Q^{-b}Y^{-1}+x)q^jP^{-1}-xq^{-j}(1-q^j)P(1+xQ^bY)\\
+&\qquad+xq^{-j}P(1+xQ^bY)-q^jQ^{-b}(1-Q^b)P^{-1}Y^{-1},
+\end{align*}
+and both equal $q^jP^{-1}Y^{-1}+xq^jP^{-1}+xP+x^2Q^bPY$. For $G$: $\mathcal WG=\tilde G\mathcal W$ with
+\begin{multline*}
+\tilde G=P^{-2}Y^{-1}+Y^{-1}-x(1+q^{-1})\mathsf S-x^2q^{-1}(1+q^{-1})P^2Y\mathsf S\\
++x^2q^{-3}P^2Y\mathsf S^2+x^2(1+P^2)Y-q^{-2}(1+P^{-2})Y^{-1}\mathsf U,
+\end{multline*}
+and the coefficients of $\mathsf S^j\mathsf U^b$ (times $(q)_j(Q;Q)_b$) of $GE$ and $E\tilde G$ both equal
+$q^{2j}P^{-2}Y^{-1}+Y^{-1}-x(1+q^{-1})(1-q^j)+x^2Q^b(1+P^2)Y$ (for $GE$ use
+$1-(1+q)(1-q^j)+q(1-q^j)(1-q^{j-1})=q^{2j}$).
+\end{proof}
 
-\emph{$k=3$.} The two chains are listed in Table~\ref{tab:k3}. The two end data coincide after the
-permutation of species recorded in Appendix~\ref{app:data}. Each move is an identity by
-Lemmas~\ref{lem:split} and~\ref{lem:fuse}; the preconditions of the DEFUSE moves are finitely many
-equalities between rational numbers. Hence $F(K_3\text{-datum})=F(B_4\text{-datum}\otimes
-\mathrm{AG}_1\text{-datum})$, i.e.\ $K_3=B_4\,\mathrm{AG}_1(x^2;Q)=B_4J_3$ by~\eqref{eq:J3}. This proves
-$(F_2)$ and $(F_3)$; $(F_1)$ is Remark~\ref{rem:k1}. Proposition~\ref{prop:Fimplies}(a) gives
-\eqref{eq:ii} and \eqref{eq:iii} for $k\le3$. (For \eqref{eq:ii}, \eqref{eq:iii} at $k=3$ one may also avoid
-(B2): $K_3=B_4\,\mathrm{AG}_1(x^2;Q)$ and the two Rogers--Ramanujan identities in base $q^2$ suffice.)
-\qed
+With the rank-one operators $h_a:=P^{-1}(1-\mathsf S)+aP$ (acting in $R$; $a$ may depend on $S$) one has
+\begin{equation}\label{eq:HGh}
+H'=(Y^{-1}+x)h_{xY}-x^2PY\mathsf U,\qquad G=Y^{-1}h_{xY}^2+Y^{-1}(1-xY)^2-x^2(1+P^2)Y\mathsf U.
+\end{equation}
 
-\begin{table}[ht]
-\caption{The move chains for $k=3$ (after splitting all base-$q$ species).}\label{tab:k3}
-\small
-\begin{tabular}{@{}rl@{}}
-\toprule
-\multicolumn{2}{@{}l}{$K$-side, start $a_1',a_2',a_3',b_1,b_2,b_3,a_1'',a_2'',a_3''$ (rank 9)}\\\midrule
-1 & FUSE $a_1',b_2$\\
-2 & DEFUSE $a_2''$ = fusion of $a_1',a_1''$\\
-3 & FUSE $a_2',b_3$\\
-4 & DEFUSE $a_3'$ = fusion of $(a_1'|a_2''),a_2'$\\
-5 & FUSE $(a_2'|a_3'),b_2$\\
-6 & DEFUSE $[(a_2'|a_3')+b_2]$ = fusion of $b_3,[a_2'+b_3]$\\
-7 & FUSE $b_2,(a_1''|a_2'')$\\
-8 & DEFUSE $[a_1'+b_2]$ = fusion of $((a_1'|a_2'')|a_3'),b_2$\\
-9 & DEFUSE $[b_2+(a_1''|a_2'')]$ = fusion of $(b_3|[(a_2'|a_3')+b_2]),a_3''$ \quad(rank 8)\\\midrule
-\multicolumn{2}{@{}l}{$B$-side, start $n_1',n_2',n_3',n_4,n_1'',n_2'',n_3''$, then $g_1$ (rank 8)}\\\midrule
-1 & DEFUSE $n_2''$ = fusion of $n_1',n_1''$\\
-2 & DEFUSE $n_3'$ = fusion of $(n_1'|n_2''),n_2'$\\
-3 & FUSE $n_4,g_1$\\
-4 & FUSE $(n_2'|n_3'),g_1$\quad(rank 8)\\\bottomrule
-\end{tabular}
-\end{table}
+\subsection{The Bailey basis and the eigenvectors of \texorpdfstring{$T$}{T}}\label{ssec:basis}
+For $a$ with all $(aq)_n$ invertible put $\varphi_e(R;a):=1/((q)_{R-e}(aq)_{R+e})$ ($=0$ for $R<e$). We use:
+\begin{enumerate}[label=(B-\roman*),leftmargin=3em]
+\item $\sum_{r\le R}a^rq^{r^2}\varphi_e(r;a)/(q)_{R-r}=a^eq^{e^2}\varphi_e(R;a)$ (Bailey's lemma, case (L$\infty$)).
+\item $\sum_{r\ge0}a^rq^{r^2}\varphi_e(r;a)=a^eq^{e^2}/(aq;q)_\infty$ (Cauchy: $\sum_jz^jq^{j^2}/((q)_j(zq)_j)=1/(zq)_\infty$,
+$z=aq^{2e}$).
+\item $h_a\varphi_e(\cdot;a)=(q^{-e}+aq^e)\varphi_e(\cdot;a)$, from $\varphi_e(R-1;a)/\varphi_e(R;a)=(1-q^{R-e})(1-aq^{R+e})$
+(also at $R=e$, where $\varphi_e(e-1;a)=0$).
+\item (Change of $a$.) $\varphi_d(\cdot;aq^c)=\sum_{e=d}^{d+c}\Gamma^{(c)}_{d,e}(a)\varphi_e(\cdot;a)$ with
+\[\Gamma^{(c)}_{d,e}(a)=\frac{1-aq^{2e}}{1-a}\,\frac{(a)_{d+e}}{(aq^{c+1})_{d+e}}\,(-1)^{e-d}q^{\binom{e-d}2}a^{e-d}q^{(e+d)(e-d)}\qbin{c}{e-d}\]
+(Bailey inversion and $q$-Chu--Vandermonde), and $\sum_e\Gamma^{(c)}_{d,e}(a)=(aq;q)_c$. Support and sum are
+algebraic: over the common denominator $(q)_{R-d}(aq)_{R+d+c}$ the numerator of $\varphi_d(R;aq^c)$ is the constant
+$(aq)_c$, while the numerators $p_e(z)=(q^{R-e+1})_{e-d}(aq^{R+e+1})_{d+c-e}$ of $\varphi_e(R;a)$, $d\le e\le d+c$,
+are $c+1$ polynomials of degree $\le c$ in $z=q^R$, linearly independent ($p_e(q^m)=0$ for $d\le m<e$,
+$p_e(q^e)\ne0$), hence a basis; all $p_e(0)=1$, so the coefficient sum is the value $(aq)_c$ at $z=0$. Only the support,
+the coefficient sum and the case $c=1$ are used below; for $c=1$, $1-aq=A(1-aq^{d+1}z)+B(1-q^{-d}z)$ gives
+$\Gamma^{(1)}_{d,d}=A=(1-aq)/(1-aq^{2d+1})$ and $\Gamma^{(1)}_{d,d+1}=B=-aq^{2d+1}A$. Also
+$\varphi_d(R;aq^2)=(aq)_2\varphi_{d+1}(R+1;a)$.
+\item For $n\ge1$, with $(\tau F)(R):=q^RF(R+1)$: $\tau\varphi_n=\alpha_n\varphi_{n-1}+\beta_n\varphi_n+\gamma_n\varphi_{n+1}$, where
+\[\alpha_n=\frac{q^{n-1}}{(1-aq^{2n-1})(1-aq^{2n})},\quad \beta_n=\frac{-q^{n-1}(1+aq^{2n})}{(1-aq^{2n-1})(1-aq^{2n+1})},\quad
+\gamma_n=\frac{aq^{3n}}{(1-aq^{2n})(1-aq^{2n+1})},\]
+and $\alpha_n+\beta_n+\gamma_n=0$; likewise $\varphi_n(R+1)$ and $q^{2R}\varphi_n(R+1)$ are combinations of
+$\varphi_{n-1},\varphi_n,\varphi_{n+1}$ with coefficient sums $1$ and $0$ (partial fractions in $z=q^R$; for $n=0$
+these fail, e.g.\ $\tau\varphi_0$ has infinite support, and $n\ge1$ in every use below).
+\end{enumerate}
+For a finite combination $F=\sum_e\kappa_e\varphi_e(\cdot;a)$ put $v_a(F):=\sum_e\kappa_e$ (the $\varphi_e(\cdot;a)$ are
+linearly independent, since $\varphi_e(R;a)$ vanishes for $R<e$ and not at $R=e$; for $|q|,|a|<1$, $v_a(F)$ is
+$\lim_{R\to\infty}(q)_\infty(aq)_\infty F(R)$). Then $v_a(h_aF)=\sum_e(q^{-e}+aq^e)\kappa_e$; by (B-v), if
+$\kappa_0=0$ then $v_a(\tau F)=0$, $v_a(F(\cdot+1))=v_a(F)$, $v_a(q^{2R}F(\cdot+1))=0$, and since
+$h_a(\tau F)=F(\cdot+1)+aq^{2R}F(\cdot+1)-q^{-1}F$ (pointwise for $R\ge0$, using $F(0)=0$),
+$v_a(h_a\tau F)=(1-q^{-1})v_a(F)$; by (B-iv), $v_a(\varphi_d(\cdot;aq^c))=(aq;q)_c$.
 
-\begin{remark}[what is new]\label{rem:newk3}
-For $k=2$, \eqref{eq:ii} and \eqref{eq:iii} also follow from KRTW's Theorem~4.10 and Bartholdi's
-theorem~\cite{Bartholdi}; the proof above is independent of both and elementary. For $k=3$ no proof
-was found in the literature. The chains were found by a breadth-first search over SPLIT/FUSE/DEFUSE
-of bounded rank (meeting in the middle; about $7\cdot10^5$ data on the $K$-side for $k=3$); the search
-is not part of the proof. For $k=4$ the same search is out of reach (rank 12 after splitting).
-\end{remark}
+\emph{Basis of $\mathcal V$.} Put $\Xi_{e,\sigma}(R,S):=\delta_{S,\sigma}\varphi_e(R;xq^{2\sigma})$. Every $F\in\mathcal V$ is
+uniquely a locally finite sum $\sum_{e,\sigma}f_{e,\sigma}\Xi_{e,\sigma}$ (Bailey inversion in each slice). Since
+$w(r,\sigma)=x^{2\sigma}q^{2\sigma^2}(xq^{2\sigma})^rq^{r^2}$, (B-i) and (B-iv) give
+\begin{equation}\label{eq:TXi}
+T\,\Xi_{e,\sigma}=w(e,\sigma)\sum_{S=0}^{\sigma}\frac1{(Q;Q)_{\sigma-S}}\sum_{e'=e}^{e+2(\sigma-S)}\Gamma^{(2\sigma-2S)}_{e,e'}(xq^{2S})\,\Xi_{e',S}.
+\end{equation}
+With $(N,M):=(e+\sigma,\sigma)$ the diagonal entry is $w(e,\sigma)=\varpi_{N,M}:=x^{N+M}q^{N^2+M^2}$; $(e,\sigma)\mapsto(N,M)$
+is a bijection onto $\{N\ge M\ge0\}$, and the $\varpi_{N,M}$ are pairwise distinct monomials. Write $L:=N-M$.
 
-\subsection{The Hall--Littlewood form of \texorpdfstring{$(F_k)$}{(F\_k)}}
+\begin{proposition}\label{prop:eig}
+For $N\ge M\ge0$ there is a unique $\varphi_{N,M}\in\mathcal V$ with $T\varphi_{N,M}=\varpi_{N,M}\varphi_{N,M}$ of the
+form $\Xi_{L,M}+\sum_{S<M}\sum_ec^{(S)}_e\Xi_{e,S}$; in it $c^{(S)}_e\ne0$ only for $L\le e\le L+2(M-S)$. Every
+eigenvector of $T$ with finitely many nonzero $\Xi$-coefficients is a multiple of some $\varphi_{N,M}$. Moreover
+$\varphi_{N,M}(R,S)=0$ unless $R\ge L$ and $S\le M$.
+\end{proposition}
+\begin{proof}
+By~\eqref{eq:TXi} the eigen-equation is triangular in $S$ (downwards): for $S<M$,
+$(\varpi_{N,M}-\varpi_{e+S,S})c^{(S)}_e$ is determined by the coefficients on the slices above $S$, and
+$\varpi_{e+S,S}\ne\varpi_{N,M}$. The support follows from that of $\Gamma$. For an eigenvector with finitely many
+$\Xi$-coefficients look at its highest slice $\sigma$: there $(\varpi-w(e,\sigma))f_{e,\sigma}=0$, so
+$(e,\sigma)=(L,M)$; the eigenvector divided by $f_{L,M}$ is then of the form above, so by uniqueness it is $\varphi_{N,M}$.
+\end{proof}
+
+Since $w(r,s+1)=x^2q^2\cdot w|_{x\to xq^2}(r,s)$, the function $(R,S)\mapsto\varphi_{N,M}(R,S+1;x)$ is an eigenvector of
+$T|_{x\to xq^2}$ with eigenvalue $\varpi_{N,M}(x)/(x^2q^2)=\varpi_{N-1,M-1}(xq^2)$ and top $\Xi_{L,M-1}|_{x\to xq^2}$; by
+uniqueness,
+\begin{equation}\label{eq:shift}
+\varphi_{N,M}(\cdot,S+1;x)=\varphi_{N-1,M-1}(\cdot,S;xq^2)\qquad(M\ge1).
+\end{equation}
+
+\begin{lemma}\label{lem:HGeig}
+$H'\varphi_{N,M}=\varepsilon_{N,M}\varphi_{N,M}$ and $G\varphi_{N,M}=g_{N,M}\varphi_{N,M}$, where
+\[\varepsilon_{N,M}=q^{-N-M}(1+xq^{2N})(1+xq^{2M}),\qquad g_{N,M}=q^{-2N}+x^2q^{2N}+q^{-2M}+x^2q^{2M}.\]
+\end{lemma}
+\begin{proof}
+By~\eqref{eq:HGh}, (B-iii), (B-iv) and (B-v) (note $q^R\varphi_e(R;xq^{2S+2})=(xq^{2S+1})_2(\tau\varphi_{e+1})(R)$ relative to
+$xq^{2S}$, and $e+1\ge1$), $H'$ and $G$ map functions with finitely many $\Xi$-coefficients to such functions and do
+not raise the top slice. By Proposition~\ref{prop:comm}, $H'\varphi_{N,M}$ is an eigenvector of $T$ for
+$\varpi_{N,M}$, hence a multiple of $\varphi_{N,M}$; the multiple is read off on the slice $S=M$, where the
+$\mathsf U$-terms vanish: $(q^{-2M}+x)(q^{-L}+xq^{2M+L})=\varepsilon_{N,M}$, and for $G$,
+$q^{-2M}(q^{-L}+xq^{2M+L})^2+q^{-2M}(1-xq^{2M})^2=g_{N,M}$.
+\end{proof}
+
+\subsection{Values at infinity}\label{ssec:vinf}
+Put $A_{N,M}(x):=v_x(\varphi_{N,M}(\cdot,0))$.
+
+\begin{proposition}\label{prop:Arec}
+$A_{L,0}=1$ and, for $M\ge1$,
+\[
+A_{N,M}(x)=\frac{x^2(1+x)(x+q^{-1})\,q^{2N+2M}\,(xq;q)_2}{(1-q^{2N})(1-q^{2M})(1-x^2q^{2N})(1-x^2q^{2M})}\,A_{N-1,M-1}(xq^2).
+\]
+\end{proposition}
+\begin{proof}
+$\varphi_{L,0}=\Xi_{L,0}$. Let $M\ge1$, $F_0:=\varphi_{N,M}(\cdot,0)$ (a combination of $\varphi_e(\cdot;x)$, $e\ge L$)
+and $F_1:=\varphi_{N,M}(\cdot,1)$. By~\eqref{eq:shift}, $F_1=\sum_e\kappa'_e\varphi_e(\cdot;xq^2)$ with
+$\sum_e\kappa'_e=A_{N-1,M-1}(xq^2)$. By (B-iv), $F_1(R)=(xq)_2\,\Phi(R+1)$ with $\Phi:=\sum_e\kappa'_e\varphi_{e+1}(\cdot;x)$, a
+combination of $\varphi_n(\cdot;x)$ with $n\ge1$ and $v_x(\Phi)=\sum_e\kappa'_e$. Put $v_1:=(xq)_2A_{N-1,M-1}(xq^2)$. By the
+rules of §\ref{ssec:basis} applied to $\Phi$: $q^RF_1(R)=(xq)_2(\tau\Phi)(R)$ has $v_x=0$, $h_x(q^RF_1)$ has
+$v_x=(1-q^{-1})v_1$, and $(1+q^{2R})F_1(R)=(xq)_2(1+q^{2R})\Phi(R+1)$ has $v_x=v_1$. By~\eqref{eq:HGh} ($Y=1$ on $S=0$)
+the slices $S=0$ of $H'\varphi=\varepsilon\varphi$ and $G\varphi=g\varphi$ read
+\[
+(1+x)h_xF_0-x^2q^RF_1(R)=\varepsilon F_0,\qquad h_x^2F_0+(1-x)^2F_0-x^2(1+q^{2R})F_1(R)=gF_0 .
+\]
+Apply $v_x$ to both equations and to $h_x$ applied to the first; with $\mu_j:=v_x(h_x^jF_0)$ ($h_x$ is diagonal on $F_0$):
+\[
+(1+x)\mu_1-\varepsilon\mu_0=0,\qquad (1+x)\mu_2-\varepsilon\mu_1=x^2(1-q^{-1})v_1,\qquad \mu_2+(1-x)^2\mu_0-x^2v_1=g\mu_0 .
+\]
+Eliminating $\mu_1,\mu_2$ gives $\mu_0[\varepsilon^2+(1+x)^2((1-x)^2-g)]=x^2(1+x)(x+q^{-1})v_1$. With $e_n:=q^{-n}+xq^n$ one has
+$\varepsilon=e_Ne_M$ and $g=e_N^2+e_M^2-4x$, so the bracket is $(e_N^2-(1+x)^2)(e_M^2-(1+x)^2)$, and
+$e_n^2-(1+x)^2=q^{-2n}(1-q^{2n})(1-x^2q^{2n})$.
+\end{proof}
+
+\begin{corollary}\label{cor:V}
+$A_{N,M}(x)=(xq;q)_{2M}V_{N,M}(x)$ with
+\[
+V_{N,M}(x):=\frac{x^{2M}q^{2MN+M(2M-1)}(-x;q)_M}{(Q;Q)_M\,(Q^{N-M+1};Q)_M\,(xq^M;q)_M\,(x^2q^{2N};Q)_M}.
+\]
+\end{corollary}
+\begin{proof}
+Iterate Proposition~\ref{prop:Arec} and use $(x^2q^{2M};Q)_M=(xq^M;q)_M(-xq^M;q)_M$.
+\end{proof}
+
+\begin{lemma}\label{lem:omphi}
+$\omega(\varphi_{N,M})=\varpi_{N,M}A_{N,M}/(xq;q)_\infty$. More generally, for every finite combination $F$ of the
+$\Xi_{e,\sigma}$, $(TF)(\cdot,0)$ is a finite combination of the $\varphi_e(\cdot;x)$ and $(xq;q)_\infty\,\omega(F)=v_x((TF)(\cdot,0))$.
+\end{lemma}
+\begin{proof}
+By linearity it suffices to take $F=\Xi_{e,s}$. By (B-ii), $(xq)_\infty\omega(\Xi_{e,s})=w(e,s)(xq)_{2s}/(Q;Q)_s$; by (B-i),
+$(T\Xi_{e,s})(\cdot,0)=w(e,s)\varphi_e(\cdot;xq^{2s})/(Q;Q)_s$, whose $v_x$ is the same by (B-iv). For $F=\varphi_{N,M}$ use
+$(T\varphi)(\cdot,0)=\varpi_{N,M}\varphi(\cdot,0)$.
+\end{proof}
+
+\subsection{The reversed chain}\label{ssec:rev}
+Let
+\[
+(T^\sharp\Phi)(r,s):=\sum_{R\ge r}\sum_{S\le s}\frac{w(R,S)\Phi(R,S)}{(q)_{R-r}(Q;Q)_{s-S}}
+\]
+($T^\sharp=\mathcal W^{-1}T^{\mathsf t}\mathcal W$ as kernels). If $T^\sharp\Phi=\varpi\Phi$, then
+$\psi_\Phi(F):=\sum_{r,s}w(r,s)\Phi(r,s)F(r,s)$ satisfies $\psi_\Phi(TF)=\varpi\,\psi_\Phi(F)$ whenever the double sum
+is finite (the case below). Let $\varphi^Q_e(S;a):=1/((Q;Q)_{S-e}(aQ;Q)_{S+e})$ and
+$\Xi^\sharp_{e,\rho}(R,S):=\delta_{R,\rho}\varphi^Q_e(S;x^2q^{2\rho})$. Since $w(\rho,S)=x^\rho q^{\rho^2}(x^2q^{2\rho})^SQ^{S^2}$, the base-$Q$
+versions of (B-i), (B-iv) give
+\[
+T^\sharp\Xi^\sharp_{e,\rho}=\varpi_{\rho+e,e}\sum_{r=0}^{\rho}\frac1{(q)_{\rho-r}}\sum_{e'=e}^{e+\rho-r}\Gamma^{Q,(\rho-r)}_{e,e'}(x^2q^{2r})\,\Xi^\sharp_{e',r},
+\]
+where $\Gamma^{Q,(c)}$ is $\Gamma^{(c)}$ with $q\to Q$ (change $a\to aQ^c$ in base $Q$; $\sum_{e'}\Gamma^{Q,(c)}_{e,e'}(a)=(aQ;Q)_c$).
+Exactly as in Proposition~\ref{prop:eig} there is a unique eigenvector
+$\varphi^\sharp_{N,M}=\Xi^\sharp_{M,L}+\sum_{\rho<L}\sum_ec_{e,\rho}\Xi^\sharp_{e,\rho}$ of $T^\sharp$ for $\varpi_{N,M}$, with
+$c_{e,\rho}\ne0$ only for $M\le e\le M+L-\rho$; $\varphi^\sharp_{N,M}(R,S)=0$ unless $R\le L$ and $S\ge M$; and every eigenvector of
+$T^\sharp$ with finitely many $\Xi^\sharp$-coefficients is a multiple of some $\varphi^\sharp_{N,M}$.
+
+Transposing Proposition~\ref{prop:comm}, $H'^\sharp:=\mathcal W^{-1}H'^{\mathsf t}\mathcal W$ and
+$G^\sharp:=\mathcal W^{-1}G^{\mathsf t}\mathcal W$ commute with $T^\sharp$ (the kernel identity
+$(T^\sharp H'^\sharp)(a,b)=w(a)^{-1}w(b)(H'T)(b,a)$ involves only finite sums, and applied to $\varphi^\sharp$ all sums are
+finite: $H'^\sharp$ is local, $T^\sharp$ sums over finitely many $S$, and $\varphi^\sharp$ vanishes for $R>L$). Explicitly,
+with $\mathsf S^\natural F(R,S):=F(R+1,S)$, $\mathsf U^\natural F(R,S):=F(R,S-1)$ and $h^Q_a:=Y^{-1}(1-\mathsf U^\natural)+aY$ (acting
+in $S$),
+\begin{equation}\label{eq:HGsharp}
+\begin{aligned}
+H'^\sharp&=P^{-1}Y^{-1}(1-\mathsf U^\natural)+xP^{-1}+xP(1+xY)(1-\mathsf S^\natural),\\
+G^\sharp&=(P^{-2}+1)h^Q_{x^2P^2}-x(1+q^{-1})\mathsf S^\natural-x^2(1+q)P^2Y\mathsf S^\natural+qx^2P^2Y(\mathsf S^\natural)^2 .
+\end{aligned}
+\end{equation}
+The base-$Q$ facts used are: $h^Q_a\varphi^Q_e(\cdot;a)=(Q^{-e}+aQ^e)\varphi^Q_e(\cdot;a)$;
+$\varphi^Q_e(S;aQ)=c_1\varphi^Q_e(S;a)+c_2\varphi^Q_{e+1}(S;a)$ with $c_1=(1-aQ)/(1-aQ^{2e+1})$,
+$c_2=-(1-aQ)aQ^{2e+1}/(1-aQ^{2e+1})$, $c_1+c_2=1-aQ$; $Q^S\varphi^Q_e(S;aQ)=b_e(\varphi^Q_e(S;a)-\varphi^Q_{e+1}(S;a))$ with
+$b_e=(1-aQ)/(Q^{-e}-aQ^{e+1})$; and $Q^S\varphi^Q_e(S;aQ^2)$ is a combination of $\varphi^Q_e,\varphi^Q_{e+1},\varphi^Q_{e+2}$
+(relative to $a$) with coefficient sum $0$ (partial fractions in $Q^S$). With $v^Q_a$ defined as $v_a$ (coefficient
+sum relative to $a$) these give, as in Lemma~\ref{lem:HGeig}, $H'^\sharp\varphi^\sharp_{N,M}=\varepsilon_{N,M}\varphi^\sharp_{N,M}$ and
+$G^\sharp\varphi^\sharp_{N,M}=g_{N,M}\varphi^\sharp_{N,M}$ (on the top slice $\rho=L$ the $\mathsf S^\natural$-terms vanish
+and~\eqref{eq:HGsharp} reduces to $q^{-L}h^Q+x(q^{-L}+q^L)$, resp.\ $(q^{-2L}+1)h^Q$).
+
+\begin{proposition}\label{prop:vsharp}
+Let $v_\rho:=\sum_ec_{e,\rho}$ be the coefficient sum of $\varphi^\sharp_{N,M}(\rho,\cdot)$ relative to $a_\rho:=x^2q^{2\rho}$; so
+$v_L=1$. For $\rho<L$,
+\[
+v_\rho=\frac{-x\,q^{L+N+M-1}(1-x^2q^{2\rho+2})(1-q^{2\rho+1})}{(1-q^{L-\rho})(1-q^{L+\rho})(1-xq^{N+M-\rho})(1-xq^{N+M+\rho})}\,v_{\rho+1}.
+\]
+\end{proposition}
+\begin{proof}
+Write $G_\rho:=\varphi^\sharp(\rho,\cdot)$ and $a:=a_\rho$ (so $a_{\rho+1}=aQ$), and $\mu_j:=v^Q_a((h^Q_a)^jG_\rho)$. The slice $\rho$
+of~\eqref{eq:HGsharp} gives
+\begin{gather*}
+[q^{-\rho}h^Q_a+x(q^{-\rho}+q^\rho)-\varepsilon]G_\rho=xq^\rho(1+xY)G_{\rho+1},\\
+(q^{-2\rho}+1)h^Q_aG_\rho-x(1+q^{-1})G_{\rho+1}-x^2(1+q)q^{2\rho}YG_{\rho+1}+qx^2q^{2\rho}YG_{\rho+2}=gG_\rho .
+\end{gather*}
+Applying $v^Q_a$ (the $Y$-terms have coefficient sum $0$, and $v^Q_a(G_{\rho+1})=(1-aQ)v_{\rho+1}$):
+$q^{-\rho}\mu_1+(x(q^{-\rho}+q^\rho)-\varepsilon)\mu_0=xq^\rho(1-aQ)v_{\rho+1}$ and
+$(q^{-2\rho}+1)\mu_1-x(1+q^{-1})(1-aQ)v_{\rho+1}=g\mu_0$. Eliminating $\mu_1$ with $c:=q^\rho+q^{-\rho}$ (note
+$q^{-\rho}/(q^{-2\rho}+1)=1/c$ and $q^\rho c=1+q^{2\rho}$):
+\[\mu_0[g+xc^2-\varepsilon c]=x(1-aQ)(q^{2\rho}-q^{-1})v_{\rho+1}.\]
+With $e_n=\sqrt x\,\zeta_n$, $\zeta_n:=z_n+z_n^{-1}$, $z_n:=\sqrt x\,q^n$, the bracket is
+$x(c^2-\zeta_N\zeta_Mc+\zeta_N^2+\zeta_M^2-4)=x(c-z_Nz_M-(z_Nz_M)^{-1})(c-z_N/z_M-z_M/z_N)$ (the Fricke relation), i.e.\
+$q^{-L-N-M}(1-q^{L-\rho})(1-q^{L+\rho})(1-xq^{N+M-\rho})(1-xq^{N+M+\rho})$.
+\end{proof}
+
+\begin{corollary}\label{cor:Vsharp}
+$V^\sharp_{N,M}:=v_0$ equals $1$ for $L=0$ and, for $L\ge1$,
+\[
+V^\sharp_{N,M}=(-x)^Lq^{L(2L-1)+2ML}\,\frac{(1+q^L)\,(x^2Q;Q)_L}{(Q;Q)_L\,(xq^{2M+1};q)_L\,(xq^{2M+L};q)_L}.
+\]
+\end{corollary}
+\begin{proof}
+Iterate Proposition~\ref{prop:vsharp}: the product of the factors $(1-q^{2\rho+1})/((1-q^{L-\rho})(1-q^{L+\rho}))$ over
+$0\le\rho<L$ is $(q;q^2)_L/((q)_L(q^L;q)_L)=(1+q^L)/(Q;Q)_L$, and the $x$-dependent factors give the rest.
+\end{proof}
+
+\begin{lemma}\label{lem:psiu}
+$\psi_{N,M}(u):=\sum_{r,s}w(r,s)\varphi^\sharp_{N,M}(r,s)/(q)_r=\varpi_{N,M}V^\sharp_{N,M}/(x^2Q;Q)_\infty$.
+\end{lemma}
+\begin{proof}
+As for Lemma~\ref{lem:omphi}, with the base-$Q$ forms of (B-ii),
+\[\textstyle\sum_sw(r,s)\varphi^Q_e(s;a_r)=w(r,e)/(a_rQ;Q)_\infty=w(r,e)(x^2Q;Q)_r/(x^2Q;Q)_\infty,\]
+and of (B-i) for $(T^\sharp\varphi^\sharp)(0,\cdot)=\varpi\,\varphi^\sharp(0,\cdot)$, and $v^Q_{x^2}(\varphi^Q_e(\cdot;x^2Q^r))=(x^2Q;Q)_r$.
+\end{proof}
+
+\subsection{Biorthogonality, completeness and the spectral expansion}\label{ssec:spec}
+Let $\psi_{N,M}(F):=\sum_{r,s}w(r,s)\varphi^\sharp_{N,M}(r,s)F(r,s)$ (over $r\le L$, $s\ge M$; it converges for $F\in\mathcal V$).
+
+\begin{lemma}\label{lem:biorth}
+$\psi_a(\varphi_b)=0$ for modes $a\ne b$, and
+\[\psi_{N,M}(\varphi_{N,M})=\frac{\varpi_{N,M}}{(x^2q^{2L+2};Q)_{2M}\,(xq^{2M+1};q)_{2L}}.\]
+\end{lemma}
+\begin{proof}
+For $a\ne b$ the sum defining $\psi_a(T\varphi_b)$ is finite ($r\le L_a$, $s\le M_b$), so it can be computed as
+$\varpi_b\psi_a(\varphi_b)$ and as $\varpi_a\psi_a(\varphi_b)$, and $\varpi_a\ne\varpi_b$. By the supports
+($\varphi_{N,M}$: $R\ge L$, $S\le M$; $\varphi^\sharp_{N,M}$: $R\le L$, $S\ge M$) only $(r,s)=(L,M)$ contributes to
+$\psi_{N,M}(\varphi_{N,M})$; there $w=\varpi_{N,M}$, $\varphi_{N,M}(L,M)=\varphi_L(L;xq^{2M})=1/(xq^{2M+1})_{2L}$ and
+$\varphi^\sharp_{N,M}(L,M)=1/(x^2q^{2L}Q;Q)_{2M}$.
+\end{proof}
+
+\begin{lemma}\label{lem:val}
+\begin{enumerate}[label=(\alph*)]
+\item $\operatorname{ord}c^{(S)}_e\ge2(M-S)$ for the coefficients of $\varphi_{N,M}$; hence $\operatorname{ord}\varphi_{N,M}(R,S)\ge2(M-S)$.
+\item $\operatorname{ord}c_{e,\rho}\ge0$ for $\varphi^\sharp_{N,M}$; hence $\operatorname{ord}\varphi^\sharp_{N,M}(R,S)\ge0$.
+\item $\operatorname{ord}\psi_{L'+M',M'}(\Xi_{e,\sigma})\ge e+2\sigma$, with equality and $\psi\ne0$ for $(e,\sigma)=(L',M')$; and
+$\psi_{L'+M',M'}(\Xi_{e,\sigma})=0$ unless $e\le L'$ and $\sigma\ge M'$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(a) By Lemma~\ref{lem:HGeig} and~\eqref{eq:HGh}, on the slice $S$,
+$[\varepsilon_{e+S,S}-\varepsilon_{N,M}]c^{(S)}_e=x^2q^{2S}(xq^{2S+1})_2\cdot$(the $\varphi_e$-coefficient of
+$\sum_{e'}c^{(S+1)}_{e'}\tau\varphi_{e'+1}$, relative to $xq^{2S}$). The bracket has order $0$ unless $e+2S=N+M$ (the largest
+index on the slice $S$), where it has order $1$ (its $x$-coefficient is $q^{N+M-2S}+q^{2S-N-M}-q^L-q^{-L}\ne0$); that
+index is reached only through $\gamma$, and $\operatorname{ord}\gamma\ge1$ ($\gamma$ contains $a=xq^{2S}$). Induction downwards
+from $S=M$.
+(b) The same with the first equation in the proof of Proposition~\ref{prop:vsharp}: the right side carries a factor
+$x$; the bracket $\varepsilon_{\rho+e,e}-\varepsilon_{N,M}$ is nonzero for $\rho<L$ and has order $\le1$ (if its constant
+terms $q^{-\rho-2e}$ and $q^{-N-M}$ agree, its $x$-coefficient is $q^\rho+q^{-\rho}-q^L-q^{-L}\ne0$); and the
+re-expansion coefficients $c_1,c_2,b_e$ have order $\ge0$.
+(c) $\psi(\Xi_{e,\sigma})=\sum_{e\le r\le L'}w(r,\sigma)\varphi^\sharp(r,\sigma)\varphi_e(r;xq^{2\sigma})$ with
+$\operatorname{ord}w(r,\sigma)=r+2\sigma$; at $(e,\sigma)=(L',M')$ only $r=L'$ occurs, and the term is the monomial times
+unit of Lemma~\ref{lem:biorth}.
+\end{proof}
+
+\begin{lemma}[completeness]\label{lem:compl}
+If $\Delta\in\mathcal V$ and $\psi_{N,M}(\Delta)=0$ for all $N\ge M\ge0$, then $\Delta=0$.
+\end{lemma}
+\begin{proof}
+Expand $\Delta=\sum\delta_{e,\sigma}\Xi_{e,\sigma}$; the $\delta$'s have order $\ge\inf\operatorname{ord}\Delta$ (Bailey
+inversion has $x$-integral coefficients). If $\Delta\ne0$, let $m:=\min\{\operatorname{ord}\delta_{e,\sigma}+e+2\sigma\}$,
+attained on a finite nonempty set $Z$. Choose $(e^*,\sigma^*)\in Z$ with $e^*$ minimal and then $\sigma^*$ maximal, and
+evaluate $\psi_{e^*+\sigma^*,\sigma^*}(\Delta)=\sum_{e\le e^*,\ \sigma\ge\sigma^*}\psi(\Xi_{e,\sigma})\delta_{e,\sigma}$ (an
+$x$-adically convergent sum by Lemma~\ref{lem:val}(c)). The term $(e^*,\sigma^*)$ has order exactly $m$; a term with
+$e<e^*$, or $e=e^*$ and $\sigma>\sigma^*$, is not in $Z$ and so has order $\ge\operatorname{ord}\delta_{e,\sigma}+e+2\sigma>m$.
+Hence $\psi_{e^*+\sigma^*,\sigma^*}(\Delta)\ne0$.
+\end{proof}
+
+\begin{theorem}\label{thm:spec}
+In $\mathcal V$ (pointwise, $x$-adically convergent),
+\[
+u=\sum_{N\ge M\ge0}\tilde u_{N,M}\varphi_{N,M},\qquad
+\tilde u_{N,M}:=\frac{\psi_{N,M}(u)}{\psi_{N,M}(\varphi_{N,M})}=\frac{V^\sharp_{N,M}(x^2q^{2L+2};Q)_{2M}(xq^{2M+1};q)_{2L}}{(x^2Q;Q)_\infty},
+\]
+and for every $k\ge1$
+\[
+K_k(x)=\sum_{N\ge M\ge0}\varpi_{N,M}^k\,\frac{V_{N,M}V^\sharp_{N,M}(x^2q^{2L+2};Q)_{2M}(xq;q)_{2N}}{(xq;q)_\infty(x^2Q;Q)_\infty}.
+\]
+\end{theorem}
+\begin{proof}
+$\operatorname{ord}\tilde u\ge0$ (Corollary~\ref{cor:Vsharp}), so by Lemma~\ref{lem:val}(a) the $(N,M)$-term of
+$\tilde U:=\sum\tilde u\varphi$ has order $\ge2(M-S)$ at $(R,S)$, and only $L\le R$, $M\ge S$ contribute; so $\tilde U\in\mathcal V$
+converges pointwise. Summability: in the families $(r,s,b)\mapsto w(r,s)\varphi^\sharp_a(r,s)\tilde u_b\varphi_b(r,s)$,
+$w(r,s)\tilde u_b\varpi_b^{j}\varphi_b(r,s)/((q)_{R-r}(Q;Q)_{s-S})$ and $w(r,s)\tilde u_b\varpi_b^{j}\varphi_b(r,s)/(Q;Q)_s$ ($j\ge0$), a
+nonzero term has $r\ge L_b$, $s\le M_b$ and order $\ge r+2M_b+j(N_b+M_b)$ (Lemma~\ref{lem:val}(a), $\operatorname{ord}\tilde u\ge0$,
+$\operatorname{ord}\varphi^\sharp\ge0$), so only finitely many terms lie below any given order. Hence
+$\psi_a(\tilde U)=\sum_b\tilde u_b\psi_a(\varphi_b)=\psi_a(u)$ by Lemma~\ref{lem:biorth}, and Lemma~\ref{lem:compl} gives
+$u=\tilde U$ (the value of $\tilde u_{N,M}$ by Lemmas~\ref{lem:psiu} and~\ref{lem:biorth}). The same summability gives
+$T^{k-1}u=\sum\tilde u\,\varpi^{k-1}\varphi$ (by induction on $k$) and, by~\eqref{eq:Kop} and Lemma~\ref{lem:omphi},
+$K_k=\sum\tilde u_{N,M}\varpi^k_{N,M}A_{N,M}/(xq)_\infty$; insert $A=(xq)_{2M}V$ and $(xq)_{2M}(xq^{2M+1})_{2L}=(xq)_{2N}$.
+\end{proof}
+
+\subsection{The product identity; proof of Theorem~\ref{thm:F}}\label{ssec:proofF}
+Put $t_{N,M}:=\varpi_{N,M}(\beta^B_N\beta^J_M+\beta^B_M\beta^J_N)/(1+\delta_{NM})$. By the computation of $E$ in the proof of (B4),
+\begin{multline*}
+t_{N,M}=\varpi_{N,M}(-1)^{N+M}q^{N^2+M^2-N-M}\,\frac{(q^N+q^M)(1+xq^{N+M})}{1+\delta_{NM}}\\
+\times\frac{(1-xq^{2N})(1-xq^{2M})(x^2;Q)_N(x^2;Q)_M}{(Q;Q)_N(Q;Q)_M(1-x)(1-x^2)}.
+\end{multline*}
+
+\begin{lemma}\label{lem:prod}
+$V_{N,M}V^\sharp_{N,M}(x^2q^{2L+2};Q)_{2M}(xq;q)_{2N}=t_{N,M}$.
+\end{lemma}
+\begin{proof}
+Collect factors ($N=L+M$). The $Q$-factors: $(Q;Q)_M(Q^{L+1};Q)_M(Q;Q)_L=(Q;Q)_M(Q;Q)_N$. The $x^2$-factors:
+$(x^2Q;Q)_L(x^2q^{2L+2};Q)_{2M}/(x^2q^{2N};Q)_M=(x^2Q;Q)_{N-1}(1-x^2q^{2N+2M})$. The remaining $x$-factors combine, via
+$(x;q)_M(xq^M;q)_M=(x;q)_{2M}$, $(x;q)_{2M}(1-xq^{2M})(xq^{2M+1};q)_L=(x;q)_{N+M+1}$, $(x^2;Q)_M=(x;q)_M(-x;q)_M$ and
+$(x;q)_{2N+1}=(x;q)_{N+M}(1-xq^{N+M})(xq^{N+M+1};q)_{L-1}(1-xq^{2N})$ ($L\ge1$), to the $x$-part of $t_{N,M}$. The monomials
+agree ($x^{N+M}(-1)^{N+M}q^{2L^2+4LM+4M^2-L-M}$ on both sides, using $q^N+q^M=q^M(1+q^L)$). For $L=0$, $V^\sharp=1$
+matches $(q^N+q^M)/(1+\delta_{NM})=q^M$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:F}]
+By Theorem~\ref{thm:spec} and Lemma~\ref{lem:prod}, and by symmetrisation ($\varpi_{N,M}=\varpi_N\varpi_M$; the double
+series converge $x$-adically),
+\begin{align*}
+(xq)_\infty(x^2Q;Q)_\infty K_k&=\sum_{N\ge M}\varpi_{N,M}^kt_{N,M}=\sum_{n,m\ge0}(\varpi_n\varpi_m)^{k+1}\beta^B_n\beta^J_m\\
+&=(xq)_\infty B_{k+1}(x)\cdot(x^2Q;Q)_\infty J_k(x)
+\end{align*}
+by (B1), (B2), which hold in $\mathbb F$ (§\ref{ssec:transfer}). This holds in $\mathbb F$, hence in $\Z[x][[q]]$.
+\end{proof}
+
+\subsection{Identity (iv)}\label{ssec:iv}
+Put $O:=PY\mathsf U$, i.e.\ $(OF)(R,S)=q^{R+2S}F(R,S+1)$; $O\mathcal V\subset\mathcal V$.
+
+\begin{lemma}\label{lem:Omop}
+$K^\Omega_k(x)=\sum_{i=1}^k\omega(T^{i-1}OT^{k-i}u)$ for $k\ge1$.
+\end{lemma}
+\begin{proof}
+With $F_k:=u$ and $F_i:=TF_{i+1}$, $F_i$ is the function of $(r_i,s_i)$ obtained by summing the levels $i+1,\dots,k$
+(their weights and the bonds between the levels $i,\dots,k$); the bond between levels $i$ and $i+1$ is
+$1/((q)_{r_i-r_{i+1}}(Q;Q)_{s_{i+1}-s_i})$, and $\omega$ supplies $w(r_1,s_1)/(Q;Q)_{s_1}$. For $i<k$ the $i$-th term of $\Omega$
+multiplies the summand by $q^{r_i+2s_i}(1-Q^{s_{i+1}-s_i})$; since $(1-Q^m)/(Q;Q)_m=1/(Q;Q)_{m-1}$ for $m\ge0$ (both sides
+vanish for $m=0$, and both bonds vanish for $m<0$), this replaces $F_i=TF_{i+1}$ by $PY\mathsf UTF_{i+1}=OTF_{i+1}$, because
+$\sum_{r\le R,\ s\ge S+1}w(r,s)F(r,s)/((q)_{R-r}(Q;Q)_{s-S-1})=(TF)(R,S+1)$. The $k$-th term multiplies $F_k=u$ by
+$q^{r_k+2s_k}$, giving $PYu=Ou$ ($u$ does not depend on $S$). For each power of $x$ only finitely many index tuples
+contribute, so all rearrangements are finite, coefficient by coefficient.
+\end{proof}
+
+Let $h:=h_{xY}=P^{-1}(1-\mathsf S)+xPY$, i.e.\ $(hF)(R,S)=q^{-R}(F(R,S)-F(R-1,S))+xq^{R+2S}F(R,S)$.
+
+\begin{lemma}\label{lem:hcomm}
+$Th-hT=-xOT$ on $\mathcal V$.
+\end{lemma}
+\begin{proof}
+By~\eqref{eq:TEW}, $\mathcal W\mathsf S\mathcal W^{-1}=xq^{-1}P^2Y\mathsf S$, so $\mathcal Wh=\tilde h\mathcal W$ with
+$\tilde h:=P^{-1}-xq^{-1}PY\mathsf S+xPY$. It suffices to show $hE-E\tilde h=xPY\mathsf UE$; then
+$hT-Th=hE\mathcal W-E\tilde h\mathcal W=xPY\mathsf UE\mathcal W=xOT$. The coefficients of $\mathsf S^j\mathsf U^b$, times
+$(q)_j(Q;Q)_b$, are: in $hE$, $q^jP^{-1}+xPY$; in $E\tilde h$, $q^jP^{-1}-xq^{-j}Q^b(1-q^j)PY+xq^{-j}Q^bPY=q^jP^{-1}+xQ^bPY$;
+in $xPY\mathsf UE$, $xPY(1-Q^b)$. (Restriction to $\N^2$ as in Proposition~\ref{prop:comm}: $h$ reads only $(R,S)$ and
+$(R-1,S)$, and $xPY\mathsf U$ reads $E\mathcal WF$ only at $(R,S+1)\in\N^2$.)
+\end{proof}
+
+\begin{lemma}\label{lem:omh}
+$\omega(hF)=\omega(P^{-1}F)$ for $F\in\mathcal V$.
+\end{lemma}
+\begin{proof}
+Fix $s$. Summation by parts ($F(-1,s)=0$; all sums converge $x$-adically) and $w(r+1,s)=xq^{2r+2s+1}w(r,s)$ give
+$\sum_rw(r,s)q^{-r}(F(r,s)-F(r-1,s))=\sum_rw(r,s)F(r,s)(q^{-r}-xq^{r+2s})$. Adding $\sum_rw(r,s)xq^{r+2s}F(r,s)$ gives
+$\sum_rw(r,s)q^{-r}F(r,s)$; divide by $(Q;Q)_s$ and sum over $s$.
+\end{proof}
+
+\begin{proposition}\label{prop:tele}
+For $k\ge1$, $K^\Omega_k(x)=x^{-1}\bigl(K^\flat_k(x)-K_k(x)\bigr)$, where $K^\flat_k:=\omega(P^{-1}T^{k-1}u)$ is $K_k$ with the
+extra factor $q^{-r_1}$ in the summand.
+\end{proposition}
+\begin{proof}
+$hu=u+xOu$, because $q^{-R}(1/(q)_R-1/(q)_{R-1})=1/(q)_R$ (also at $R=0$) and $xq^{R+2S}/(q)_R=x(Ou)(R,S)$. For $i<k$,
+Lemma~\ref{lem:hcomm} gives $OT^{k-i}u=-x^{-1}(Th-hT)T^{k-i-1}u$. With $a_i:=\omega(T^ihT^{k-1-i}u)$ ($0\le i\le k-1$) the first
+$k-1$ terms of Lemma~\ref{lem:Omop} add up to $-x^{-1}\sum_{i=1}^{k-1}(a_i-a_{i-1})=-x^{-1}(a_{k-1}-a_0)$, and
+$-x^{-1}a_{k-1}=-x^{-1}\omega(T^{k-1}u)-\omega(T^{k-1}Ou)=-x^{-1}K_k-(\text{the $k$-th term})$. Hence
+$K^\Omega_k=x^{-1}(a_0-K_k)$, and $a_0=\omega(hT^{k-1}u)=\omega(P^{-1}T^{k-1}u)$ by Lemma~\ref{lem:omh}. (For $k=1$ the
+statement is $\omega(Ou)=x^{-1}(\omega(hu)-\omega(u))$.)
+\end{proof}
+
+\begin{lemma}\label{lem:hphi}
+$\omega(h\varphi_{N,M})=\dfrac{\varepsilon_{N,M}}{1+x}\,\omega(\varphi_{N,M})$ for all $N\ge M\ge0$.
+\end{lemma}
+\begin{proof}
+On the slice $S=\sigma$, $h$ acts as $h_{xq^{2\sigma}}$ in $R$, so by (B-iii) $h\Xi_{e,\sigma}=(q^{-e}+xq^{2\sigma+e})\Xi_{e,\sigma}$, and
+$h\varphi_{N,M}$ is again a finite combination of the $\Xi$'s. By Lemma~\ref{lem:hcomm} and $T\varphi=\varpi\varphi$
+($\varpi:=\varpi_{N,M}$), $T(h\varphi)=hT\varphi-xOT\varphi=\varpi(h\varphi-xO\varphi)$, whose slice $S=0$ is
+$\varpi(h_xF_0-xq^RF_1(R))$, with $F_0$, $F_1$ as in the proof of Proposition~\ref{prop:Arec}. For $M\ge1$ that proof shows
+$v_x(q^RF_1)=0$ and $(1+x)v_x(h_xF_0)=\varepsilon\,v_x(F_0)$. For $M=0$, $F_1=0$, $\varphi_{L,0}=\Xi_{L,0}$,
+$h_xF_0=(q^{-L}+xq^L)F_0$ and $\varepsilon_{L,0}=(1+x)(q^{-L}+xq^L)$. In both cases
+$v_x((Th\varphi)(\cdot,0))=\varpi\varepsilon A_{N,M}/(1+x)$, and Lemma~\ref{lem:omphi} (applied to $h\varphi$ and to $\varphi$) gives the claim.
+\end{proof}
+
+\begin{theorem}\label{thm:specOm}
+For $k\ge1$, in $\mathbb F$:
+\begin{gather*}
+(xq)_\infty(x^2Q;Q)_\infty K^\flat_k=\sum_{N\ge M\ge0}\varpi^k_{N,M}t_{N,M}\frac{\varepsilon_{N,M}}{1+x},\\
+(xq)_\infty(x^2Q;Q)_\infty K^\Omega_k=\sum_{N\ge M\ge0}\varpi^k_{N,M}t_{N,M}\frac{\varepsilon_{N,M}-1-x}{x(1+x)}.
+\end{gather*}
+\end{theorem}
+\begin{proof}
+By Theorem~\ref{thm:spec}, $T^{k-1}u=\sum_b\tilde u_b\varpi_b^{k-1}\varphi_b$ with the summability stated there, which is not
+affected by the factor $q^{-r}$. So $K^\flat_k=\omega(P^{-1}T^{k-1}u)=\sum_b\tilde u_b\varpi_b^{k-1}\omega(P^{-1}\varphi_b)$, and
+$\omega(P^{-1}\varphi_b)=\omega(h\varphi_b)=\varepsilon_b\,\omega(\varphi_b)/(1+x)$ by Lemmas~\ref{lem:omh} and~\ref{lem:hphi}. As in the
+proof of Theorem~\ref{thm:spec}, $\tilde u_b\varpi_b\,A_b/(xq)_\infty=\varpi_bt_b/((xq)_\infty(x^2Q;Q)_\infty)$ (Lemmas~\ref{lem:omphi}
+and~\ref{lem:prod}); this gives the first formula, and the second follows with Proposition~\ref{prop:tele} and
+$(xq)_\infty(x^2Q;Q)_\infty K_k=\sum\varpi^kt$.
+\end{proof}
+
+\begin{lemma}\label{lem:factor}
+For all $N\ge M\ge0$,
+$\dfrac{t_{N,M}(\varepsilon_{N,M}-1-x)}{x(1+x)}=\dfrac{\varpi_N\varpi_M\,(b^\Omega_N\beta^J_M+b^\Omega_M\beta^J_N)}{1+\delta_{NM}}$.
+\end{lemma}
+\begin{proof}
+Put $\mu_n:=q^{-2n}+x^2q^{2n}$, so $b^\Omega_n=\beta^B_n(\mu_n+x-1)/(x(1+x))$. Since
+$t_{N,M}=\varpi_N\varpi_M(\beta^B_N\beta^J_M+\beta^B_M\beta^J_N)/(1+\delta_{NM})$, the claim is equivalent to
+$\beta^B_N\beta^J_M(\varepsilon-\mu_N-2x)+\beta^B_M\beta^J_N(\varepsilon-\mu_M-2x)=0$, $\varepsilon:=\varepsilon_{N,M}$. With $u=q^N$, $v=q^M$,
+$\varepsilon=1/(uv)+xu/v+xv/u+x^2uv$, and expanding shows $\varepsilon-\mu_N-2x=(u-v)(1+xu^2)(1-xuv)/(u^2v)$ and
+$\varepsilon-\mu_M-2x=(v-u)(1+xv^2)(1-xuv)/(v^2u)$. So the left side is
+$\frac{(u-v)(1-xuv)}{uv}\bigl[\beta^B_N(1+xu^2)u^{-1}\beta^J_M-\beta^B_M(1+xv^2)v^{-1}\beta^J_N\bigr]$, and
+$\beta^B_n(1+xq^{2n})q^{-n}=(1+x)\beta^J_n$ for all $n\ge0$ (both equal
+$(-1)^nq^{n^2-n}(x^2;Q)_n(1-x^2q^{4n})/((Q;Q)_n(1-x))$), so the bracket is $(1+x)(\beta^J_N\beta^J_M-\beta^J_M\beta^J_N)=0$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:iv}]
+By Theorem~\ref{thm:specOm} and Lemma~\ref{lem:factor}, with symmetrisation (the double series converge $x$-adically:
+$\operatorname{ord}\varpi_n^{k+1}b^\Omega_n\ge(k+1)n-1$ for $n\ge1$),
+\[(xq)_\infty(x^2Q;Q)_\infty K^\Omega_k=\sum_{N\ge M}\frac{(\varpi_N\varpi_M)^{k+1}(b^\Omega_N\beta^J_M+b^\Omega_M\beta^J_N)}{1+\delta_{NM}}
+=\Bigl(\sum_n\varpi_n^{k+1}b^\Omega_n\Bigr)\Bigl(\sum_m\varpi_m^{k+1}\beta^J_m\Bigr),\]
+and the second factor is $(x^2Q;Q)_\infty J_k(x)$ by (B2). This proves
+$(xq)_\infty K^\Omega_k=J_k\sum_n\varpi_n^{k+1}b^\Omega_n$ in $\mathbb F$, hence (§\ref{ssec:transfer}; both sides lie in
+$\Z[x][[q]]$ by~\eqref{eq:bOmega}) in $\Z[x][[q]]$, and Proposition~\ref{prop:Fimplies}(b) gives~\eqref{eq:iv}.
+
+It remains to show $(xq;q)_\infty B^{(k)}_{k+1}(x)=\sum_n\varpi_n^{k+1}b^\Omega_n$. Use Bailey pairs relative to $a$ in base $q$,
+$\beta_n=\sum_{r\le n}\alpha_r\varphi_r(n;a)$. By the proof of (B1), $\beta_n=1/(Q;Q)_n$,
+$\alpha_n=(-1)^nq^{n^2}(a^2;Q)_n(1-aq^{2n})/((Q;Q)_n(1-a))$ is a Bailey pair relative to any $a$; take $a=xq$. Two steps
+(L$\infty$) relative to $xq$ give $\alpha''_n=(xq)^{2n}q^{2n^2}\alpha_n$ and
+\[\beta''_n=\sum_{n\ge N_k\ge N_{k+1}}\frac{(xq)^{N_k+N_{k+1}}q^{N_k^2+N_{k+1}^2}}{(q)_{n-N_k}(q)_{N_k-N_{k+1}}(Q;Q)_{N_{k+1}}}.\]
+By (B-iv) with $c=1$,
+$\varphi_d(\cdot;xq)=\frac{1-xq}{1-xq^{2d+1}}\varphi_d(\cdot;x)-\frac{xq^{2d+1}(1-xq)}{1-xq^{2d+1}}\varphi_{d+1}(\cdot;x)$, so
+$(\alpha^*,\beta'')$ is a Bailey pair relative to $x$ with
+$\alpha^*_e=(1-xq)\alpha''_e/(1-xq^{2e+1})-xq^{2e-1}(1-xq)\alpha''_{e-1}/(1-xq^{2e-1})$, i.e.\ $\alpha^*_0=1$ and, for $e\ge1$,
+\begin{align*}
+\alpha^*_e&=(-1)^e\Bigl[\frac{x^{2e}q^{3e^2+2e}(x^2Q;Q)_e}{(Q;Q)_e}+\frac{x^{2e-1}q^{3e^2-2e}(x^2Q;Q)_{e-1}}{(Q;Q)_{e-1}}\Bigr]\\
+&=\frac{(-1)^ex^{2e-1}q^{3e^2-2e}(x^2Q;Q)_{e-1}(1-y+xy^2-x^3y^3)}{(Q;Q)_e}
+\end{align*}
+with $y:=q^{2e}$; as $1-y+xy^2-x^3y^3=(1-xy)(1+(x-1)y+x^2y^2)$, \eqref{eq:bOmega} gives $\alpha^*_e=\varpi_e^2b^\Omega_e$ (also for
+$e=0$). Now $k-1$ steps (L$\infty$) relative to $x$ give $\alpha^{(k)}_n=\varpi_n^{k-1}\alpha^*_n=\varpi_n^{k+1}b^\Omega_n$, and
+$\beta^{(k)}_n$ is the sum defining $B^{(k)}_{k+1}$ with the extra factor $1/(q)_{n-N_1}$ and $N_1\le n$ (for $k=1$ there is
+no step and $\beta^{(1)}=\beta''$). Letting $n\to\infty$ as in the proof of Theorem~\ref{thm:B} (for each power of $x$ only
+finitely many indices and finitely many $r$ contribute, since $\operatorname{ord}\alpha^{(k)}_r\ge r$) gives
+$B^{(k)}_{k+1}(x)/(q)_\infty=\sum_r\alpha^{(k)}_r/((q)_\infty(xq)_\infty)$. With the first part,
+$K^\Omega_k=B^{(k)}_{k+1}J_k$.
+\end{proof}
+
+At $x=1$ the identity $(q)_\infty B^{(k)}_{k+1}(1)=\vartheta(q^k;q^{2k+4})$ is Bressoud's even-modulus
+identity~\cite{Bressoud79,Bressoud80} (quoted in~\cite[(3.6)]{KRTW}); the proof above does not use it.
+
+\subsection{The Hall--Littlewood form of \texorpdfstring{$(F_k)$}{(F\_k)}}\label{ssec:HL}
 For $y=(y_1,\dots,y_n)$, Griffin, Ono and Warnaar~\cite[§3.1]{GOW} define
 \[
 L^{(0)}_m(y;q):=\sum_{r\in\N^n}\frac{\Delta_C(yq^r)}{\Delta_C(y)}\prod_iy_i^{2(m+1)r_i}q^{(m+1)r_i^2+n r_i(r_i-1)/2}
@@ -839,25 +1314,24 @@ Warnaar~\cite[Theorem~4.2]{BW} and the evaluation of its right-hand side in~\cit
 their Littlewood-type identity~\cite[Corollary~3.4]{BW}), in the limit $b,c\to\infty$; it is stated
 in~\cite[§3.1]{GOW} as the level-$m$ $C_n$ Rogers--Selberg identity, where the infinite products on the
 right are omitted from the display. With the products it reduces for $n=1$ to the classical
-Rogers--Selberg identity and for $m\to\infty$ to the Littlewood sum; the referees also confirmed it
-numerically at a generic point for $n=2$, $m\le3$ (true with the products, false without them).
+Rogers--Selberg identity and for $m\to\infty$ to the Littlewood sum; the referees of the first version also
+confirmed it numerically at a generic point for $n=2$, $m\le3$ (true with the products, false without them).
 
 \begin{corollary}\label{cor:HL}
 \begin{enumerate}[label=(\alph*)]
-\item Assume (RS) for $n=2$. Then $(F_k)$ is equivalent to
+\item Assume (RS) for $n=2$. Then for every $k\ge1$
 \[
 (HL_k)\qquad K_k(x)=\sum_{\lambda:\ \lambda_1\le k}q^{|\lambda|}P_{2\lambda}(X_x;q),\qquad X_x=\{\pm\sqrt x\,q^i:i\ge0\}.
 \]
-In particular $(HL_k)$ holds for $k\le3$ (given (RS)).
 \item \textup{(}Corollary~\ref{cor:zq}.\textup{)} Unconditionally, \eqref{eq:ii} for a given $k$ is equivalent to
-KRTW's Conjecture~2.2 at $z=q$ for that $k$.
+KRTW's Conjecture~2.2 at $z=q$ for that $k$; so, by Theorem~\ref{thm:k3}, Conjecture~2.2 holds at $z=q$ for every $k$.
 \end{enumerate}
 \end{corollary}
 \begin{proof}
 (a) For $y=(\sqrt x,-\sqrt x)$ the product in (RS) is $(xq;q)_\infty^2(-xq;q)_\infty=(xq;q)_\infty(x^2Q;Q)_\infty$,
 the prefactor in (B4). By (B4), \eqref{eq:Lspec} and (RS),
 $B_{k+1}(x)J_k(x)=\sum_{\lambda_1\le k}q^{|\lambda|}P'_{2\lambda}(\sqrt x,-\sqrt x;q)$, and
-$P'_\mu(y_1,y_2;q)=P_\mu(X_x;q)$. Theorem~\ref{thm:k3} gives the case $k\le3$.
+$P'_\mu(y_1,y_2;q)=P_\mu(X_x;q)$; Theorem~\ref{thm:F} gives $(HL_k)$.
 (b) Griffin, Ono and Warnaar~\cite[Theorem~1.3]{GOW} prove, for positive integers $m,n$ with $n\ge2$ and
 $\kappa=2m+2n$,
 \[
@@ -870,28 +1344,20 @@ For $n=2$, $m=k$ the right side is the product side of~\eqref{eq:ii}. At $z=q$ t
 \end{proof}
 
 So the same $2k$-fold sum carries two Hall--Littlewood interpretations: along KRTW's grading
-$z^{\sum(r_i+s_i)}$ (base $q^2$, alphabet $\{q^i\}$; conjectural) and along the grading
-$x^{\sum(r_i+2s_i)}$ used here (base $q$, alphabet $\{\pm\sqrt xq^i\}$; equivalent to $(F_k)$ given
-(RS)). They meet at $x=z=q$.
+$z^{\sum(r_i+s_i)}$ (base $q^2$, alphabet $\{q^i\}$; conjectural for general $z$) and along the grading
+$x^{\sum(r_i+2s_i)}$ used here (base $q$, alphabet $\{\pm\sqrt xq^i\}$; proved for every $k$, given (RS)). They
+meet at $x=z=q$.
 
-\subsection{What remains for general \texorpdfstring{$k$}{k}}\label{ssec:remain}
+\subsection{What remains}\label{ssec:remain}
 \begin{enumerate}[leftmargin=2em]
-\item Conjecture $(F_k)$ and \eqref{eq:FOmega} were tested for $k\le7$ in all powers of $x$
-(§\ref{sec:num}). They are open for $k\ge4$, resp.\ $k\ge2$ (\eqref{eq:FOmega} is termwise for $k=1$:
-$\Omega=q^{r_1+2s_1}$ and $N_1+N_2=r_1+2s_1$).
-\item The chains of Table~\ref{tab:k3} preserve the $x$-grading but no second linear grading: neither KRTW's
-$z^{\sum(r_i+s_i)}$ nor a marking of $r_1$ survives (already for $k=2$ the precondition of the DEFUSE of
-$a_2''$ fails for the grading $y^{r_1}$). This is why no analogue of the finite identity
-Theorem~\ref{thm:R} has been found for $(F_k)$; two natural $R$-refinements on the Bressoud side
-(inserting $\qbin{R}{N_1-N_2}$, resp.\ $(q)_R/(q)_{R-(N_1-N_{k+1})}$) fail already with two levels, and two natural two-parameter versions of $(F_2)$ are false (checked modulo $q^{22}$).
-\item We do not see how to extend the method of §§\ref{sec:lemmas}--\ref{sec:R}. By \eqref{eq:01} the level
-weight of~\eqref{eq:xref} is $x^{N_i}q^{N_i(N_i+1)/2}\cdot q^{r_i(r_i-1)/2}$; with the more general weight
-$x^{N_i}q^{N_i(N_i+1)/2}\cdot c^{r_i}q^{r_i(r_i-1)/2}$, Lemma~\ref{lem:L2} becomes a coefficient extraction from
-$(-cz;q)_R/((z;q)_\infty(-z;q)_\infty)$, and the cancellation
-$(-z;q)_R/(-z;q)_\infty=1/(-zq^R;q)_\infty$ that drives
-Lemmas~\ref{lem:L2}--\ref{lem:key} has no analogue that we could find unless $c\in q^\Z$; the identities \eqref{eq:ii}--\eqref{eq:iv}
-correspond to $c=q^{1/2}$. Correspondingly, the product side of \eqref{eq:iii} is a product of two theta
-quotients, while that of \eqref{eq:i} is one theta quotient times $(-q;q)_\infty$.
+\item KRTW's Conjecture~2.2 for general $z$, their Conjecture~4.9 for $k\ge3$, and Primc's $D_3^{(2)}$ conjecture at
+level $k\ge3$ remain open; the identities proved here are their specialisations, not the conjectures themselves.
+\item The method of §§\ref{ssec:transfer}--\ref{ssec:iv} uses the transfer operator of the $x$-graded sum. We
+have not tried to extend it to KRTW's grading $z^{\sum(r_i+s_i)}$ (Conjecture~2.2 for general $z$), and we do not
+know operators commuting with the corresponding transfer operator.
+\item Identities \eqref{eq:ii}--\eqref{eq:iv} are not formalized in Lean (§\ref{sec:lean}). Beyond the Bailey-pair
+machinery already formalized for~\eqref{eq:i}, a formalization would need the $x$-adic convergence and
+completeness arguments of §\ref{ssec:spec}.
 \end{enumerate}
 
 \section{The Lean formalization}\label{sec:lean}
@@ -1066,13 +1532,30 @@ Remark~\ref{rem:X1} for $k\le6$ mod $q^{80}$.
 all four identities \eqref{eq:i}--\eqref{eq:iv} hold modulo $q^{400}$ for $1\le k\le8$ (the $2k$-fold sums
 are computed by a level-by-level recursion, compared with brute-force enumeration for $k\le3$ mod $q^{30}$).
 \item \fpath{02-exceptional-nahm-sums/code/krtw_Fk_test.py} (log \fpath{certificates/krtw_Fk_test.txt}):
-$(F_k)$ and \eqref{eq:FOmega} for $k\le7$, all powers of $x$, mod $q^{44}$;
+$(F_k)$ and the identity $K^\Omega_k=B^{(k)}_{k+1}J_k$ of Theorem~\ref{thm:iv} for $k\le7$, all powers of $x$, mod $q^{44}$;
 \fpath{02-exceptional-nahm-sums/code/krtw_struct_certify.py} (log
 \fpath{certificates/krtw_struct_certify.txt}): Theorem~\ref{thm:B} and $(F_k)$ for $k\le7$, all powers of
 $x$, mod $q^{90}$.
-\item \fpath{02-exceptional-nahm-sums/code/krtw_moves_certify.py}: the chains of §\ref{sec:k3} with the
-exact precondition of every DEFUSE, the matching of the end data, and an independent series evaluation
-of all four ends ($x^0,\dots,x^{16}$ mod $q^{60}$).
+\item \fpath{02-exceptional-nahm-sums/code/krtw_moves_certify.py}: the move chains of the first version
+for $(F_2)$, $(F_3)$, with the exact precondition of every DEFUSE, the matching of the end data, and an
+independent series evaluation of all four ends ($x^0,\dots,x^{16}$ mod $q^{60}$).
+\item \fpath{01-krtw-identities/all-k/code/certify_F_all_k.py} (log \fpath{01-krtw-identities/all-k/certificates/certify_F_all_k.txt}),
+exact arithmetic: Proposition~\ref{prop:comm} and the transposed relations~\eqref{eq:HGsharp} on point masses at
+two rational points; (B-v) symbolically; the eigen-relations of Lemma~\ref{lem:HGeig} and of $H'^\sharp$, $G^\sharp$ on
+eigenvectors computed independently from the triangular systems of $T$ and $T^\sharp$; Corollaries~\ref{cor:V}
+and~\ref{cor:Vsharp} against those eigenvectors ($N\le7$); Propositions~\ref{prop:Arec} and~\ref{prop:vsharp}
+($N\le8$); Lemma~\ref{lem:biorth} (all pairs with $N\le3$); Lemma~\ref{lem:prod} ($N\le8$); Theorem~\ref{thm:F} for
+$k\le6$, all powers of $x$, mod $q^{30}$; the expansion of $u$ in Theorem~\ref{thm:spec}. Negative controls are
+detected.
+\item \fpath{01-krtw-identities/all-k/code/certify_iv_all_k.py} (log \fpath{01-krtw-identities/all-k/certificates/certify_iv_all_k.txt}):
+Lemmas~\ref{lem:hcomm} and~\ref{lem:omh} on point masses (exact); Proposition~\ref{prop:tele} for $k\le8$, all powers
+of $x$, mod $q^{40}$, with $\Omega$ expanded literally; Lemma~\ref{lem:hphi} for $N\le5$; Lemma~\ref{lem:factor} for
+$N\le12$ and $\alpha^*_n=\varpi_n^2b^\Omega_n$ for $n\le12$ (symbolic); Theorem~\ref{thm:specOm} and the $x$-refinement of
+Theorem~\ref{thm:iv} for $k\le8$, all powers of $x$, mod $q^{40}$; the triple-product evaluation in
+Proposition~\ref{prop:Fimplies}(b) for $k\le10$ mod $q^{200}$. Negative controls are detected.
+\item Separate code, \fpath{01-krtw-identities/all-k/code/series_check_q300.py}, with log
+\fpath{01-krtw-identities/all-k/certificates/series_check_q300.txt}: \eqref{eq:ii}, \eqref{eq:iii}, \eqref{eq:iv} in KRTW's
+printed form, with $\Omega$ expanded literally, mod $q^{300}$ for $k\le8$.
 \item Independent referee computations (reports \fpath{01-krtw-identities/REFEREE-*.md}; code written
 from the statements; the code of one referee is archived in \fpath{02-exceptional-nahm-sums/code/krtw_referee/},
 e.g.\ \fpath{chains.py}, \fpath{hl_direct.py}, \fpath{rs_generic.py}; the code of the other three was not
@@ -1082,47 +1565,44 @@ Lemma~\ref{lem:key} exactly for $R,M\le8$; the Hall--Littlewood side of Corollar
 $k\le4$ mod $q^{26}$; all $30$ intermediate data of the chains ($x^0,\dots,x^{16}$ mod $q^{100}$);
 \eqref{eq:ii}, \eqref{eq:iii} for $k=3$ in KRTW's printed form mod $q^{150}$; $(HL_k)$ for $k\le3$ directly
 from Kostka--Foulkes polynomials.
+\item Independent referee computations for §\ref{sec:k3} (reports \fpath{01-krtw-identities/all-k/REFEREE-*.md}, code
+archived in \fpath{01-krtw-identities/all-k/referee*/}): \eqref{eq:ii}, \eqref{eq:iii} mod $q^{300}$ for $k\le12$ and
+\eqref{eq:iv} mod $q^{401}$ for $k\le14$, from the printed sums; Theorem~\ref{thm:F}, Proposition~\ref{prop:tele},
+Theorem~\ref{thm:specOm} and Theorem~\ref{thm:iv} as series in $x$ and $q$ (mod $q^{81}$ for $k\le8$, mod
+$q^{61}$ for $k\le12$); the commutation relations on point masses at three rational points; eigenvectors of $T$
+and $T^\sharp$ computed pointwise in position space, with all the eigen-relations, values at infinity and
+pairings of §§\ref{ssec:basis}--\ref{ssec:spec} and Lemma~\ref{lem:hphi}; the sharpness of the valuation bound of
+Lemma~\ref{lem:val}(a); the expansion of $u$ (exactly modulo $x^{14}$); Lemma~\ref{lem:prod} and Lemma~\ref{lem:factor}
+symbolically. The second read of §\ref{sec:k3} also found \eqref{eq:ii}--\eqref{eq:iv} mod $q^{400}$ for $k\le10$, and
+Theorems~\ref{thm:F}, \ref{thm:iv} as series in $x$ and $q$ mod $q^{100}$ for $k\le8$.
 \end{itemize}
 
 \emph{Concordance.} The certificates, the referee reports and the Lean docstrings use the numbering of the
 source files \fpath{01-krtw-identities/KRTW-general.md} and \fpath{KRTW-F-moves.md}: there, Lemma~4 is
 Lemma~\ref{lem:key}, Theorem~1 is Theorem~\ref{thm:R}, Theorem~2 is Theorem~\ref{thm:x}, Theorem~3 is
 Theorem~\ref{thm:main}, Proposition~6 is Proposition~\ref{prop:bailey}, Corollary~4 is
-Corollary~\ref{cor:z1}, Corollary~5 is Corollary~\ref{cor:y}; Theorem~A is Theorem~\ref{thm:k3},
-Theorem~B is Theorem~\ref{thm:B}, Corollary~C is Corollary~\ref{cor:HL}.
+Corollary~\ref{cor:z1}, Corollary~5 is Corollary~\ref{cor:y}; Theorem~B is Theorem~\ref{thm:B}, Corollary~C is
+Corollary~\ref{cor:HL} (their Theorem~A, the case $k\le3$ of Theorem~\ref{thm:F}, is superseded). The files
+\fpath{01-krtw-identities/all-k/proofs/F-all-k.md} and \fpath{iv-all-k.md}, with their certificates and reports, write $\lambda$
+for $\varpi$, $W$ for $\mathcal W$, $W_{N,M}$ for $A_{N,M}$ and $\mathfrak u$ for $\mathsf U$, and number as follows. In
+\fpath{F-all-k.md}: Proposition~2.1 is Proposition~\ref{prop:comm}, Proposition~3.1 is Proposition~\ref{prop:eig},
+Lemma~3.2 is Lemma~\ref{lem:HGeig}, Proposition~4.1 is Proposition~\ref{prop:Arec}, Corollary~4.2 is
+Corollary~\ref{cor:V}, Lemma~4.3 is Lemma~\ref{lem:omphi}, Proposition~5.1 is Proposition~\ref{prop:vsharp},
+Corollary~5.2 is Corollary~\ref{cor:Vsharp}, Lemma~5.3 is Lemma~\ref{lem:psiu}, Lemmas~6.1--6.3 are
+Lemmas~\ref{lem:biorth}--\ref{lem:compl}, Theorem~6.4 is Theorem~\ref{thm:spec}, Lemma~7.1 is Lemma~\ref{lem:prod},
+Theorems~1 and~2 are Theorems~\ref{thm:F} and~\ref{thm:k3}. In \fpath{iv-all-k.md}: Lemma~1.1 is
+Lemma~\ref{lem:Omop}, Lemma~2.1 is Lemma~\ref{lem:hcomm}, Lemma~2.2 is Lemma~\ref{lem:omh}, Proposition~2.3 is
+Proposition~\ref{prop:tele}, Lemma~3.1 is Lemma~\ref{lem:hphi}, Theorem~3.2 is Theorem~\ref{thm:specOm}, Lemma~4.1 is
+Lemma~\ref{lem:factor}, and Theorems~4--6 are Theorem~\ref{thm:iv} together with Proposition~\ref{prop:Fimplies}(b).
 
 \section*{Acknowledgements}
 The results, proofs, computer code and Lean formalization in this paper were produced by AI (Anthropic's
 Claude models) directed by the author. Their correctness was checked by independent AI referees
-(separate instances instructed to find errors, each writing its own code; four reports, included in
-the repository) and, for the formalized statements, by the Lean kernel. No human expert has refereed
+(separate instances instructed to find errors, each writing its own code; seven reports, included in
+the repository; two independent reads of each proof, §\ref{ssec:reads}) and, for the formalized statements
+(identity~\eqref{eq:i}), by the Lean kernel. No human expert has refereed
 this work yet; corrections are welcome. We thank the authors of~\cite{KRTW} for stating the identities
 precisely, and the developers of Lean and Mathlib.
-
-\appendix
-\section{The end datum of the chains for \texorpdfstring{$k=3$}{k=3}}\label{app:data}
-All eight species have base $Q=q^2$. In the order of the $K$-side species
-\begin{gather*}
-\bigl(((a_1'|a_2'')|a_3')|[a_1'+b_2]\bigr),\quad (a_2'|a_3'),\quad b_1,\quad (b_2|[a_1'+b_2]),\\
-\bigl((b_3|[(a_2'|a_3')+b_2])|[b_2+(a_1''|a_2'')]\bigr),\quad (a_1''|a_2''),\quad (a_3''|[b_2+(a_1''|a_2'')]),\quad
-([a_2'+b_3]|[(a_2'|a_3')+b_2]),
-\end{gather*}
-the common end datum of the two chains is $w=(1,2,6,4,2,1,3,4)$, linear term $\ell=(0,0,0,0,0,1,1,0)$ and
-\[
-G=\begin{pmatrix}
-2&0&2&0&0&0&2&2\\ 0&4&4&4&2&2&4&4\\ 2&4&12&8&4&2&6&8\\ 0&4&8&8&4&2&4&6\\
-0&2&4&4&4&0&0&2\\ 0&2&2&2&0&2&2&2\\ 2&4&6&4&0&2&6&6\\ 2&4&8&6&2&2&6&8
-\end{pmatrix}.
-\]
-On the $B$-side the same datum is reached; the matching of species ($K$-side $\leftrightarrow$
-$B$-side, in the order above) is $((n_1'|n_2'')|n_3')$, $(n_2'|n_3')$, $[n_4+g_1]$,
-$[(n_2'|n_3')+g_1]$, $g_1$, $(n_1''|n_2'')$, $n_3''$, $n_4$, as recorded in
-\fpath{02-exceptional-nahm-sums/certificates/krtw_moves_certify.txt} (which also lists the matching for
-$k=2$). The start data are those of §\ref{sec:k3}; e.g.\ for $K_3$ (species
-$a_1,a_2,a_3,b_1,b_2,b_3$, bases $1,1,1,2,2,2$, weights $1,2,3,6,4,2$, no linear term)
-\[
-G=\begin{pmatrix}2&2&2&2&0&0\\2&4&4&4&2&0\\2&4&6&6&4&2\\2&4&6&12&8&4\\0&2&4&8&8&4\\0&0&2&4&4&4\end{pmatrix}.
-\]
 
 \begin{thebibliography}{99}
 

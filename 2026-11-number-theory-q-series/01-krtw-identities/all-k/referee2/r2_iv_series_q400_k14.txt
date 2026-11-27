@@ -1,0 +1,36 @@
+Referee 2, (1): KRTW (iv) as q-series, literal multisum. Nmax = 400 (mod q^401), k = 1..14
+  DP vs naive enumeration, k=1, mod q^61: OK
+  DP vs naive enumeration, k=2, mod q^61: OK
+  DP vs naive enumeration, k=3, mod q^61: OK
+  (iv) k= 1: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 0, 1, 1, 2, 1, 3, 2, 5, 4, 7, 6] ...]  (0.0s)
+  (iv) k= 2: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 2, 2, 5, 5, 9, 10, 17, 19, 29, 33] ...]  (0.5s)
+  (iv) k= 3: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 3, 7, 8, 15, 17, 30, 35, 56, 66] ...]  (1.3s)
+  (iv) k= 4: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 8, 10, 19, 23, 39, 49, 77, 96] ...]  (2.0s)
+  (iv) k= 5: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 9, 11, 21, 27, 46, 58, 93, 118] ...]  (2.6s)
+  (iv) k= 6: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 9, 12, 22, 29, 50, 65, 103, 134] ...]  (3.0s)
+  (iv) k= 7: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 9, 12, 23, 30, 52, 69, 110, 144] ...]  (3.4s)
+  (iv) k= 8: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 9, 12, 23, 31, 53, 71, 114, 151] ...]  (3.9s)
+  (iv) k= 9: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 9, 12, 23, 31, 54, 72, 116, 155] ...]  (4.7s)
+  (iv) k=10: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 9, 12, 23, 31, 54, 73, 117, 157] ...]  (4.8s)
+  (iv) k=11: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 9, 12, 23, 31, 54, 73, 118, 158] ...]  (4.8s)
+  (iv) k=12: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 9, 12, 23, 31, 54, 73, 118, 159] ...]  (5.1s)
+  (iv) k=13: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 9, 12, 23, 31, 54, 73, 118, 159] ...]  (6.3s)
+  (iv) k=14: LHS*(q)_inf(q^2;q^2)_inf == numerator mod q^401: OK   [LHS = [1, 1, 3, 4, 9, 12, 23, 31, 54, 73, 118, 159] ...]  (5.1s)
+  positive control (ii) k=1 mod q^401: OK
+  positive control (iii) k=1 mod q^401: OK
+  positive control (ii) k=2 mod q^401: OK
+  positive control (iii) k=2 mod q^401: OK
+  positive control (ii) k=3 mod q^401: OK
+  positive control (iii) k=3 mod q^401: OK
+  positive control (ii) k=4 mod q^401: OK
+  positive control (iii) k=4 mod q^401: OK
+  negative controls (each must FAIL; first differing power of q shown):
+    NC1 LHS(iv,k=3) vs RHS(iv,k=4): fails at q^3 (good)
+    NC nc_last     k=3 vs RHS(iv,k=3): fails at q^3 (good)
+    NC nc_nofactor k=3 vs RHS(iv,k=3): fails at q^0 (good)
+    NC nc_half     k=3 vs RHS(iv,k=3): fails at q^3 (good)
+    NC1 LHS(iv,k=5) vs RHS(iv,k=6): fails at q^5 (good)
+    NC nc_last     k=5 vs RHS(iv,k=5): fails at q^3 (good)
+    NC nc_nofactor k=5 vs RHS(iv,k=5): fails at q^0 (good)
+    NC nc_half     k=5 vs RHS(iv,k=5): fails at q^3 (good)
+RESULT: ALL OK   (63.6s)

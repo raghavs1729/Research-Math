@@ -1,0 +1,2 @@
+q=2/7, N<=5: min over (N,M,R,S) of [ord phi(R,S) - 2(M-S)] = -0.0000 (bound attained at 560/560 nonzero entries);  min ord phi#(R,S) = -0.0000
+q=-3/5, N<=5: min over (N,M,R,S) of [ord phi(R,S) - 2(M-S)] = -0.0000 (bound attained at 560/560 nonzero entries);  min ord phi#(R,S) = -0.0000

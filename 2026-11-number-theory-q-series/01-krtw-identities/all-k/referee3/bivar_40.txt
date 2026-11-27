@@ -1,0 +1,14 @@
+# referee3 bivar.py: all identities in Z[x][[q]] mod q^40, all powers of x (x^0..x^39)
+k=1: (F_k)  K C1 - B_{k+1} C_k: OK; (F^Om) KOm C1 - B^(k) C_k: OK; (B1): OK; (B2): OK; Thm 4: OK; Thm 6: OK; Prop 2.3: OK; Thm 6.4 (V,V# closed forms): OK; Thm 3.2 flat: OK; Thm 3.2 Om: OK
+      negative controls: K C1 - B_(k+2) C_k first nonzero (x^d,q^n) = (2, 3); spectral with perturbed (1,0) weight: (2, 2); Omega last term dropped: (0, 0)
+k=2: (F_k)  K C1 - B_{k+1} C_k: OK; (F^Om) KOm C1 - B^(k) C_k: OK; (B1): OK; (B2): OK; Thm 4: OK; Thm 6: OK; Prop 2.3: OK; Thm 6.4 (V,V# closed forms): OK; Thm 3.2 flat: OK; Thm 3.2 Om: OK
+      negative controls: K C1 - B_(k+2) C_k first nonzero (x^d,q^n) = (3, 4); spectral with perturbed (1,0) weight: (3, 3); Omega last term dropped: (0, 0)
+k=3: (F_k)  K C1 - B_{k+1} C_k: OK; (F^Om) KOm C1 - B^(k) C_k: OK; (B1): OK; (B2): OK; Thm 4: OK; Thm 6: OK; Prop 2.3: OK; Thm 6.4 (V,V# closed forms): OK; Thm 3.2 flat: OK; Thm 3.2 Om: OK
+      negative controls: K C1 - B_(k+2) C_k first nonzero (x^d,q^n) = (4, 5); spectral with perturbed (1,0) weight: (4, 4); Omega last term dropped: (0, 0)
+k=4: (F_k)  K C1 - B_{k+1} C_k: OK; (F^Om) KOm C1 - B^(k) C_k: OK; (B1): OK; (B2): OK; Thm 4: OK; Thm 6: OK; Prop 2.3: OK; Thm 6.4 (V,V# closed forms): OK; Thm 3.2 flat: OK; Thm 3.2 Om: OK
+      negative controls: K C1 - B_(k+2) C_k first nonzero (x^d,q^n) = (5, 6); spectral with perturbed (1,0) weight: (5, 5); Omega last term dropped: (0, 0)
+k=5: (F_k)  K C1 - B_{k+1} C_k: OK; (F^Om) KOm C1 - B^(k) C_k: OK; (B1): OK; (B2): OK; Thm 4: OK; Thm 6: OK; Prop 2.3: OK; Thm 6.4 (V,V# closed forms): OK; Thm 3.2 flat: OK; Thm 3.2 Om: OK
+      negative controls: K C1 - B_(k+2) C_k first nonzero (x^d,q^n) = (6, 7); spectral with perturbed (1,0) weight: (6, 6); Omega last term dropped: (0, 0)
+k=6: (F_k)  K C1 - B_{k+1} C_k: OK; (F^Om) KOm C1 - B^(k) C_k: OK; (B1): OK; (B2): OK; Thm 4: OK; Thm 6: OK; Prop 2.3: OK; Thm 6.4 (V,V# closed forms): OK; Thm 3.2 flat: OK; Thm 3.2 Om: OK
+      negative controls: K C1 - B_(k+2) C_k first nonzero (x^d,q^n) = (7, 8); spectral with perturbed (1,0) weight: (7, 7); Omega last term dropped: (0, 0)
+# ALL BIVARIATE CHECKS PASSED (time 0.6s)

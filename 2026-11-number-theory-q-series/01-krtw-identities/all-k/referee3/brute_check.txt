@@ -1,0 +1,9 @@
+k=1 (ii): brute == nested: True
+k=1 (iii): brute == nested: True
+k=1 (iv):  brute == nested: True
+k=2 (ii): brute == nested: True
+k=2 (iii): brute == nested: True
+k=2 (iv):  brute == nested: True
+k=3 (ii): brute == nested: True
+k=3 (iii): brute == nested: True
+k=3 (iv):  brute == nested: True

@@ -1,0 +1,8 @@
+(q,x)=(2/7,3/11), modes N<=7: 11322 exact checks, 0 failures
+  biorthogonality: 1296 exact pairings checked
+  (q)_inf (xq)_inf phi(Rmax,0) vs W (Rmax = L+2M+10): worst rel. err 1.85e-6
+  omega(phi)=lam W/(xq)_inf and psi(u)=lam V#/(x^2Q;Q)_inf: worst rel. err 1.44e-72
+(q,x)=(-3/5,5/13), modes N<=7: 11322 exact checks, 0 failures
+  biorthogonality: 1296 exact pairings checked
+  (q)_inf (xq)_inf phi(Rmax,0) vs W (Rmax = L+2M+10): worst rel. err 0.00313
+  omega(phi)=lam W/(xq)_inf and psi(u)=lam V#/(x^2Q;Q)_inf: worst rel. err 3.44e-32

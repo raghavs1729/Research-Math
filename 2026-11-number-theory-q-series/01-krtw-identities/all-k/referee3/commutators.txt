@@ -1,0 +1,13 @@
+(q,x)=(2/7,3/5) [exact]: [T,H']: 0, [T,G]: 0, Th-hT+xOT: 0
+(q,x)=(2/7,3/5) [NEG-CONTROL H' U-coefficient 2]: [T,H']: NONZERO, [T,G]: 0, Th-hT+xOT: 0
+(q,x)=(2/7,3/5) [NEG-CONTROL h with xP instead of xPY]: [T,H']: 0, [T,G]: 0, Th-hT+xOT: NONZERO
+(q,x)=(2/7,3/5): (5.1) H'# = W^-1 H'^t W: OK; G# = W^-1 G^t W: OK; T# = W^-1 T^t W: OK; [T#,H'#]: 0, [T#,G#]: 0; Lemma 2.2 on point masses: OK
+(q,x)=(-3/4,5/11) [exact]: [T,H']: 0, [T,G]: 0, Th-hT+xOT: 0
+(q,x)=(-3/4,5/11) [NEG-CONTROL H' U-coefficient 2]: [T,H']: NONZERO, [T,G]: 0, Th-hT+xOT: 0
+(q,x)=(-3/4,5/11) [NEG-CONTROL h with xP instead of xPY]: [T,H']: 0, [T,G]: 0, Th-hT+xOT: NONZERO
+(q,x)=(-3/4,5/11): (5.1) H'# = W^-1 H'^t W: OK; G# = W^-1 G^t W: OK; T# = W^-1 T^t W: OK; [T#,H'#]: 0, [T#,G#]: 0; Lemma 2.2 on point masses: OK
+(q,x)=(5/3,-2/9) [exact]: [T,H']: 0, [T,G]: 0, Th-hT+xOT: 0
+(q,x)=(5/3,-2/9) [NEG-CONTROL H' U-coefficient 2]: [T,H']: NONZERO, [T,G]: 0, Th-hT+xOT: 0
+(q,x)=(5/3,-2/9) [NEG-CONTROL h with xP instead of xPY]: [T,H']: 0, [T,G]: 0, Th-hT+xOT: NONZERO
+(q,x)=(5/3,-2/9): (5.1) H'# = W^-1 H'^t W: OK; G# = W^-1 G^t W: OK; T# = W^-1 T^t W: OK; [T#,H'#]: 0, [T#,G#]: 0; Lemma 2.2 on point masses: OK
+ALL EXACT COMMUTATOR CHECKS PASSED

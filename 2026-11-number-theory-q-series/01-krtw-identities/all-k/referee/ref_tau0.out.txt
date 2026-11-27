@@ -1,0 +1,4 @@
+n=0: support of tau phi_n in phi_e basis (e<=15): [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]; coefficient sum over e<=15 = -5.004e-74
+n=1: support of tau phi_n in phi_e basis (e<=15): [0, 1, 2]; coefficient sum over e<=15 = 0.000e+00
+n=2: support of tau phi_n in phi_e basis (e<=15): [1, 2, 3]; coefficient sum over e<=15 = 0.000e+00
+n=3: support of tau phi_n in phi_e basis (e<=15): [2, 3, 4]; coefficient sum over e<=15 = 0.000e+00

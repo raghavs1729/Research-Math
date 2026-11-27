@@ -1,0 +1,17 @@
+Referee 2: x = 1 evaluations mod q^401, k = 1..14
+  k= 1: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k= 2: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k= 3: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k= 4: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k= 5: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k= 6: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k= 7: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k= 8: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k= 9: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k=10: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k=11: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k=12: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k=13: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  k=14: (a) theta = (q^k,q^{k+4},q^{2k+4})_inf OK; (b) J_k(1) OK; (c) Bressoud B^{(k)}_{k+1}(1) OK
+  negative control (theta with linear term -n instead of -2n, k=4) detected: True
+RESULT: ALL OK

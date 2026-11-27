@@ -1,0 +1,5 @@
+(B-i) exact: True; (B-ii) 100 digits: True; (B-iii) exact: True; (B-iv) Gamma formula, sum, phi_d(aq^2)=(aq)_2 phi_(d+1)(R+1): True; (B-v) incl. 'likewise' sums 1, 0: True
+v_a rules (kappa_0 = 0): v(tau F) = 0, v(h tau F) = (1-1/q) v(F), v(F(.+1)) = v(F), v(q^2R F(.+1)) = 0, pointwise h tau F identity: True
+kappa_0 != 0: tau phi_0 has 15 nonzero coefficients among e <= 14 (not a finite combination: v_a undefined) ; pointwise h tau identity fails at R = 0: True  -> n >= 1 is needed exactly there
+(3.1) T Xi expansion: True; Sec. 5 T# Xi# expansion: True
+ALL BAILEY-BASIS CHECKS PASSED

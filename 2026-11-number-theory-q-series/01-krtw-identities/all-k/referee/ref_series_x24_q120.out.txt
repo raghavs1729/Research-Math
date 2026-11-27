@@ -1,0 +1,14 @@
+truncation x^24, q^120
+k=1: K_direct==spectral(V V#): True   spectral==sum lam^k t: True   K_direct==B_(k+1) C_k/C_1: True
+k=2: K_direct==spectral(V V#): True   spectral==sum lam^k t: True   K_direct==B_(k+1) C_k/C_1: True
+k=3: K_direct==spectral(V V#): True   spectral==sum lam^k t: True   K_direct==B_(k+1) C_k/C_1: True
+k=4: K_direct==spectral(V V#): True   spectral==sum lam^k t: True   K_direct==B_(k+1) C_k/C_1: True
+k=5: K_direct==spectral(V V#): True   spectral==sum lam^k t: True   K_direct==B_(k+1) C_k/C_1: True
+k=6: K_direct==spectral(V V#): True   spectral==sum lam^k t: True   K_direct==B_(k+1) C_k/C_1: True
+k=7: K_direct==spectral(V V#): True   spectral==sum lam^k t: True   K_direct==B_(k+1) C_k/C_1: True
+k=8: K_direct==spectral(V V#): True   spectral==sum lam^k t: True   K_direct==B_(k+1) C_k/C_1: True
+negative control (perturbed (1,1)... term) detected: True
+
+real	0m12.369s
+user	0m12.258s
+sys	0m0.027s

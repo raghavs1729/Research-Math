@@ -1,0 +1,9 @@
+S1  Lemma 2.1 normal-ordered coefficients: hE - Eh~ = xPYuE: OK;  W h = h~ W (h~ = P^-1 - x q^-1 P Y Ssh + x P Y): OK
+S2  Lemma 4.1 for all N,M (u=q^N, v=q^M): factorisations True, True; ratio beta^B/beta^J = (1+x)q^n/(1+xq^{2n}) True; rho_N(eps-mu_N-2x)+rho_M(eps-mu_M-2x) = 0 True
+S3a Lemma 4.1 symbolic in (q,x), all 0 <= M <= N <= 6: OK
+S3b Lemma 4.1 exact at random rational points, all 0 <= M <= N <= 20 (924 evaluations): OK
+S4  b^Omega_n definition == factored form (n <= 10): OK;  b^Omega_n(x=1) == (-1)^n(q^{n^2-2n}+q^{n^2+2n}) (n <= 10; from the factored form): OK
+S5  Bailey pair of Theorem 6 step 1 for general a (n <= 7): OK
+S6  Gamma^(1) re-expansion (d <= 4, R <= 9): OK;  alpha*_e (from alpha'' and Gamma^(1)) == lambda_e^2 b^Omega_e (e <= 10): OK
+S7  Theorem 6 Bailey pair at finite n (beta^{(k)}_n == sum_r lam_r^{k+1} b^Om_r/((q)_{n-r}(xq)_{n+r})), k <= 6, n <= 7 (k<=4) / 5, 2 points: OK;  positive control (B1)-pair for B_{k+1}: OK;  negative control (x-1 -> x+1) detected 12/12
+RESULT: ALL OK

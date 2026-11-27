@@ -1,0 +1,222 @@
+Referee 2, (2)+(5): bivariate checks mod (x^61, q^61) [= all powers of x mod q^61], k = 1..12, brute force k <= 3
+    C1=Eul OK
+  k = 1
+    brute force: 33 tuples
+    K=bf   OK
+    KO=bf  OK
+    Kf=bf  OK
+    P23bf  OK
+    P23    OK
+    L11op  OK
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^1 q^3
+    NC-eps detected (good): first diff at x^4 q^3
+    (0.1s)
+  k = 2
+    brute force: 237 tuples
+    K=bf   OK
+    KO=bf  OK
+    Kf=bf  OK
+    P23bf  OK
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^2 q^4
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^6 q^5
+    NC-fl  detected (good): first diff at x^1 q^0
+    (0.2s)
+  k = 3
+    brute force: 849 tuples
+    K=bf   OK
+    KO=bf  OK
+    Kf=bf  OK
+    P23bf  OK
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^3 q^5
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^8 q^7
+    NC-fl  detected (good): first diff at x^1 q^0
+    (0.4s)
+  k = 4
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^4 q^6
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^10 q^9
+    (0.4s)
+  k = 5
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^5 q^7
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^12 q^11
+    (0.5s)
+  k = 6
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^6 q^8
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^14 q^13
+    (0.9s)
+  k = 7
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^7 q^9
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^16 q^15
+    (1.0s)
+  k = 8
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^8 q^10
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^18 q^17
+    (1.6s)
+  k = 9
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^9 q^11
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^20 q^19
+    (1.9s)
+  k = 10
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^10 q^12
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^22 q^21
+    (2.5s)
+  k = 11
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^11 q^13
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^24 q^23
+    (3.1s)
+  k = 12
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^12 q^14
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^26 q^25
+    (3.5s)
+RESULT: ALL OK   (16.1s)

@@ -1,0 +1,5 @@
+k=1: brute-force 2k-fold sum == omega(T^(k-1) u) mod x^10 q^45: True
+k=2: brute-force 2k-fold sum == omega(T^(k-1) u) mod x^10 q^45: True
+k=3: brute-force 2k-fold sum == omega(T^(k-1) u) mod x^10 q^45: True
+k=4: brute-force 2k-fold sum == omega(T^(k-1) u) mod x^10 q^45: True
+k=5: brute-force 2k-fold sum == omega(T^(k-1) u) mod x^10 q^45: True

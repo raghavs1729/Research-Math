@@ -1,0 +1,19 @@
+KRTW (ii), (iii): series comparison mod q^300
+k=1: (ii) OK  (iii) OK
+k=2: (ii) OK  (iii) OK
+k=3: (ii) OK  (iii) OK
+k=4: (ii) OK  (iii) OK
+k=5: (ii) OK  (iii) OK
+k=6: (ii) OK  (iii) OK
+k=7: (ii) OK  (iii) OK
+k=8: (ii) OK  (iii) OK
+k=9: (ii) OK  (iii) OK
+k=10: (ii) OK  (iii) OK
+k=11: (ii) OK  (iii) OK
+k=12: (ii) OK  (iii) OK
+negative control (iii) k=4 vs RHS with k=5: detected
+ALL OK
+
+real	0m14.161s
+user	0m14.012s
+sys	0m0.026s

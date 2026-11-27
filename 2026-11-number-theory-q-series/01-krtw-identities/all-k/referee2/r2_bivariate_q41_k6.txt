@@ -1,0 +1,132 @@
+Referee 2, (2)+(5): bivariate checks mod (x^41, q^41) [= all powers of x mod q^41], k = 1..6, brute force k <= 5
+    C1=Eul OK
+  k = 1
+    brute force: 23 tuples
+    K=bf   OK
+    KO=bf  OK
+    Kf=bf  OK
+    P23bf  OK
+    P23    OK
+    L11op  OK
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^1 q^3
+    NC-eps detected (good): first diff at x^4 q^3
+    (0.0s)
+  k = 2
+    brute force: 132 tuples
+    K=bf   OK
+    KO=bf  OK
+    Kf=bf  OK
+    P23bf  OK
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^2 q^4
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^6 q^5
+    NC-fl  detected (good): first diff at x^1 q^0
+    (0.1s)
+  k = 3
+    brute force: 383 tuples
+    K=bf   OK
+    KO=bf  OK
+    Kf=bf  OK
+    P23bf  OK
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^3 q^5
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^8 q^7
+    NC-fl  detected (good): first diff at x^1 q^0
+    (0.1s)
+  k = 4
+    brute force: 786 tuples
+    K=bf   OK
+    KO=bf  OK
+    Kf=bf  OK
+    P23bf  OK
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^4 q^6
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^10 q^9
+    NC-fl  detected (good): first diff at x^1 q^0
+    (0.2s)
+  k = 5
+    brute force: 1325 tuples
+    K=bf   OK
+    KO=bf  OK
+    Kf=bf  OK
+    P23bf  OK
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^5 q^7
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^12 q^11
+    NC-fl  detected (good): first diff at x^1 q^0
+    (0.6s)
+  k = 6
+    P23    OK
+    L11op  OK
+    NC-L11 detected (good): first diff at x^0 q^0
+    T32a   OK
+    T32b   OK
+    T32c   OK
+    L41s   OK
+    B2     OK
+    TH4    OK
+    TH6a   OK
+    TH6b   OK
+    Fk     OK
+    NC-b   detected (good): first diff at x^6 q^8
+    NC-Om  detected (good): first diff at x^0 q^0
+    NC-eps detected (good): first diff at x^14 q^13
+    (0.3s)
+RESULT: ALL OK   (1.4s)

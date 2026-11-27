@@ -1,0 +1,19 @@
+[C1a] OK commutators vanish on 2*16 point masses (mismatches: 0)
+[C1b] OK H'# = W^-1 H'^t W and G# = W^-1 G^t W on 25x25 kernel entries (mismatches 0)
+[C1c] OK T# = W^-1 T^t W on 25x25 kernel entries (mismatches 0)
+[C2a] OK q^A phi_n(A+1) = alpha phi_{n-1} + beta phi_n + gamma phi_{n+1} (symbolic in q^n, q^A)
+[C2b] OK alpha_n + beta_n + gamma_n = 0 (symbolic)
+[C2c] OK S phi_n is tridiagonal with column sum 1 (symbolic)
+[C2c] OK q^{2A} S phi_n is tridiagonal with column sum 0 (symbolic)
+[C2d] OK base-q^2 partial fractions of section 5 (sums 1-aQ, 0, 0), symbolic
+[C3] OK T phi = lam phi, H' phi = eps phi, G phi = g phi, support R >= N-M (N <= 4, exact at q=3/7,x=5/11)
+[C4a] OK v(phi_{N,M}(.,0)) = (xq;q)_{2M} V_{N,M} (product formula), N <= 7 (symbolic)
+[C4b] OK eps^2+(1+x)^2((1-x)^2-g) factorisation and V-recursion, N <= 8 (symbolic)
+[C5a] OK T# phi# = lam phi#, H'# phi# = eps phi#, G# phi# = g phi#, support S >= M (N <= 4, exact)
+[C5b] OK v#(phi#_{N,M}(0,.)) = V#_{N,M} (product formula), N <= 7 (symbolic)
+[C5c] OK Fricke factorisation g + x c^2 - eps c = q^{-L-N-M}(1-q^{L-r})(1-q^{L+r})(1-xq^{N+M-r})(1-xq^{N+M+r}), N <= 8
+[C6] OK <psi_a, phi_b> = delta_ab lam/((x^2q^{2L+2};q^2)_{2M}(xq^{2M+1};q)_{2L}) for all 10x10 pairs with N <= 3
+[C7] OK V V# (x^2q^{2L+2};q^2)_{2M} (xq;q)_{2N} = t_{N,M}, N <= 8 (symbolic)
+[C8] OK K_k(x) = sum lam^k t/((xq)(x^2q^2;q^2)) for k <= 6, mod q^30, all powers of x
+[C9] OK u(R,S) = 1/(q)_R = sum u~ phi_{N,M}(R,S) for R,S <= 2 mod x^7 at q = 3/7
+ALL CHECKS PASSED

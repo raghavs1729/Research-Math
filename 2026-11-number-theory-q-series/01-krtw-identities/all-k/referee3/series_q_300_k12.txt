@@ -1,0 +1,17 @@
+# referee3 series_q.py: N = 300 (all checks mod q^300), k = 1..12
+k= 1: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 1; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): n/a(k=1); sum(iii) vs prod(iii) at k+1: 2; sum(i) vs prod(iii): 2
+      first coefficients of sum(iv): [1, 0, 1, 1, 2, 1, 3, 2, 5, 4, 7, 6, 11, 9, 15, 14]
+k= 2: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 2; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 3; sum(i) vs prod(iii): 2
+      first coefficients of sum(iv): [1, 1, 2, 2, 5, 5, 9, 10, 17, 19, 29, 33, 50, 57, 81, 93]
+k= 3: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 3; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 4; sum(i) vs prod(iii): 2
+      first coefficients of sum(iv): [1, 1, 3, 3, 7, 8, 15, 17, 30, 35, 56, 66, 101, 120, 175, 208]
+k= 4: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 4; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 5; sum(i) vs prod(iii): 2
+k= 5: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 5; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 6; sum(i) vs prod(iii): 2
+k= 6: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 6; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 7; sum(i) vs prod(iii): 2
+k= 7: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 7; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 8; sum(i) vs prod(iii): 2
+k= 8: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 8; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 9; sum(i) vs prod(iii): 2
+k= 9: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 9; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 10; sum(i) vs prod(iii): 2
+k=10: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 10; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 11; sum(i) vs prod(iii): 2
+k=11: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 11; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 12; sum(i) vs prod(iii): 2
+k=12: (ii) OK  (iii) OK  (iv) OK  [(i), not claimed: OK]  | neg. controls, first differing power: sum(iv) vs prod(iii): 12; Omega without the '-q^(2s_(i+1)-2s_i)' part vs prod(iv): 0; sum(iii) vs prod(iii) at k+1: 13; sum(i) vs prod(iii): 2
+# ALL (ii),(iii),(iv) CHECKS PASSED; time 23.5s

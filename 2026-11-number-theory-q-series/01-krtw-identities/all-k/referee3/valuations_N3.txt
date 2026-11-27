@@ -1,0 +1,25 @@
+=== q = 2/7 (x indeterminate) ===
+mode (0, 0): (a) min ord of c^(S), S=0..M: [0] (bound 2(M-S) = [0]);  (b) min ord of c_(.,rho), rho=0..L: [0]
+mode (1, 0): (a) min ord of c^(S), S=0..M: [0] (bound 2(M-S) = [0]);  (b) min ord of c_(.,rho), rho=0..L: [1, 0]
+mode (1, 1): (a) min ord of c^(S), S=0..M: [2, 0] (bound 2(M-S) = [2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [0]
+mode (2, 0): (a) min ord of c^(S), S=0..M: [0] (bound 2(M-S) = [0]);  (b) min ord of c_(.,rho), rho=0..L: [2, 1, 0]
+mode (2, 1): (a) min ord of c^(S), S=0..M: [2, 0] (bound 2(M-S) = [2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [1, 0]
+mode (2, 2): (a) min ord of c^(S), S=0..M: [4, 2, 0] (bound 2(M-S) = [4, 2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [0]
+mode (3, 0): (a) min ord of c^(S), S=0..M: [0] (bound 2(M-S) = [0]);  (b) min ord of c_(.,rho), rho=0..L: [3, 2, 1, 0]
+mode (3, 1): (a) min ord of c^(S), S=0..M: [2, 0] (bound 2(M-S) = [2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [2, 1, 0]
+mode (3, 2): (a) min ord of c^(S), S=0..M: [4, 2, 0] (bound 2(M-S) = [4, 2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [1, 0]
+mode (3, 3): (a) min ord of c^(S), S=0..M: [6, 4, 2, 0] (bound 2(M-S) = [6, 4, 2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [0]
+(c) for all modes N' <= 3, e <= L'+2, sigma <= M'+2: OK
+=== q = -3/5 (x indeterminate) ===
+mode (0, 0): (a) min ord of c^(S), S=0..M: [0] (bound 2(M-S) = [0]);  (b) min ord of c_(.,rho), rho=0..L: [0]
+mode (1, 0): (a) min ord of c^(S), S=0..M: [0] (bound 2(M-S) = [0]);  (b) min ord of c_(.,rho), rho=0..L: [1, 0]
+mode (1, 1): (a) min ord of c^(S), S=0..M: [2, 0] (bound 2(M-S) = [2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [0]
+mode (2, 0): (a) min ord of c^(S), S=0..M: [0] (bound 2(M-S) = [0]);  (b) min ord of c_(.,rho), rho=0..L: [2, 1, 0]
+mode (2, 1): (a) min ord of c^(S), S=0..M: [2, 0] (bound 2(M-S) = [2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [1, 0]
+mode (2, 2): (a) min ord of c^(S), S=0..M: [4, 2, 0] (bound 2(M-S) = [4, 2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [0]
+mode (3, 0): (a) min ord of c^(S), S=0..M: [0] (bound 2(M-S) = [0]);  (b) min ord of c_(.,rho), rho=0..L: [3, 2, 1, 0]
+mode (3, 1): (a) min ord of c^(S), S=0..M: [2, 0] (bound 2(M-S) = [2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [2, 1, 0]
+mode (3, 2): (a) min ord of c^(S), S=0..M: [4, 2, 0] (bound 2(M-S) = [4, 2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [1, 0]
+mode (3, 3): (a) min ord of c^(S), S=0..M: [6, 4, 2, 0] (bound 2(M-S) = [6, 4, 2, 0]);  (b) min ord of c_(.,rho), rho=0..L: [0]
+(c) for all modes N' <= 3, e <= L'+2, sigma <= M'+2: OK
+LEMMA 6.2 VALUATION CHECKS PASSED
