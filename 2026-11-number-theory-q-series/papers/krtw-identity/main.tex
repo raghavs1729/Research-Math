@@ -897,7 +897,7 @@ quotients, while that of \eqref{eq:i} is one theta quotient times $(-q;q)_\infty
 \section{The Lean formalization}\label{sec:lean}
 
 \subsection{What is formalized}
-The Lean~4 project in the public repository at \repo\fpath{01-krtw-identities/lean/} proves, for every $k$, the printed identity~\eqref{eq:i} in product
+The Lean~4 project in the public repository at \repo\fpath{lean/lean-krtw/} proves, for every $k$, the printed identity~\eqref{eq:i} in product
 form, and the first equality of Theorem~\ref{thm:x} for an arbitrary field $K$ and an arbitrary power
 series $x\in K[[q]]$. All series are elements of Mathlib's \texttt{PowerSeries} (the variable \texttt{X}
 plays the role of~$q$). Pins: Lean \texttt{leanprover/lean4:v4.33.0-rc2}, Mathlib commit
@@ -1034,7 +1034,7 @@ inspection, not by a proof.)
 curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
     | sh -s -- -y --default-toolchain none
 export PATH="$HOME/.elan/bin:$PATH"
-cd 2026-11-number-theory-q-series/01-krtw-identities/lean
+cd 2026-11-number-theory-q-series/lean/lean-krtw
 lake exe cache get    # Mathlib binaries
 lake build            # 'declaration uses sorry' only from KRTWStatement.lean
 lake env lean scripts/PrintAxioms.lean
