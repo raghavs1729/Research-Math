@@ -1,0 +1,9 @@
+offset: mean of O(1-u)+mu w0 = 2.60e-20; max leak |eps^O_n| (n<=4096) = 2.566e+02
+band 0: [64,256) W=512 N'=2048: low-coef err/a(N)=6.7e-16, max|psi| on T\E=0.0e+00, sup|v^|/a(N)=1.28e-04, max copy mult=1.156e+01, max(copy/(3.3) main bound)=9.49e-03, max copy where k*=0: 3.71e-05
+band 1: [256,1024) W=2048 N'=8192: low-coef err/a(N)=8.9e-16, max|psi| on T\E=0.0e+00, sup|v^|/a(N)=2.73e-04, max copy mult=2.458e+01, max(copy/(3.3) main bound)=4.65e-05, max copy where k*=0: 2.36e-08
+band 2: [1024,4096) W=8192 N'=32768: low-coef err/a(N)=1.8e-15, max|psi| on T\E=0.0e+00, sup|v^|/a(N)=3.81e-04, max copy mult=3.437e+01, max(copy/(3.3) main bound)=6.49e-05, max copy where k*=0: 3.46e-13
+final: max dist to Z on rounded bands [64,4095] = 2.84e-14; min m_n = -228.000; max m_n = 40.000
+   band [64,256): m - target = d on band: 1.4e-14; spill d[N1..N1+k) = [-3.481  1.519 -0.229 -0.04 ]
+   band [256,1024): m - target = d on band: 1.4e-14; spill d[N1..N1+k) = [ 2.899 -2.248  0.66  -0.04 ]
+   band [1024,4096): m - target = d on band: 3.6e-15; spill d[N1..N1+k) = [-1.299  1.06  -0.637  0.196]
+(1-D/M)(Psi - Psi_0): max on S = J' minus combs: 4.01e-04 (vs max overall 3.59e+02); measure fraction of S in J' = 0.751

@@ -1,0 +1,91 @@
+# id   terms   |lhs-rhs|      digits   source
+A1      110   3.6305e-94    93   MO 506695 (2026-01-06)
+A2       64   8.9888e-95    95   MO 487361 eq.(3) (2025-02-07)
+A3       51   9.3634e-97    96   II v10 Conj 5.1(i) eq.1; MO 456444
+A4       97   2.0599e-95    94   II v10 Conj 5.1(i) eq.2
+A5       97   8.5207e-95    94   II v10 Conj 5.9(i) eq.1; MO 456779
+A6     3794   1.4153e-87    87   II v10 Conj 4.17(i)
+A7     1183   1.9795e-88    88   II v10 Conj 5.25(i) eq.1 (=(5.20))
+A8       55   0.0    95   II v10 Conj 5.33(i) eq.1 (=(5.31))
+A9       75   7.4907e-96    95   II v10 Conj 4.33(i) eq.1
+A10     150   2.0469e-92    91   III v6 Conj 3.2
+B1      353   1.141e-90    89   2603.29973v3 Conj 3.1; MO 507592
+B2      353   1.8071e-90    89   2603.29973v3 Conj 3.1
+B3       80   0.0    95   2603.29973v3 Conj 3.2
+B4       81   2.397e-94    95   2603.29973v3 Conj 3.2 (sign of rational term corrected)
+B5       53   1.4981e-95    95   2603.29973v3 Conj 3.3 (sign of rational term corrected)
+B6       53   1.8727e-96    95   2603.29973v3 Conj 3.3
+B7       59   2.9963e-95    95   2603.29973v3 Conj 3.4
+B8       59   3.7453e-96    95   2603.29973v3 Conj 3.4
+B9       60   0.0    95   2603.29973v3 Conj 3.5; MO 507600 (3)
+B10     311   8.5747e-91    91   2603.29973v3 Conj 3.6
+B11      40   9.5881e-94    95   2603.29973v3 Conj 3.7
+B12      56   0.0    95   II v10 Conj 5.13(i) (=I (5.14)); Au 2602.08721v4 '?='
+B13      55   1.4981e-95    95   2603.29973v3 Conj 3.8; MO 507600 (1)
+B14      84   2.2472e-95    95   2210.07238v9 Conj 23(i) eq.1 (=(63))
+B15      84   1.4981e-95    95   2210.07238v9 Conj 23(i) eq.2
+B16      85   0.0    95   II v10 Conj 5.15(i)
+B17     393   8.3987e-90    89   2210.07238v9 Conj 26(i) eq.1 (=(71))
+B18     393   6.5305e-90    89   2210.07238v9 Conj 26(i) eq.2
+B19     399   9.0142e-90    91   II v10 Conj 5.17(i)
+B20     153   8.3296e-93    93   2210.07238v9 Conj 25(i)
+B21     152   1.173e-92    92   2603.29973v3 Conj 3.9; MO 507600 (2)
+B22     185   4.6982e-92    93   2210.07238v9 Conj 27(i) (=(75))
+B23     187   5.4173e-92    93   II v10 Conj 5.19(i)
+B24      46   3.4083e-94    93   II v10 Conj 5.21(i)
+B25      36   7.9486e-93    92   II v10 Conj 5.23(i)
+B26      52   3.7453e-96    95   II v10 Conj 5.1(i) eq.3
+B27      97   6.7416e-95    94   II v10 Conj 5.1(i) eq.4
+B28     151   1.0077e-92    91   II v10 Conj 5.3(i) first
+B29     151   1.1281e-92    92   II v10 Conj 5.3(i) second
+B30     151   1.2622e-92    92   II v10 Conj 5.3(i) third
+B31     150   1.1835e-92    93   II v10 Conj 5.5(i) first
+B32     150   8.5693e-93    93   II v10 Conj 5.5(i) second
+B33     393   1.8471e-90    91   II v10 Conj 5.7 first
+B34     394   1.9797e-90    92   II v10 Conj 5.7 second
+B35      98   8.0525e-95    94   II v10 Conj 5.9(i) eq.2
+B36      98   4.9158e-95    94   II v10 Conj 5.9(i) eq.3
+B37     391   9.1139e-90    89   II v10 Conj 4.25 first
+B38     391   1.0335e-89    89   II v10 Conj 4.25 second
+B39     113   1.0337e-93    94   II v10 Conj 4.27 first
+B40     114   2.9963e-94    94   II v10 Conj 4.27 second
+B41      69   5.9925e-95    95   II v10 Conj 4.29
+B42     244   5.1812e-91    92   II v10 Conj 4.31(i) first
+B43     245   9.5677e-91    91   II v10 Conj 4.31(i) second
+B44     243   5.0218e-91    92   II v10 Conj 4.31(i) third
+B45      74   9.3634e-97    96   II v10 Conj 4.33(i) eq.2
+B46    1180   2.285e-88    88   II v10 Conj 5.25(i) eq.2
+B47      56   1.1985e-94    95   II v10 Conj 5.33(i) eq.2
+B48      56   1.1985e-93    95   II v10 Conj 5.33(i) eq.3
+B49      68   1.8727e-96    95   II v10 Conj 5.37(i)
+B50      69   0.0    95   II v10 Conj 5.39
+B51      55   9.5881e-94    95   II v10 Conj 5.41(i); MO 486518
+B52      56   3.5955e-94    95   2603.29973v3 Conj 3.11
+B53     116   7.6705e-93    95   II v10 Conj 5.45 first; MO 487145
+B54     116   1.9176e-93    95   II v10 Conj 5.45 second
+B55     115   7.6705e-93    95   II v10 Conj 5.45 third
+B56     117   0.0    95   II v10 Conj 5.45 fourth
+B57      32   4.794e-94    95   II v10 Conj 5.47 first
+B58      32   3.8352e-93    95   II v10 Conj 5.47 second
+B59      32   0.0    95   II v10 Conj 5.47 third
+B60      59   5.9925e-95    96   2210.07238v9 Conj 59(i)
+B61      73   3.5955e-94    95   2210.07238v9 Conj 60(i)
+B62     126   9.5881e-94    95   2210.07238v9 Conj 61(i)
+B63      22   4.794e-94    95   2210.07238v9 Conj 62(i)
+B64     104   2.3596e-94    93   III v6 Conj 3.1
+B65     151   2.856e-92    91   III v6 Conj 3.2 second
+B66     152   9.5502e-93    92   III v6 Conj 3.2 third
+B67      55   7.9588e-96    95   III v6 Conj 3.3 first
+B68      55   4.6817e-97    96   III v6 Conj 3.3 second
+B69     243   4.9889e-91    91   III v6 Conj 3.4 first
+B70     242   7.4146e-91    91   III v6 Conj 3.4 second
+B71      67   7.6077e-97    96   Sun (I) (4.1) as quoted in Au 2602.08721v4
+B72     151   9.6311e-93    92   2603.29973v3 Conj 3.10 (TeX has '-' misprinted for '='; value fixed by PSLQ)
+B73     101   1.2734e-94    94   II v10 Conj 4.15(ii)
+B74    3831   1.3828e-87    87   II v10 Conj 4.19 eq.1
+B75    3821   1.3748e-87    87   II v10 Conj 4.19 eq.2
+B76      75   1.1236e-95    95   II v10 Conj 4.21 eq.1
+B77      75   7.4907e-96    95   II v10 Conj 4.21 eq.2
+B78      53   1.1236e-95    95   II v10 Conj 4.23
+B79     389   8.0388e-90    89   II v10 Conj 4.3(i) eq.4 (the only part of Conj 4.3 not in Jiang-Sun 2601.18645)
+# entries: 89   failures: 0   (mp.dps=80, working dps=95)

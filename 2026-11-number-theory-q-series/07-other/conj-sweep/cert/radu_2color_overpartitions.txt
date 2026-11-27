@@ -1,0 +1,42 @@
+arXiv:2607.16608 conjectures
+
+## pbar_8(32n+28) = 0 mod 32
+eta-quotient exponents r = {1: -2, 2: 1, 8: -2, 16: 1} (M = 16); progression 32n + 28; modulus u = 32
+P_(m,r)(t) = [28]
+N = 8: (m, M, N, t, r) in Delta^* verified; [SL2(Z):Gamma_0(N)] = 12; kappa = 3
+a = {1: 72, 2: -36, 4: -30, 8: 60}; min over 8 cusp representatives of p_mr + p*_a = 0 >= 0 (exact)
+nu = 129/8 ; floor(nu) = 16
+checked c_r(32n + t') = 0 mod 32 for t' in P and 0 <= n <= 16: ALL ZERO -> congruence PROVED for all n
+
+## pbar_6(24n+17) = 0 mod 64
+eta-quotient exponents r = {1: -2, 2: 1, 6: -2, 12: 1} (M = 12); progression 24n + 17; modulus u = 64
+P_(m,r)(t) = [17]
+N = 24: (m, M, N, t, r) in Delta^* verified; [SL2(Z):Gamma_0(N)] = 48; kappa = 1
+a = {1: 61, 2: -30, 3: -16, 4: 9, 6: 8, 8: -18, 12: -27, 24: 54}; min over 24 cusp representatives of p_mr + p*_a = 0 >= 0 (exact)
+nu = 165/4 ; floor(nu) = 41
+checked c_r(24n + t') = 0 mod 64 for t' in P and 0 <= n <= 41: ALL ZERO -> congruence PROVED for all n
+
+## pbar_6(24n+23) = 0 mod 64
+eta-quotient exponents r = {1: -2, 2: 1, 6: -2, 12: 1} (M = 12); progression 24n + 23; modulus u = 64
+P_(m,r)(t) = [23]
+N = 24: (m, M, N, t, r) in Delta^* verified; [SL2(Z):Gamma_0(N)] = 48; kappa = 1
+a = {1: 61, 2: -30, 3: -16, 4: 9, 6: 8, 8: -18, 12: -27, 24: 54}; min over 24 cusp representatives of p_mr + p*_a = 0 >= 0 (exact)
+nu = 41 ; floor(nu) = 41
+checked c_r(24n + t') = 0 mod 64 for t' in P and 0 <= n <= 41: ALL ZERO -> congruence PROVED for all n
+
+## pbar_9(36n+33) = 0 mod 128
+eta-quotient exponents r = {1: -2, 2: 1, 9: -2, 18: 1} (M = 18); progression 36n + 33; modulus u = 128
+P_(m,r)(t) = [33]
+N = 12: (m, M, N, t, r) in Delta^* verified; [SL2(Z):Gamma_0(N)] = 24; kappa = 1
+a = {1: 89, 2: -41, 3: -27, 4: -7, 6: 3, 12: 22}; min over 12 cusp representatives of p_mr + p*_a = 1/288 >= 0 (exact)
+nu = 343/12 ; floor(nu) = 28
+checked c_r(36n + t') = 0 mod 128 for t' in P and 0 <= n <= 28: ALL ZERO -> congruence PROVED for all n
+
+## pbar_4(36n+21) = 0 mod 9 ("left to the interested reader")
+eta-quotient exponents r = {1: -2, 2: 1, 4: -2, 8: 1} (M = 8); progression 36n + 21; modulus u = 9
+P_(m,r)(t) = [21]
+N = 12: (m, M, N, t, r) in Delta^* verified; [SL2(Z):Gamma_0(N)] = 24; kappa = 1
+a = {1: 101, 2: -50, 3: -33, 4: -1, 6: 15, 12: 3}; min over 12 cusp representatives of p_mr + p*_a = 0 >= 0 (exact)
+nu = 377/12 ; floor(nu) = 31
+checked c_r(36n + t') = 0 mod 9 for t' in P and 0 <= n <= 31: ALL ZERO -> congruence PROVED for all n
+

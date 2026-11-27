@@ -1,0 +1,34 @@
+{
+  "challenge_module": "KRTWStatement",
+  "solution_module": "KRTWSolution",
+  "theorem_names": [
+    "KRTW.krtw_sum_eq_melzer_sum_refined",
+    "KRTW.krtw_sum_eq_melzer_sum",
+    "KRTW.coeff_krtwTerm_eq_zero",
+    "KRTW.coeff_melzerTerm_eq_zero",
+    "KRTW.krtw_identity",
+    "KRTW.krtw_identity_theta",
+    "KRTW.theta_eq_triple_product",
+    "KRTW.melzer_identity",
+    "KRTW.coeff_qPochInf"
+  ],
+  "definition_names": [
+    "KRTW.qPoch",
+    "KRTW.q2Poch",
+    "KRTW.nxt",
+    "KRTW.prv",
+    "KRTW.box",
+    "KRTW.krtwTerm",
+    "KRTW.krtwSum",
+    "KRTW.melzerTerm",
+    "KRTW.melzerSum",
+    "KRTW.qPochInf",
+    "KRTW.thetaSum"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

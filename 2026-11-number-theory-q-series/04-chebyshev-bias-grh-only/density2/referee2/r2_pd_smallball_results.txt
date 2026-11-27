@@ -1,0 +1,13 @@
+Referee 2, r2_pd_smallball.py: period doubling, law of F_M near +-1.
+M=0.5: level I=21 (P=2^22): sup over sub-arcs |F'_I - F'_(I+2)| = 1.87e-07  (bounds sup|F''_I| up to the tail beyond I+2)
+   range of F: [-0.0982, 2.3612], mean 1.000000
+   kappa=-1: ratio lambda(|F-kappa|<d)/(2d) for d = 1e-01:0.000, 1e-02:0.000, 3e-03:0.000, 1e-03:0.000, 3e-04:0.000, 1e-04:0.000
+   kappa=+1: ratio lambda(|F-kappa|<d)/(2d) for d = 1e-01:0.000, 1e-02:0.000, 3e-03:0.000, 1e-03:0.000, 3e-04:0.000, 1e-04:0.000
+   kappa=+0: ratio lambda(|F-kappa|<d)/(2d) for d = 1e-01:0.625, 1e-02:0.635, 3e-03:0.637, 1e-03:0.637, 3e-04:0.637, 1e-04:0.636
+   #sub-arcs with |F'+1| < 1e-3: 0 of 4194304; their t/2pi in [nan, nan]
+M=2.0: level I=21 (P=2^22): sup over sub-arcs |F'_I - F'_(I+2)| = 7.49e-07  (bounds sup|F''_I| up to the tail beyond I+2)
+   range of F: [-3.6617, 8.3841], mean 1.000000
+   kappa=-1: ratio lambda(|F-kappa|<d)/(2d) for d = 1e-01:0.156, 1e-02:0.232, 3e-03:0.651, 1e-03:0.488, 3e-04:0.000, 1e-04:0.000
+   kappa=+1: ratio lambda(|F-kappa|<d)/(2d) for d = 1e-01:0.288, 1e-02:0.391, 3e-03:0.631, 1e-03:0.671, 3e-04:1.017, 1e-04:0.801
+   kappa=+0: ratio lambda(|F-kappa|<d)/(2d) for d = 1e-01:0.143, 1e-02:0.158, 3e-03:0.158, 1e-03:0.159, 3e-04:0.159, 1e-04:0.159
+   #sub-arcs with |F'+1| < 1e-3: 4096 of 4194304; their t/2pi in [0.3693, 0.8744]

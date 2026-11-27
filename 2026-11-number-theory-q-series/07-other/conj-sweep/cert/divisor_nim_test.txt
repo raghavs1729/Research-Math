@@ -1,0 +1,8 @@
+2 heaps, sizes <= 1200: violations of g <= 2 h_min: 0 []; max of g - 2 h_min = -1 at (1, 2)
+3 heaps, sizes <= 180: violations of g <= 2 h_min: 0 []; max of g - 2 h_min = 0 at (1, 4, 10)
+4 heaps, sizes <= 60: violations of g <= 2 h_min: 0 []; max of g - 2 h_min = 0 at (1, 4, 4, 4)
+5 heaps, sizes <= 30: violations of g <= 2 h_min: 0 []; max of g - 2 h_min = 0 at (1, 4, 4, 4, 6)
+
+real	0m47.841s
+user	0m46.897s
+sys	0m0.353s

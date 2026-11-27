@@ -1,0 +1,6 @@
+(i) compatibility and WZ equation with the parameter s: identically 0: OK
+(iv) d/ds log Q_s(n,0)|_0 = (360n^2-72n-46)/p(n): OK
+(ii) sum_n Q_s(n,0) h_s(n,0) = 1/(4 sqrt pi) at s = 0, +-0.1, 0.033 (40 digits); K-limit consistent: OK
+(iii) d/ds log h_s(n,0)|_0 = 3 log 2 - 2 (H_2n - H_n): OK
+final: |lhs - 48 sqrt2 log2/pi| = 1.549e-120
+ALL CHECKS PASSED

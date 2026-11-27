@@ -1,0 +1,55 @@
+smooth step s: ||s'||_inf = 2.000000
+bump b = c*c~: C_Xi = sup max(1, x^3 hb(pi x)/hb(0)) = 1.4256; b(0)/m_0(b) = 2.7005
+   hb(pi x)/hb(0) at x = 10, 20, 40: 3.13e-05, 1.67e-06, 6.69e-09
+
+(1) base comb (1,q): F_0 = 1 + 2M(b0 rho_0 + b1 rho_q) on the last cell J
+  q= 20 M= 0.50: b0=0.590768 (bound 1/((q-1)u)+1/2 = 0.835063), max|F_0| on J = 3.3e-16
+  q= 20 M= 0.02: b0=8.537999 (bound 1/((q-1)u)+1/2 = 8.876576), max|F_0| on J = 7.3e-15
+  q= 60 M= 0.50: b0=0.585256 (bound 1/((q-1)u)+1/2 = 0.823705), max|F_0| on J = 2.2e-16
+  q= 60 M= 0.02: b0=8.259986 (bound 1/((q-1)u)+1/2 = 8.592624), max|F_0| on J = 5.2e-15
+
+(2) Lemma A: Lambda_s <= tau^s lambda(s), lambda(s) = 1 + (pi/sqrt3)(s/tau + ||u'||)
+  q=20: s= 0  Lambda_s=2.806e+00  tau^s lambda(s)=1.858e+02  ratio=0.015
+  q=20: s= 2  Lambda_s=1.421e-01  tau^s lambda(s)=1.706e+01  ratio=0.008
+  q=20: s= 4  Lambda_s=9.835e-03  tau^s lambda(s)=1.561e+00  ratio=0.006
+  q=20: s= 8  Lambda_s=5.288e-05  tau^s lambda(s)=1.294e-02  ratio=0.004
+  q=20: s=12  Lambda_s=3.022e-07  tau^s lambda(s)=1.060e-04  ratio=0.003
+  q=20: tau=0.29346, ||u'||=101.86, max ratio over s<=12: 0.015 (must be <= 1)
+  q=60: s= 0  Lambda_s=2.811e+00  tau^s lambda(s)=5.553e+02  ratio=0.005
+  q=60: s= 2  Lambda_s=1.586e-02  tau^s lambda(s)=5.703e+00  ratio=0.003
+  q=60: s= 4  Lambda_s=1.226e-04  tau^s lambda(s)=5.836e-02  ratio=0.002
+  q=60: s= 8  Lambda_s=8.243e-09  tau^s lambda(s)=6.048e-06  ratio=0.001
+  q=60: s=12  Lambda_s=5.888e-13  tau^s lambda(s)=6.199e-10  ratio=0.001
+  q=60: tau=0.09814, ||u'||=305.58, max ratio over s<=12: 0.005 (must be <= 1)
+
+(3)-(4) one band [N,4N), band-of-origin sigma-delta of order k, modified correction
+  k=0: V/a(N)=1.04e-01  Leibniz bd=2.81e+00  simple bd=3.30e+02  | low coeff err/a(N)=2.2e-16  max|psi| on T\E=0.0e+00  | max copy mult=9.35e+03  max(copy - sup-bound)=1.8e-05  crude bd=1.09e+08
+  k=2: V/a(N)=3.26e-03  Leibniz bd=1.51e-01  simple bd=3.03e+01  | low coeff err/a(N)=5.6e-16  max|psi| on T\E=0.0e+00  | max copy mult=2.94e+02  max(copy - sup-bound)=8.1e-07  crude bd=1.00e+07
+  k=4: V/a(N)=2.37e-04  Leibniz bd=1.11e-02  simple bd=2.78e+00  | low coeff err/a(N)=2.7e-15  max|psi| on T\E=0.0e+00  | max copy mult=2.14e+01  max(copy - sup-bound)=6.7e-08  crude bd=9.19e+05
+  k=6: V/a(N)=1.11e-05  Leibniz bd=8.51e-04  simple bd=2.53e-01  | low coeff err/a(N)=7.2e-15  max|psi| on T\E=0.0e+00  | max copy mult=1.00e+00  max(copy - sup-bound)=1.4e-08  crude bd=8.38e+04
+  k=8: V/a(N)=7.63e-07  Leibniz bd=6.70e-05  simple bd=2.30e-02  | low coeff err/a(N)=2.2e-14  max|psi| on T\E=0.0e+00  | max copy mult=6.88e-02  max(copy - sup-bound)=2.1e-09  crude bd=7.61e+03
+
+(5) Lemma O: offset leak, f(x) = a(x) c(x), c(x) = A (log x)^th' chi(x/X)
+  U^sharp = 3.575e+07, U^O = 4.045e+08, X_chi = 1+||chi'||+||chi''|| = 44.364
+  X=  1024: max_l (M^2+l^2)|(Ou)^(l)| = 2.523e-02   Lemma O bound = 2.560e+07   (mean (Ou)^(0) = -5.88e-10)
+  X=  4096: max_l (M^2+l^2)|(Ou)^(l)| = 5.848e-05   Lemma O bound = 3.200e+06   (mean (Ou)^(0) = -6.54e-15)
+  X= 16384: max_l (M^2+l^2)|(Ou)^(l)| = 1.405e-09   Lemma O bound = 4.000e+05   (mean (Ou)^(0) = -2.25e-24)
+
+(6) parameter table, q = 60, K = 4, delta = 1/2, rho_j = rho_0 (j+1)^{-3/2}
+  tau=0.09814 beta=3.3491 theta'=4/(1+beta)=0.9197  rho0=0.00239  S_K=6.2667  Z=1.8439e+04
+  j=       0: k_j= 11  2^k_j=2.048e+03  2^k_j/(j+1)^theta'=2.048e+03  4k_j/tau=448
+  j=       1: k_j= 12  2^k_j=4.096e+03  2^k_j/(j+1)^theta'=2.165e+03  4k_j/tau=489
+  j=       5: k_j= 13  2^k_j=8.192e+03  2^k_j/(j+1)^theta'=1.577e+03  4k_j/tau=530
+  j=      10: k_j= 13  2^k_j=8.192e+03  2^k_j/(j+1)^theta'=9.028e+02  4k_j/tau=530
+  j=      30: k_j= 14  2^k_j=1.638e+04  2^k_j/(j+1)^theta'=6.962e+02  4k_j/tau=571
+  j=     100: k_j= 16  2^k_j=6.554e+04  2^k_j/(j+1)^theta'=9.398e+02  4k_j/tau=652
+  j=    1000: k_j= 18  2^k_j=2.621e+05  2^k_j/(j+1)^theta'=4.560e+02  4k_j/tau=734
+  j=   10000: k_j= 20  2^k_j=1.049e+06  2^k_j/(j+1)^theta'=2.196e+02  4k_j/tau=815
+  j= 1000000: k_j= 25  2^k_j=3.355e+07  2^k_j/(j+1)^theta'=1.017e+02  4k_j/tau=1019
+  A := sup_J (2^(k_J+1)+1)/(J log 4)^theta' ~ 6.067e+03 (sampled)
+
+(7) constants of (J1)-(J4) and X_low for q = 60, M = 1/2
+  U^sharp=9.665e+08  U^O=1.094e+10  U_4=1.675e+09  W_0=8.074e+05  ||w_0||_inf=2.592e+03  X_chi=44.36
+  (J1) holds from j = 5;  (J3) needs X >= 5.869e+16, i.e. j >= 28;  (J4) holds from j = 14
+  => j_0 = 28 (N_j0 = 4^28 = 7.206e+16);  X_low = 82 K^2 C_Xi S_K rho_(j0-1)^-2 = 4.495e+13
+  sum_(j>=1) (j+1)^(3/2)/(4^j-1) = 1.480899;  1.3612 + it = 2.8421;  8*(that)*8 zeta(3/2)/3 = 158.39

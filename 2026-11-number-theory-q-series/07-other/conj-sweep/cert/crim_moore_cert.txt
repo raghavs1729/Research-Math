@@ -1,0 +1,2 @@
+misere: 72 states (longest representative 13); (i) True (ii) True (iii) True; (iv) 1610 configurations, 31 violations -> FAILED
+real	0m1.167s

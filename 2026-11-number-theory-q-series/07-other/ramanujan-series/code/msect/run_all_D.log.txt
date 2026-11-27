@@ -1,0 +1,11 @@
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Traceback (most recent call last):
+  File "/home/user/weighted-prime-races/monotonicity/ramanujan-series/code/multisect_scan.py", line 30, in <module>
+    ns = tg.load_exact(tpath)
+  File "/home/user/weighted-prime-races/monotonicity/ramanujan-series/code/targets.py", line 59, in load_exact
+    exec(compile(src, path, 'exec'), ns)
+         ~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "../survey/verify_A.py", line 21
+    quad, linspace, harmonic, factorial, nstr)
+IndentationError: unexpected indent
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048

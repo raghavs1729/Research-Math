@@ -1,0 +1,2 @@
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Dougall5F4 box 3 hits 722

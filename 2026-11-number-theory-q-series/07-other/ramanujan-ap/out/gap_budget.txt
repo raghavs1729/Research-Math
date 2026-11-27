@@ -1,0 +1,16 @@
+x        W(x)   allowed   sqrt(x)/allowed |  best B over eta (crude kernel) for H = 640, 1e5, 1e6, 1e7, 1e8, 1e9
+1e+14      15.1     4.0    2.49e+06      |    63.2     38.0     21.1      8.9      4.7      3.2*
+1e+15      35.0     9.3    3.40e+06      |    73.7     48.5     31.6     13.8      6.3*     3.8*
+1e+16      82.8    22.1    4.53e+06      |    85.0     59.8     42.9     22.7      9.3*     4.8*
+1e+17     199.9    53.4    5.93e+06      |    97.1     71.9     55.0     34.8*    14.6*     6.6*
+3e+17     306.2    81.8    6.69e+06      |   103.2     78.0*    61.1*    40.8*    18.5*     7.9*
+1e+18     490.8   131.2    7.62e+06      |   110.0*    84.8*    67.9*    47.7*    24.1*     9.7*
+2e+18     645.2   172.6    8.19e+06      |   114.1*    88.8*    72.0*    51.7*    28.1*    11.1*
+(* = within the allowed budget)
+
+cost of certified zeros of L(s,chi_4) with python-flint/Arb on this machine (measured Hardy-Z times:
+0.07 s at t = 1e5, 0.66 s at t = 1e6, proportional to t), at 6 evaluations per zero:
+   H = 1e+05: 3.20e+05 zeros, about 6.3e+04 core-seconds = 0.7 core-days
+   H = 1e+06: 3.94e+06 zeros, about 7.8e+06 core-seconds = 90.2 core-days
+   H = 1e+07: 4.67e+07 zeros, about 9.2e+08 core-seconds = 10698.6 core-days
+   H = 1e+08: 5.40e+08 zeros, about 1.1e+11 core-seconds = 1237828.1 core-days

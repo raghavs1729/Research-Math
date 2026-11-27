@@ -1,0 +1,47 @@
+Part 1: exhaustive search, M = 1/2, weights {0,1}
+  columns: eta | tau* on grid 16N | true quantile (grid 4096N) of that optimiser
+  N = 10 (0s)
+    eta=0.05: 6.2530e-03 | 6.4185e-03   m = 0101000100
+    eta=0.10: 2.3429e-02 | 2.3604e-02   m = 0101000100
+    eta=0.15: 4.6188e-02 | 5.3414e-02   m = 0101000100
+    eta=0.20: 7.7908e-02 | 7.7333e-02   m = 0101000100
+    eta=0.25: 1.2005e-01 | 1.1735e-01   m = 1110001110
+    eta=0.30: 1.5822e-01 | 1.5935e-01   m = 1110001110
+    eta=0.35: 2.5642e-01 | 2.5417e-01   m = 1110001110
+    eta=0.40: 3.7564e-01 | 3.8625e-01   m = 1110011100
+  N = 14 (0s)
+    eta=0.05: 6.0759e-03 | 6.4170e-03   m = 01010001000000
+    eta=0.10: 2.4038e-02 | 2.4063e-02   m = 01001110111111
+    eta=0.15: 4.1628e-02 | 4.1664e-02   m = 01001110111111
+    eta=0.20: 7.7834e-02 | 7.7324e-02   m = 01010001000000
+    eta=0.25: 1.1210e-01 | 1.1736e-01   m = 11100011100000
+    eta=0.30: 1.7161e-01 | 1.5934e-01   m = 11100011100000
+    eta=0.35: 2.5543e-01 | 2.5416e-01   m = 11100011100000
+    eta=0.40: 3.8119e-01 | 3.9770e-01   m = 10110101011010
+  N = 18 (2s)
+    eta=0.05: 6.0143e-03 | 6.4151e-03   m = 010100010000000000
+    eta=0.10: 1.3711e-02 | 1.5175e-02   m = 010101000101000001
+    eta=0.15: 3.3908e-02 | 3.3476e-02   m = 010101000101000001
+    eta=0.20: 7.5790e-02 | 7.7319e-02   m = 010100010000000000
+    eta=0.25: 1.1215e-01 | 1.1737e-01   m = 111000111000000000
+    eta=0.30: 1.5435e-01 | 1.5931e-01   m = 111000111000000000
+    eta=0.35: 2.2963e-01 | 2.2934e-01   m = 111000111000000010
+    eta=0.40: 3.6889e-01 | 3.8779e-01   m = 101101010010101101
+  N = 20 (6s)
+    eta=0.05: 6.3804e-03 | 6.4153e-03   m = 01010001000000000000
+    eta=0.10: 1.4000e-02 | 1.5172e-02   m = 01010100010100000100
+    eta=0.15: 3.3122e-02 | 3.3479e-02   m = 01010100010100000100
+    eta=0.20: 7.7279e-02 | 7.7326e-02   m = 01010001000000000000
+    eta=0.25: 1.1795e-01 | 1.1736e-01   m = 11100011100000000000
+    eta=0.30: 1.5822e-01 | 1.5934e-01   m = 11100011100000000000
+    eta=0.35: 2.2590e-01 | 2.2934e-01   m = 11100011100000001000
+    eta=0.40: 3.5031e-01 | 3.7101e-01   m = 11100011110110000111
+  full exhaustive on a fine grid K = 256N (N = 14):
+    eta=0.05: coarse-grid optimum 6.0759e-03, fine-grid optimum 6.4258e-03, same optimiser: True
+    eta=0.10: coarse-grid optimum 2.4038e-02, fine-grid optimum 2.3793e-02, same optimiser: False
+    eta=0.15: coarse-grid optimum 4.1628e-02, fine-grid optimum 4.1634e-02, same optimiser: True
+    eta=0.20: coarse-grid optimum 7.7834e-02, fine-grid optimum 7.7238e-02, same optimiser: True
+    eta=0.25: coarse-grid optimum 1.1210e-01, fine-grid optimum 1.1723e-01, same optimiser: True
+    eta=0.30: coarse-grid optimum 1.7161e-01, fine-grid optimum 1.5953e-01, same optimiser: True
+    eta=0.35: coarse-grid optimum 2.5543e-01, fine-grid optimum 2.5410e-01, same optimiser: True
+    eta=0.40: coarse-grid optimum 3.8119e-01, fine-grid optimum 3.8574e-01, same optimiser: False

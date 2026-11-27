@@ -1,0 +1,7 @@
+1. compatibility rho(n,k) sigma(n+1,k) = sigma(n,k) rho(n,k+1): OK; Gamma closed form consistent: OK
+2. WZ equation rho - 1 = R(n,k+1) sigma - R(n,k): identically 0: OK
+3a. f(0,k) = 1/((3k+1)(3k+2)); g(n,0) = 2 (8m-3)C(4m,2m)/(m(4m-1)9^m C(2m,m)^2), m=n+1: OK
+3b. sigma(N,k) <= (2k+1)/(2k+5) (N>=1), rho(n,0) <= 1/8, R(n,k) <= k+2: OK
+4. |lhs - sqrt(3) pi/18| = 0.0
+   sum 1/((3k+1)(3k+2)) = pi/(3 sqrt 3): OK
+ALL CHECKS PASSED

@@ -1,0 +1,16 @@
+q = 4, theta-form, x in [1e4, 1e8], 2000001 log-spaced samples
+(1) mean 0.9785  variance 0.1543  (model: 1, sigma^2 = 0.1556)  median 0.9894  min -0.3642  max 2.1537
+    empirical P(E <= 0) = 0.00836
+    t = -0.20   P(E<=t) = 0.00169   P(E >= 2-sigma^2-t) = 0.00104   [P(E >= 2-t) = 0.00000]
+    t =  0.00   P(E<=t) = 0.00836   P(E >= 2-sigma^2-t) = 0.01102   [P(E >= 2-t) = 0.00191]
+    t =  0.20   P(E<=t) = 0.02462   P(E >= 2-sigma^2-t) = 0.04778   [P(E >= 2-t) = 0.01598]
+    t =  0.40   P(E<=t) = 0.07156   P(E >= 2-sigma^2-t) = 0.11654   [P(E >= 2-t) = 0.06077]
+    t =  0.60   P(E<=t) = 0.17918   P(E >= 2-sigma^2-t) = 0.24605   [P(E >= 2-t) = 0.13921]
+    t =  0.80   P(E<=t) = 0.31950   P(E >= 2-sigma^2-t) = 0.44205   [P(E >= 2-t) = 0.28713]
+    t =  0.90   P(E<=t) = 0.40908   P(E >= 2-sigma^2-t) = 0.54768   [P(E >= 2-t) = 0.38522]
+    reflection inequality (finite-range, tolerance 0.01): consistent
+(2) transversality: D := E_M/M - E_M'/M' against [kappa*lam, kappa*(2/(MM') - lam)]
+    (M,M') = (0.40,0.50): lam = 4.6887, interval [0.4689, 0.5311];  observed on x >= 1e6: [0.4567, 0.5045]
+    (M,M') = (0.50,0.60): lam = 3.0224, interval [0.3022, 0.3644];  observed on x >= 1e6: [0.3068, 0.3457]
+    (M,M') = (0.50,1.00): lam = 1.6902, interval [0.8451, 1.1549];  observed on x >= 1e6: [0.9000, 1.0771]
+    (M,M') = (0.25,0.50): lam = 7.6885, interval [1.9221, 2.0779];  observed on x >= 1e6: [1.7253, 1.9304]

@@ -1,0 +1,4 @@
+# thue463_certified_run.txt -- certified run thueinit(P, 1) for Q(a,b) = 1 (c = 463, k = 9), 2026-11-26
+# Stopped by its 3000 s time limit (exit 124) without output; raw output follows.
+  ***   Warning: new maximum stack size = 10000003072 (9536.746 Mbytes).
+exit 124

@@ -1,0 +1,36 @@
+name = "LeanRamanujan"
+version = "0.1.0"
+defaultTargets = ["RamanujanLib", "RamanujanStatement", "RamanujanSolution"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+
+# zeta23 (anthropics/formal-math, folder zeta23/), pinned.  It pins Mathlib
+# 51e6992efd06126df61a496bebf8f49482a4e129 and Lean v4.33.0-rc2; we inherit both.
+[[require]]
+name = "Zeta23"
+git = "https://github.com/anthropics/formal-math"
+rev = "11b6c7e3c927df2658f513b6b68ea7f8929c62c5"
+subDir = "zeta23"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "51e6992efd06126df61a496bebf8f49482a4e129"
+
+# The proof development.
+[[lean_lib]]
+name = "RamanujanLib"
+
+# Statement layer.  Trusted: RamanujanStatement (Mathlib only, proofs `sorry`).
+# Untrusted: RamanujanSolution (imports RamanujanLib, hence Zeta23).
+# (zeta23 ships root modules named Challenge / ChallengeDeps / Solution, so ours are named
+# differently.)
+[[lean_lib]]
+name = "RamanujanStatement"
+roots = ["RamanujanStatement"]
+
+[[lean_lib]]
+name = "RamanujanSolution"
+roots = ["RamanujanSolution"]

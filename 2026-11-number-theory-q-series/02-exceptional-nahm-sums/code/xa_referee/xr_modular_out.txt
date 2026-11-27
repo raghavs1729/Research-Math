@@ -1,0 +1,12 @@
+(C_3,A_1): c_SW=3; t in [0.100,0.300] (9 pts); B=600, #terms=78692, tail/max<=e^-44
+   free fit: a=3.0842513753 => c_eff=6a/pi^2=1.8750000000; b1=-0.1250000000 (-c_SW/24=-0.1250000000); b2=1.1e-11; b3=-1.2e-11
+   constrained fits (a/t+b0 after adding c't/24): c'=3: rms=7.0e-15; c'=31/10: rms=8.2e-05; c'=29/10: rms=8.2e-05; c'=4: rms=8.2e-04; c'=2: rms=8.2e-04
+(B_3,A_1): c_SW=15/4; t in [0.100,0.300] (9 pts); B=700, #terms=70230, tail/max<=e^-55
+   free fit: a=2.4674011003 => c_eff=6a/pi^2=1.5000000000; b1=-0.1562500000 (-c_SW/24=-0.1562500000); b2=1.6e-11; b3=-1.9e-11
+   constrained fits (a/t+b0 after adding c't/24): c'=15/4: rms=5.2e-15; c'=77/20: rms=8.2e-05; c'=73/20: rms=8.2e-05; c'=19/4: rms=8.2e-04; c'=11/4: rms=8.2e-04
+(D_5,A_1): c_SW=4; t in [0.220,0.450] (9 pts); B=220, #terms=13963541, tail/max<=e^-37
+   free fit: a=6.5797362674 => c_eff=6a/pi^2=4.0000000000; b1=-0.1666666667 (-c_SW/24=-0.1666666667); b2=3.0e-11; b3=-2.2e-11
+   constrained fits (a/t+b0 after adding c't/24): c'=4: rms=4.0e-15; c'=41/10: rms=6.2e-05; c'=39/10: rms=6.2e-05; c'=5: rms=6.2e-04; c'=3: rms=6.2e-04
+(T_1,A_5): c_SW=5/3; t in [0.220,0.450] (9 pts); B=220, #terms=113902, tail/max<=e^-30
+   free fit: a=2.7415567781 => c_eff=6a/pi^2=1.6666666667; b1=-0.0694444444 (-c_SW/24=-0.0694444444); b2=1.0e-11; b3=-7.0e-12
+   constrained fits (a/t+b0 after adding c't/24): c'=5/3: rms=1.8e-15; c'=53/30: rms=6.2e-05; c'=47/30: rms=6.2e-05; c'=8/3: rms=6.2e-04; c'=2/3: rms=6.2e-04

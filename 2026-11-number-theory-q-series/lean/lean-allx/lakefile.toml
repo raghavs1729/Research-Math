@@ -1,0 +1,37 @@
+name = "LeanAllx"
+version = "0.1.0"
+defaultTargets = ["AllxChallenge", "AllxSolution"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+
+# lean-chebyshev (this repository): ChebLib, the GRH explicit formula for integrable test
+# functions and the chi4 infrastructure.  It pins zeta23 (anthropics/formal-math @ 11b6c7e),
+# Mathlib 51e6992 and Lean v4.33.0-rc2; we inherit all three.
+[[require]]
+name = "LeanChebyshev"
+path = "../lean-chebyshev"
+
+[[require]]
+name = "Zeta23"
+git = "https://github.com/anthropics/formal-math"
+rev = "11b6c7e3c927df2658f513b6b68ea7f8929c62c5"
+subDir = "zeta23"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "51e6992efd06126df61a496bebf8f49482a4e129"
+
+# The proof development.
+[[lean_lib]]
+name = "AllxLib"
+
+[[lean_lib]]
+name = "AllxChallenge"
+roots = ["AllxChallenge"]
+
+[[lean_lib]]
+name = "AllxSolution"
+roots = ["AllxSolution"]

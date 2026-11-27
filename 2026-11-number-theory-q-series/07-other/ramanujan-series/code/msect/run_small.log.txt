@@ -1,0 +1,48 @@
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Dixon3F2 box 4 hits 96
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Dixon3F2 box 4 hits 92
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Watson3F2 box 4 hits 57
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Watson3F2 box 4 hits 92
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Whipple3F2 box 4 hits 64
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Whipple3F2 box 4 hits 148
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed1 box 4 hits 6
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed1 box 4 hits 0
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed2 box 4 hits 56
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed2 box 4 hits 91
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed3 box 4 hits 44
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed3 box 4 hits 84
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed4 box 4 hits 14
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed4 box 4 hits 0
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed9 box 4 hits 0
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed9 box 4 hits 0
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed10 box 4 hits 13
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Seed10 box 4 hits 0
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Kummer2F1 box 4 hits 5
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Kummer2F1 box 4 hits 8
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Gauss2nd box 4 hits 5
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Gauss2nd box 4 hits 0
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Bailey2F1 box 4 hits 8
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Bailey2F1 box 4 hits 0

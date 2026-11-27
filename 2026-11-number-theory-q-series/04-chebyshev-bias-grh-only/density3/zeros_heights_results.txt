@@ -1,0 +1,7 @@
+N=  100 random01  #outer=   96 #on-circle=   8 sum log|z| (outer)=4.417 vs log(1/|C_N|)=4.605 -> delta=0.189; N(|z|-1)/logN: median=0.88 q10=0.64 q90=1.20
+N=  100 all1      #outer=   98 #on-circle=   4 sum log|z| (outer)=4.263 vs log(1/|C_N|)=4.605 -> delta=0.343; N(|z|-1)/logN: median=0.93 q10=0.67 q90=1.25
+N=  300 random01  #outer=  293 #on-circle=  14 sum log|z| (outer)=5.460 vs log(1/|C_N|)=5.704 -> delta=0.244; N(|z|-1)/logN: median=0.85 q10=0.59 q90=1.18
+N=  300 all1      #outer=  299 #on-circle=   2 sum log|z| (outer)=5.369 vs log(1/|C_N|)=5.704 -> delta=0.335; N(|z|-1)/logN: median=0.92 q10=0.70 q90=1.19
+N=  288 beam0.15  #outer=  247 #on-circle=  82 sum log|z| (outer)=4.716 vs log(1/|C_N|)=5.663 -> delta=0.947; N(|z|-1)/logN: median=0.94 q10=0.49 q90=1.26
+N= 1000 random01  #outer=  994 #on-circle=  12 sum log|z| (outer)=6.741 vs log(1/|C_N|)=6.908 -> delta=0.167; N(|z|-1)/logN: median=0.79 q10=0.62 q90=1.06
+N= 1000 all1      #outer=  999 #on-circle=   2 sum log|z| (outer)=6.572 vs log(1/|C_N|)=6.908 -> delta=0.336; N(|z|-1)/logN: median=0.93 q10=0.74 q90=1.15

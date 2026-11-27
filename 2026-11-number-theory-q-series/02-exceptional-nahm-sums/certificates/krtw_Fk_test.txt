@@ -1,0 +1,11 @@
+x-refined factorisation (F_k): K_k(x) = B_{k+1}(x) J_k(x), all powers of x, mod q^44
+k=1: (F_k) OK ;  Omega-sum(x) == B_{k+1}^{(linear terms from level i)}(x) J_k(x) for i in [1]
+k=2: (F_k) OK ;  Omega-sum(x) == B_{k+1}^{(linear terms from level i)}(x) J_k(x) for i in [2]
+k=3: (F_k) OK ;  Omega-sum(x) == B_{k+1}^{(linear terms from level i)}(x) J_k(x) for i in [3]
+k=4: (F_k) OK ;  Omega-sum(x) == B_{k+1}^{(linear terms from level i)}(x) J_k(x) for i in [4]
+k=5: (F_k) OK ;  Omega-sum(x) == B_{k+1}^{(linear terms from level i)}(x) J_k(x) for i in [5]
+k=6: (F_k) OK ;  Omega-sum(x) == B_{k+1}^{(linear terms from level i)}(x) J_k(x) for i in [6]
+k=7: (F_k) OK ;  Omega-sum(x) == B_{k+1}^{(linear terms from level i)}(x) J_k(x) for i in [7]
+ALL (F_k) OK
+J_k(x) C_1(x) = C_k(x) and C_1(x) = (-xq;q^2)_inf, k <= 7: OK
+B_{k+1}(x)J_k(x) at x=1, x=q and B^{(k)}_{k+1}(1)J_k(1) equal the products (iii), (ii), (iv), k <= 7: OK

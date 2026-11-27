@@ -1,0 +1,41 @@
+/-
+ChebAllxChallenge.lean — the TRUSTED challenge module: WHAT IS CLAIMED.   (GENERATED FILE: see
+scripts/gen_challenge.py; the definitions `GRHFor`, `chi4` are inlined verbatim from
+lean-chebyshev's ChebLib/Race/Defs.lean, `chebyshevSum`, `chebyshevLogSum` from
+ChebLib/Cheb/Defs.lean, and the statements are copied byte for byte from ChebAllxSolution.lean,
+with every proof replaced by `sorry`.)
+
+CHEBYSHEV'S 1853 ASSERTION AT EVERY x > 0, AND FOR EVERY CONVEX WEIGHT, UNDER GRH FOR ONE
+L-FUNCTION.
+
+  * `grh_chebyshev_sum_neg` — the headline: if every zero of L(s,χ₋₄) in 0 < Re s < 1 has real part
+    1/2 (`GRHFor chi4`), then for EVERY real x > 0
+        Σ_p χ₋₄(p) e^{−p/x} < 0        (χ₋₄(p) = (−1)^{(p−1)/2} for odd p, χ₋₄(2) = 0);
+    `grh_chebyshev_log_sum_neg` — the same for Σ_p χ₋₄(p) log p · e^{−p/x};
+  * `chebyshev_sum_neg_of_le` (NO hypothesis) — the same inequality for every 0 < x ≤ 250000,
+    unconditionally;
+  * `grh_chi4_convex_weight_sum_neg`, `grh_chi4_convexOn_weight_sum_neg`,
+    `grh_chi4_convex_log_weight_sum_neg` — every convex weight: Σ_p χ₋₄(p) w(p) < 0 for every w convex
+    on [3, ∞) (as a sequence or as a function) with Σ_p w(p) < ∞ and w(3) > 0;
+  * `grh_fujii_sum_neg` — Fujii's weights: Σ_p χ₋₄(p) e^{−(p/x)^α} < 0 for every x > 0, 0 < α ≤ 1;
+    `grh_chi4_prime_dirichlet_sum_neg` — Σ_p χ₋₄(p) p^{−σ} < 0 for every σ > 1;
+  * `chi4_log_sum_eq_theta1_series` (no hypothesis) — the identity behind these:
+        −Σ_p χ₋₄(p) log p · f(p) = Σ_{k ≥ 0} Θ₁(k+4) (f(k+3) − 2 f(k+4) + f(k+5)),
+    Θ₁(m) = Σ_{p ≤ m} (−χ₋₄(p)) log p · (m − p);
+  * `chebyshevSum_eq_neg_integral`, `chebyshevSum_integrand_integrableOn` (no hypothesis) — the
+    integral identity of the note:  Σ_p χ₋₄(p) e^{−p/x} = −∫_2^∞ Θ₁(t) F''(t) dt,  F = e^{−t/x}/log t;
+    `chebyshev_kernel_hasDerivAt`, `chebyshev_kernel_second_deriv_pos` — F'' in closed form, F'' > 0;
+  * `chebyshevSum_eq_integral_log_sums` (no hypothesis), `grh_chi4_log_sum_rpow_exp_neg` — from the sum
+    without logarithms to the sums with logarithms:  Σ_p χ₋₄(p) e^{−p/x} =
+    ∫_0^∞ (Σ_p χ₋₄(p) log p · p^{−u} e^{−p/x}) du,  each integrand negative under GRH;
+  * `second_order_summation_by_parts_infinite`, `second_order_partial_summation_infinite` — the two
+    general summation-by-parts identities over the infinite range (discrete and integral form);
+  * `chebyshevSum_summable`, `chebyshevLogSum_summable`, `chi4_natCast_two`, `chi4_natCast_of_odd`,
+    `fujii_summable`, `grhFor_of_dirichlet_zeros_on_line` — the conventions: convergence of the series, the values of
+    χ₋₄, the shape of GRH.
+
+This module imports ONLY Mathlib.  Every hypothesis is an explicit binder: there is no `axiom`.
+ChebAllxSolution.lean (untrusted) proves exactly these statements from ChebAllxLib/, lean-allx's
+AllxLib/, lean-chebyshev's ChebLib/ and the Zeta23 library.  The `sorry`s below are deliberate
+(this is the challenge side).
+-/

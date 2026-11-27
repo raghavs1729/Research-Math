@@ -1,0 +1,8 @@
+chi_4 m=0 N=2  degree-2 exploration: tier A density >= 0.8800 (s=0.00), tier B >= 0.9027 (s=0.28)   [num, not certified]
+chi_4 m=0 N=3  degree-2 exploration: tier A density >= 0.8823 (s=0.00), tier B >= 0.9084 (s=0.21)   [num, not certified]
+chi_4 m=0 N=4  degree-2 exploration: tier A density >= 0.8832 (s=0.00), tier B >= 0.9117 (s=0.11)   [num, not certified]
+chi_4 m=0 N=5  degree-2 exploration: tier A density >= 0.8838 (s=0.00), tier B >= 0.9143 (s=0.02)   [num, not certified]
+chi_3 m=0 N=2  degree-2 exploration: tier A density >= 0.9068 (s=0.00), tier B >= 0.9256 (s=0.27)   [num, not certified]
+chi_3 m=0 N=3  degree-2 exploration: tier A density >= 0.9088 (s=0.00), tier B >= 0.9300 (s=0.19)   [num, not certified]
+chi_3 m=0 N=4  degree-2 exploration: tier A density >= 0.9099 (s=0.00), tier B >= 0.9332 (s=0.09)   [num, not certified]
+chi_3 m=0 N=5  degree-2 exploration: tier A density >= 0.9105 (s=0.00), tier B >= 0.9357 (s=0.00)   [num, not certified]

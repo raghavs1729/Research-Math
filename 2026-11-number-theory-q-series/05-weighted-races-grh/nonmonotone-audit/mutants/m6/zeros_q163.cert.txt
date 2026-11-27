@@ -1,0 +1,2 @@
+# zeros_cert.py  q=163  character number 162 = Kronecker symbol (-163/.), odd, real, primitive (checked for n <= 2q)
+# [0] L(1/2, chi) = [0.0685317582960750993082703159838 +/- 9.58e-33]  certified > 0

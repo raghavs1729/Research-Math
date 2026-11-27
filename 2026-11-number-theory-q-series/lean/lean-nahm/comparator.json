@@ -1,0 +1,53 @@
+{
+  "challenge_module": "NahmStatement",
+  "solution_module": "NahmSolution",
+  "theorem_names": [
+    "Nahm.andrews_gordon",
+    "Nahm.andrews_gordon_field",
+    "Nahm.coeff_agTerm_eq_zero",
+    "Nahm.invCartanE8_eq_explicit",
+    "Nahm.e8Form_eq_e8Exp",
+    "Nahm.coeff_e8Term_eq_zero",
+    "Nahm.e8_vacuum",
+    "Nahm.e8_vacuum_field",
+    "Nahm.e8_companion_4",
+    "Nahm.e8_companion_3",
+    "Nahm.e8_companion_2",
+    "Nahm.e8_companion_1",
+    "Nahm.invCartanE7_eq_explicit",
+    "Nahm.e7Form_eq_e7Exp",
+    "Nahm.coeff_e7Term_eq_zero",
+    "Nahm.coeff_e7ThetaTerm_eq_zero",
+    "Nahm.e7_identity",
+    "Nahm.e7_identity_bilateral",
+    "Nahm.e7_identity_field",
+    "Nahm.e7_identity_bilateral_field",
+    "Nahm.coeff_qPochInf"
+  ],
+  "definition_names": [
+    "Nahm.qPoch",
+    "Nahm.qPochInf",
+    "Nahm.box",
+    "Nahm.psum",
+    "Nahm.agExp",
+    "Nahm.agSum",
+    "Nahm.agProduct",
+    "Nahm.invCartanE8",
+    "Nahm.e8Form",
+    "Nahm.e8Exp",
+    "Nahm.e8Sum",
+    "Nahm.qPoch4",
+    "Nahm.invCartanE7",
+    "Nahm.e7Form",
+    "Nahm.e7Exp",
+    "Nahm.e7Sum",
+    "Nahm.e7Theta",
+    "Nahm.e7ThetaOneSided"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

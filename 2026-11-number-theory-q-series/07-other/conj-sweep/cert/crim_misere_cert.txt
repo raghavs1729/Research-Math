@@ -1,0 +1,39 @@
+states: 16
+  state 0: representative ''         accepting=False  E->1  N->0
+  state 1: representative 'E'        accepting=False  E->2  N->3
+  state 2: representative 'EE'       accepting=False  E->4  N->4
+  state 3: representative 'EN'       accepting=True  E->5  N->1
+  state 4: representative 'EEE'      accepting=False  E->2  N->6
+  state 5: representative 'ENE'      accepting=True  E->7  N->8
+  state 6: representative 'EEEN'     accepting=True  E->9  N->4
+  state 7: representative 'ENEE'     accepting=True  E->10  N->11
+  state 8: representative 'ENEN'     accepting=False  E->1  N->12
+  state 9: representative 'EEENE'    accepting=True  E->6  N->2
+  state 10: representative 'ENEEE'    accepting=True  E->7  N->13
+  state 11: representative 'ENEEN'    accepting=False  E->14  N->13
+  state 12: representative 'ENENN'    accepting=False  E->14  N->8
+  state 13: representative 'ENEEEN'   accepting=False  E->15  N->11
+  state 14: representative 'ENEENE'   accepting=False  E->11  N->11
+  state 15: representative 'ENEEENE'  accepting=False  E->13  N->7
+(i) True (ii) True (iii) empty word rejected: True; (iv) configurations 162, violations 0
+VERDICT: misere automaton PROVED correct
+L: #(normal P & misere P), #(normal P only), #(misere P only), #(neither), over the 2^(L-2) partitions with rows+columns = L
+   (2, 0, 0, 1, 0)
+   (3, 0, 0, 0, 2)
+   (4, 1, 1, 2, 0)
+   (5, 0, 0, 0, 8)
+   (6, 7, 4, 3, 2)
+   (7, 0, 0, 0, 32)
+   (8, 32, 8, 8, 16)
+   (9, 0, 0, 0, 128)
+   (10, 142, 18, 18, 78)
+   (11, 0, 0, 0, 512)
+   (12, 600, 40, 40, 344)
+   (13, 0, 0, 0, 2048)
+   (14, 2472, 88, 88, 1448)
+   (15, 0, 0, 0, 8192)
+   (16, 10048, 192, 192, 5952)
+   (17, 0, 0, 0, 32768)
+   (18, 40544, 416, 416, 24160)
+   (19, 0, 0, 0, 131072)
+   (20, 162944, 896, 896, 97408)

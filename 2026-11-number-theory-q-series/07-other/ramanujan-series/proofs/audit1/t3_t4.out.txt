@@ -1,0 +1,39 @@
+=== Theorem 3
+Psi_N: Leibniz form == y^{2N} d^{2N}/dy^{2N}[log y/(1-y)] symbolically (N<=4); integral closed form and bound (2N)!/((2N+1)y) at y = 1/20,3/10,3/4,99/100: OK
+D_0 + 3K/(2pi) = -5.7397e-42
+  step 2: sup_{k<=2000} |F'(0,k)|/(k^(2n+3)(3/4)^k) = 0.090409; same for G' (num. diff): 0.21707
+  step 2: sup_{k<=2000} |F'(1,k)|/(k^(2n+3)(3/4)^k) = 0.015915; same for G' (num. diff): 0.0063662
+  step 2: sup_{k<=2000} |F'(3,k)|/(k^(2n+3)(3/4)^k) = 1.624e-5; same for G' (num. diff): 1.1811e-5
+step 3: G'(n,0) = -(3/(4 pi)) t(n+1), n = 0..11 (closed form of the text): OK   [n=1 base case by hand: G'(1,0) = -7/(160 pi), t(2) = 7/120]
+  N=1: D_N=-0.014945801  (D_0 - sum_{n<N}G'(n,0)) - D_N = 5.38e-43  bound=0.0265258  bound*9^N*N=0.238732  |D_N|*9^N*N=0.134512
+  N=2: D_N=-0.0010197437  (D_0 - sum_{n<N}G'(n,0)) - D_N = 4.06e-42  bound=0.00159155  bound*9^N*N=0.257831  |D_N|*9^N*N=0.165198
+  N=3: D_N=-8.1866366e-5  (D_0 - sum_{n<N}G'(n,0)) - D_N = 2.8e-42  bound=0.000121802  bound*9^N*N=0.266382  |D_N|*9^N*N=0.179042
+  N=4: D_N=-7.1240746e-6  (D_0 - sum_{n<N}G'(n,0)) - D_N = 4.14e-42  bound=1.03347e-5  bound*9^N*N=0.271225  |D_N|*9^N*N=0.186964
+  N=5: D_N=-6.5066813e-7  (D_0 - sum_{n<N}G'(n,0)) - D_N = 8.11e-43  bound=9.29197e-7  bound*9^N*N=0.274341  |D_N|*9^N*N=0.192107
+  N=6: D_N=-6.1379535e-8  (D_0 - sum_{n<N}G'(n,0)) - D_N = 2.32e-43  bound=8.67181e-8  bound*9^N*N=0.276513  |D_N|*9^N*N=0.195718
+  N=7: D_N=-5.9256209e-9  (D_0 - sum_{n<N}G'(n,0)) - D_N = 3.06e-42  bound=8.30668e-9  bound*9^N*N=0.278114  |D_N|*9^N*N=0.198394
+  N=8: D_N=-5.8209654e-10  (D_0 - sum_{n<N}G'(n,0)) - D_N = 5.64e-42  bound=8.11161e-10  bound*9^N*N=0.279343  |D_N|*9^N*N=0.200459
+  N=50: bound*9^N*N = 0.28709007   (sqrt3/6 = 0.28867513)
+  N=500: bound*9^N*N = 0.28851495   (sqrt3/6 = 0.28867513)
+  N=5000: bound*9^N*N = 0.2886591   (sqrt3/6 = 0.28867513)
+I (t-form) + 4K = 3.0e-23 ; I (theta-form) + 4K = (-3.72e-39 + 2.03e-42j)
+Cl2(pi/3) - 1.5 Cl2(2pi/3) = 0.0 ; Cl2(2pi/3) - (sqrt3/2)K = 1.15e-41 ; 0.5Cl2(2pi/3) - Cl2(pi/3) + Cl2(2pi/3) = -1.15e-41
+int_0^alpha log(2cos) = Cl2(pi-2alpha)/2: OK
+three pieces of the log-cos integral: OK
+
+=== Theorem 4
+1-sigma-(3/4)(n+1)/(k+3n+1) = (4nk+4k+16n+1)/(16(k+n+1)(k+3n+1)) > 0; Q <= k+3n+3; WZ; compatibility (grid 30x60, exact): OK
+max h(n,k)/[h(n,0)((3n+1)/(k+3n+1))^(3(n+1)/4)] over n<12, k<4000 = 1.0 (must be <= 1)
+  n= 1: sum_k h(n,k)/h(n,0) = 2.9461594 ; sum of the bounding series = 8.4468252 ; integral bound 1+4(3n+1)/(3n-1) = 9.0
+  n= 2: sum_k h(n,k)/h(n,0) = 3.0633117 ; sum of the bounding series = 6.1264709 ; integral bound 1+4(3n+1)/(3n-1) = 6.6
+  n= 3: sum_k h(n,k)/h(n,0) = 3.1753293 ; sum of the bounding series = 5.5249175 ; integral bound 1+4(3n+1)/(3n-1) = 6.0
+  n= 5: sum_k h(n,k)/h(n,0) = 3.3343967 ; sum of the bounding series = 5.0948118 ; integral bound 1+4(3n+1)/(3n-1) = 5.57143
+  n=10: sum_k h(n,k)/h(n,0) = 3.5444462 ; sum of the bounding series = 4.7980031 ; integral bound 1+4(3n+1)/(3n-1) = 5.27586
+  n=40: sum_k h(n,k)/h(n,0) = 6.2775114e-15 ; sum of the bounding series = 4.5883796 ; integral bound 1+4(3n+1)/(3n-1) = 5.06723
+  K=1000: K (1/4)_K (3/4)_K/K!^2 = 0.225036880669 ; 1/(Gamma(1/4)Gamma(3/4)) = 0.225079079039 = 1/(sqrt2 pi) = 0.225079079039
+  K=1000000: K (1/4)_K (3/4)_K/K!^2 = 0.225079036837 ; 1/(Gamma(1/4)Gamma(3/4)) = 0.225079079039 = 1/(sqrt2 pi) = 0.225079079039
+  N=1: sum_{n<N} Q(n,0)h(n,0) + N sum_k h(N,k) - 1/(sqrt2 pi) = 0.0 ;  N sum_k h(N,k) = 0.107892 <= 7N(27/32)^N = 5.90625
+  N=2: sum_{n<N} Q(n,0)h(n,0) + N sum_k h(N,k) - 1/(sqrt2 pi) = -2.87e-42 ;  N sum_k h(N,k) = 0.0730729 <= 7N(27/32)^N = 9.9668
+  N=3: sum_{n<N} Q(n,0)h(n,0) + N sum_k h(N,k) - 1/(sqrt2 pi) = -2.87e-42 ;  N sum_k h(N,k) = 0.0537613 <= 7N(27/32)^N = 12.6142
+  N=4: sum_{n<N} Q(n,0)h(n,0) + N sum_k h(N,k) - 1/(sqrt2 pi) = -2.87e-42 ;  N sum_k h(N,k) = 0.0409885 <= 7N(27/32)^N = 14.191
+  N=5: sum_{n<N} Q(n,0)h(n,0) + N sum_k h(N,k) - 1/(sqrt2 pi) = 0.0 ;  N sum_k h(N,k) = 0.0318871 <= 7N(27/32)^N = 14.9671

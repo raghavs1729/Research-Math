@@ -1,0 +1,3 @@
+B_1 first terms [1, 1, 2, 4, 5, 8, 12, 16]
+k <= 2100, n < 160: Conjecture 1 (A) mismatches (k, predicted, observed min v2): []
+k <= 2100, n < 160: Conjecture 2 (B) mismatches: []

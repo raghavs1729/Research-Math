@@ -1,0 +1,5 @@
+# VERIFY chi4_zeros.txt (sha256 0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc): q=4, character number 3 = Kronecker (-4/.), 511 listed windows, T_cert = 640165707/1000000
+# [0] L(1/2, chi) = [0.6676914571896091766586909 +/- 2.94e-26] certified > 0;  [Z] all 511 windows: certified sign change of Z at d -+ 1e-20, disjoint, increasing, inside (0, T_cert)
+# [N] W = [1022.00000000 +/- 3e-13] -> 1022 zeros of Lambda in (-1,2)x(-T,T)  (theta/pi = 510.586256720, 60 L-evals);  2K = 1022
+HASH-RECORD sha256=0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc file=chi4_zeros.txt q=4 K=511 T_cert=640165707/1000000 W=1022 mode=verify status=PASS
+# VERIFY passed in 0.8s: exactly one simple zero per window, no other zero with |Im s| < T_cert

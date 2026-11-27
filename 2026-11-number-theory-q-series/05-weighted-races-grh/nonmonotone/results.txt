@@ -1,0 +1,330 @@
+results.txt -- non-monotonicity of the weighted bias density for the real characters
+of conductor 163 and 232.  Assembled by make_results.py from the raw outputs reproduced
+verbatim below.  All enclosure endpoints are outward-rounded 12-decimal numbers; the
+comparisons marked CERTIFIED are exact rational comparisons of those endpoints.
+Every enclosure is tied to its zero file by sha256 (hypothesis (H-Z), audit finding G1).
+M = m + 1/2;  delta(M) = P(1 + sum_gamma 4M/sqrt(M^2+gamma^2) cos(theta_gamma) > 0).
+See NONMONOTONE.md for the theorem, the hypotheses and what is / is not rigorous.
+
+====================================================================================================
+CONDUCTOR 163   (chi = Kronecker symbol (-163/.), odd)
+====================================================================================================
+Zero file binding, hypothesis (H-Z):
+  [OK] sha256(zeros_q163.txt) = b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d equals the hash pinned by the audit
+  [OK] passing HASH-RECORD for that hash in zeros_q163.cert.txt: K = 133, T_cert = 7617/64, W = 266
+  [OK] every DELTA line of raw_density_q163.txt carries zeros_sha256 = that hash
+  [OK] the M_0 line carries the same hash
+CERTIFIED enclosures (GRH; zero data certified by zeros_cert.py):
+   M = 3/10     (m = -1/5   )   delta in [ 0.599269990566 , 0.599270019978 ]   width 2.94e-08
+   M = 57/100   (m = 7/100  )   delta in [ 0.590250631768 , 0.590250669413 ]   width 3.76e-08
+   M = 3/5      (m = 1/10   )   delta in [ 0.590328985850 , 0.590329024804 ]   width 3.90e-08
+   M = 117/100  (m = 67/100 )   delta in [ 0.596052042574 , 0.596052089770 ]   width 4.72e-08
+   M = 6/5      (m = 7/10   )   delta in [ 0.596034510065 , 0.596034556476 ]   width 4.64e-08
+   M = 2        (m = 3/2    )   delta in [ 0.586642408419 , 0.586642448867 ]   width 4.04e-08
+CERTIFIED comparisons:
+  [OK] INCREASE: delta(3/5) <= 0.590329024804 < 0.596034510065 <= delta(6/5);  delta(6/5) - delta(3/5) in [0.005705485261, 0.005705570626]
+  [OK] INCREASE: delta(57/100) <= 0.590250669413 < 0.596052042574 <= delta(117/100);  delta(117/100) - delta(57/100) in [0.005801373161, 0.005801458002]
+  [OK] INCREASE: delta(57/100) <= 0.590250669413 < 0.590328985850 <= delta(3/5);  delta(3/5) - delta(57/100) in [0.000078316437, 0.000078393036]
+  [OK] decrease: delta(3/10) >= 0.599269990566 > 0.590250669413 >= delta(57/100)
+  [OK] decrease: delta(117/100) >= 0.596052042574 > 0.596034556476 >= delta(6/5)
+  [OK] decrease: delta(6/5) >= 0.596034510065 > 0.586642448867 >= delta(2)
+  [OK] M_0 in (0.16441017, 0.16441035): the increase lies above M_0 (consistent with Theorem B)
+NON-RIGOROUS cross-checks against the certified enclosures:
+  [OK] M = 57/100: mpmath tanh-sinh value 0.5902506512188 lies in the enclosure
+  [OK] M = 57/100: Simpson value 0.590250651219 lies in the enclosure
+  [OK] M = 57/100: Monte Carlo 0.590196 +- 0.000185 is within 4 s.e. of the enclosure (0.30 s.e.)
+  [OK] M = 3/5: mpmath tanh-sinh value 0.590329004992 lies in the enclosure
+  [OK] M = 3/5: Simpson value 0.590329004992 lies in the enclosure
+  [OK] M = 3/5: Monte Carlo 0.590234 +- 0.000187 is within 4 s.e. of the enclosure (0.51 s.e.)
+  [OK] M = 117/100: mpmath tanh-sinh value 0.5960520510988 lies in the enclosure
+  [OK] M = 117/100: Simpson value 0.596052051099 lies in the enclosure
+  [OK] M = 117/100: Monte Carlo 0.596108 +- 0.000192 is within 4 s.e. of the enclosure (0.29 s.e.)
+  [OK] M = 6/5: mpmath tanh-sinh value 0.5960345189881 lies in the enclosure
+  [OK] M = 6/5: Simpson value 0.596034518988 lies in the enclosure
+  [OK] M = 6/5: Monte Carlo 0.596057 +- 0.000190 is within 4 s.e. of the enclosure (0.12 s.e.)
+
+====================================================================================================
+CONDUCTOR 232   (chi = Kronecker symbol (-232/.), odd)
+====================================================================================================
+Zero file binding, hypothesis (H-Z):
+  [OK] sha256(zeros_q232.txt) = 42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378 equals the hash pinned by the audit
+  [OK] passing HASH-RECORD for that hash in zeros_q232.cert.txt: K = 114, T_cert = 6351/64, W = 228
+  [OK] every DELTA line of raw_density_q232.txt carries zeros_sha256 = that hash
+  [OK] the M_0 line carries the same hash
+CERTIFIED enclosures (GRH; zero data certified by zeros_cert.py):
+   M = 2/5      (m = -1/10  )   delta in [ 0.606642556775 , 0.606642613806 ]   width 5.70e-08
+   M = 71/100   (m = 21/100 )   delta in [ 0.597435124908 , 0.597435193395 ]   width 6.85e-08
+   M = 18/25    (m = 11/50  )   delta in [ 0.597438040240 , 0.597438108755 ]   width 6.85e-08
+   M = 1        (m = 1/2    )   delta in [ 0.598231098965 , 0.598231174771 ]   width 7.58e-08
+   M = 101/100  (m = 51/100 )   delta in [ 0.598233617676 , 0.598233693573 ]   width 7.59e-08
+   M = 3/2      (m = 1      )   delta in [ 0.594070789210 , 0.594070852885 ]   width 6.37e-08
+CERTIFIED comparisons:
+  [OK] INCREASE: delta(18/25) <= 0.597438108755 < 0.598231098965 <= delta(1);  delta(1) - delta(18/25) in [0.000792990210, 0.000793134531]
+  [OK] INCREASE: delta(71/100) <= 0.597435193395 < 0.598233617676 <= delta(101/100);  delta(101/100) - delta(71/100) in [0.000798424281, 0.000798568665]
+  [OK] INCREASE: delta(71/100) <= 0.597435193395 < 0.597438040240 <= delta(18/25);  delta(18/25) - delta(71/100) in [0.000002846845, 0.000002983847]
+  [OK] INCREASE: delta(1) <= 0.598231174771 < 0.598233617676 <= delta(101/100);  delta(101/100) - delta(1) in [0.000002442905, 0.000002594608]
+  [OK] decrease: delta(2/5) >= 0.606642556775 > 0.597435193395 >= delta(71/100)
+  [OK] decrease: delta(101/100) >= 0.598233617676 > 0.594070852885 >= delta(3/2)
+  [OK] M_0 in (0.2511058, 0.2511076): the increase lies above M_0 (consistent with Theorem B)
+NON-RIGOROUS cross-checks against the certified enclosures:
+  [OK] M = 71/100: mpmath tanh-sinh value 0.5974351453321 lies in the enclosure
+  [OK] M = 71/100: Simpson value 0.597435145332 lies in the enclosure
+  [OK] M = 71/100: Monte Carlo 0.597408 +- 0.000107 is within 4 s.e. of the enclosure (0.25 s.e.)
+  [OK] M = 18/25: mpmath tanh-sinh value 0.5974380599159 lies in the enclosure
+  [OK] M = 18/25: Simpson value 0.597438059916 lies in the enclosure
+  [OK] M = 18/25: Monte Carlo 0.597408 +- 0.000108 is within 4 s.e. of the enclosure (0.28 s.e.)
+  [OK] M = 1: mpmath tanh-sinh value 0.5982311105762 lies in the enclosure
+  [OK] M = 1: Simpson value 0.598231110576 lies in the enclosure
+  [OK] M = 1: Monte Carlo 0.598229 +- 0.000111 is within 4 s.e. of the enclosure (0.02 s.e.)
+  [OK] M = 101/100: mpmath tanh-sinh value 0.5982336293743 lies in the enclosure
+  [OK] M = 101/100: Simpson value 0.598233629374 lies in the enclosure
+  [OK] M = 101/100: Monte Carlo 0.598249 +- 0.000110 is within 4 s.e. of the enclosure (0.14 s.e.)
+
+====================================================================================================
+SANITY: the same code on chi mod 4 (zeros and published enclosures from prototype/explore)
+====================================================================================================
+  [OK] chi4_zeros.txt (sha256 0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc) re-certified by zeros_cert.py --verify (K = 511, W = 1022) and printed in every DELTA line
+  [OK] m = 0: [0.995927912125, 0.995927938565] is contained in the published enclosure [0.995927866782, 0.995927983908]
+  [OK] m = 0: every point of the enclosure rounds to 0.995928
+  [OK] m = 1: [0.797630385848, 0.797630412326] is contained in the published enclosure [0.797630378395, 0.797630419780]
+  [OK] m = 1: every point of the enclosure rounds to 0.797630
+
+====================================================================================================
+STABILITY: conductor 163 with only the first 60 zeros (the other 73 treated as unlisted)
+====================================================================================================
+  [OK] same certified zero file (hash in every DELTA line)
+  [OK] M = 3/5: 60-zero enclosure [0.590328859673, 0.590329153124] contains the 133-zero enclosure
+  [OK] M = 6/5: 60-zero enclosure [0.596034403752, 0.596034753220] contains the 133-zero enclosure
+
+====================================================================================================
+ZERO-COUNT ROUTINE TESTED on chi_4, chi_3 (answers certified independently by certify_arb.py)
+====================================================================================================
+  [OK] COUNT q=4 T=640.165707000: symmetric count W = [1022.00000000 +/- 3e-13] -> 1022 ; listed ordinates below T: 511 ; 2K = 1022 : AGREES  [60 L-evals, 0s]
+  [OK] COUNT q=4 T=99.4450935594: symmetric count W = [100.000000000 +/- 3e-14] -> 100 ; listed ordinates below T: 50 ; 2K = 100 : AGREES  [49 L-evals, 0s]
+  [OK] COUNT q=3 T=700.024747000: symmetric count W = [1074.00000000 +/- 3e-13] -> 1074 ; listed ordinates below T: 537 ; 2K = 1074 : AGREES  [74 L-evals, 0s]
+  [OK] COUNT q=3 T=107.108188983: symmetric count W = [100.000000000 +/- 3e-14] -> 100 ; listed ordinates below T: 50 ; 2K = 100 : AGREES  [49 L-evals, 0s]
+
+====================================================================================================
+MUTATION DEMONSTRATION (audit G1): incomplete zero files are refused
+====================================================================================================
+  [OK] `python3 density.py --q 163 --M 3/5 6/5 --zeros m1_gamma1_deleted.txt`: refused (exit status 2), no DELTA line, no hash record
+  [OK] `python3 density.py --q 163 --M 3/5 6/5 --zeros m1_gamma1_deleted.txt --uncertified-zeros`: refused (exit status 2), no DELTA line, no hash record
+  [OK] `python3 zeros_cert.py 163 --verify --file m1_gamma1_deleted.txt`: refused (exit status 1), no DELTA line, no hash record
+  [OK] `python3 density.py --q 163 --M 3/5 6/5 --zeros m2_gamma67_deleted.txt`: refused (exit status 2), no DELTA line, no hash record
+  [OK] `python3 zeros_cert.py 163 --verify --file m2_gamma67_deleted.txt`: refused (exit status 1), no DELTA line, no hash record
+  [OK] `python3 density.py --q 163 --M 3/5 --zeros m2_gamma67_deleted.txt --uncertified-zeros`: runs only with the waiver, and every output line is labelled UNCERTIFIED
+
+OVERALL: ALL CHECKS PASSED
+
+####################################################################################################
+# RAW OUTPUTS (verbatim)
+####################################################################################################
+
+----- zeros_q163.cert.txt -----------------------------------------------------------------------
+# zeros_cert.py  q=163  character number 162 = Kronecker symbol (-163/.), odd, real, primitive (checked for n <= 2q)
+# [0] L(1/2, chi) = [0.0685317582960750993082703159838 +/- 9.58e-33]  certified > 0
+BLOCK top T = 1275/64 = 19.921875 : 17 new windows, K = 17 in (0,T); theta/pi = 16.7640040996, ArgL(2+iT)/pi = 0.085627332, horizontal/pi = 0.15036857 (174 L-evals); W = [34.0000000000 +/- 3e-15] -> 34 ; |Z(T)| = 1.746 ; 20.6s
+      => exactly 34 zeros of Lambda in (-1,2)x(-T,T): the 17 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 2544/64 = 39.750000 : 21 new windows, K = 38 in (0,T); theta/pi = 37.6944389059, ArgL(2+iT)/pi = 0.073777027, horizontal/pi = 0.23178407 (170 L-evals); W = [76.0000000000 +/- 3e-14] -> 76 ; |Z(T)| = 1.627 ; 33.0s
+      => exactly 76 zeros of Lambda in (-1,2)x(-T,T): the 38 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 3793/64 = 59.265625 : 22 new windows, K = 60 in (0,T); theta/pi = 59.9068531596, ArgL(2+iT)/pi = 0.018141288, horizontal/pi = 0.075005552 (71 L-evals); W = [120.000000000 +/- 3e-14] -> 120 ; |Z(T)| = 8.206 ; 34.5s
+      => exactly 120 zeros of Lambda in (-1,2)x(-T,T): the 60 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 5095/64 = 79.609375 : 24 new windows, K = 84 in (0,T); theta/pi = 84.1667526679, ArgL(2+iT)/pi = -0.084640979, horizontal/pi = -0.082111689 (136 L-evals); W = [168.000000000 +/- 3e-14] -> 168 ; |Z(T)| = 3.032 ; 48.2s
+      => exactly 168 zeros of Lambda in (-1,2)x(-T,T): the 84 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 6385/64 = 99.765625 : 25 new windows, K = 109 in (0,T); theta/pi = 109.028773974, ArgL(2+iT)/pi = 0.0057040733, horizontal/pi = -0.034478048 (167 L-evals); W = [218.000000000 +/- 3e-14] -> 218 ; |Z(T)| = 2.798 ; 72.5s
+      => exactly 218 zeros of Lambda in (-1,2)x(-T,T): the 109 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 7617/64 = 119.015625 : 24 new windows, K = 133 in (0,T); theta/pi = 133.383921340, ArgL(2+iT)/pi = 0.012199729, horizontal/pi = -0.39612107 (218 L-evals); W = [266.000000000 +/- 3e-14] -> 266 ; |Z(T)| = 1.694 ; 87.8s
+      => exactly 266 zeros of Lambda in (-1,2)x(-T,T): the 133 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+# state: 133 zeros certified complete up to T_cert = 7617/64 = 119.015625 ; cumulative 296.5s
+# VERIFY zeros_q163.txt (sha256 b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d): q=163, character number 162 = Kronecker (-163/.), 133 listed windows, T_cert = 7617/64
+# [0] L(1/2, chi) = [0.06853175829607509930827032 +/- 4.02e-27] certified > 0;  [Z] all 133 windows: certified sign change of Z at d -+ 1e-20, disjoint, increasing, inside (0, T_cert)
+# [N] W = [266.000000000 +/- 3e-14] -> 266 zeros of Lambda in (-1,2)x(-T,T)  (theta/pi = 133.383921340, 218 L-evals);  2K = 266
+HASH-RECORD sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d file=zeros_q163.txt q=163 K=133 T_cert=7617/64 W=266 mode=verify status=PASS
+# VERIFY passed in 14.5s: exactly one simple zero per window, no other zero with |Im s| < T_cert
+
+----- raw_density_q163.txt ----------------------------------------------------------------------
+# density.py  q=163  chi = Kronecker (-163/.)  zeros used: 133 (gamma_1 = 0.202901337499, gamma_last = 118.218287414)  max|partial sum| = 9
+# zero file zeros_q163.txt  sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d  bound to a passing certificate record (K=133, T_cert=7617/64, W=266, verify)  = hypothesis (H-Z)
+DELTA q=163 M=3/10 (m=-1/5)  lower=0.599269990566  upper=0.599270019978  width=2.94e-08  | sigma2=5.79547579081699  V_tail=0.008718890640  c_1=3.313338  T=55.765625  K=71  E1=4.62e-08  E2=3.12e-15  Egl=1.44e-21  radI=2.70e-18  gauss_cells=595  e1_cells=24183  time=23s  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+#   guard M=3/10: V_tail=0.00871889 vs RvM estimate 0.00872573 (tolerance 2.42e-04) OK;  69 of the K=71 envelope factors have b_j*T > 1
+DELTA q=163 M=57/100 (m=7/100)  lower=0.590250631768  upper=0.590250669413  width=3.76e-08  | sigma2=8.18472275119869  V_tail=0.03147503324  c_1=3.768369  T=29.578125  K=72  E1=5.91e-08  E2=3.14e-15  Egl=1.32e-21  radI=3.13e-19  gauss_cells=316  e1_cells=34689  time=23s  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+#   guard M=57/100: V_tail=0.03147503 vs RvM estimate 0.03149974 (tolerance 8.73e-04) OK;  70 of the K=72 envelope factors have b_j*T > 1
+DELTA q=163 M=3/5 (m=1/10)  lower=0.590328985850  upper=0.590329024804  width=3.90e-08  | sigma2=8.37716380533145  V_tail=0.03487535628  c_1=3.789200  T=28.125000  K=72  E1=6.12e-08  E2=3.12e-15  Egl=1.40e-21  radI=2.38e-19  gauss_cells=300  e1_cells=29069  time=19s  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+#   guard M=3/5: V_tail=0.03487536 vs RvM estimate 0.03490273 (tolerance 9.67e-04) OK;  70 of the K=72 envelope factors have b_j*T > 1
+DELTA q=163 M=117/100 (m=67/100)  lower=0.596052042574  upper=0.596052089770  width=4.72e-08  | sigma2=11.9968509844112  V_tail=0.1326106114  c_1=3.941175  T=14.593750  K=72  E1=7.41e-08  E2=3.08e-15  Egl=2.06e-21  radI=5.44e-21  gauss_cells=156  e1_cells=10630  time=8s  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+#   guard M=117/100: V_tail=0.13261061 vs RvM estimate 0.13271468 (tolerance 3.68e-03) OK;  70 of the K=72 envelope factors have b_j*T > 1
+DELTA q=163 M=6/5 (m=7/10)  lower=0.596034510065  upper=0.596034556476  width=4.64e-08  | sigma2=12.2068736380107  V_tail=0.1394981248  c_1=3.944018  T=14.234375  K=72  E1=7.29e-08  E2=3.09e-15  Egl=2.20e-21  radI=4.76e-21  gauss_cells=152  e1_cells=10819  time=9s  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+#   guard M=6/5: V_tail=0.13949812 vs RvM estimate 0.13960760 (tolerance 3.87e-03) OK;  70 of the K=72 envelope factors have b_j*T > 1
+DELTA q=163 M=2 (m=3/2)  lower=0.586642408419  upper=0.586642448867  width=4.04e-08  | sigma2=18.6277986610377  V_tail=0.3874730636  c_1=3.979573  T=8.6562500  K=74  E1=6.35e-08  E2=3.01e-15  Egl=4.40e-21  radI=7.53e-22  gauss_cells=99  e1_cells=2751  time=3s  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+#   guard M=2: V_tail=0.38747306 vs RvM estimate 0.38777711 (tolerance 1.07e-02) OK;  72 of the K=74 envelope factors have b_j*T > 1
+
+----- raw_crosscheck_q163.txt -------------------------------------------------------------------
+# crosscheck.py q=163 (Kronecker (-163/.)), 133 listed zeros up to 118.2183  [NON-RIGOROUS]  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+(A0) mpmath re-location of the first 12 ordinates: max |difference| = 9.67e-26  (43s)
+     mpmath L(1/2,chi) = 0.068531758296075099308
+M=3/5: sigma^2 (mpmath closed form) = 8.37716380533145434 ; listed zeros give 8.3422884491 ; V_tail = 0.03487536  (RvM estimate of the tail: 0.034903)
+   (B) Simpson (h=0.0005, T=49.3): delta = 0.590329004992   (|integrand| at the end <= 1.0e-86)
+   (A) mpmath tanh-sinh on [0,16]: delta = 0.590329004992   (3s)
+M=6/5: sigma^2 (mpmath closed form) = 12.2068736380106646 ; listed zeros give 12.0673755133 ; V_tail = 0.13949812  (RvM estimate of the tail: 0.139608)
+   (B) Simpson (h=0.0005, T=24.6): delta = 0.596034518988   (|integrand| at the end <= 1.4e-86)
+   (A) mpmath tanh-sinh on [0,16]: delta = 0.5960345189881   (2s)
+M=57/100: sigma^2 (mpmath closed form) = 8.18472275119868813 ; listed zeros give 8.1532477180 ; V_tail = 0.03147503  (RvM estimate of the tail: 0.031500)
+   (B) Simpson (h=0.0005, T=51.9): delta = 0.590250651219   (|integrand| at the end <= 1.1e-86)
+   (A) mpmath tanh-sinh on [0,16]: delta = 0.5902506512188   (3s)
+M=117/100: sigma^2 (mpmath closed form) = 11.9968509844111729 ; listed zeros give 11.8642403730 ; V_tail = 0.13261061  (RvM estimate of the tail: 0.132715)
+   (B) Simpson (h=0.0005, T=25.3): delta = 0.596052051099   (|integrand| at the end <= 9.5e-87)
+   (A) mpmath tanh-sinh on [0,16]: delta = 0.5960520510988   (2s)
+   (C) Monte Carlo, 8000000 samples in 80 batches (common phases)  (28s)
+       M=3/5: delta = 0.590234 +- 0.000187 (1 s.e.)
+       M=6/5: delta = 0.596057 +- 0.000190 (1 s.e.)
+       M=57/100: delta = 0.590196 +- 0.000185 (1 s.e.)
+       M=117/100: delta = 0.596108 +- 0.000192 (1 s.e.)
+       delta(6/5) - delta(3/5) = +0.005823 +- 0.000092 (1 s.e., paired)
+       delta(57/100) - delta(3/5) = -0.000038 +- 0.000023 (1 s.e., paired)
+       delta(117/100) - delta(3/5) = +0.005873 +- 0.000090 (1 s.e., paired)
+       delta(57/100) - delta(6/5) = -0.005861 +- 0.000094 (1 s.e., paired)
+       delta(117/100) - delta(6/5) = +0.000051 +- 0.000021 (1 s.e., paired)
+       delta(117/100) - delta(57/100) = +0.005911 +- 0.000094 (1 s.e., paired)
+
+----- zeros_q232.cert.txt -----------------------------------------------------------------------
+# zeros_cert.py  q=232  character number 115 = Kronecker symbol (-232/.), odd, real, primitive (checked for n <= 2q)
+# [0] L(1/2, chi) = [0.246299135011975588519122848798 +/- 2.75e-32]  certified > 0
+BLOCK top T = 1276/64 = 19.937500 : 18 new windows, K = 18 in (0,T); theta/pi = 17.8996233812, ArgL(2+iT)/pi = 0.016780276, horizontal/pi = 0.083596343 (74 L-evals); W = [36.0000000000 +/- 3e-15] -> 36 ; |Z(T)| = 2.519 ; 10.6s
+      => exactly 36 zeros of Lambda in (-1,2)x(-T,T): the 18 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 2540/64 = 39.687500 : 22 new windows, K = 40 in (0,T); theta/pi = 39.8550586085, ArgL(2+iT)/pi = 0.0077605061, horizontal/pi = 0.13718089 (203 L-evals); W = [80.0000000000 +/- 3e-14] -> 80 ; |Z(T)| = 0.699 ; 18.5s
+      => exactly 80 zeros of Lambda in (-1,2)x(-T,T): the 40 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 3829/64 = 59.828125 : 24 new windows, K = 64 in (0,T); theta/pi = 63.9253221257, ArgL(2+iT)/pi = 0.018182603, horizontal/pi = 0.056495272 (74 L-evals); W = [128.000000000 +/- 3e-14] -> 128 ; |Z(T)| = 4.822 ; 22.9s
+      => exactly 128 zeros of Lambda in (-1,2)x(-T,T): the 64 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 5116/64 = 79.937500 : 25 new windows, K = 89 in (0,T); theta/pi = 89.0563370701, ArgL(2+iT)/pi = -0.0099337952, horizontal/pi = -0.046403275 (101 L-evals); W = [178.000000000 +/- 3e-14] -> 178 ; |Z(T)| = 2.617 ; 33.4s
+      => exactly 178 zeros of Lambda in (-1,2)x(-T,T): the 89 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 6351/64 = 99.234375 : 25 new windows, K = 114 in (0,T); theta/pi = 113.939491435, ArgL(2+iT)/pi = 0.026848383, horizontal/pi = 0.033660182 (67 L-evals); W = [228.000000000 +/- 3e-14] -> 228 ; |Z(T)| = 5.931 ; 33.8s
+      => exactly 228 zeros of Lambda in (-1,2)x(-T,T): the 114 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+# state: 114 zeros certified complete up to T_cert = 6351/64 = 99.234375 ; cumulative 119.1s
+# VERIFY zeros_q232.txt (sha256 42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378): q=232, character number 115 = Kronecker (-232/.), 114 listed windows, T_cert = 6351/64
+# [0] L(1/2, chi) = [0.2462991350119755885191228 +/- 4.88e-26] certified > 0;  [Z] all 114 windows: certified sign change of Z at d -+ 1e-20, disjoint, increasing, inside (0, T_cert)
+# [N] W = [228.000000000 +/- 3e-14] -> 228 zeros of Lambda in (-1,2)x(-T,T)  (theta/pi = 113.939491435, 67 L-evals);  2K = 228
+HASH-RECORD sha256=42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378 file=zeros_q232.txt q=232 K=114 T_cert=6351/64 W=228 mode=verify status=PASS
+# VERIFY passed in 5.7s: exactly one simple zero per window, no other zero with |Im s| < T_cert
+
+----- raw_density_q232.txt ----------------------------------------------------------------------
+# density.py  q=232  chi = Kronecker (-232/.)  zeros used: 114 (gamma_1 = 0.310676166651, gamma_last = 98.6034252992)  max|partial sum| = 8
+# zero file zeros_q232.txt  sha256=42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378  bound to a passing certificate record (K=114, T_cert=6351/64, W=228, verify)  = hypothesis (H-Z)
+DELTA q=232 M=2/5 (m=-1/10)  lower=0.606642556775  upper=0.606642613806  width=5.70e-08  | sigma2=5.55030991801110  V_tail=0.01889103084  c_1=3.159073  T=39.984375  K=71  E1=8.96e-08  E2=3.11e-15  Egl=1.20e-21  radI=1.03e-18  gauss_cells=427  e1_cells=34506  time=24s  zeros_sha256=42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378
+#   guard M=2/5: V_tail=0.01889103 vs RvM estimate 0.01894179 (tolerance 5.84e-04) OK;  69 of the K=71 envelope factors have b_j*T > 1
+DELTA q=232 M=71/100 (m=21/100)  lower=0.597435124908  upper=0.597435193395  width=6.85e-08  | sigma2=8.43803715857893  V_tail=0.05951791174  c_1=3.664532  T=22.687500  K=72  E1=1.08e-07  E2=3.09e-15  Egl=1.38e-21  radI=9.21e-20  gauss_cells=242  e1_cells=17437  time=12s  zeros_sha256=42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378
+#   guard M=71/100: V_tail=0.05951791 vs RvM estimate 0.05967783 (tolerance 1.84e-03) OK;  70 of the K=72 envelope factors have b_j*T > 1
+DELTA q=232 M=18/25 (m=11/50)  lower=0.597438040240  upper=0.597438108755  width=6.85e-08  | sigma2=8.51511053103314  V_tail=0.06120625195  c_1=3.672682  T=22.375000  K=72  E1=1.08e-07  E2=3.10e-15  Egl=1.33e-21  radI=8.46e-20  gauss_cells=239  e1_cells=17633  time=12s  zeros_sha256=42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378
+#   guard M=18/25: V_tail=0.06120625 vs RvM estimate 0.06137070 (tolerance 1.89e-03) OK;  70 of the K=72 envelope factors have b_j*T > 1
+DELTA q=232 M=1 (m=1/2)  lower=0.598231098965  upper=0.598231174771  width=7.58e-08  | sigma2=10.6065317254589  V_tail=0.1180658324  c_1=3.819898  T=16.203125  K=72  E1=1.19e-07  E2=3.05e-15  Egl=1.70e-21  radI=1.40e-20  gauss_cells=173  e1_cells=11917  time=10s  zeros_sha256=42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378
+#   guard M=1: V_tail=0.11806583 vs RvM estimate 0.11838304 (tolerance 3.65e-03) OK;  70 of the K=72 envelope factors have b_j*T > 1
+DELTA q=232 M=101/100 (m=51/100)  lower=0.598233617676  upper=0.598233693573  width=7.59e-08  | sigma2=10.6815328974202  V_tail=0.1204388798  c_1=3.823215  T=16.046875  K=72  E1=1.19e-07  E2=3.04e-15  Egl=1.52e-21  radI=1.32e-20  gauss_cells=172  e1_cells=12275  time=11s  zeros_sha256=42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378
+#   guard M=101/100: V_tail=0.12043888 vs RvM estimate 0.12076247 (tolerance 3.73e-03) OK;  70 of the K=72 envelope factors have b_j*T > 1
+DELTA q=232 M=3/2 (m=1)  lower=0.594070789210  upper=0.594070852885  width=6.37e-08  | sigma2=14.6113654089486  V_tail=0.2656377104  c_1=3.916870  T=10.890625  K=73  E1=1.00e-07  E2=3.09e-15  Egl=2.43e-21  radI=1.96e-21  gauss_cells=117  e1_cells=4162  time=5s  zeros_sha256=42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378
+#   guard M=3/2: V_tail=0.26563771 vs RvM estimate 0.26635134 (tolerance 8.22e-03) OK;  71 of the K=73 envelope factors have b_j*T > 1
+
+----- raw_crosscheck_q232.txt -------------------------------------------------------------------
+# crosscheck.py q=232 (Kronecker (-232/.)), 114 listed zeros up to 98.6034  [NON-RIGOROUS]  zeros_sha256=42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378
+(A0) mpmath re-location of the first 12 ordinates: max |difference| = 8.29e-26  (25s)
+     mpmath L(1/2,chi) = 0.24629913501197558852
+M=18/25: sigma^2 (mpmath closed form) = 8.51511053103314436 ; listed zeros give 8.4539042791 ; V_tail = 0.06120625  (RvM estimate of the tail: 0.061371)
+   (B) Simpson (h=0.0005, T=34.2): delta = 0.597438059916   (|integrand| at the end <= 2.6e-76)
+   (A) mpmath tanh-sinh on [0,16]: delta = 0.5974380599159   (2s)
+M=1: sigma^2 (mpmath closed form) = 10.6065317254589058 ; listed zeros give 10.4884658930 ; V_tail = 0.11806583  (RvM estimate of the tail: 0.118383)
+   (B) Simpson (h=0.0005, T=24.7): delta = 0.598231110576   (|integrand| at the end <= 5.5e-75)
+   (A) mpmath tanh-sinh on [0,16]: delta = 0.5982311105762   (1s)
+M=71/100: sigma^2 (mpmath closed form) = 8.43803715857893242 ; listed zeros give 8.3785192468 ; V_tail = 0.05951791  (RvM estimate of the tail: 0.059678)
+   (B) Simpson (h=0.0005, T=34.7): delta = 0.597435145332   (|integrand| at the end <= 1.6e-76)
+   (A) mpmath tanh-sinh on [0,16]: delta = 0.5974351453321   (2s)
+M=101/100: sigma^2 (mpmath closed form) = 10.681532897420202 ; listed zeros give 10.5610940177 ; V_tail = 0.12043888  (RvM estimate of the tail: 0.120762)
+   (B) Simpson (h=0.0005, T=24.4): delta = 0.598233629374   (|integrand| at the end <= 1.3e-74)
+   (A) mpmath tanh-sinh on [0,16]: delta = 0.5982336293743   (2s)
+   (C) Monte Carlo, 16000000 samples in 160 batches (common phases)  (49s)
+       M=18/25: delta = 0.597408 +- 0.000108 (1 s.e.)
+       M=1: delta = 0.598229 +- 0.000111 (1 s.e.)
+       M=71/100: delta = 0.597408 +- 0.000107 (1 s.e.)
+       M=101/100: delta = 0.598249 +- 0.000110 (1 s.e.)
+       delta(1) - delta(18/25) = +0.000821 +- 0.000044 (1 s.e., paired)
+       delta(71/100) - delta(18/25) = +0.000000 +- 0.000009 (1 s.e., paired)
+       delta(101/100) - delta(18/25) = +0.000841 +- 0.000044 (1 s.e., paired)
+       delta(71/100) - delta(1) = -0.000820 +- 0.000045 (1 s.e., paired)
+       delta(101/100) - delta(1) = +0.000020 +- 0.000008 (1 s.e., paired)
+       delta(101/100) - delta(71/100) = +0.000840 +- 0.000045 (1 s.e., paired)
+
+----- raw_m0.txt --------------------------------------------------------------------------------
+M0 q=163: Q(16441017/100000000) <= 0.999999968712 < 1 < 1.00000013292 <= Q_list(3288207/20000000)  =>  0.16441017 < M_0 < 0.16441035   (133 listed zeros; float root of Q_list: 0.1644103379)  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+M0 q=232: Q(1255529/5000000) <= 0.999997301655 < 1 < 1.00000088320 <= Q_list(627769/2500000)  =>  0.2511058 < M_0 < 0.2511076   (114 listed zeros; float root of Q_list: 0.2511074783)  zeros_sha256=42f40b29d79cc5228478acfd0480f23939c6f3b5d0479acaf178c661fa0af378
+
+----- zeros_q4.cert.txt -------------------------------------------------------------------------
+# VERIFY chi4_zeros.txt (sha256 0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc): q=4, character number 3 = Kronecker (-4/.), 511 listed windows, T_cert = 640165707/1000000
+# [0] L(1/2, chi) = [0.6676914571896091766586909 +/- 2.94e-26] certified > 0;  [Z] all 511 windows: certified sign change of Z at d -+ 1e-20, disjoint, increasing, inside (0, T_cert)
+# [N] W = [1022.00000000 +/- 3e-13] -> 1022 zeros of Lambda in (-1,2)x(-T,T)  (theta/pi = 510.586256720, 60 L-evals);  2K = 1022
+HASH-RECORD sha256=0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc file=chi4_zeros.txt q=4 K=511 T_cert=640165707/1000000 W=1022 mode=verify status=PASS
+# VERIFY passed in 0.8s: exactly one simple zero per window, no other zero with |Im s| < T_cert
+
+----- zeros_q3.cert.txt -------------------------------------------------------------------------
+# VERIFY chi3_zeros.txt (sha256 e3075235a847f43eb35057d3998a853f9383e27e958cc5fd3c4115dad7eb8aaa): q=3, character number 2 = Kronecker (-3/.), 537 listed windows, T_cert = 700024747/1000000
+# [0] L(1/2, chi) = [0.4808675576968286261812201 +/- 3.68e-26] certified > 0;  [Z] all 537 windows: certified sign change of Z at d -+ 1e-20, disjoint, increasing, inside (0, T_cert)
+# [N] W = [1074.00000000 +/- 3e-13] -> 1074 zeros of Lambda in (-1,2)x(-T,T)  (theta/pi = 536.224861836, 74 L-evals);  2K = 1074
+HASH-RECORD sha256=e3075235a847f43eb35057d3998a853f9383e27e958cc5fd3c4115dad7eb8aaa file=chi3_zeros.txt q=3 K=537 T_cert=700024747/1000000 W=1074 mode=verify status=PASS
+# VERIFY passed in 1.0s: exactly one simple zero per window, no other zero with |Im s| < T_cert
+
+----- raw_sanity_chi4.txt -----------------------------------------------------------------------
+# density.py  q=4  chi = Kronecker (-4/.)  zeros used: 511 (gamma_1 = 6.02094890470, gamma_last = 639.915707253)  max|partial sum| = 1
+# zero file chi4_zeros.txt  sha256=0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc  bound to a passing certificate record (K=511, T_cert=640165707/1000000, W=1022, verify)
+DELTA q=4 M=1/2 (m=0)  lower=0.995927912125  upper=0.995927938565  width=2.64e-08  | sigma2=0.155567979923586  V_tail=0.003483638153  c_1=0.331034  T=72.500000  K=84  E1=4.15e-08  E2=3.12e-15  Egl=1.36e-21  radI=1.60e-21  gauss_cells=774  e1_cells=2661  time=43s  zeros_sha256=0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc
+#   guard M=1/2: V_tail=0.00348364 vs RvM estimate 0.00348438 (tolerance 4.95e-05) OK;  82 of the K=84 envelope factors have b_j*T > 1
+DELTA q=4 M=3/2 (m=1)  lower=0.797630385848  upper=0.797630412326  width=2.65e-08  | sigma2=1.36855505395451  V_tail=0.03135269728  c_1=0.966965  T=24.187500  K=84  E1=4.16e-08  E2=3.11e-15  Egl=1.90e-21  radI=1.57e-21  gauss_cells=258  e1_cells=1325  time=16s  zeros_sha256=0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc
+#   guard M=3/2: V_tail=0.03135270 vs RvM estimate 0.03135941 (tolerance 4.45e-04) OK;  82 of the K=84 envelope factors have b_j*T > 1
+
+----- raw_stability_q163.txt --------------------------------------------------------------------
+# density.py  q=163  chi = Kronecker (-163/.)  zeros used: 60 (gamma_1 = 0.202901337499, gamma_last = 58.5226731225)  max|partial sum| = 9
+# zero file zeros_q163.txt  sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d  bound to a passing certificate record (K=133, T_cert=7617/64, W=266, verify)  = hypothesis (H-Z)
+DELTA q=163 M=3/5 (m=1/10)  lower=0.590328859673  upper=0.590329153124  width=2.93e-07  | sigma2=8.37716380533145  V_tail=0.06439256579  c_1=3.789200  T=24.375000  K=60  E1=4.61e-07  E2=3.62e-13  Egl=9.42e-22  radI=2.38e-19  gauss_cells=260  e1_cells=28938  time=22s  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+#   guard M=3/5: V_tail=0.06439257 vs RvM estimate 0.06478636 (tolerance 3.17e-03) OK;  59 of the K=60 envelope factors have b_j*T > 1
+DELTA q=163 M=6/5 (m=7/10)  lower=0.596034403752  upper=0.596034753220  width=3.49e-07  | sigma2=12.2068736380107  V_tail=0.2575460776  c_1=3.944018  T=12.187500  K=60  E1=5.49e-07  E2=5.56e-13  Egl=1.18e-21  radI=4.75e-21  gauss_cells=130  e1_cells=10779  time=8s  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+#   guard M=6/5: V_tail=0.25754608 vs RvM estimate 0.25912077 (tolerance 1.27e-02) OK;  59 of the K=60 envelope factors have b_j*T > 1
+
+----- raw_count_crosscheck.txt ------------------------------------------------------------------
+COUNT q=4 T=640.165707000: symmetric count W = [1022.00000000 +/- 3e-13] -> 1022 ; listed ordinates below T: 511 ; 2K = 1022 : AGREES  [60 L-evals, 0s]
+COUNT q=4 T=99.4450935594: symmetric count W = [100.000000000 +/- 3e-14] -> 100 ; listed ordinates below T: 50 ; 2K = 100 : AGREES  [49 L-evals, 0s]
+COUNT q=3 T=700.024747000: symmetric count W = [1074.00000000 +/- 3e-13] -> 1074 ; listed ordinates below T: 537 ; 2K = 1074 : AGREES  [74 L-evals, 0s]
+COUNT q=3 T=107.108188983: symmetric count W = [100.000000000 +/- 3e-14] -> 100 ; listed ordinates below T: 50 ; 2K = 100 : AGREES  [49 L-evals, 0s]
+
+----- raw_mutant_refusal.txt --------------------------------------------------------------------
+# Mutation demonstration (audit G1). m1 = zeros_q163.txt with gamma_1 deleted, m2 = with gamma_67 deleted.
+$ python3 density.py --q 163 --M 3/5 6/5 --zeros m1_gamma1_deleted.txt
+FAIL-CLOSED (density.py): REFUSED: zero file m1_gamma1_deleted.txt (sha256 4ae4b2b57b0b5c1ddaab7054962c13a87611dff682e85bb322c479b1ab082743) has no passing completeness record in /home/user/weighted-prime-races/monotonicity/nonmonotone/zeros_q163.cert.txt. Run: python3 zeros_cert.py 163 --verify [--file ... --T p/q]
+[exit status 2]
+
+$ python3 density.py --q 163 --M 3/5 6/5 --zeros m1_gamma1_deleted.txt --uncertified-zeros
+# density.py  q=163  chi = Kronecker (-163/.)  zeros used: 132 (gamma_1 = 2.36853394679, gamma_last = 118.218287414)  max|partial sum| = 9
+# *** zero file m1_gamma1_deleted.txt  sha256=4ae4b2b57b0b5c1ddaab7054962c13a87611dff682e85bb322c479b1ab082743  has NO certificate record: output below is UNCERTIFIED ***
+FAIL-CLOSED (density.py): REFUSED (RvM guard): tail variance V = 7.2139 but the Riemann-von Mangoldt estimate of the unlisted zeros is 0.0349027 (tolerance 0.000967): the zero list is incomplete or wrong
+[exit status 2]
+
+$ python3 zeros_cert.py 163 --verify --file m1_gamma1_deleted.txt
+# VERIFY m1_gamma1_deleted.txt (sha256 4ae4b2b57b0b5c1ddaab7054962c13a87611dff682e85bb322c479b1ab082743): q=163, character number 162 = Kronecker (-163/.), 132 listed windows, T_cert = 7617/64
+# [0] L(1/2, chi) = [0.06853175829607509930827032 +/- 4.02e-27] certified > 0;  [Z] all 132 windows: certified sign change of Z at d -+ 1e-20, disjoint, increasing, inside (0, T_cert)
+# [N] W = [266.000000000 +/- 3e-14] -> 266 zeros of Lambda in (-1,2)x(-T,T)  (theta/pi = 133.383921340, 218 L-evals);  2K = 264
+*** VERIFY FAILED: W = 266 but 2K = 264: the file is NOT the complete list of simple zeros below T_cert.  No hash record written.
+[exit status 1]
+
+$ python3 density.py --q 163 --M 3/5 6/5 --zeros m2_gamma67_deleted.txt
+FAIL-CLOSED (density.py): REFUSED: zero file m2_gamma67_deleted.txt (sha256 f84312e35b0595bd7e339280b8bbad33e270040ba113ac41327418f460669116) has no passing completeness record in /home/user/weighted-prime-races/monotonicity/nonmonotone/zeros_q163.cert.txt. Run: python3 zeros_cert.py 163 --verify [--file ... --T p/q]
+[exit status 2]
+
+$ python3 zeros_cert.py 163 --verify --file m2_gamma67_deleted.txt
+# VERIFY m2_gamma67_deleted.txt (sha256 f84312e35b0595bd7e339280b8bbad33e270040ba113ac41327418f460669116): q=163, character number 162 = Kronecker (-163/.), 132 listed windows, T_cert = 7617/64
+# [0] L(1/2, chi) = [0.06853175829607509930827032 +/- 4.02e-27] certified > 0;  [Z] all 132 windows: certified sign change of Z at d -+ 1e-20, disjoint, increasing, inside (0, T_cert)
+# [N] W = [266.000000000 +/- 3e-14] -> 266 zeros of Lambda in (-1,2)x(-T,T)  (theta/pi = 133.383921340, 218 L-evals);  2K = 264
+*** VERIFY FAILED: W = 266 but 2K = 264: the file is NOT the complete list of simple zeros below T_cert.  No hash record written.
+[exit status 1]
+
+# Limit of the heuristic RvM guard: with the hash requirement waived, m2 (one HIGH zero missing) passes the guard;
+# the output is then labelled UNCERTIFIED, is ignored by make_results.py, and is not a proof (premise c < c_top false).
+$ python3 density.py --q 163 --M 3/5 --zeros m2_gamma67_deleted.txt --uncertified-zeros
+# density.py  q=163  chi = Kronecker (-163/.)  zeros used: 132 (gamma_1 = 0.202901337499, gamma_last = 118.218287414)  max|partial sum| = 9
+# *** zero file m2_gamma67_deleted.txt  sha256=f84312e35b0595bd7e339280b8bbad33e270040ba113ac41327418f460669116  has NO certificate record: output below is UNCERTIFIED ***
+UNCERTIFIED q=163 M=3/5 (m=1/10)  lower=0.590328985432  upper=0.590329025159  width=3.97e-08  | sigma2=8.37716380533145  V_tail=0.03556720396  c_1=3.789200  T=28.156250  K=71  E1=6.24e-08  E2=3.11e-15  Egl=1.30e-21  radI=2.39e-19  gauss_cells=301  e1_cells=29070  time=25s  zeros_sha256=f84312e35b0595bd7e339280b8bbad33e270040ba113ac41327418f460669116
+#   guard M=3/5: V_tail=0.03556720 vs RvM estimate 0.03490273 (tolerance 9.67e-04) OK;  69 of the K=71 envelope factors have b_j*T > 1
+[exit status 0]

@@ -1,0 +1,33 @@
+Rank-one models at M = 1/2.  delta_N = -m(F_N) <= J_N = log(1/|C_top|) (Lemma 2.1).
+(a) w = 1 on 25N
+  1 on 25N                     N=   500 delta_N=  0.003  J_N=  6.215  delta/logN= 0.000  m(2w)= 0.693 log||2w||= 2.541  q_0.10=9.04e-01 rms(w|S)=  7.076 ||w||=   6.34
+  1 on 25N                     N=  5000 delta_N=  0.003  J_N=  8.517  delta/logN= 0.000  m(2w)= 0.693 log||2w||= 3.689  q_0.10=9.01e-01 rms(w|S)= 23.424 ||w||=  20.01
+  1 on 25N                     N= 50000 delta_N=  0.003  J_N= 10.820  delta/logN= 0.000  m(2w)= 0.693 log||2w||= 4.840  q_0.10=9.01e-01 rms(w|S)= 74.461 ||w||=  63.25
+(b) random 0/1
+  random 0/1                   N=   128 delta_N=  0.320  J_N=  4.852  delta/logN= 0.066  m(2w)= 2.124 log||2w||= 3.104  q_0.10=9.95e-02 rms(w|S)=  6.807 ||w||=  11.15
+  random 0/1                   N=  1024 delta_N=  0.283  J_N=  6.931  delta/logN= 0.041  m(2w)= 3.192 log||2w||= 4.140  q_0.10=1.70e-01 rms(w|S)= 31.591 ||w||=  31.40
+  random 0/1                   N=  8192 delta_N=  0.435  J_N=  9.011  delta/logN= 0.048  m(2w)= 4.226 log||2w||= 5.203  q_0.10=1.11e-01 rms(w|S)= 76.617 ||w||=  90.93
+(c) base-5 Toeplitz: w_n = 1 iff last nonzero base-5 digit of n is 1 or 4
+  Toeplitz base 5              N=   125 delta_N=  0.123  J_N=  4.828  delta/logN= 0.026  m(2w)= 1.584 log||2w||= 3.112  q_0.10=2.21e-01 rms(w|S)=  9.545 ||w||=  11.24
+  Toeplitz base 5              N=  3125 delta_N=  0.123  J_N=  8.047  delta/logN= 0.015  m(2w)= 1.919 log||2w||= 4.717  q_0.10=2.17e-01 rms(w|S)= 47.191 ||w||=  55.91
+  Toeplitz base 5              N= 15625 delta_N=  0.125  J_N=  9.657  delta/logN= 0.013  m(2w)= 2.051 log||2w||= 5.522  q_0.10=2.17e-01 rms(w|S)=105.459 ||w||= 125.00
+(d) Example 9.2 (real weights b0 = 0.66722, 1/2; F = 0 on (4pi/3, 2pi))
+  Ex 9.2 (real)                N=    30 delta_N=  1.056  J_N=  4.094  delta/logN= 0.310  m(2w)= 0.288 log||2w||= 2.262  q_0.30=1.27e-01 rms(w|S)=  2.309 ||w||=   4.80
+  Ex 9.2 (real)                N=   300 delta_N=  1.808  J_N=  6.397  delta/logN= 0.317  m(2w)= 0.288 log||2w||= 3.409  q_0.30=1.36e-02 rms(w|S)=  3.220 ||w||=  15.11
+  Ex 9.2 (real)                N=  3000 delta_N=  2.574  J_N=  8.700  delta/logN= 0.322  m(2w)= 0.288 log||2w||= 4.559  q_0.30=1.37e-03 rms(w|S)=  3.127 ||w||=  47.76
+  Ex 9.2 (real)                N= 30000 delta_N=  3.342  J_N= 11.002  delta/logN= 0.324  m(2w)= 0.288 log||2w||= 5.711  q_0.30=1.37e-04 rms(w|S)=  2.870 ||w||= 151.02
+(e) beam-search 0/1 near-atoms (density2 toy_beam2.py, width 150)
+  beam eta=0.15                N=   512 delta_N=  0.962  J_N=  6.211  delta/logN= 0.154  m(2w)= 2.254 log||2w||= 3.421  q_0.15=1.49e-02 rms(w|S)=  4.491 ||w||=  15.31
+  beam eta=0.3                 N=   512 delta_N=  0.696  J_N=  6.238  delta/logN= 0.111  m(2w)= 2.220 log||2w||= 3.279  q_0.30=1.05e-01 rms(w|S)=  7.223 ||w||=  13.28
+(f) Prop 7.3 (real weights, N = 100): values on J = [2, 2.3] recomputed with 50 digits
+     max|F_100| on J (50 digits) = 1.158e-15, |J|/2pi = 0.0477
+  Prop 7.3 (real)              N=   100 delta_N=  2.617  J_N=  8.975  delta/logN= 0.568  m(2w)=-2.549 log||2w||= 2.111  q_0.04=4.08e-16 rms(w|S)=  0.000 ||w||=   4.13
+     certified-roots value: delta_100 = -m(F_100) = 2.607052  (delta/logN = 0.566; use this, not the grid value)
+
+LI model on the true zeros of L(s, chi_-4) (all zeros simple; under LI the hull is T^n).
+  511 zeros, gamma_1 = 6.020949; vertex bound (every ordinate is a vertex under LI): log(2M/|M + i gamma_1|) = -1.7987
+  T=  50 n=  20 V=0.1274  m(F_T - c), c = 0, 1, 2: -0.0829, -1.6291, -0.0821   rms w_T on {|F_T|<0.02} = 5.81 (#=584), ||w_T||_2 = 6.34
+  T= 100 n=  50 V=0.1391  m(F_T - c), c = 0, 1, 2: -0.0927, -1.5912, -0.0929   rms w_T on {|F_T|<0.02} = 9.69 (#=813), ||w_T||_2 = 10.00
+  T= 200 n= 122 V=0.1462  m(F_T - c), c = 0, 1, 2: -0.1002, -1.5687, -0.0991   rms w_T on {|F_T|<0.02} = 15.95 (#=1142), ||w_T||_2 = 15.61
+  T= 400 n= 289 V=0.1504  m(F_T - c), c = 0, 1, 2: -0.1036, -1.5567, -0.1026   rms w_T on {|F_T|<0.02} = 23.83 (#=1245), ||w_T||_2 = 24.06
+  T= 640 n= 511 V=0.1521  m(F_T - c), c = 0, 1, 2: -0.1045, -1.5520, -0.1051   rms w_T on {|F_T|<0.02} = 32.26 (#=1283), ||w_T||_2 = 31.96

@@ -1,0 +1,12 @@
+Referee 2, r2_toeplitz_class.py: the class of TOY.md section 2.2.
+(a) m_n = [nu2(n)+nu3(n) odd]: positions 1..3000 with a failure of their period (both sides): 0
+    density of the 6^1-skeleton (nu2 < 1, nu3 < 1): 0.333332  (predicted 0.333333)
+    density of the 6^2-skeleton (nu2 < 2, nu3 < 2): 0.666667  (predicted 0.666667)
+    density of the 6^4-skeleton (nu2 < 4, nu3 < 4): 0.925925  (predicted 0.925926)
+    density of the 6^8-skeleton (nu2 < 8, nu3 < 8): 0.995945  (predicted 0.995942)
+    P in [2,3000] with m P-periodic off PZ: none  -> not in the class of Thm 2.3
+(b) hole class h_k = P_k/2 (P_k = 2*3^(k-1)), c_j = [0, 1, 0, 1, 0, 1, 1, 0]...: every n >= 1 filled;
+    P in [2,3000] with m P-periodic off PZ: none  -> not in the class of Thm 2.3
+    (the class needs an infinite chain P_k | P_{k+1}, P_k -> oo, of such P)
+    ... but it IS P_k-periodic off h_k + P_k Z for k = 1..8: True
+(c) 300 random periodic sequences (Q in [2,30]) rebuilt by TOY's construction: 0 failures

@@ -1,0 +1,15 @@
+sanity: SG = 1 characterisation (their Theorem) and agreement of the two implementations on all 11731 partitions of n <= 26 (n <= 18 for the comparison): True
+sanity: rectangles [c^r], r, c <= 9: heavy iff C(c+r-2, r-1) odd: True
+a = 8, b = 7: rectangle [9^8] has SG 16 (heavy, C(15,7) = 6435 odd); interval [9,8,...,2] <= lam <= [9^8]: 1430 partitions, 40 NOT heavy
+    (9, 9, 7, 7, 6, 5, 4, 2) size 49 SG (two implementations) = 3 3 ; longest play 16
+    (9, 9, 7, 7, 6, 5, 5, 2) size 50 SG (two implementations) = 3 3 ; longest play 16
+    (9, 9, 7, 7, 6, 6, 4, 2) size 50 SG (two implementations) = 3 3 ; longest play 16
+    (9, 9, 7, 7, 7, 5, 4, 2) size 50 SG (two implementations) = 3 3 ; longest play 16
+    (9, 9, 7, 7, 7, 5, 5, 2) size 51 SG (two implementations) = 3 3 ; longest play 16
+    (9, 9, 7, 7, 7, 6, 4, 2) size 51 SG (two implementations) = 3 3 ; longest play 16
+    (9, 9, 9, 9, 9, 7, 6, 3) size 61 SG (two implementations) = 4 4 ; longest play 16
+    (9, 9, 9, 9, 9, 7, 5, 3) size 60 SG (two implementations) = 4 4 ; longest play 16
+
+real	0m5.179s
+user	0m5.101s
+sys	0m0.004s

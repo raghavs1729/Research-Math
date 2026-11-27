@@ -1,0 +1,41 @@
+{
+  "challenge_module": "ChebAllxChallenge",
+  "solution_module": "ChebAllxSolution",
+  "theorem_names": [
+    "grh_chebyshev_sum_neg",
+    "grh_chebyshev_log_sum_neg",
+    "chebyshev_sum_neg_of_le",
+    "grh_chi4_convex_weight_sum_neg",
+    "grh_chi4_convexOn_weight_sum_neg",
+    "grh_chi4_convex_log_weight_sum_neg",
+    "grh_fujii_sum_neg",
+    "fujii_summable",
+    "grh_chi4_prime_dirichlet_sum_neg",
+    "chi4_log_sum_eq_theta1_series",
+    "chebyshevSum_eq_neg_integral",
+    "chebyshevSum_integrand_integrableOn",
+    "chebyshev_kernel_hasDerivAt",
+    "chebyshev_kernel_second_deriv_pos",
+    "chebyshevSum_eq_integral_log_sums",
+    "grh_chi4_log_sum_rpow_exp_neg",
+    "second_order_summation_by_parts_infinite",
+    "second_order_partial_summation_infinite",
+    "chebyshevSum_summable",
+    "chebyshevLogSum_summable",
+    "chi4_natCast_two",
+    "chi4_natCast_of_odd",
+    "grhFor_of_dirichlet_zeros_on_line"
+  ],
+  "definition_names": [
+    "GRHFor",
+    "chi4",
+    "chebyshevSum",
+    "chebyshevLogSum"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

@@ -1,0 +1,48 @@
+# lake build AllxChallenge AllxSolution   (this project's own modules rebuilt from scratch;
+# Mathlib from cache, Zeta23 and ChebLib already built).  4 cores, 2026-11-24.
+# Lines of Mathlib/Zeta23/ChebLib replay and linter warnings are omitted.
+[8794/8860] Built AllxLib.Finite.Defs (645ms)
+[8796/8860] Built AllxLib.Defs (7.3s)
+[8806/8860] Built AllxLib.Coupling.Abel (9.9s)
+[8807/8860] Built AllxLib.Analytic.Numerics (19s)
+[8808/8860] Built AllxChallenge (15s)
+[8810/8860] Built AllxLib.Analytic.Kernel (19s)
+[8811/8860] Built AllxLib.Analytic.Elementary (31s)
+[8812/8860] Built AllxLib.Finite.Chunks01 (106s)
+[8813/8860] Built AllxLib.Finite.Chunks02 (108s)
+[8814/8860] Built AllxLib.Finite.Chunks03 (113s)
+[8815/8860] Built AllxLib.Finite.Chunks04 (119s)
+[8816/8860] Built AllxLib.Finite.Chunks05 (125s)
+[8817/8860] Built AllxLib.Finite.Sieve (2.6s)
+[8819/8860] Built AllxLib.Coupling.Convexity (8.5s)
+[8820/8860] Built AllxLib.Finite.Chunks06 (128s)
+[8821/8860] Built AllxLib.Finite.Chunks07 (129s)
+[8822/8860] Built AllxLib.Finite.Scan (9.1s)
+[8824/8860] Built AllxLib.Coupling.Cone (12s)
+[8837/8860] Built AllxLib.Analytic.PrimePowers (10s)
+[8840/8860] Built AllxLib.Finite.Chunks08 (131s)
+[8841/8860] Built AllxLib.Finite.Chain01 (9.5s)
+[8842/8860] Built AllxLib.Analytic.KernelK (16s)
+[8843/8860] Built AllxLib.Finite.Chain02 (6.4s)
+[8844/8860] Built AllxLib.Analytic.ArchWeil (8.8s)
+[8845/8860] Built AllxLib.Finite.Chain03 (7.1s)
+[8846/8860] Built AllxLib.Analytic.ArchK (15s)
+[8847/8860] Built AllxLib.Finite.Chain04 (9.9s)
+[8848/8860] Built AllxLib.Analytic.ZeroSum (19s)
+[8849/8860] Built AllxLib.Finite.Chain05 (5.9s)
+[8850/8860] Built AllxLib.Finite.Chain06 (8.2s)
+[8851/8860] Built AllxLib.Analytic.Psi1 (11s)
+[8852/8860] Built AllxLib.Finite.Chain07 (5.0s)
+[8853/8860] Built AllxLib.Analytic.Main (6.2s)
+[8854/8860] Built AllxLib.Finite.Chain08 (6.0s)
+[8855/8860] Built AllxLib.Finite.Chain (5.0s)
+[8856/8860] Built AllxLib.Finite.Final (5.4s)
+[8857/8860] Built AllxLib.Final (5.7s)
+[8858/8860] Built AllxLib (5.2s)
+[8859/8860] Built AllxSolution (5.8s)
+Build completed successfully (8860 jobs).
+real	6m6.448s
+user	20m12.955s
+sys	1m19.710s
+
+# 'declaration uses sorry' warnings: 13, all in AllxChallenge.lean (the challenge side, deliberate); elsewhere: 0.

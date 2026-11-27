@@ -1,0 +1,1 @@
+a in [2,60], b<=160, c<=400, periods searched up to 8*c: triples 1923361, purely periodic 812032 (period a+b: 111186, c+a: 235013, c+b: 465833), other: 0

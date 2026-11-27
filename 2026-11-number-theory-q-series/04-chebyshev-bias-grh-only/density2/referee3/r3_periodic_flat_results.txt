@@ -1,0 +1,35 @@
+r3_periodic_flat.py results (AI-produced, 2026-11-27)
+(a) primitive symmetric 0/1 patterns, Q <= 22 (m = 0 at Q = 1 counted as a pattern, excluded from the triples):
+    Q= 1: patterns     2, with a flat sub-arc     0, triples      0
+    Q= 2: patterns     2, with a flat sub-arc     0, triples      0
+    Q= 3: patterns     2, with a flat sub-arc     0, triples      0
+    Q= 4: patterns     4, with a flat sub-arc     2, triples      2
+    Q= 5: patterns     6, with a flat sub-arc     4, triples      6
+    Q= 6: patterns    10, with a flat sub-arc     6, triples     11
+    Q= 7: patterns    14, with a flat sub-arc    12, triples     22
+    Q= 8: patterns    24, with a flat sub-arc    21, triples     54
+    Q= 9: patterns    28, with a flat sub-arc    25, triples     68
+    Q=10: patterns    54, with a flat sub-arc    50, triples    163
+    Q=11: patterns    62, with a flat sub-arc    60, triples    246
+    Q=12: patterns   108, with a flat sub-arc   101, triples    429
+    Q=13: patterns   126, with a flat sub-arc   124, triples    618
+    Q=14: patterns   238, with a flat sub-arc   234, triples   1304
+    Q=15: patterns   246, with a flat sub-arc   242, triples   1437
+    Q=16: patterns   480, with a flat sub-arc   475, triples   3140
+    Q=17: patterns   510, with a flat sub-arc   508, triples   3764
+    Q=18: patterns   980, with a flat sub-arc   970, triples   7533
+    Q=19: patterns  1022, with a flat sub-arc  1020, triples   8844
+    Q=20: patterns  1980, with a flat sub-arc  1972, triples  17873
+    Q=21: patterns  2030, with a flat sub-arc  2026, triples  19837
+    Q=22: patterns  4030, with a flat sub-arc  4026, triples  42813
+    TOTAL: 11958 patterns (Q = 2..22: 11956); 11878 have at least one flat sub-arc for some M; 108164 triples (pattern, sub-arc, M); levels {-1: 56285, 1: 51879}; polynomials re-solved in 60-digit arithmetic (a root near the real segment [0,1] that double precision could not classify, or a close pair of real roots): 26, of which close pairs 1; exact multiple roots found (counted once): 9; sign changes of f_s on a 4001-point grid (odd-multiplicity roots only): 108151
+(b) independent evaluation of F_M on flat sub-arcs (radial integral):
+    m=01101 (Q=5), sub-arc s=1, M=1.2455057521: max |F_M - (-1)| on J_s = 4.4e-16; on J_(s+1) at u=1/2: F_M - (-1) = 2.316e+00
+    m=10010 (Q=5), sub-arc s=4, M=0.9345252035: max |F_M - (1)| on J_s = 6.7e-16; on J_(s+1) at u=1/2: F_M - (1) = 2.611e+00
+    m=000110001 (Q=9), sub-arc s=1, M=1.7458245378: max |F_M - (-1)| on J_s = 6.7e-16; on J_(s+1) at u=1/2: F_M - (-1) = 3.356e+00
+    m=001111000 (Q=9), sub-arc s=2, M=1.9021043234: max |F_M - (1)| on J_s = 1.2e-14; on J_(s+1) at u=1/2: F_M - (1) = 1.367e+00
+    m=00000101000001 (Q=14), sub-arc s=1, M=2.9133275496: max |F_M - (-1)| on J_s = 1.6e-15; on J_(s+1) at u=1/2: F_M - (-1) = 3.056e+00
+    m=00000111000000 (Q=14), sub-arc s=9, M=1.2315103360: max |F_M - (1)| on J_s = 8.9e-15; on J_(s+1) at u=1/2: F_M - (1) = 4.653e-01
+    m=0000000001010000000001 (Q=22), sub-arc s=1, M=4.1215748564: max |F_M - (-1)| on J_s = 1.3e-15; on J_(s+1) at u=1/2: F_M - (-1) = 3.506e+00
+    m=0000000001110000000000 (Q=22), sub-arc s=7, M=2.6933523158: max |F_M - (1)| on J_s = 2.0e-15; on J_(s+1) at u=1/2: F_M - (1) = -3.244e-01
+(c) non-symmetric periodic patterns: 3374 adjacent pairs checked; min over pairs of sup_u |w'_(s-1) - w'_s| = 0.158 (> 0, as Theorem 2.3 requires)

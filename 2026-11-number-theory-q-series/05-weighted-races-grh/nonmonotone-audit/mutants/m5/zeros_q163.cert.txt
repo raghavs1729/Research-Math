@@ -1,0 +1,4 @@
+# zeros_cert.py  q=163  character number 162 = Kronecker symbol (-163/.), odd, real, primitive (checked for n <= 2q)
+# [0] L(1/2, chi) = [0.0685317582960750993082703159838 +/- 9.58e-33]  certified > 0
+BLOCK top T = 1275/64 = 19.921875 : 5 new windows, K = 5 in (0,T); theta/pi = 16.7640040996, ArgL(2+iT)/pi = 0.085627332, horizontal/pi = 0.15036857 (174 L-evals); W = [34.0000000000 +/- 3e-15] -> 34 ; |Z(T)| = 1.746 ; 12.4s
+*** COUNT MISMATCH: W = 34 but 2K = 10: zeros missed by the scan (or multiple / off-line zeros). Block NOT accepted.

@@ -1,0 +1,1 @@
+all 2097151 canonical boundary words of length <= 22: automaton of R07 vs Zeng's criterion: 0 disagreements

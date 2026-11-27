@@ -1,0 +1,8 @@
+# thue463_results.txt -- PARI/GP [2, 15, 4], written by thue463_runs.gp
+basis: w1 = 29*y + 624, w2 = 85*y + 1829   (y = sqrt 463)
+Q(a,b) = 2069*a^11 + 143*b*a^10 + 1072720*b^2*a^9 - 899250*b^3*a^8 + 61199160*b^4*a^7 - 48219864*b^5*a^6 + 821606016*b^6*a^5 - 492420720*b^7*a^4 + 2836978320*b^8*a^3 - 1043992400*b^9*a^2 + 1842900224*b^10*a - 226837664*b^11
+degree-11 field: irreducible 1, signature [1, 5], disc -6216192406254623028305687552 = [-1, 1; 2, 10; 11, 11; 463, 5], tentative h = 1, tentative R = 7615300332.246764129
+run A (P(x) = Q(x,1), flag 0):   Q = 1: []   Q = -1: []   [2754 ms]
+run B (P(x) = Q(1,x), flag 0):   Q = 1: []   Q = -1: []   [1548 ms]
+run C (Q(a+b, b), flag 0):   = 1: []   = -1: []   [2699 ms]
+brute force |a|, |b| <= 500 with Q = +-1: []

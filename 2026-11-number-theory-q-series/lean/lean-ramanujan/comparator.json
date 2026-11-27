@@ -1,0 +1,19 @@
+{
+  "challenge_module": "RamanujanStatement",
+  "solution_module": "RamanujanSolution",
+  "theorem_names": [
+    "ramanujan_prime_counting_inequality",
+    "ramanujan_gap_asymptotic",
+    "primeCounting_five_term_expansion",
+    "chebyshev_theta_sub_le",
+    "ramanujan_of_schoenfeld_bound",
+    "ramanujan_sharp_under_RH_reduction"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

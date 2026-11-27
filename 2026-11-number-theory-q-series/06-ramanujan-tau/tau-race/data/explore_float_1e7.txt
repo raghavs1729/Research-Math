@@ -1,0 +1,32 @@
+max |lam| 1.999601027016056
+first values p, Theta_1, R:
+2 0.0 0.0
+3 -0.36759680380070514 -0.17677669529663687
+5 0.2127617972446838 -0.07870460653676828
+7 3.0180502863693626 0.16081581241881399
+11 5.697715327268769 0.24163521272062927
+13 11.837524684428267 0.4173747296475853
+17 19.689411848405722 0.5432585037195262
+19 16.93095235785703 0.4621502685950582
+primes with Theta_1(p)<=0: [2 3] 2
+primes with R(p)<=0: [2 3 5] 3
+inf G on p>=10: 0.156175 at p=11 ; max 0.803528
+   inf N=R log/sqrt: 0.174700 at 11
+inf G on p>=100: 0.611712 at p=1223 ; max 0.803528
+   inf N=R log/sqrt: 0.795108 at 9132889
+inf G on p>=1000: 0.611712 at p=1223 ; max 0.736836
+   inf N=R log/sqrt: 0.795108 at 9132889
+inf G on p>=10000: 0.625775 at p=9132733 ; max 0.731333
+   inf N=R log/sqrt: 0.795108 at 9132889
+inf G on p>=100000: 0.625775 at p=9132733 ; max 0.730877
+   inf N=R log/sqrt: 0.795108 at 9132889
+inf G on p>=1000000: 0.625775 at p=9132733 ; max 0.714890
+   inf N=R log/sqrt: 0.795108 at 9132889
+sup |Theta_S(y)|/sqrt(y) y>=10: 2.8050 ; sup|Theta(y)|/sqrt y 2.1379; (y-theta)/sqrt y sup 2.0528
+sup |Theta_S(y)|/sqrt(y) y>=100: 2.7062 ; sup|Theta(y)|/sqrt y 2.1379; (y-theta)/sqrt y sup 2.0528
+sup |Theta_S(y)|/sqrt(y) y>=1000: 2.5857 ; sup|Theta(y)|/sqrt y 2.1379; (y-theta)/sqrt y sup 2.0528
+sup |Theta_S(y)|/sqrt(y) y>=10000: 2.5857 ; sup|Theta(y)|/sqrt y 2.1379; (y-theta)/sqrt y sup 1.9372
+sup |Theta_S(y)|/sqrt(y) y>=100000: 2.5857 ; sup|Theta(y)|/sqrt y 2.0499; (y-theta)/sqrt y sup 1.8326
+sup |Theta_S(y)|/sqrt(y) y>=1000000: 2.3573 ; sup|Theta(y)|/sqrt y 2.0275; (y-theta)/sqrt y sup 1.7458
+D0<=0 primes: [ 2 17] 2
+KK<=0 primes: [2 3] 2  KK at end 1.3448752752309387 1.3899712971516345

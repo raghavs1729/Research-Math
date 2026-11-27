@@ -1,0 +1,3 @@
+E-orbits: preperiod <= 2 period 2 ; N-orbits: preperiod <= 2 period 2
+(1) states reachable from the start by melds of losing thick hooks: [2] ; non-accepting among them: []
+(2) conj:bloby violation (a = r-1-k, b = c-1-lambda_1, boundary word of lambda): None

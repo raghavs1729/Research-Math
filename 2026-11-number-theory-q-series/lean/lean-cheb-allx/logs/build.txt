@@ -1,0 +1,21 @@
+# lake build ChebAllxChallenge ChebAllxSolution   (this project's own modules rebuilt from scratch;
+# Mathlib from cache; Zeta23, ChebLib (lean-chebyshev) and AllxLib (lean-allx) already built).
+# 4 cores, 2026-11-24.  Lines of Mathlib/Zeta23/ChebLib/AllxLib replay are omitted, and so are the
+# 23 warnings "declaration uses `sorry`" of ChebAllxChallenge.lean (one per statement, deliberate).
+# Warnings in ChebAllxLib/ and ChebAllxSolution.lean: 0.
+[8867/8876] Built ChebAllxChallenge (6.8s)
+[8869/8876] Built ChebAllxLib.Discrete (7.2s)
+[8870/8876] Built ChebAllxLib.Integral (7.9s)
+[8871/8876] Built ChebAllxLib.Main (7.6s)
+[8872/8876] Built ChebAllxLib.Weights (7.8s)
+[8873/8876] Built ChebAllxLib.Finite (14s)
+[8874/8876] Built ChebAllxLib (4.5s)
+[8875/8876] Built ChebAllxSolution (5.8s)
+Build completed successfully (8876 jobs).
+real	0m44.913s
+
+# First build of the dependency cone on this machine (lake build AllxSolution ChebyshevSolution,
+# after lake exe cache get): 8870 jobs; not timed here (the lean-allx README reports about
+# 25 minutes for the Zeta23 modules and ChebLib plus about 7 minutes for AllxLib on 4 cores,
+# which is consistent with what was observed).
+Build completed successfully (8870 jobs).

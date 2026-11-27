@@ -1,0 +1,22 @@
+states: 17
+  state 0: representative ''           accepting=True  E->1  N->0
+  state 1: representative 'E'          accepting=True  E->2  N->3
+  state 2: representative 'EE'         accepting=True  E->4  N->5
+  state 3: representative 'EN'         accepting=False  E->6  N->7
+  state 4: representative 'EEE'        accepting=True  E->2  N->8
+  state 5: representative 'EEN'        accepting=False  E->8  N->2
+  state 6: representative 'ENE'        accepting=False  E->9  N->10
+  state 7: representative 'ENN'        accepting=False  E->8  N->3
+  state 8: representative 'EEEN'       accepting=False  E->5  N->5
+  state 9: representative 'ENEE'       accepting=False  E->11  N->12
+  state 10: representative 'ENEN'       accepting=True  E->1  N->13
+  state 11: representative 'ENEEE'      accepting=False  E->9  N->14
+  state 12: representative 'ENEEN'      accepting=False  E->15  N->9
+  state 13: representative 'ENENN'      accepting=False  E->15  N->10
+  state 14: representative 'ENEEEN'     accepting=True  E->16  N->12
+  state 15: representative 'ENEENE'     accepting=False  E->12  N->12
+  state 16: representative 'ENEEENE'    accepting=True  E->14  N->9
+(i) delta(q0,N)=q0: True  (iii) acc(q0): True  (ii) acc(qE)=acc(q) for all q: True
+(iv) configurations reached: 169; violations of the closure property: 0
+(v) accepted canonical words of odd length (configurations): 0
+VERDICT: automaton PROVED correct; every P-position has even rank

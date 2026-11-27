@@ -1,0 +1,18 @@
+N = 22, grid 8N (14s)
+  eta=0.05: tau* = 3.8074e-03; true quantile of that optimiser (grid 4096N) = 1.6885e-02; m = 1101110111110101100010
+  eta=0.10: tau* = 1.3419e-02; true quantile of that optimiser (grid 4096N) = 1.5171e-02; m = 0101010001010000010000
+  eta=0.15: tau* = 3.1325e-02; true quantile of that optimiser (grid 4096N) = 3.3272e-02; m = 1111100110011111000111
+  eta=0.20: tau* = 5.6475e-02; true quantile of that optimiser (grid 4096N) = 6.0707e-02; m = 1111100110011111000111
+  eta=0.25: tau* = 1.1420e-01; true quantile of that optimiser (grid 4096N) = 1.3374e-01; m = 0100111010001110101010
+  eta=0.30: tau* = 1.6959e-01; true quantile of that optimiser (grid 4096N) = 1.5933e-01; m = 1110001110000000000000
+  eta=0.35: tau* = 2.2609e-01; true quantile of that optimiser (grid 4096N) = 2.3191e-01; m = 1011010011010010100001
+  eta=0.40: tau* = 3.5657e-01; true quantile of that optimiser (grid 4096N) = 3.5993e-01; m = 1110011100011001100011
+N = 22, grid 16N (26s)
+  eta=0.05: tau* = 5.9769e-03; true quantile of that optimiser (grid 4096N) = 6.9089e-03; m = 1001001000010010011010
+  eta=0.10: tau* = 1.3711e-02; true quantile of that optimiser (grid 4096N) = 1.5171e-02; m = 0101010001010000010000
+  eta=0.15: tau* = 3.2076e-02; true quantile of that optimiser (grid 4096N) = 3.3272e-02; m = 1111100110011111000111
+  eta=0.20: tau* = 5.9632e-02; true quantile of that optimiser (grid 4096N) = 6.0707e-02; m = 1111100110011111000111
+  eta=0.25: tau* = 1.1496e-01; true quantile of that optimiser (grid 4096N) = 1.1736e-01; m = 1110001110000000000000
+  eta=0.30: tau* = 1.6481e-01; true quantile of that optimiser (grid 4096N) = 1.5933e-01; m = 1110001110000000000000
+  eta=0.35: tau* = 2.2820e-01; true quantile of that optimiser (grid 4096N) = 2.2936e-01; m = 1110001110000000100000
+  eta=0.40: tau* = 3.5605e-01; true quantile of that optimiser (grid 4096N) = 3.5758e-01; m = 1011010101101000000100

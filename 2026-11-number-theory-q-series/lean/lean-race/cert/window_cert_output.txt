@@ -1,0 +1,16 @@
+window_cert.py: certified bound for chi4Gamma0 of the race window
+python-flint 0.9.0, working precision 300 bits
+b = 49/100, d = 1/20, h = 27/50; R = 2000, R_SPLIT = 20, K = 150
+Integral f = 103/100 (exact);  (1/2)(Integral f)^2 = 10609/20000 (exact)
+check: moment series and closed form agree on [10, 40] (4 sample points, |diff| < 1e-40)
+check: |fhat(r)| <= M3/r^3 and Re psi(z) <= log|z| + 4/27 hold at 3 sample points
+(1/pi) Int_0^20   fhat^2 W = [0.0886254651852444225674 +/- 4.47e-23]
+(1/pi) Int_20^R   fhat^2 W = [0.07254249469720601 +/- 4.23e-18]
+main part  (1/pi) Int_0^R  = [0.16116795988245043 +/- 1.67e-18]
+M3 (L1 norm of the third derivative of f) = [18475.2086140680244642927609761 +/- 3.74e-26]
+tail bound (1/pi) Int_R^oo = [5.561928010e-9 +/- 3.10e-19]
+certified upper bound for chi4Gamma0 f = [0.16116796544437844 +/- 1.36e-18]
+certified lower bound for chi4Gamma0 f = [0.16116795432052242 +/- 1.97e-18]
+GAMMA_BOUND = 81/500;  MARGIN = (1/2)(Integral f)^2 - GAMMA_BOUND = 7369/20000
+CERTIFIED: chi4Gamma0 f < 81/500
+CERTIFIED: chi4Gamma0 f < (1/2) * (Integral f)^2 - 7369/20000,   Integral f = 103/100

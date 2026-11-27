@@ -1,0 +1,15 @@
+(a) eps(2n) = 1 - eps(n) for 1 <= n <= 5e5: True;  eps(odd) = 0: True;  (n = 0: 1/2 = 1 - 1/2)
+(b) max |coefficients of the closed form of Q_M - M(1+(-1)^n)/(M+in)|, |n| <= 50, 4 values of M: 1.33e-15
+(c) max over n <= 2e5 and M in {.25,.5,1,2} of |coefficient of the expansion - 2M eps_n/(M+in)|: 0.00e+00
+    (constant term: Q^_{M'}(0) = 2 for every M', so the constant of the expansion is 1)
+(d) M=0.5: max |expansion - Fejer(N=2e5)| at 8 random t: 8.38e-05;  max |F_M(t) + F_(M/2)(2t) - Q_M(t)|: 8.88e-16
+(d) M=2.0: max |expansion - Fejer(N=2e5)| at 8 random t: 3.41e-04;  max |F_M(t) + F_(M/2)(2t) - Q_M(t)|: 8.88e-16
+(e) M' = 0.1: sup |Q_M' - 2| / M' = 3.3058
+(e) M' = 0.01: sup |Q_M' - 2| / M' = 3.1580
+(e) M' = 0.001: sup |Q_M' - 2| / M' = 3.1432
+(e) M' = 0.0001: sup |Q_M' - 2| / M' = 3.1418
+(e) M=0.5: mean of expansion = 1.000000 (predicted 1); ||F-1||^2: grid 0.627982 vs Parseval 0.627982; bound 8 M^2 zeta(2) = 3.2899; sup|F_M| = 2.3612
+(e) M=2.0: mean of expansion = 1.000000 (predicted 1); ||F-1||^2: grid 6.390620 vs Parseval 6.390619; bound 8 M^2 zeta(2) = 52.6379; sup|F_M| = 8.3841
+    jump of F_M at 0 (M=0.5): 2.094395, predicted 4 pi M/3 = 2.094395; at 3pi/8: -0.261799, predicted -(4 pi M/3)/8 = -0.261799
+    jump of F_M at 0 (M=2.0): 8.377580, predicted 4 pi M/3 = 8.377580; at 3pi/8: -1.047198, predicted -(4 pi M/3)/8 = -1.047198
+    => the 2^a points of dyadic level a carry total jump 4 pi M/3 for every a: F_M is not BV, w is not a measure

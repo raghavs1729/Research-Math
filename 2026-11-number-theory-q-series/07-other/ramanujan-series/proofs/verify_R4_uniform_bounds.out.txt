@@ -1,0 +1,32 @@
+Theorem 9 (x >= -1/10):
+OK    sigma(n,x) > 0, n >= 0
+OK    sigma(n,x) <= (2x+1)/(2x+5), n >= 1
+OK    rho(n,c) > 0, n >= 0, |c| <= 1/10
+OK    rho(n,c) <= 1/5, n >= 0, |c| <= 1/10
+OK    R(n,x) > 0
+OK    R(n,x) <= x + 2
+Theorem 10 (x >= -1/10):
+OK    sigma(n,x) > 0
+OK    1 - sigma(n,x) >= (3/4)(n+1)/(x+3n+1)
+OK    (3/4)(n+1) <= x+3n+1 (factors in [0,1))
+OK    rho(n,b) > 0, |b| <= 1/10
+OK    rho(n,b) <= 9/10, n >= 0, |b| <= 1/10
+OK    Q(n,x) >= 0
+OK    Q(n,x) <= x + 3n + 3
+ Q(0,x)/x -> 1: OK
+Theorem 8 (|s| <= 1/10, k >= 0):
+OK    sigma_s > 0
+OK    1 - sigma_s >= (7/10)(n+1)/(k+3n+1)
+OK    rho_s(n,0) > 0
+OK    rho_s(n,0) <= 9/10
+OK    Q_s >= 0
+OK    Q_s <= 2(k+3n+3)
+ Q_s(0,k)/k -> 1 for every s: OK
+Theorem 6 (|a|,|b| <= 1/10, k >= 0, n >= 0): WZ with (a,b) and compatibility exact: OK
+OK    -sigma > 0
+OK    |sigma| <= 1/3
+OK    rho(n,0) > 0
+OK    rho(n,0) <= 1/2
+OK    R > 0
+OK    R <= 1
+ALL CHECKS PASSED

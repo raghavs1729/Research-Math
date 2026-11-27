@@ -1,0 +1,12 @@
+WZ equation  rho - 1 = R(n,k+1) sigma - R(n,k)  with rho = -E(n+1,k)/E(n,k), and compatibility: exact OK
+R(n,0) = (2n-1) P(n) / (16384 n^4 (6n+1)): exact OK
+lim_k R(n,k)/k^3 = -(820n^2+180n+13)/(8192 n^5): exact OK;  degree of R in k: 9/6;  monomials in numerator: 81
+Gamma form of E has the ratios used: OK
+T1(a) + T2(a) = T3(a) at a = 0.3, 0.45, 0.55, 0.7 (30 digits): OK
+E(1/2,k) = 2/(k+1)^3 and d/dn log E(n,k) at n=1/2 equals -9/(2(k+1)): OK   =>  T1(1/2) = 2 zeta(3), T1'(1/2) = -9 zeta(4)
+(-1)^m v(m+1/2) = -(1/32)(-1/1024)^m (1)_m^5/(3/2)_m^5 (205m^2+250m+77); log-derivative = (410m+250)/(205m^2+250m+77) - 10(H_{2m+1}-H_m): OK
+cited identities (Amdeberhan-Zeilberger; Wei arXiv:2303.07887 / Au arXiv:2212.02986): 64 zeta(3) and 48 zeta(4): numerically OK
+(-1)^m d/dn [R(n,0)E(n,0)] at n = m+1/2 equals P(m+1/2) m!^16 (4m+2)!/(2m+1)!^10 / 2048: OK
+T1' + T2' = -9 zeta(4) + 15 zeta(4) = pi^4/15 ; numerically T3'(1/2) - pi^4/15 = 7.0065e-46
+final: |sum P(n+1/2)(1)_n^7(3/4)_n(5/4)_n/((3/2)_n^9 4096^n) - 1024 pi^4/15| = 1.8466e-127
+ALL CHECKS PASSED

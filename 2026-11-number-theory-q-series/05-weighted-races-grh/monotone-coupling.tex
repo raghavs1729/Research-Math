@@ -1,0 +1,4112 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+
+% ---------------------------------------------------------------------
+% Theorem environments.  Environment names follow the companion paper
+% (paper/weighted-races.tex); numbering is by section in this article.
+% ---------------------------------------------------------------------
+\newtheorem{letterthm}{Theorem}
+\renewcommand{\theletterthm}{\Alph{letterthm}}
+\newtheorem*{genthm}{General Theorem}
+\newtheorem*{qthm}{Theorem for $q=3,4$ (computer-assisted)}
+\newtheorem*{nonmonothm}{Non-monotonicity Theorem (computer-assisted)}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{definition}[theorem]{Definition}
+\numberwithin{equation}{section}
+\raggedbottom
+
+\newcommand{\eps}{\varepsilon}
+\newcommand{\loglog}{\log\log}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\EE}{\mathbb E}
+\newcommand{\cE}{\mathcal E}
+\newcommand{\hd}{\widehat\delta}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\im}{\operatorname{Im}}
+% visible marker for bibliographic details that still have to be checked
+\newcommand{\todocite}[1]{\textsf{[TODO-cite: #1]}}
+
+% ---------------------------------------------------------------------
+% Outcome of the independent audit of the non-monotonicity certificate
+% (monotonicity/nonmonotone-audit/AUDIT.md), kept as a macro so that it
+% can be revised in one place.  There is no placeholder in this file.
+% All certificate numbers quoted in Sections 10 and 11 are copied from
+% the reports and result files named there; none is chosen here.
+% ---------------------------------------------------------------------
+\newcommand{\NonmonoAuditOutcome}{%
+The certificate was audited by an independent AI agent, which
+re-derived every inequality used and re-computed the results with code
+of its own (report \texttt{AUDIT.md} in the directory
+\texttt{monotonicity/nonmonotone-audit/}). Its findings: no break of
+rigour; one gap, namely that the programs computing the enclosures
+accept any zero file, so that the completeness of the list of zeros is
+tied to them only by convention (deleting the first ordinate from the
+file produces a false ``enclosure'' without any error); this is closed
+by making the identity of the zero files a hypothesis, which is the
+digest clause of \textup{(N5)}; and six minor items, none affecting a
+statement made here. For the two files with the digests listed in
+\textup{(N5)} the audit re-certified every window, reproduced the
+counts $266$ and $228$ with a different contour and a different
+criterion, and regenerated the file for conductor $232$ byte for byte
+from scratch. Its own rigorous enclosures (different code, a different
+integrator, a one-sided tail model, a different truncation point and
+envelope constant, and also with only $100$, respectively $80$, zeros)
+contain all twelve enclosures of Theorem~\ref{thm:nonmono} and on their
+own give $\hd(\tfrac65)-\hd(\tfrac35)\ge5.705\times10^{-3}$ for
+conductor $163$ and $\hd(1)-\hd(\tfrac{18}{25})\ge7.92\times10^{-4}$
+for conductor $232$, as well as every other comparison of the theorem.
+The audit covers the files pinned in its list \texttt{SHA256SUMS}.
+After it, the programs were revised as it recommended: they now
+record the digest of the zero file in every output line and refuse a
+zero file that is not bound to a passing certificate record, and the
+result file was regenerated. The regenerated enclosures are identical,
+digit for digit, to the audited ones quoted in
+Theorem~\ref{thm:nonmono}; the revised programs were not re-audited.
+The audit is internal and AI-conducted, like all refereeing of this
+article (Section~\ref{sec:gaps}).}
+
+\begin{document}
+
+\title[Chebyshev's bias as a function of the weight]{Monotonicity and
+non-monotonicity of Chebyshev's bias in the weight}
+
+\author{Raghav Sharma}
+\email{raghavsharma1729@gmail.com}
+\thanks{Draft of November 2026, not yet submitted. This work was
+carried out with substantial AI assistance (Anthropic's Claude): the
+derivations, the proofs, the numerical checks and the literature
+review were AI-produced; what has and what has not been independently
+verified is recorded in Sections~\ref{sec:numerics}
+and~\ref{sec:gaps}; the author takes responsibility for the content.
+Comments are very welcome. Contact: raghavsharma1729@gmail.com. Code
+and data: \url{https://github.com/raghavs1729/weighted-prime-races}.}
+\date{November 2026}
+\subjclass[2020]{Primary 11N13; Secondary 11M26, 11Y35, 60E15}
+\keywords{Chebyshev's bias, prime number races, weighted prime sums,
+logarithmic density, coupling, Riesz means, explicit formula,
+computer-assisted proof}
+
+\begin{abstract}
+Let $\chi$ be a real primitive Dirichlet character, $m$ a real
+number, $M=m+\frac12$, and
+$D_m(x)=-\sum_{p\le x}\chi(p)p^m$ (for $\chi=\chi_4$: the race of
+primes $\equiv3$ against primes $\equiv1$ mod $4$ with weights
+$p^m$). A companion paper showed that under GRH,
+$L(\frac12,\chi)\ne0$ and LI the logarithmic density $\delta_\chi(m)$
+of $\{x:D_m(x)>0\}$ exists for $m>-\frac12$, and conjectured that
+$\delta_3$ and $\delta_4$ are strictly decreasing. Under the same
+hypotheses we prove the following. (1) For every real primitive
+$\chi$, $\delta_\chi$ is $C^1$; it is strictly decreasing for
+$M\le M_0(\chi)$ (by a pathwise coupling; $M_0$ is the root of an
+explicit function of the zeros) and for $M\ge40$ (by an envelope
+criterion for the derivative, with an explicit lower bound and no zero
+data); and $M_0(\chi)<40$. (2) For $q=3,4$, in a computer-assisted
+sense, $\delta_q$ is strictly decreasing on all of
+$(-\frac12,\infty)$: the range in between is covered by a
+ball-arithmetic certificate of the envelope criterion on
+$1\le M\le2000$. A second certificate by a different method and
+internal audits confirm it on overlapping ranges; the inputs taken on
+trust are listed. (3) Again computer-assisted, monotonicity
+\emph{fails} in the intermediate range for the characters of conductor
+$163$ and $232$. Independently: (A) under GRH alone,
+$D_m(x)-x^{-(m'-m)}D_{m'}(x)$ is a Riesz-type mean of $D_{m'}$ with an
+absolutely convergent explicit formula, and when an explicit margin
+is positive every large $x$ with $D_{m'}(x)\ge0$ has $D_m(x)>0$; for
+$q\in\{3,4\}$ and pairs with
+$4M'\frac{\Lambda'}{\Lambda}(M'+\frac12,\chi)\le2$ its eventual
+positivity is equivalent to GRH$(\chi)$; (C) weights $p^m(\log p)^b$
+give the same limiting distribution for every real $b$. All
+refereeing so far is internal and AI-conducted. This work was carried
+out with substantial AI assistance (see the first footnote and
+Section~\ref{sec:gaps}).
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+\noindent\textbf{Disclosure.} This article was produced with
+substantial AI assistance (Anthropic's Claude): the derivations,
+proofs, numerical checks and literature review are AI-produced.
+Section~\ref{sec:numerics} records the numerical checks that were
+actually run, and Section~\ref{sec:gaps} lists every place where a
+statement is weaker than one might hope, depends on a computation, or
+rests on a quoted result that was not re-derived here.
+
+\subsection{Setting}\label{subsec:setting}
+
+Throughout, $\chi$ is a real primitive Dirichlet character modulo
+$q\ge3$ and $\chi^*:=-\chi$, so that $\chi^*(p)=+1$ on quadratic
+nonresidues and $-1$ on residues. For real $m$ and $b$ put
+\[
+D_{m,b}(x)\;:=\;\sum_{p\le x}\chi^*(p)\,p^{m}(\log p)^{b},
+\qquad
+D_m:=D_{m,0},\qquad R_m:=D_{m,1}.
+\]
+For $\chi=\chi_4$, $D_m(x)=\sum_{p\le x,\,p\equiv3(4)}p^m
+-\sum_{p\le x,\,p\equiv1(4)}p^m$; $m=0$ is Chebyshev's classical race.
+We always write
+\[
+M=m+\tfrac12,\qquad M'=m'+\tfrac12,\qquad \kappa=m'-m=M'-M ,
+\]
+and restrict to $m>-\tfrac12$, i.e.\ $M>0$. The normalised races are
+\begin{equation}\label{eq:normalised}
+\cE_{m,b}(x)\;:=\;2M\,x^{-M}(\log x)^{1-b}\,D_{m,b}(x)\qquad(x>1),
+\end{equation}
+so that $\cE_{m,1}$ and $\cE_{m,0}$ are the functions $E_m$ and
+$E_m'$ of the companion paper~\cite{WR}.
+
+The nontrivial zeros of $L(s,\chi)$ are written $\rho=\beta+i\gamma$
+and are always listed with multiplicity. GRH$(\chi)$ is the statement
+that $\beta=\tfrac12$ for all of them. We put
+\[
+n_0=n_0(\chi):=\operatorname{ord}_{s=1/2}L(s,\chi)\ \ge0 ,
+\]
+and NCZ$(\chi)$ (``no central zero'') is the statement $n_0=0$; it is
+unconditional for $q\in\{3,4\}$ (see \cite[\S2]{WR}). Under
+GRH$(\chi)$, sums $\sum_{\gamma>0}$ run over the positive ordinates
+with multiplicity, and LI$(\chi)$ is the linear independence over
+$\mathbb Q$ of the multiset of positive ordinates (as in \cite{WR}, LI
+does not include NCZ). Under GRH$(\chi)$ define, for $u,M,M'>0$,
+\begin{align}
+\sigma_M^2&:=\sum_{\gamma>0}\frac{8M^2}{M^2+\gamma^2},
+&Q_\chi(u)&:=\sum_{\gamma>0}\frac{4u^3}{(u^2+\gamma^2)^{3/2}},
+\label{eq:defQ}\\
+\lambda_\chi(M,M')&:=\frac{1+2n_0}{MM'}
+-\sum_{\gamma>0}\frac{4}{|M+i\gamma|\,|M'+i\gamma|},
+&\eta_\chi(M,M')&:=\int_M^{M'}\frac{1-Q_\chi(u)}{u^2}\,du .
+\label{eq:deflambda}
+\end{align}
+All four series converge because $\sum_{\gamma>0}\gamma^{-2}<\infty$.
+The function $Q_\chi$ is continuous and strictly increasing from $0$
+to $\infty$ (Lemma~\ref{lem:Q}); $M_0(\chi)$ denotes its unique root
+of $Q_\chi(M_0)=1$.
+
+Let $(\theta_\gamma)_{\gamma>0}$ be independent random variables,
+uniform on $[0,2\pi)$, one for each positive ordinate, and
+\begin{equation}\label{eq:XM}
+X_M\;:=\;1+\sum_{\gamma>0}c_\gamma(M)\cos\theta_\gamma,
+\qquad
+c_\gamma(M):=\frac{4M}{\sqrt{M^2+\gamma^2}} .
+\end{equation}
+(In \cite{WR} this variable is written $X_m$ and $c_\gamma=2a_\gamma$;
+its variance is $\sigma_M^2$.) Under GRH$(\chi)$ and NCZ$(\chi)$ put
+\[
+\delta_\chi(m)\;:=\;\PP\bigl(X_{m+1/2}>0\bigr),\qquad
+\delta_4:=\delta_{\chi_4},\quad\delta_3:=\delta_{\chi_3}.
+\]
+Without LI$(\chi)$ this is a quantity attached to the \emph{model} law
+of $X_M$ (one independent phase for each positive ordinate, counted
+with multiplicity); it is the logarithmic density of the race only
+under LI$(\chi)$, which in particular forces the zeros to be simple.
+Statements below that assume GRH$(\chi)$ and NCZ$(\chi)$ but not
+LI$(\chi)$ are statements about this model quantity. It is often
+convenient to use $M$ rather than $m$ as the variable, and we write
+\[
+\hd_\chi(M)\;:=\;\delta_\chi\bigl(M-\tfrac12\bigr)\;=\;\PP(X_M>0)
+\qquad(M>0),\qquad \hd_q:=\hd_{\chi_q}\quad(q=3,4);
+\]
+derivatives of $\hd_\chi$ are taken with respect to $M$.
+The companion paper proves \cite[Theorem~1, Proposition~1]{WR}: under
+GRH$(\chi)$ and NCZ$(\chi)$ the functions $u\mapsto\cE_{m,1}(e^u)$ and
+$u\mapsto\cE_{m,0}(e^u)$ have a common limiting distribution $\nu_m$
+for each $m>-\tfrac12$; under LI$(\chi)$ in addition, $\nu_m$ is the
+law of $X_M$, it is absolutely continuous with support $\mathbb R$,
+and the logarithmic density of $\{x\ge2:D_m(x)>0\}$ exists and equals
+$\delta_\chi(m)\in(\tfrac12,1)$, a continuous function of $m$ with
+$\delta_\chi(m)\to1$ as $m\to-\tfrac12^+$. It also proves
+$\delta_\chi(m)\to\tfrac12$ as $m\to\infty$ with an asymptotic formula,
+proves that $\delta_\chi$ is strictly decreasing for all sufficiently
+large $m$ \cite[Theorem~4]{WR}, shows --- in a computer-assisted
+sense described there \cite[Corollary~7 and Remark~13]{WR} --- that
+$\delta_4$ is strictly decreasing for $m\ge16.82$ and $\delta_3$ for
+$m\ge18.62$, and conjectures \cite[Conjecture~1]{WR} that $\delta_4$ and $\delta_3$ are
+strictly decreasing on all of $(-\tfrac12,\infty)$. Remark~(c) after
+that conjecture explains why the compact initial range resisted: the
+family $X_M$ ``is not a dilation'', and peakedness comparisons fail
+for the bimodal arcsine summands.
+
+\subsection{Results}
+
+\begin{letterthm}[inheritance of leads; GRH only]\label{thm:A}
+Let $\chi$ be a real primitive character and assume GRH$(\chi)$
+(neither LI$(\chi)$ nor NCZ$(\chi)$ is assumed). Let
+$-\tfrac12<m<m'$, $\kappa=m'-m$, $M=m+\tfrac12$, $M'=m'+\tfrac12$.
+\begin{enumerate}
+\item[(i)] For all $x\ge2$,
+\begin{align*}
+D_m(x)-x^{-\kappa}D_{m'}(x)
+&=\kappa\int_2^x t^{-\kappa-1}D_{m'}(t)\,dt\\
+&=\frac{\kappa\,x^{M}}{\log x}\Bigl[\frac{1+2n_0}{2MM'}
++2\,\re\sum_{\gamma>0}\frac{x^{i\gamma}}{(M+i\gamma)(M'+i\gamma)}\Bigr]
++O\Bigl(\frac{x^{M}}{\log^2x}\Bigr),
+\end{align*}
+where the first equality is an exact identity, the series converges
+absolutely, and the implied constant depends only on $\chi$, $m$ and
+$m'$.
+\item[(ii)] If $\lambda_\chi(M,M')>0$, then there is
+$x_0=x_0(\chi,m,m')$ such that for all $x\ge x_0$
+\[
+D_m(x)-x^{-(m'-m)}D_{m'}(x)
+\;=\;\kappa\int_2^x t^{-\kappa-1}D_{m'}(t)\,dt
+\;\ge\;\frac{\kappa\,\lambda_\chi(M,M')}{4}\cdot\frac{x^{M}}{\log x}\;>\;0 .
+\]
+In particular, for every $x\ge x_0$: \ $D_{m'}(x)\ge0$ implies
+$D_m(x)>0$, and $D_m(x)\le0$ implies $D_{m'}(x)<0$.
+\item[(iii)] $\lambda_\chi(M,M')\ge
+\bigl(2+4n_0-\sigma_M\sigma_{M'}\bigr)/(2MM')$. In particular
+$\lambda_\chi(M,M')>0$ whenever $\sigma_M\sigma_{M'}<2+4n_0$, hence
+whenever $\sigma_{M'}^2\le2$.
+\end{enumerate}
+\end{letterthm}
+
+In words: for a pair of weights with positive margin, a lead of the
+nonresidue class in the heavier race forces a lead in the lighter
+race at the same $x$, and a lead (or tie) of the residue class in the
+lighter race forces a lead in the heavier one. For $q=4$ and
+$(m,m')=(0,1)$ one has $\sigma_{1/2}\sigma_{3/2}=0.4614<2$, so under
+GRH$(\chi_4)$ every sufficiently large $x$ at which
+$\sum_{p\le x,\,p\equiv3(4)}p\ge\sum_{p\le x,\,p\equiv1(4)}p$ satisfies
+$\pi(x;4,3)>\pi(x;4,1)$. Corollaries~\ref{cor:densities},
+\ref{cor:sharp}, \ref{cor:landau} and~\ref{cor:equiv} give the
+consequences for upper and lower densities without LI, the sharpness
+of the condition $\lambda_\chi\ge0$ under LI, a Landau-type converse,
+and the equivalence with GRH$(\chi)$ for $q\in\{3,4\}$.
+
+\begin{letterthm}[coupling monotonicity]\label{thm:B}
+Let $\chi$ be a real primitive character and assume GRH$(\chi)$ and
+NCZ$(\chi)$. Let $Q_\chi$, $M_0(\chi)$, $\eta_\chi$ be as in
+\eqref{eq:defQ}--\eqref{eq:deflambda} and
+$\delta_\chi(m)=\PP(X_{m+1/2}>0)$.
+\begin{enumerate}
+\item[(i)] For all $-\tfrac12<m<m'$ with $\eta:=\eta_\chi(M,M')\ge0$,
+\[
+\delta_\chi(m)-\delta_\chi(m')\;\ge\;
+\PP\bigl(-\eta\,M'<X_{M'}\le0\bigr),
+\]
+and the right-hand side is strictly positive if $\eta>0$.
+\item[(ii)] If $M<M'\le M_0(\chi)$ then $\eta_\chi(M,M')>0$.
+Consequently $m\mapsto\delta_\chi(m)$ is strictly decreasing on
+$\bigl(-\tfrac12,\,M_0(\chi)-\tfrac12\bigr]$.
+\item[(iii)] Under LI$(\chi)$ in addition, $\delta_\chi(m)$ is the
+logarithmic density of $\{x\ge2:D_{m,b}(x)>0\}$ for every real $b$
+(in particular of $\{D_m>0\}$ and of $\{R_m>0\}$), so (i) and (ii)
+are statements about the logarithmic densities of the races. (They
+are not statements about nesting of the sets $\{x:D_m(x)>0\}$
+themselves; for that see Theorem~\ref{thm:A} and
+Remark~\ref{rem:Arange}(3).)
+\item[(iv)] $M_0(\chi)$ satisfies
+\[
+\Bigl(\frac{\gamma_1}{2C(\chi)}\Bigr)^{1/3}
+\;\le\;\Bigl(4\sum_{\gamma>0}\gamma^{-3}\Bigr)^{-1/3}
+\;<\;M_0(\chi)\;<\;\kappa_0\,\gamma_1,
+\qquad \kappa_0:=(4^{2/3}-1)^{-1/2}=0.8111\ldots,
+\]
+where $\gamma_1$ is the least positive ordinate and
+$C(\chi)=\sum_{\gamma>0}2\gamma^{-2}=(\log\Lambda)''(\tfrac12,\chi)$;
+moreover $Q_\chi(M)<\sigma_M^2/2$ for every $M>0$, so
+$M_0(\chi)$ exceeds the root of $\sigma_M^2=2$.
+\end{enumerate}
+\end{letterthm}
+
+Numerically (Section~\ref{sec:numerics}; floating-point evaluation
+with a rigorous tail bound, not interval arithmetic)
+$M_0(\chi_4)\in[3.688,3.690]$ and $M_0(\chi_3)\in[4.483,4.485]$, so
+Theorem~\ref{thm:B} gives strict monotonicity of $\delta_4$ on
+$-\tfrac12<m\le3.18$ and of $\delta_3$ on $-\tfrac12<m\le3.98$; the
+weaker closed bound $(\gamma_1/2C(\chi))^{1/3}$ equals $2.68$ resp.\
+$3.28$. In particular the whole interval $(-\tfrac12,-0.2)$, on which
+\cite{WR} had no control beyond a Chernoff envelope, is covered.
+
+\begin{letterthm}[logarithmic weights]\label{thm:C}
+Let $\chi$ be a real primitive character, assume GRH$(\chi)$ and
+NCZ$(\chi)$, and fix $m>-\tfrac12$ and $b\in\mathbb R$. Then:
+\begin{enumerate}
+\item[(i)] $\cE_{m,b}(x)=\cE_{m,1}(x)+O(1/\log x)$ for $x\ge3$, the
+implied constant depending only on $\chi$, $m$ and $b$.
+\item[(ii)] $u\mapsto\cE_{m,b}(e^u)$ has a limiting distribution, and
+it is the measure $\nu_m$ of \cite[Theorem~1]{WR}; in particular it
+does not depend on $b$.
+\item[(iii)] Under LI$(\chi)$ in addition, the logarithmic density of
+$\{x\ge2:D_{m,b}(x)>0\}$ exists and equals $\delta_\chi(m)$ for every
+real $b$.
+\end{enumerate}
+\end{letterthm}
+
+The cases $b=1$ and $b=0$ of (ii)--(iii) are \cite[Theorem~1,
+Proposition~1]{WR}. Theorem~\ref{thm:C} answers, for $m>-\tfrac12$
+and under the stated hypotheses, a question raised by G.~Martin in
+correspondence with the author (August 2026): he suggested the weights
+$p^a(\log p)^b$ and suspected that for fixed $a$ the density does not
+depend on $b$.
+
+The remaining results concern the function $\hd_\chi$ on the whole
+half-line $M>0$. The first holds for every real primitive character.
+
+\begin{genthm}
+Let $\chi$ be a real primitive Dirichlet character and assume
+GRH$(\chi)$ and $L(\tfrac12,\chi)\ne0$. Then:
+\begin{enumerate}
+\item[(i)] $\hd_\chi$ is continuously differentiable on $(0,\infty)$;
+\item[(ii)] $\hd_\chi$ is strictly decreasing on $(0,M_0(\chi)]$;
+\item[(iii)] for every $M\ge40$,
+\[
+-M\,\hd_\chi'(M)\;\ge\;\frac{0.3219}{\sqrt{2\pi}\,\sigma_M}\;>\;0 ,
+\]
+so $\hd_\chi$ is strictly decreasing on $[40,\infty)$;
+\item[(iv)] $M_0(\chi)<40$.
+\end{enumerate}
+Under LI$(\chi)$ in addition, $\hd_\chi(M)$ is the logarithmic density
+of $\{x\ge2:D_{m,b}(x)>0\}$, $m=M-\tfrac12$, for every real $b$.
+\end{genthm}
+
+Part (ii) is Theorem~\ref{thm:B}(ii). Parts (i) and (iii) are
+Lemma~\ref{lem:diff} and Theorem~\ref{thm:E}; they rest on the
+identity $-M\hd_\chi'(M)=f_M(1)+R(M)$, in which $f_M$ is the density
+of $X_M-1$ and $R$ is a sign-indefinite term carrying small weights,
+and on a criterion (Theorem~\ref{thm:envelope}) that bounds both terms
+by integrals of explicit positive envelopes, with no cancellation to
+track. The proof of (iii) uses no ordinate of any zero; it reduces to
+four inequalities between elementary functions at explicit points,
+which were evaluated in ball arithmetic (Section~\ref{sec:largeweight}).
+The precise statement, with a sharper function of $\sigma_M$ in place
+of the constant $0.3219$, is Theorem~\ref{thm:general}. Nothing is
+asserted on the intermediate range $M_0(\chi)<M<40$, and the third
+theorem below shows that nothing can be asserted there in general.
+
+\begin{qthm}
+Let $q\in\{3,4\}$ and assume GRH$(\chi_q)$. Then $\hd_q$ is strictly
+decreasing on $(0,\infty)$, that is, $m\mapsto\delta_q(m)$ is strictly
+decreasing on $(-\tfrac12,\infty)$ and \cite[Conjecture~1]{WR} holds
+for this $q$, \textbf{provided} the following are correct:
+\begin{itemize}
+\item[\textup{(T1)}] the two files of ordinates pinned by their
+SHA-256 digests in Section~\ref{subsec:inputs} ($511$ ordinates of
+$L(s,\chi_4)$, $537$ of $L(s,\chi_3)$), together with the certificate
+that each listed value is within $10^{-20}$ of an ordinate, that the
+zeros are simple, and that the lists are complete up to their last
+entry;
+\item[\textup{(T2)}] the ball-arithmetic library FLINT/Arb and the
+certifying programs that call it;
+\item[\textup{(T3)}] the variance identity of the companion paper
+\cite[eq.~(8)]{WR} (Proposition~\ref{prop:WRvar}).
+\end{itemize}
+Under LI$(\chi_q)$ in addition, the logarithmic density of
+$\{x\ge2:D_{m,b}(x)>0\}$ is, for every real $b$, a strictly decreasing
+function of $m\in(-\tfrac12,\infty)$.
+\end{qthm}
+
+The proof (Theorem~\ref{thm:q34}) has three overlapping pieces:
+Theorem~\ref{thm:B} on $(0,M_0(\chi_q)]$, where $M_0(\chi_q)>1$; a
+ball-arithmetic certificate of the envelope criterion on $765$
+contiguous cells covering $1\le M\le2000$, for each modulus; and part
+(iii) of the General Theorem on $M\ge40$. Two independent
+confirmations are available on parts of the range and are \emph{not}
+links of this chain (Section~\ref{subsec:confirm}): a second
+certificate, by a different method (direct enclosure of the
+oscillatory inversion integral), which has been audited and
+independently re-proved on $3.6\le M\le17.4$ ($q=4$) and
+$4.4\le M\le19.2$ ($q=3$) and extends, unaudited, to $M=320$ resp.\
+$350$; and the analytic large-weight lemma of the companion paper for
+$M\ge300$ \cite[Lemma~24]{WR}, which has been audited as well. In
+particular \cite[Theorem~4 and Corollary~7]{WR} are not needed. The
+word ``computer-assisted'' is meant literally: the certificates
+establish the conclusion given (T1)--(T3); the programs were read,
+re-run and mutation-tested by internal referees, but nothing in this
+part is formally verified, and all refereeing so far is internal and
+AI-conducted (Section~\ref{sec:gaps}).
+
+\begin{nonmonothm}
+Let $\chi_{-163}$ and $\chi_{-232}$ be the real primitive (odd)
+characters of conductor $163$ and $232$, i.e.\ the Kronecker symbols
+$(\frac{-163}{\cdot})$ and $(\frac{-232}{\cdot})$.
+\begin{enumerate}
+\item[(i)] Assume GRH$(\chi_{-163})$. Then
+\[
+\hd(\tfrac3{10})>\hd(\tfrac{57}{100})<\hd(\tfrac35)<\hd(\tfrac{117}{100})
+>\hd(\tfrac65)>\hd(2)\qquad(\hd=\hd_{\chi_{-163}}),
+\]
+with $\hd(\tfrac65)-\hd(\tfrac35)\in[0.005705485,\,0.005705571]$.
+\item[(ii)] Assume GRH$(\chi_{-232})$. Then
+\[
+\hd(\tfrac25)>\hd(\tfrac{71}{100})<\hd(\tfrac{18}{25})<\hd(1)<\hd(\tfrac{101}{100})
+>\hd(\tfrac32)\qquad(\hd=\hd_{\chi_{-232}}),
+\]
+with $\hd(1)-\hd(\tfrac{18}{25})\in[0.000792990,\,0.000793135]$.
+\item[(iii)] Consequently, under GRH$(\chi)$ and LI$(\chi)$ for
+$\chi=\chi_{-163}$ or $\chi_{-232}$, the logarithmic density
+$\delta_\chi(m)$ of $\{x\ge2:D_{m,b}(x)>0\}$ (any real $b$) is not a
+monotone function of $m\in(-\tfrac12,\infty)$: for $\chi_{-163}$,
+$\delta_\chi(-\tfrac15)>\delta_\chi(\tfrac1{10})<\delta_\chi(\tfrac7{10})
+>\delta_\chi(\tfrac32)$.
+\end{enumerate}
+These statements are certified in ball arithmetic; they hold provided
+the hypotheses and trusted inputs \textup{(N1)--(N5)} of
+Section~\ref{sec:nonmono} are correct. (The only unproved mathematical
+hypothesis is GRH for the character in question. The completeness of
+the lists of zeros used is certified. FLINT/Arb, the certifying
+programs and the identity of the two zero files, pinned by digests,
+are trusted; the variance identity and the limiting-distribution
+theorem of \cite{WR} are imported.)
+\end{nonmonothm}
+
+The precise statement, with all certified enclosures, is
+Theorem~\ref{thm:nonmono}. Both increases occur above $M_0(\chi)$
+($M_0(\chi_{-163})\approx0.1644$, $M_0(\chi_{-232})\approx0.2511$) and
+far below $40$, so the intermediate range of the General Theorem
+genuinely matters, and the theorem for $q=3,4$ is not an instance of a
+general fact about real characters. An internal audit of this
+certificate found no break of rigour and confirmed all enclosures with
+independently written rigorous code; its one substantive finding, that
+the identity of the zero files must be a stated hypothesis, is
+incorporated (Section~\ref{sec:nonmono}). The mechanism is already visible in a model with two zeros
+(Proposition~\ref{prop:twozero}).
+
+\subsection{What is new and what is classical}
+
+\emph{Theorem~\ref{thm:B}.} The mechanism is elementary and, as far as
+we could determine, new in this context. Dividing by the weight,
+\[
+\frac{X_M}{M}\;=\;\frac1M+\sum_{\gamma>0}
+\frac{4\cos\theta_\gamma}{\sqrt{M^2+\gamma^2}} .
+\]
+The bias term $1/M$ decreases in $M$ at rate $M^{-2}$; each
+oscillating coefficient also decreases in $M$, at rate
+$4M(M^2+\gamma^2)^{-3/2}=O(\gamma^{-3})$, and these rates are
+\emph{absolutely summable} over the zeros although the coefficients
+themselves are not. Hence for a \emph{fixed} phase vector the
+difference $X_M/M-X_{M'}/M'$ is bounded below by the deterministic
+quantity $\eta_\chi(M,M')$ (Lemma~\ref{lem:det}), which is positive
+as long as $Q_\chi<1$. Thus the family \emph{is} a dilation up to an
+absolutely summable perturbation that is dominated by the gain in
+bias, and the events $\{X_M>0\}$ are nested almost surely; no unimodality or
+peakedness is needed (Remark~\ref{rem:dilation}). We did not find a
+monotonicity statement for a Rubinstein--Sarnak density \cite{RS94}
+in a continuous parameter, or a coupling argument of this kind, in the
+literature we searched (the search is recorded in the repository;
+it is of course not a proof of absence).
+
+\emph{Theorem~\ref{thm:A}.} The method is classical: after a
+smoothing, a positive bias term is compared with an absolutely
+convergent sum over zeros, for \emph{all} large $x$. This is the
+mechanism of Hardy--Littlewood and Landau \cite{HL18,Lan18} for the
+Abel means $\sum_p\chi_4(p)e^{-p/x}$ (their divergence to $-\infty$ is
+equivalent to GRH$(\chi_4)$), of Fujii \cite{Fuj88} and
+Platt--Trudgian \cite{PT19} for the kernels $e^{-(p/x)^\alpha}$, of
+Johnston \cite{Joh23} for $\int_2^x(\pi(t)-\mathrm{li}(t))\,dt$, of
+Washington \cite[Theorem~3]{Was24} for integrated sums of powers of
+primes, and of Zhao \cite{Zhao25} for the error terms in Mertens'
+theorems; see Remark~\ref{rem:literature}. The identity
+$D_m(x)-x^{-\kappa}D_{m'}(x)=\kappa\int_2^xt^{-\kappa-1}D_{m'}(t)\,dt$
+is one line of partial summation, and its left-hand side is literally
+a Riesz typical mean of order one. What we did not find in the
+literature searched is its \emph{interpretation} as a link between two
+races of different weights --- the weight shift itself is the
+smoothing --- and the resulting statement that leads are inherited
+across weights at the same $x$, with its consequence for upper and
+lower densities without LI (Corollary~\ref{cor:densities}). The
+equivalence with GRH (Corollary~\ref{cor:equiv}) is a Riesz-mean
+cousin of the Hardy--Littlewood--Landau equivalence, of modest
+novelty.
+
+Sums of $k$-th powers of primes with $k>0$ have been studied as
+approximations to $\pi(x^{k+1})$ by Gerard--Washington \cite{GW18},
+Washington \cite{Was24} and, in arithmetic progressions, by Boran,
+Byun, Li, Miller and Reyes \cite{BBLMR24}; these works compare one
+weighted sum with an unweighted count and do not race two residue
+classes against each other with a common weight, nor compute
+logarithmic densities. For decaying weights see
+\cite{AK23,Sheth24,SK25,Hay25,Aym22} and the discussion in \cite{WR}.
+
+\emph{The General Theorem, the theorem for $q=3,4$ and the
+non-monotonicity theorem.} The derivative identity of
+Lemma~\ref{lem:diff} is the rigorous form of a formal computation
+(Remark~\ref{rem:infinitesimal}); identities of this kind are
+standard for sums of independent variables, and the companion paper
+differentiates the inversion integral for large weights
+\cite[Lemma~21]{WR}. What we did not find elsewhere is the envelope
+criterion of Theorem~\ref{thm:envelope}, in which the main term is the
+density itself and is bounded below by a Gaussian-type integral, the
+remainder is bounded above with the same envelopes, and the ratio of
+the two bounds stays below $\tfrac12$ in the limit --- so that the
+criterion has room on the whole range $1\le M\le2000$ for $q=3,4$ and
+needs only the twelve lowest ordinates. The large-weight part
+(Theorem~\ref{thm:E}) replaces, by an independent and uniform
+argument, the large-weight results of \cite{WR}, which are for
+unspecified or character-dependent thresholds. We did not find, in
+the literature searched, an instance in which a Rubinstein--Sarnak-type
+density is shown to be non-monotone in a continuous parameter, as
+Theorem~\ref{thm:nonmono} shows conditionally and with computer
+assistance for conductors $163$ and $232$; but we did not search
+specifically for one (Section~\ref{sec:gaps}). These three results were obtained after the
+first version of this article; their proofs are transcribed from
+working notes in the repository, where they were refereed internally
+(Appendix~\ref{sec:review}).
+
+\emph{Theorem~\ref{thm:C}} is a short partial summation once a local
+mean-square bound (Lemma~\ref{lem:localms}) is available; the cases
+$b\in\{0,1\}$ are in \cite{WR}, and Bhattacharya--Martin--Simpson
+\cite{BMS26} treat correlations of error terms for reciprocal-type
+weights. We did not find the statement for general real $b$ in the
+literature searched.
+
+\emph{Classical inputs} used without proof: the truncated explicit
+formula for $\psi(x,\chi)$ in the form \cite[Lemma~1]{WR} (cf.\
+\cite[Ch.~19]{Dav00}); the prime number theorem with error
+$O(x/\log^2x)$; Landau's theorem on Mellin transforms of functions of
+constant sign \cite[Lemma~15.1]{MV07}; Kronecker's theorem; the
+limiting-distribution theorems of Akbary--Ng--Shahabi \cite{ANS14} in
+the form in which they are applied in \cite{WR}; and standard facts on
+weak convergence; and, for Sections~\ref{sec:envelope}
+and~\ref{sec:largeweight}, the facts about the Bessel function $J_0$
+collected in Section~\ref{subsec:bessel}, three of which are quoted
+from \cite{WR}.
+
+\subsection{Organisation}
+Section~\ref{sec:prelim} collects notation and the quoted inputs.
+Section~\ref{sec:det} contains the deterministic lemma and the
+properties of $Q$. Section~\ref{sec:thmB} proves
+Theorem~\ref{thm:B}, its sharpness, and the bounds for $M_0$.
+Section~\ref{sec:formula} proves the asymptotic formula of
+Theorem~\ref{thm:A}(i); Section~\ref{sec:thmA} proves the rest of
+Theorem~\ref{thm:A} and its corollaries. Section~\ref{sec:thmC}
+proves Theorem~\ref{thm:C}. Section~\ref{sec:envelope} proves the
+derivative identity and the envelope criterion;
+Section~\ref{sec:largeweight} proves the uniform large-weight theorem
+and the General Theorem. Section~\ref{sec:main} states and proves the
+theorem for $q=3,4$, with the certificate, the trusted inputs and the
+independent confirmations. Section~\ref{sec:nonmono} contains the
+two-zero model and the non-monotonicity theorem.
+Section~\ref{sec:numerics} reports numerical sanity checks,
+Section~\ref{sec:gaps} lists gaps and caveats, and
+Appendix~\ref{sec:review} records the review history.
+
+\section{Preliminaries and quoted inputs}\label{sec:prelim}
+
+Implied constants may depend on $\chi$ (equivalently on $q$) and on
+the fixed exponents $m,m',b$, never on $x$, $t$, $u$, $T$ or on the
+zero $\rho$ under consideration. We write
+$\psi(x,\chi)=\sum_{n\le x}\Lambda(n)\chi(n)$ and
+\[
+\psi_1(x,\chi):=\int_0^x\psi(t,\chi)\,dt
+=\sum_{n\le x}\Lambda(n)\chi(n)(x-n) .
+\]
+
+\subsection{Zeros}\label{subsec:zeros}
+We use the following standard facts \cite[\S\S12, 16]{Dav00}. The
+nontrivial zeros satisfy $0<\beta<1$ (so $\rho\ne0$), they are
+symmetric under $\rho\mapsto\bar\rho$ because $\chi$ is real, and
+\begin{equation}\label{eq:zerosum}
+\sum_\rho\frac{1}{|\rho|^2}<\infty,
+\qquad
+N(T+1)-N(T)\ll\log(T+2)\quad(T\ge0),
+\qquad
+N(T)\sim\frac{T}{2\pi}\log T ,
+\end{equation}
+where $N(T)$ counts zeros with $0<\gamma\le T$. Consequently, under
+GRH$(\chi)$,
+\begin{equation}\label{eq:gammasums}
+\sum_{\gamma>0}\gamma^{-2}<\infty,\qquad
+\sum_{\gamma>0}\gamma^{-2}\log(\gamma+3)<\infty,\qquad
+\sum_{\gamma>0}\gamma^{-1}=\infty ,
+\end{equation}
+and there are infinitely many distinct positive ordinates.
+
+\subsection{Inputs quoted from the companion paper}
+We quote four results of \cite{WR}; the theorem numbers refer to the
+August 2026 version, and we also give the name each result carries
+there.
+
+\begin{lemma}[{\cite[Lemma~1]{WR}, ``truncated explicit formula, all
+truncations''}]\label{lem:WRclassical}
+Unconditionally, for all $x\ge2$ and $T\ge2$,
+\[
+\psi(x,\chi)=-\sum_{|\gamma|\le T}\frac{x^\rho}{\rho}
++O\Bigl(\frac{x\log^2(xT)}{T}+\log x\Bigr),
+\]
+with no inequality assumed between $T$ and $x$.
+\end{lemma}
+
+\begin{lemma}[{\cite[proofs of Theorem~1(i) and of
+Proposition~1]{WR}}]\label{lem:WRexp}
+Assume GRH$(\chi)$ and NCZ$(\chi)$ and fix $m>-\tfrac12$. Put
+$r_\gamma(M):=4M/(M+i\gamma)$, so that $|r_\gamma(M)|=c_\gamma(M)$.
+For $b\in\{0,1\}$, all $u\ge2$ and all $T\ge2$,
+\[
+\cE_{m,b}(e^u)\;=\;1+\re\sum_{0<\gamma\le T}r_\gamma(M)\,e^{i\gamma u}
++\cE^{(b)}(u,T),
+\]
+where, with some $c>0$ and $\kappa_m:=\min(M,\tfrac12)$,
+\[
+\bigl|\cE^{(b)}(u,T)\bigr|\;\ll\;
+\frac{u\,e^{u/2}\log^2(e^uT)}{T}+\frac{1-b}{u}+u^2e^{-\kappa_mu}
++u\,e^{-u/6}+u\,e^{-c\sqrt u}.
+\]
+In particular
+$\lim_{Y\to\infty}\frac1Y\int_2^Y|\cE^{(b)}(u,e^Y)|^2\,du=0$.
+\end{lemma}
+
+(The displays in \cite{WR} are slightly sharper for $b=1$; the common
+bound above is all we use. The last assertion is verified in
+\cite{WR}: at $T=e^Y$ and $2\le u\le Y$ the first term is
+$\ll Y^3e^{u/2-Y}$, and the remaining terms are fixed functions of $u$
+whose squares have Ces\`aro mean tending to $0$.)
+
+\begin{theorem}[{\cite[Theorem~1 and Proposition~1]{WR}}]
+\label{thm:WRinterp}
+Assume GRH$(\chi)$ and NCZ$(\chi)$ and fix $m>-\tfrac12$. For
+$b\in\{0,1\}$ the function $u\mapsto\cE_{m,b}(e^u)$ has a limiting
+distribution $\nu_m$, the same for both values of $b$. Under
+LI$(\chi)$, $\nu_m$ is the law of $X_M$; it is absolutely continuous
+with support $\mathbb R$; the logarithmic densities of
+$\{x\ge2:D_m(x)>0\}$ and of $\{x\ge2:R_m(x)>0\}$ exist and equal
+$\delta_\chi(m)=\PP(X_M>0)\in(\tfrac12,1)$; and $\delta_\chi$ is
+continuous on $(-\tfrac12,\infty)$.
+\end{theorem}
+
+The proofs in \cite{WR} obtain existence from
+\cite[Corollary~1.3(a)]{ANS14} applied to the expansion of
+Lemma~\ref{lem:WRexp}, and the identification under LI from
+\cite[Theorem~1.9]{ANS14}. We use those two results of \cite{ANS14}
+in exactly the same way once more, in Lemma~\ref{lem:joint}. (A
+referee of this article checked the statements of
+\cite[Corollary~1.3(a), Theorems~1.4 and~1.9]{ANS14} against the
+arXiv version 1306.1657 of that paper and confirmed that they are as
+used here and in \cite{WR}; for complex coefficients $r_n$ the Bessel
+factors of Theorem~1.9 carry $|r_n|$.)
+
+\begin{proposition}[{\cite[eq.~(8) and \S2]{WR}}, variance
+identity]\label{prop:WRvar}
+Assume GRH$(\chi)$ and NCZ$(\chi)$, let $\chi(-1)=(-1)^a$ and
+$\Lambda(s,\chi)=(q/\pi)^{(s+a)/2}\Gamma\bigl(\tfrac{s+a}2\bigr)
+L(s,\chi)$. Then for every $M>0$
+\[
+\sigma_M^2=4M\,\frac{\Lambda'}{\Lambda}\bigl(M+\tfrac12,\chi\bigr),
+\qquad
+C(\chi):=\sum_{\gamma>0}\frac{2}{\gamma^2}
+=(\log\Lambda)''\bigl(\tfrac12,\chi\bigr).
+\]
+\end{proposition}
+
+(In \cite{WR}, Proposition~2 states and proves the first identity for
+$\chi_4$; the identity for a general real primitive $\chi$ is eq.~(8)
+there, in the proof of Proposition~3, where it is observed that the
+proof of Proposition~2 applies verbatim. The closed form of $C(\chi)$
+is in \cite[\S2]{WR}.)
+
+\subsection{Densities and limiting distributions}
+For a measurable set $S\subset[1,\infty)$ the upper and lower
+logarithmic densities are the $\limsup$ and $\liminf$, as
+$X\to\infty$, of $(\log X)^{-1}\int_{S\cap[1,X]}dt/t$; the upper and
+lower natural densities are those of $X^{-1}\int_{S\cap[1,X]}dt$. When
+upper and lower values agree we speak of the logarithmic (natural)
+density. A locally bounded measurable function
+$\phi:[0,\infty)\to\mathbb R^d$ \emph{has the limiting distribution}
+$\mu$ (a Borel probability measure on $\mathbb R^d$) if
+$\frac1Y\int_0^YF(\phi(u))\,du\to\int F\,d\mu$ as $Y\to\infty$ for
+every bounded continuous $F:\mathbb R^d\to\mathbb R$; equivalently,
+if the probability measures $\mu_Y(B):=\frac1Y\,
+\mathrm{meas}\{u\in[0,Y]:\phi(u)\in B\}$ converge weakly to $\mu$.
+
+\begin{lemma}\label{lem:stability}
+Let $\phi$ have the limiting distribution $\mu$.
+\begin{enumerate}
+\item[(a)] If $\psi:[0,\infty)\to\mathbb R^d$ is locally bounded and
+measurable and $\psi(u)-\phi(u)\to0$ as $u\to\infty$, then $\psi$ has
+the limiting distribution $\mu$.
+\item[(b)] If $B\subset\mathbb R^d$ is a Borel set with
+$\mu(\partial B)=0$, then $\mu_Y(B)\to\mu(B)$; if $B$ is open, then
+$\liminf_{Y\to\infty}\mu_Y(B)\ge\mu(B)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(b) is the portmanteau theorem \cite[Theorem~2.1]{Bil99}, applied
+along an arbitrary sequence $Y_n\to\infty$. (a) For a bounded
+Lipschitz function $F$ with constant $L_F$,
+$|F(\psi(u))-F(\phi(u))|\le\min(2\|F\|_\infty,L_F|\psi(u)-\phi(u)|)
+\to0$, so $\frac1Y\int_0^YF(\psi)\,du$ and $\frac1Y\int_0^YF(\phi)\,du$
+have the same limit $\int F\,d\mu$. Convergence for all bounded
+uniformly continuous $F$ is equivalent to weak convergence
+\cite[Theorem~2.1]{Bil99}, and bounded Lipschitz functions suffice for
+that implication (the proof of the theorem uses only the Lipschitz
+functions $x\mapsto\max(0,1-\mathrm{dist}(x,F_0)/\eps)$ for closed
+$F_0$).
+\end{proof}
+
+\begin{lemma}[full support]\label{lem:fullsupport}
+Let $c_n>0$ with $c_n\to0$, $\sum_nc_n=\infty$ and
+$\sum_nc_n^2<\infty$, let $\beta_n\in\mathbb R$ be arbitrary, and let
+$\theta_n$ be independent and uniform on $[0,2\pi)$. Then
+$W:=\sum_nc_n\cos(\theta_n-\beta_n)$ converges almost surely, and
+$\PP(W\in J)>0$ for every nonempty open interval $J$.
+\end{lemma}
+
+\begin{proof}
+The summands are independent, centred, with variances $c_n^2/2$, so
+the series converges almost surely by Kolmogorov's convergence
+criterion (see e.g.\ \cite[\S VII.8]{Fel71}). Since
+$\theta_n-\beta_n$ reduced mod $2\pi$ are again independent and
+uniform, we may take $\beta_n=0$; and since $\theta\mapsto\theta+\pi$
+preserves the uniform law and flips the sign of $W$, it suffices to
+treat $J=(v-\eps,v+\eps)$ with $v\ge0$. This is the argument of
+\cite[proof of Theorem~1(ii), ``Full support'']{WR}, which uses only
+the three properties of $(c_n)$ assumed here. Choose $N_0$ with
+$c_n<\eps/4$ for $n>N_0$, then $N_1\ge N_0$ minimal with
+$S:=\sum_{N_0<n\le N_1}c_n\ge v$ (so $v\le S<v+\eps/4$; if $v=0$ take
+$N_1=N_0$), then $N\ge N_1$ with $\sum_{n>N}c_n^2/2\le\eps^2/64$. By
+Chebyshev's inequality the tail $W_N:=\sum_{n>N}c_n\cos\theta_n$
+satisfies $\PP(|W_N|<\eps/4)\ge\tfrac34$. Let
+$\delta:=\eps/(4+4\sum_{n\le N}c_n)$ and let $A$ be the event that
+$|\cos\theta_n-1|<\delta$ for $N_0<n\le N_1$ and $|\cos\theta_n|<\delta$
+for the remaining $n\le N$. Then $\PP(A)>0$, $A$ is independent of
+$W_N$, and on $A$ the head $\sum_{n\le N}c_n\cos\theta_n$ lies within
+$\eps/4$ of $S$. On $A\cap\{|W_N|<\eps/4\}$, which has probability
+$\ge\tfrac34\PP(A)>0$, we get $|W-v|<\tfrac34\eps$.
+\end{proof}
+
+By \eqref{eq:gammasums}, Lemma~\ref{lem:fullsupport} applies to
+$c_n=c_{\gamma_n}(M)$ for every $M>0$ and to every tail
+$(c_{\gamma_n}(M))_{n>J}$: indeed $c_\gamma(M)\le4M/\gamma$ and
+$c_\gamma(M)\ge2\sqrt2\,M/\gamma$ for $\gamma\ge M$.
+
+\section{The deterministic lemma}\label{sec:det}
+
+This section contains no number theory and no probability. Throughout
+it, $0<\gamma_1\le\gamma_2\le\cdots$ is an arbitrary infinite sequence
+of positive real numbers with
+\begin{equation}\label{eq:hypgamma}
+\sum_{j\ge1}\gamma_j^{-2}<\infty .
+\end{equation}
+Note that then $\sum_j\gamma_j^{-3}\le\gamma_1^{-1}\sum_j\gamma_j^{-2}
+<\infty$ as well.
+
+\begin{lemma}[the function $Q$]\label{lem:Q}
+For $u>0$ let
+\[
+Q(u)\;:=\;\sum_{j\ge1}\frac{4u^3}{(u^2+\gamma_j^2)^{3/2}} .
+\]
+\begin{enumerate}
+\item[(i)] $Q$ is finite, continuous and strictly increasing on
+$(0,\infty)$, with $0<Q(u)<4u^3\sum_j\gamma_j^{-3}$; in particular
+$Q(u)\to0$ as $u\to0^+$. Moreover $Q(u)\to\infty$ as $u\to\infty$.
+\item[(ii)] There is a unique $M_0>0$ with $Q(M_0)=1$; $Q<1$ on
+$(0,M_0)$ and $Q>1$ on $(M_0,\infty)$.
+\item[(iii)] For $0<M<M'$ put
+$\Delta_j(M,M'):=4(M^2+\gamma_j^2)^{-1/2}-4(M'^2+\gamma_j^2)^{-1/2}$.
+Then $\Delta_j>0$ and
+\[
+\sum_{j\ge1}\Delta_j(M,M')\;=\;\int_M^{M'}\frac{Q(u)}{u^2}\,du\;<\;\infty .
+\]
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) Write $Q(u)=\sum_jg(u/\gamma_j)$ with
+$g(t):=4t^3(1+t^2)^{-3/2}=4(1+t^{-2})^{-3/2}$. The function $g$ is
+continuous and strictly increasing on $(0,\infty)$, with
+$0<g(t)<\min(4,4t^3)$ and $g(t)\to4$ as $t\to\infty$. Hence
+$0<g(u/\gamma_j)<4u^3\gamma_j^{-3}$, and on every interval $(0,U]$ the
+series is dominated termwise by the convergent series
+$4U^3\sum_j\gamma_j^{-3}$; by the Weierstrass test $Q$ is finite and
+continuous, and $Q(u)<4u^3\sum_j\gamma_j^{-3}\to0$ as $u\to0^+$. A sum
+of strictly increasing functions is strictly increasing. For every
+$N$, $Q(u)\ge\sum_{j\le N}g(u/\gamma_j)\to4N$ as $u\to\infty$, so
+$Q(u)\to\infty$.
+
+(ii) follows from (i) by the intermediate value theorem and strict
+monotonicity.
+
+(iii) Since $\frac{d}{du}\bigl[-4(u^2+\gamma^2)^{-1/2}\bigr]
+=4u(u^2+\gamma^2)^{-3/2}>0$,
+\[
+\Delta_j(M,M')=\int_M^{M'}\frac{4u}{(u^2+\gamma_j^2)^{3/2}}\,du>0 ,
+\]
+and by Tonelli's theorem
+$\sum_j\Delta_j=\int_M^{M'}\sum_j4u(u^2+\gamma_j^2)^{-3/2}\,du
+=\int_M^{M'}Q(u)u^{-2}\,du$, which is finite because $Q$ is continuous
+on $[M,M']$.
+\end{proof}
+
+\begin{lemma}[deterministic coupling inequality]\label{lem:det}
+Let $(\gamma_j)$ satisfy \eqref{eq:hypgamma} and let
+$x_j\in[-1,1]$ be real numbers such that the series
+$\sum_jx_j/\gamma_j$ converges (conditionally, in the given order).
+\begin{enumerate}
+\item[(i)] For every $M>0$ the series
+\[
+\varphi(M)\;:=\;\frac1M+\sum_{j\ge1}\frac{4x_j}{\sqrt{M^2+\gamma_j^2}}
+\]
+converges (in the given order).
+\item[(ii)] For $0<M<M'$,
+\[
+\varphi(M)-\varphi(M')\;=\;\Bigl(\frac1M-\frac1{M'}\Bigr)
++\sum_{j\ge1}x_j\,\Delta_j(M,M'),
+\]
+the last series being absolutely convergent, and
+\begin{equation}\label{eq:detineq}
+\int_M^{M'}\frac{1+Q(u)}{u^2}\,du\;\ge\;
+\varphi(M)-\varphi(M')\;\ge\;
+\eta(M,M'):=\int_M^{M'}\frac{1-Q(u)}{u^2}\,du .
+\end{equation}
+\item[(iii)] If $0<M<M'\le M_0$, then $\eta(M,M')>0$; hence $\varphi$
+is strictly decreasing on $(0,M_0]$. More generally, whenever
+$\eta(M,M')\ge0$: \ $\varphi(M')>0$ implies $\varphi(M)>0$, and
+$\varphi(M')>-\eta(M,M')$ implies $\varphi(M)>0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) For $\gamma>0$ and $s:=\sqrt{M^2+\gamma^2}\ge\gamma$ we have
+$s-\gamma=M^2/(s+\gamma)\le M^2/(2\gamma)$, hence
+\begin{equation}\label{eq:gapbound}
+0\;\le\;\frac1\gamma-\frac1{\sqrt{M^2+\gamma^2}}
+=\frac{s-\gamma}{\gamma s}\;\le\;\frac{M^2}{2\gamma^3}.
+\end{equation}
+Therefore $\sum_jx_j\bigl(4\gamma_j^{-1}-4(M^2+\gamma_j^2)^{-1/2}\bigr)$
+converges absolutely, and subtracting it from the convergent series
+$\sum_j4x_j/\gamma_j$ gives the convergence of the series defining
+$\varphi(M)$.
+
+(ii) Subtracting the two convergent series termwise gives the
+identity; the series $\sum_jx_j\Delta_j$ converges absolutely because
+$|x_j|\le1$ and $\sum_j\Delta_j<\infty$ by Lemma~\ref{lem:Q}(iii). The
+same two facts give
+$-\sum_j\Delta_j\le\sum_jx_j\Delta_j\le\sum_j\Delta_j$, and
+$\frac1M-\frac1{M'}=\int_M^{M'}u^{-2}\,du$; inserting
+$\sum_j\Delta_j=\int_M^{M'}Q(u)u^{-2}\,du$ yields \eqref{eq:detineq}.
+
+(iii) If $M'\le M_0$ then $1-Q(u)>0$ for all $u\in[M,M')$ by
+Lemma~\ref{lem:Q}(ii), so $\eta(M,M')>0$ and
+$\varphi(M)>\varphi(M')$. The remaining assertions are immediate from
+$\varphi(M)\ge\varphi(M')+\eta(M,M')$.
+\end{proof}
+
+\begin{remark}\label{rem:detB}
+If the constant $1$ in $\varphi$ is replaced by a constant $B>0$
+(that is, $\varphi_B(M)=B/M+\sum_j4x_j(M^2+\gamma_j^2)^{-1/2}$), the
+same proof gives
+$\varphi_B(M)-\varphi_B(M')\ge\int_M^{M'}(B-Q(u))u^{-2}\,du$. For the
+races of this paper $B=1+2n_0(\chi)$; we use only $B=1$.
+\end{remark}
+
+\section{Coupling monotonicity: proof of Theorem~\ref{thm:B}}
+\label{sec:thmB}
+
+Assume GRH$(\chi)$ and NCZ$(\chi)$ throughout this section, let
+$0<\gamma_1\le\gamma_2\le\cdots$ be the positive ordinates of
+$L(s,\chi)$ with multiplicity, and write $\theta_j$ for
+$\theta_{\gamma_j}$. By \eqref{eq:gammasums} the sequence satisfies
+\eqref{eq:hypgamma}, and the functions $Q$, $\eta$, $M_0$ of
+Section~\ref{sec:det} are the $Q_\chi$, $\eta_\chi$, $M_0(\chi)$ of
+the introduction.
+
+\subsection{The coupling}
+Let
+\[
+\Omega_0\;:=\;\Bigl\{\sum_{j\ge1}\frac{\cos\theta_j}{\gamma_j}
+\ \text{converges}\Bigr\}.
+\]
+The summands are independent and centred with variances
+$1/(2\gamma_j^2)$, which are summable, so $\PP(\Omega_0)=1$ by
+Kolmogorov's criterion (as in Lemma~\ref{lem:fullsupport}). On
+$\Omega_0$, Lemma~\ref{lem:det}(i) with $x_j=\cos\theta_j$ shows that
+the series \eqref{eq:XM} converges \emph{for every $M>0$
+simultaneously}; we use this to define all the variables $X_M$,
+$M>0$, on the one event $\Omega_0$ (and, say, $X_M:=1$ off
+$\Omega_0$). For each fixed $M$ this is the variable $X_M$ of
+\eqref{eq:XM}, and $X_M=M\varphi(M)$ on $\Omega_0$ in the notation of
+Lemma~\ref{lem:det}.
+
+\begin{proposition}[pathwise nesting]\label{prop:nest}
+On $\Omega_0$, for all $0<M<M'$,
+\begin{equation}\label{eq:pathwise}
+\frac{X_M}{M}-\frac{X_{M'}}{M'}\;\ge\;\eta_\chi(M,M') .
+\end{equation}
+Consequently, if $\eta:=\eta_\chi(M,M')\ge0$, then on $\Omega_0$
+\[
+\{X_{M'}>0\}\ \cup\ \{-\eta M'<X_{M'}\le0\}\ \subset\ \{X_M>0\},
+\]
+the union being disjoint, and
+\begin{equation}\label{eq:gapB}
+\PP(X_M>0)-\PP(X_{M'}>0)\;\ge\;\PP\bigl(-\eta M'<X_{M'}\le0\bigr).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+\eqref{eq:pathwise} is \eqref{eq:detineq} with $x_j=\cos\theta_j$. If
+$X_{M'}>-\eta M'$ then $X_M/M\ge X_{M'}/M'+\eta>0$. The two events on
+the left are disjoint and both contained in $\{X_M>0\}$ (up to the
+null set $\Omega_0^c$), which gives \eqref{eq:gapB}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:B}(i)--(iii)]
+(i) is \eqref{eq:gapB}. If $\eta>0$, the interval $(-\eta M',0)$ is
+nonempty and open, and $X_{M'}-1=\sum_jc_{\gamma_j}(M')\cos\theta_j$
+has full support by Lemma~\ref{lem:fullsupport}; hence
+$\PP(-\eta M'<X_{M'}\le0)>0$.
+
+(ii) is Lemma~\ref{lem:det}(iii) together with (i).
+
+(iii) Under LI$(\chi)$, Theorem~\ref{thm:WRinterp} identifies
+$\delta_\chi(m)$ with the logarithmic density of $\{D_m>0\}$ and of
+$\{R_m>0\}$, and Theorem~\ref{thm:C}(iii) (proved in
+Section~\ref{sec:thmC}, independently of the present section) extends
+this to $\{D_{m,b}>0\}$ for every real $b$.
+\end{proof}
+
+\begin{remark}[why ``the family is not a dilation'' is circumvented]
+\label{rem:dilation}
+Remark~(c) after \cite[Conjecture~1]{WR} observes that the centred
+variables $V_M=X_M-1$ do not form a dilation family --- the ratio
+$c_\gamma(M')/c_\gamma(M)$ depends on $\gamma$ --- and that the
+classical peakedness comparisons of Birnbaum and Proschan
+\cite{Bir48,Pro65} need unimodal summands, which the arcsine
+variables $c_\gamma\cos\theta_\gamma$ are not.
+Proposition~\ref{prop:nest} avoids both obstacles. First, it compares
+$X_M$, bias included, rather than $V_M$: by \eqref{eq:pathwise}, on
+$\Omega_0$,
+\[
+X_M\;=\;\frac{M}{M'}\,X_{M'}\;+\;M\,\Bigl(\frac{X_M}{M}
+-\frac{X_{M'}}{M'}\Bigr),
+\qquad
+M\,\Bigl(\frac{X_M}{M}-\frac{X_{M'}}{M'}\Bigr)\;\ge\;M\,\eta_\chi(M,M'),
+\]
+so $X_M$ \emph{is} a dilation of $X_{M'}$ by the factor $M/M'<1$, up
+to a remainder which is an absolutely convergent series in the zeros
+(its coefficients $M\Delta_\gamma$ are $O(\gamma^{-3})$) and whose
+worst case is dominated by the gain $M(1/M-1/M')$ in bias as long as
+$\eta_\chi\ge0$. The $\gamma$-dependence of the ratios
+$c_\gamma(M')/c_\gamma(M)$ is entirely contained in this remainder.
+Second, it is a statement about sample paths under one particular
+coupling of the two laws (the same phases for both weights), not a
+comparison of distribution functions; since $\delta_\chi$ depends
+only on the marginal laws, any coupling may be used, and nesting of
+the events $\{X_M>0\}$ requires no shape information about the
+summands.
+\end{remark}
+
+\begin{remark}[infinitesimal form; formal]\label{rem:infinitesimal}
+Formally differentiating $S_M:=X_M-1$ in $M$ gives
+$\partial_MS_M=(S_M-Z_M)/M$ with
+$Z_M:=\sum_\gamma\frac{M^2}{M^2+\gamma^2}c_\gamma(M)\cos\theta_\gamma$,
+an absolutely convergent series with $|Z_M|\le Q_\chi(M)$, and hence,
+formally, $\delta_\chi'(m)=-M^{-1}f_M(-1)\,\EE[1+Z_M\mid S_M=-1]$,
+where $f_M$ is the density of $S_M$. When $Q_\chi(M)<1$ the
+conditional expectation is positive, which is the infinitesimal
+version of Theorem~\ref{thm:B}(ii). The identity is not used in this
+section; it is made rigorous, for every $M>0$, in
+Lemma~\ref{lem:diff} (see \eqref{eq:Did} and the remark after it).
+\end{remark}
+
+\subsection{Sharpness of the condition \texorpdfstring{$Q_\chi\le1$}{Q<=1}
+for almost sure nesting under the equal-phase coupling}
+
+\begin{proposition}\label{prop:sharpB}
+Assume GRH$(\chi)$ and NCZ$(\chi)$ and let $0<M<M'$. Then
+\[
+\PP\bigl(X_{M'}>0\ \text{and}\ X_M\le0\bigr)
+\;\begin{cases}=0&\text{if }\eta_\chi(M,M')\ge0,\\[2pt]
+>0&\text{if }\eta_\chi(M,M')<0.\end{cases}
+\]
+In particular, a nondegenerate interval $I\subset(0,\infty)$ has the
+property that
+almost surely $\{X_{M'}>0\}\subset\{X_M>0\}$ for all $M<M'$ in $I$ if
+and only if $I\subset(0,M_0(\chi)]$.
+\end{proposition}
+
+\begin{proof}
+The case $\eta_\chi\ge0$ is Proposition~\ref{prop:nest}. Let
+$\eta:=\eta_\chi(M,M')<0$ and write $\Delta_j=\Delta_j(M,M')$,
+$c_j'=c_{\gamma_j}(M')$. Choose $J$ with
+$\sum_{j>J}\Delta_j\le|\eta|/8$ (Lemma~\ref{lem:Q}(iii)) and then
+$\eps'\in(0,1)$ with
+$\eps'\sum_{j\le J}\Delta_j\le|\eta|/4$ and
+$\eps'\sum_{j\le J}c_j'\le M'|\eta|/4$. Let $A$ be the event that
+$\cos\theta_j<-1+\eps'$ for all $j\le J$; then $\PP(A)>0$. On
+$A\cap\Omega_0$, by Lemma~\ref{lem:det}(ii),
+\[
+\frac{X_M}{M}-\frac{X_{M'}}{M'}
+\le\Bigl(\frac1M-\frac1{M'}\Bigr)-(1-\eps')\sum_{j\le J}\Delta_j
++\sum_{j>J}\Delta_j
+=\eta+\eps'\sum_{j\le J}\Delta_j+2\sum_{j>J}\Delta_j
+\le\frac{\eta}{2} ,
+\]
+and the head $H':=1+\sum_{j\le J}c_j'\cos\theta_j$ satisfies
+$h_0\le H'\le h_0+M'|\eta|/4$ with $h_0:=1-\sum_{j\le J}c_j'$. The
+tail $W':=\sum_{j>J}c_j'\cos\theta_j$ is independent of $A$ and has
+full support by Lemma~\ref{lem:fullsupport} (applied to the tail
+sequence), so the event
+$B:=\{-h_0<W'<-h_0+M'|\eta|/4\}$ has positive probability and
+$\PP(A\cap B)=\PP(A)\PP(B)>0$. On $A\cap B\cap\Omega_0$ we have
+$0<X_{M'}=H'+W'<M'|\eta|/2$, and therefore
+$X_M/M\le X_{M'}/M'+\eta/2<|\eta|/2-|\eta|/2=0$.
+
+For the last assertion: if $I\subset(0,M_0]$ then $\eta_\chi(M,M')>0$
+for all $M<M'$ in $I$, and the nesting holds on $\Omega_0$ for all
+pairs at once. Otherwise $I$ contains two points $M_0\le M<M'$; then $Q_\chi>1$ on $(M,M')$, so $\eta_\chi(M,M')<0$
+and nesting fails with positive probability for this pair.
+\end{proof}
+
+Proposition~\ref{prop:sharpB} is a statement about the
+\emph{equal-phase} coupling of Section~\ref{sec:thmB} only (the same
+phase vector for every weight): that coupling ceases to nest the
+events beyond $M_0$. It does \emph{not} say that $\delta_\chi$ ceases
+to be monotone there. Other couplings of the same marginal laws may
+nest the events on a larger range; the quantile coupling
+$X_M=F_M^{-1}(U)$ nests $\{X_{M'}>0\}\subset\{X_M>0\}$ exactly when
+$\delta_\chi(m)\ge\delta_\chi(m')$, so it does so exactly where
+$\delta_\chi$ is monotone, but it gives no means of proving
+monotonicity. Note also that
+$\eta_\chi(M,M')\ge0$ can hold for pairs with $M<M_0<M'$ (the
+positive part of the integral over $[M,M_0]$ may dominate), so
+Theorem~\ref{thm:B}(i) compares some pairs of weights that are not
+both in the range of Theorem~\ref{thm:B}(ii); for instance, for
+$\chi_4$ the numerical values of Section~\ref{sec:numerics} give
+$\eta_{\chi_4}(1,5)\approx0.55$ and $\eta_{\chi_4}(2,5)\approx0.09$,
+whence $\delta_4(\tfrac12)>\delta_4(\tfrac92)$ and
+$\delta_4(\tfrac32)>\delta_4(\tfrac92)$.
+
+\subsection{Bounds for \texorpdfstring{$M_0(\chi)$}{M0(chi)}}
+
+\begin{proposition}\label{prop:M0}
+Assume GRH$(\chi)$ and NCZ$(\chi)$, and let $\gamma_1$ be the least
+positive ordinate of $L(s,\chi)$.
+\begin{enumerate}
+\item[(a)] $\displaystyle
+\Bigl(4\sum_{\gamma>0}\gamma^{-3}\Bigr)^{-1/3}<M_0(\chi)<\kappa_0\gamma_1$
+with $\kappa_0=(4^{2/3}-1)^{-1/2}=0.8111\ldots$
+\item[(b)] $\displaystyle M_0(\chi)>
+\Bigl(\frac{\gamma_1}{2C(\chi)}\Bigr)^{1/3}$, where
+$C(\chi)=(\log\Lambda)''(\tfrac12,\chi)$ is given in closed form by
+Proposition~\ref{prop:WRvar}.
+\item[(c)] $Q_\chi(M)<\sigma_M^2/2$ for all $M>0$. Hence
+$M_0(\chi)>M_\sigma(\chi)$, the unique root of $\sigma_M^2=2$.
+\item[(d)] $M_0(\chi)\ge\min(1,\gamma_1)\,(c_1\log q)^{-1/3}$ with
+$c_1:=12.8\,C_R'$, where $C_R'$ is the absolute constant of
+\cite[Lemma~9(b)]{WR} (there $C_R'=2+2C_R$, and $C_R=2.8$ is
+admissible by \cite[Corollary~1.2]{BMOR21}, so $c_1\le98$).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(a) By Lemma~\ref{lem:Q}(i), $Q_\chi(M)<4M^3\sum_\gamma\gamma^{-3}$,
+so $Q_\chi<1$ at $M=(4\sum_\gamma\gamma^{-3})^{-1/3}$ and $M_0$ is
+larger. For the upper bound, $Q_\chi(M)>g(M/\gamma_1)$ with $g$ as in
+the proof of Lemma~\ref{lem:Q} (there are further zeros), and
+$g(t)=1$ if and only if $4^{2/3}t^2=1+t^2$, i.e.\ $t=\kappa_0$; hence
+$Q_\chi(\kappa_0\gamma_1)>1$.
+
+(b) $\sum_\gamma\gamma^{-3}\le\gamma_1^{-1}\sum_\gamma\gamma^{-2}
+=C(\chi)/(2\gamma_1)$; insert into (a).
+
+(c) $\dfrac{4M^3}{(M^2+\gamma^2)^{3/2}}
+=\dfrac{4M^2}{M^2+\gamma^2}\cdot\dfrac{M}{\sqrt{M^2+\gamma^2}}
+<\dfrac{4M^2}{M^2+\gamma^2}$, and
+$\sum_\gamma4M^2/(M^2+\gamma^2)=\sigma_M^2/2$. Each term of
+$\sigma_M^2$ is continuous and strictly increasing in $M$, from $0$
+to $8$, and the series converges locally uniformly, so $\sigma_M^2$
+increases continuously from $0$ to $\infty$ and $M_\sigma$ is well
+defined; $Q_\chi(M_\sigma)<1$ gives $M_0>M_\sigma$.
+
+(d) Let $N_\chi(T)$ be the number of ordinates in $(0,T]$. By
+\cite[Lemma~9(b)]{WR} (which assumes GRH$(\chi)$ and NCZ$(\chi)$),
+$N_\chi(T)\le C_R'\,T\log(qT)$ for $T\ge1$. Partial summation gives
+\[
+\sum_{\gamma>1}\gamma^{-3}=-N_\chi(1)+3\int_1^\infty N_\chi(t)t^{-4}\,dt
+\le3C_R'\int_1^\infty\frac{\log q+\log t}{t^3}\,dt
+=C_R'\bigl(\tfrac32\log q+\tfrac34\bigr),
+\]
+and $\sum_{\gamma\le1}\gamma^{-3}\le N_\chi(1)\gamma_1^{-3}\le
+C_R'\gamma_1^{-3}\log q$. Since $\tfrac34\le0.69\log q$ for $q\ge3$,
+\[
+4\sum_{\gamma>0}\gamma^{-3}\;\le\;
+4C_R'\log q\,\bigl(\gamma_1^{-3}+2.19\bigr)
+\;\le\;12.8\,C_R'\log q\cdot\min(1,\gamma_1)^{-3},
+\]
+and (a) gives the claim.
+\end{proof}
+
+\begin{remark}[numerical values]\label{rem:M0values}
+For $q=4$: $\gamma_1=6.0209\ldots$, $C(\chi_4)=0.1560296\ldots$, and
+the bounds of Proposition~\ref{prop:M0} are
+\[
+2.682<3.298<M_0(\chi_4)<4.884,\qquad M_\sigma(\chi_4)=1.8239\ldots,
+\qquad M_0(\chi_4)\in[3.688,\,3.690].
+\]
+For $q=3$: $\gamma_1=8.0397\ldots$, $C(\chi_3)=0.1134021\ldots$,
+\[
+3.284<4.103<M_0(\chi_3)<6.522,\qquad M_\sigma(\chi_3)=2.1277\ldots,
+\qquad M_0(\chi_3)\in[4.483,\,4.485].
+\]
+The first number in each chain is (b); the second is (a), evaluated
+from the certified zero lists of \cite[\S7]{WR} with the unlisted
+zeros included through the bound
+$\sum_{\gamma>\Gamma}\gamma^{-3}\le\Gamma^{-1}\sum_{\gamma>\Gamma}\gamma^{-2}$
+(the listed zeros alone would give the larger numbers $3.2986$ and
+$4.1043$, which are not lower bounds for $M_0$). The brackets for
+$M_0$ are obtained from the two-sided bound
+\begin{equation}\label{eq:Qenclose}
+Q_\Gamma(M)\;\le\;Q_\chi(M)\;\le\;Q_\Gamma(M)
++\frac{2M^3}{\Gamma}\Bigl(C(\chi)-\sum_{\gamma\le\Gamma}\frac{2}{\gamma^2}\Bigr),
+\qquad Q_\Gamma(M):=\sum_{\gamma\le\Gamma}\frac{4M^3}{(M^2+\gamma^2)^{3/2}},
+\end{equation}
+valid for any $\Gamma$ up to which the list of ordinates is complete
+(the tail is at most $4M^3\sum_{\gamma>\Gamma}\gamma^{-3}\le
+4M^3\Gamma^{-1}\sum_{\gamma>\Gamma}\gamma^{-2}$), with
+$\Gamma=639.9\ldots$ ($511$ zeros) for $\chi_4$ and
+$\Gamma=699.7\ldots$ ($537$ zeros) for $\chi_3$. These evaluations
+are in multiprecision floating point, not in interval arithmetic.
+Ball-arithmetic enclosures of $M_0(\chi_4)$ and $M_0(\chi_3)$,
+obtained with a sharper tail bound and contained in the brackets
+above, are part of the direct certificate described in
+Section~\ref{subsec:confirm}(a); see \eqref{eq:M0cert}. See also Section~\ref{sec:numerics}.
+\end{remark}
+
+\begin{remark}[the size of $M_0(\chi)$ for large $q$]\label{rem:corner}
+In the low-lying normalisation $y_j:=\gamma_j\log q/(2\pi)$ of
+\cite[Remark~10]{WR} and with $\lambda:=M\log q$, one has
+\emph{exactly}
+\[
+Q_\chi\Bigl(\frac{\lambda}{\log q}\Bigr)
+=\sum_{j\ge1}g\Bigl(\frac{\lambda}{2\pi y_j}\Bigr),
+\qquad g(t)=\frac{4t^3}{(1+t^2)^{3/2}} ,
+\]
+so $\lambda_0(\chi):=M_0(\chi)\log q$ is the root of a function of the
+rescaled ordinates alone, and Proposition~\ref{prop:M0}(a) reads
+$\lambda_0(\chi)<2\pi\kappa_0\,y_1=\kappa_0\,\gamma_1\log q$. These are
+theorems. The range of Theorem~\ref{thm:B} is thus tied to the lowest
+rescaled zeros, i.e.\ to the ``critical corner'' of
+\cite[Remarks~9 and~10]{WR}.
+
+\emph{A heuristic that should not be trusted.} Replacing the sum by
+an integral against the mean density one of the rescaled ordinates
+gives $\int_0^\infty g(\lambda/(2\pi y))\,dy=2\lambda/\pi$ and would
+suggest $M_0(\chi)\approx\pi/(2\log q)$. This is not supported by
+computation, and we do not assert it: the mean density is a poor
+description of the lowest zeros of quadratic characters (in the
+Katz--Sarnak symplectic model \cite{KS99} the one-level density
+vanishes at the origin), and $\lambda_0(\chi)$ depends on the first
+few rescaled zeros of the individual character.
+
+\emph{Numerical evidence (quoted, not certified).} The repository
+note \texttt{EXTENSIONS.md} (in the directory \texttt{monotonicity/};
+see its \S4.2) reports floating-point computations of $M_0(\chi)$ for eleven real primitive characters with
+$5\le q\le10007$ (low zeros located numerically, not certified; we
+did not re-run them). There $M_0(\chi)\log q$ takes values between
+about $3.1$ and $6.7$, shows no sign of converging, and follows
+$\gamma_1\log q$: the smallest value, $3.14$, occurs at $q=1013$,
+where $\gamma_1\log q=4.11$ is also smallest, and the largest,
+$6.74$, at $q=1009$, where $\gamma_1\log q=11.89$ is largest. For
+$q=3,4$ the values of Remark~\ref{rem:M0values} give
+$M_0\log q=4.93$ and $5.11$. All of these are consistent with the
+proved inequality $\lambda_0(\chi)<0.8112\,\gamma_1\log q$.
+
+\emph{Bounds in terms of $q$.} Proposition~\ref{prop:M0}(d) is proved
+here. The same note derives sharper asymptotic bounds from an
+explicit zero count of Bennett, Martin, O'Bryant and Rechnitzer
+\cite{BMOR21} with leading error constant $b=0.22737$: as
+$q\to\infty$, uniformly over real primitive $\chi$ mod $q$ satisfying
+GRH$(\chi)$ and NCZ$(\chi)$,
+\[
+\frac{\gamma_1}{\bigl((A_0+A_1\gamma_1^3)\log q\bigr)^{1/3}}\,(1-o(1))
+\;\le\;M_0(\chi)\;\le\;
+\Bigl(\frac{\pi^3b^2}{\log q}\Bigr)^{1/3}(1+o(1))
+=\frac{1.1703}{(\log q)^{1/3}}\,(1+o(1)),
+\]
+with $A_0=2\bigl(\tfrac5{7\pi}+b\bigr)$ and
+$A_1=6\bigl(\tfrac1{2\pi(5/7)^2}+\tfrac{b}{3(5/7)^3}\bigr)$. We quote
+these bounds from that note. We re-derived the passage from the zero
+count to the bounds (Abel summation,
+$Q_\chi(u)=\int_0^\infty N_\chi(t)\,|f_u'(t)|\,dt$ with
+$f_u(t)=4u^3(u^2+t^2)^{-3/2}$ and $|f_u'(t)|\le12u^3t^{-4}$), but we
+did not check the form of the zero count against \cite{BMOR21}, so
+they are not claimed as theorems of this article. Neither bound
+reaches the scale $1/\log q$: the upper bound is of order
+$(\log q)^{-1/3}$, and for $\gamma_1\asymp1/\log q$ the lower bound is
+of order $(\log q)^{-4/3}$. Whether $M_0(\chi)\log q$ is bounded above
+and below along all real primitive characters is open; a zero count
+with error $O(\log q)$ cannot decide it, because at height
+$\asymp1/\log q$ the error is as large as the count.
+\end{remark}
+
+\section{An absolutely convergent explicit formula for the weight shift}
+\label{sec:formula}
+
+In this section we prove Theorem~\ref{thm:A}(i). Only GRH$(\chi)$ is
+assumed; a zero at $s=\tfrac12$ is allowed.
+
+\subsection{Two lemmas}
+
+\begin{lemma}\label{lem:intlog}
+Let $a>0$ and $k\ge0$. For all $x\ge2$,
+\[
+\int_{3/2}^xt^{a-1}(\log t)^{-k}\,dt\;\le\;C(a,k)\,\frac{x^a}{(\log x)^k}.
+\]
+Moreover, for complex $s$ with $\re s=a$ and all $x\ge2$,
+\begin{equation}\label{eq:intlog-s}
+\int_{3/2}^x\frac{t^{s-1}}{\log t}\,dt\;=\;\frac{x^s}{s\log x}
++O_a\Bigl(\frac{x^a}{\log^2x}\Bigr),
+\end{equation}
+with an implied constant depending on $a$ only (not on $\im s$).
+\end{lemma}
+
+\begin{proof}
+For $x\ge\tfrac94$ split at $\sqrt x\ge\tfrac32$: on
+$[\tfrac32,\sqrt x]$ the integrand is at most
+$(\log\tfrac32)^{-k}t^{a-1}$, contributing at most
+$(\log\tfrac32)^{-k}x^{a/2}/a$, and on $[\sqrt x,x]$ it is at most
+$2^k(\log x)^{-k}t^{a-1}$, contributing at most
+$2^k(\log x)^{-k}x^a/a$; finally
+$x^{a/2}\ll_{a,k}x^a(\log x)^{-k}$. For $2\le x<\tfrac94$ the claim is
+trivial. For \eqref{eq:intlog-s} integrate by parts:
+\[
+\int_{3/2}^x\frac{t^{s-1}}{\log t}\,dt
+=\frac{x^s}{s\log x}-\frac{(3/2)^s}{s\log(3/2)}
++\frac1s\int_{3/2}^x\frac{t^{s-1}}{\log^2t}\,dt ,
+\]
+and use $|s|\ge a$, $|t^{s-1}|=t^{a-1}$ and the first part with $k=2$.
+\end{proof}
+
+\begin{lemma}[explicit formula for $\psi_1$]\label{lem:psi1}
+Unconditionally, for all $t\ge1$,
+\[
+\psi_1(t,\chi)\;=\;-\sum_\rho\frac{t^{\rho+1}}{\rho(\rho+1)}+r_1(t),
+\qquad |r_1(t)|\le C_\chi\,t\log(2t),
+\]
+where the sum over all nontrivial zeros converges absolutely:
+$\sum_\rho|\rho(\rho+1)|^{-1}\le\sum_\rho|\rho|^{-2}<\infty$.
+\end{lemma}
+
+\begin{proof}
+Since $0<\beta<1$ we have $|\rho+1|\ge|\rho|>0$, so
+$|\rho(\rho+1)|^{-1}\le|\rho|^{-2}$, which is summable by
+\eqref{eq:zerosum}; also $|t^{\rho+1}|\le t^2$ for $t\ge1$. Let
+$t\ge2$. Since $\psi(u,\chi)=0$ for $u<2$,
+$\psi_1(t,\chi)=\int_2^t\psi(u,\chi)\,du$. Fix $T\ge2$ and integrate
+the formula of Lemma~\ref{lem:WRclassical}, whose error term is
+uniform in $u\in[2,t]$, over $u\in[2,t]$:
+\[
+\psi_1(t,\chi)=-\sum_{|\gamma|\le T}
+\frac{t^{\rho+1}-2^{\rho+1}}{\rho(\rho+1)}
++O\Bigl(\frac{t^2\log^2(tT)}{T}+t\log t\Bigr),
+\]
+with an implied constant independent of $t$ and $T$. Let
+$T\to\infty$ with $t$ fixed: the first error term tends to $0$ and
+the sum converges absolutely to the sum over all zeros, so
+\[
+\psi_1(t,\chi)=-\sum_\rho\frac{t^{\rho+1}}{\rho(\rho+1)}
++\sum_\rho\frac{2^{\rho+1}}{\rho(\rho+1)}+O(t\log t),
+\]
+and the middle term is bounded by $4\sum_\rho|\rho|^{-2}$. For
+$1\le t<2$, $\psi_1(t,\chi)=0$ and
+$|\sum_\rho t^{\rho+1}/(\rho(\rho+1))|\le4\sum_\rho|\rho|^{-2}$.
+\end{proof}
+
+\subsection{The formula}
+
+\begin{proposition}\label{prop:formula}
+Assume GRH$(\chi)$. Let $-\tfrac12<m<m'$, $\kappa=m'-m$,
+$M=m+\tfrac12$, $M'=m'+\tfrac12$, and for $x\ge2$ put
+\begin{equation}\label{eq:defI}
+I(x)\;=\;I_{m,m'}(x)\;:=\;D_m(x)-x^{-\kappa}D_{m'}(x) .
+\end{equation}
+\begin{enumerate}
+\item[(a)] (Exact identities.) For all $x\ge2$,
+\[
+I(x)=\sum_{p\le x}\chi^*(p)\,p^m\Bigl(1-\Bigl(\frac px\Bigr)^{\kappa}\Bigr)
+=\kappa\int_2^xt^{-\kappa-1}D_{m'}(t)\,dt .
+\]
+\item[(b)] For all $x\ge2$,
+\begin{equation}\label{eq:formula}
+I(x)=\frac{\kappa\,x^{M}}{\log x}\Bigl[\frac{1+2n_0}{2MM'}
++2\,\re\sum_{\gamma>0}\frac{x^{i\gamma}}{(M+i\gamma)(M'+i\gamma)}\Bigr]
++O\Bigl(\frac{x^{M}}{\log^2x}\Bigr),
+\end{equation}
+where $\sum_{\gamma>0}|(M+i\gamma)(M'+i\gamma)|^{-1}
+\le\sum_{\gamma>0}\gamma^{-2}<\infty$ and the implied constant depends
+only on $\chi$, $m$, $m'$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{(a).} The first equality is the definition. For the second,
+$D_m(x)=\int_{3/2}^xt^{-\kappa}\,dD_{m'}(t)
+=x^{-\kappa}D_{m'}(x)+\kappa\int_{3/2}^xt^{-\kappa-1}D_{m'}(t)\,dt$ by
+Riemann--Stieltjes partial summation ($D_{m'}(\tfrac32)=0$), and
+$D_{m'}=0$ on $[\tfrac32,2)$.
+
+\emph{(b).} All quantities in \eqref{eq:formula} are bounded for $x$
+in a bounded subinterval of $[2,\infty)$, so we may assume $x\ge4$.
+Put
+\[
+g(t):=t^m-x^{-\kappa}t^{m'}=t^m\bigl(1-(t/x)^\kappa\bigr),
+\qquad
+h(t):=\frac{g(t)}{\log t}\qquad(\tfrac32\le t\le x).
+\]
+Thus $I(x)=\sum_{p\le x}\chi^*(p)g(p)=-\sum_{p\le x}\chi(p)(\log p)h(p)$,
+and $g(x)=h(x)=0$. For $\tfrac32\le t\le x$ we have $(t/x)^\kappa\le1$,
+hence
+\begin{equation}\label{eq:gbounds}
+0\le g(t)\le t^m,\qquad |g'(t)|\le(|m|+|m'|)\,t^{m-1},\qquad
+g'(x)=-\kappa x^{m-1},
+\end{equation}
+and $g''(t)=m(m-1)t^{m-2}-m'(m'-1)x^{-\kappa}t^{m'-2}$, so
+$|g''(t)|\ll t^{m-2}$. Writing $L=\log t$,
+\begin{equation}\label{eq:hderivs}
+h'=\frac{g'}{L}-\frac{g}{tL^2},\qquad
+h''=\frac{g''}{L}+k,\qquad
+k:=-\frac{2g'}{tL^2}+\frac{g}{t^2L^2}+\frac{2g}{t^2L^3},
+\end{equation}
+so that, by \eqref{eq:gbounds} and $L\ge\log\tfrac32$,
+\begin{equation}\label{eq:hbounds}
+|k(t)|\ll\frac{t^{m-2}}{\log^2t},\qquad
+|h''(t)|\ll\frac{t^{m-2}}{\log t},\qquad
+h'(x)=-\frac{\kappa\,x^{m-1}}{\log x}.
+\end{equation}
+
+\emph{Step 1 (prime powers).} Let
+$S_\Lambda(x):=\sum_{n\le x}\Lambda(n)\chi(n)h(n)$. Sorting by prime
+powers $n=p^k$ and using $h(p^k)\log p=g(p^k)/k$,
+\begin{equation}\label{eq:SLsplit}
+S_\Lambda(x)=-I(x)+\frac12\sum_{\substack{p\le\sqrt x\\ p\nmid q}}g(p^2)
++\sum_{k\ge3}\frac1k\sum_{p^k\le x}\chi(p)^kg(p^k).
+\end{equation}
+By \eqref{eq:gbounds}, the last double sum is at most
+$\sum_{k\ge3}\sum_{p^k\le x}p^{km}
+\le(\log2)^{-1}\sum_{k\ge3}\sum_{p^k\le x}p^{km}\log p$, and the
+latter is $O(x^{m+1/3}\log x+\log^2x)$ by \cite[proof of Lemma~3,
+``the $k\ge3$ terms'']{WR} (Chebyshev's bound $\theta(y)\ll y$ and
+Mertens' theorem; unconditional). Since $M>0$ and $M>m+\tfrac13$, this
+is $O(x^M/\log^2x)$. The primes $p\mid q$ contribute
+$O(1)$ to the middle sum, as $0\le g(p^2)\le\max(1,q^{2m})$.
+
+\emph{Step 2 (the bias).} Let $y=\sqrt x\ge2$ and
+$f(t):=g(t^2)=t^{2m}\bigl(1-(t/y)^{2\kappa}\bigr)$ on $[\tfrac32,y]$,
+so $f(y)=0$ and $|f'(t)|\ll t^{2m-1}$. With
+$\ell(t):=\int_{3/2}^t du/\log u$, the prime number theorem gives
+$\pi(t)=\ell(t)+O(t/\log^2t)$ for $t\ge\tfrac32$
+\cite[\S18]{Dav00}. Partial summation, using $f(y)=0$ and
+$\pi(\tfrac32)=\ell(\tfrac32)=0$, gives
+\[
+\sum_{p\le y}f(p)=-\int_{3/2}^yf'(t)\pi(t)\,dt
+=\int_{3/2}^y\frac{f(t)}{\log t}\,dt
++O\Bigl(\int_{3/2}^y\frac{t^{2m}}{\log^2t}\,dt\Bigr).
+\]
+By Lemma~\ref{lem:intlog} with $a=2M>0$ the error is
+$O(y^{2M}/\log^2y)$, and by \eqref{eq:intlog-s} with the real
+exponents $s=2M$ and $s=2M'$,
+\[
+\int_{3/2}^y\frac{f(t)}{\log t}\,dt
+=\frac{y^{2M}}{2M\log y}-y^{-2\kappa}\frac{y^{2M'}}{2M'\log y}
++O\Bigl(\frac{y^{2M}}{\log^2y}\Bigr)
+=\frac{y^{2M}}{\log y}\cdot\frac{\kappa}{2MM'}
++O\Bigl(\frac{y^{2M}}{\log^2y}\Bigr).
+\]
+Since $y^{2M}=x^M$ and $\log y=\tfrac12\log x$,
+\begin{equation}\label{eq:biasterm}
+\frac12\sum_{\substack{p\le\sqrt x\\ p\nmid q}}g(p^2)
+=\frac{\kappa\,x^M}{2MM'\log x}+O\Bigl(\frac{x^M}{\log^2x}\Bigr).
+\end{equation}
+
+\emph{Step 3 (two integrations by parts).} The function
+$\psi(\cdot,\chi)$ is a step function vanishing on $[0,2)$, and
+$h\in C^2[\tfrac32,x]$ with $h(x)=0$. Hence
+\[
+S_\Lambda(x)=\int_{3/2}^xh\,d\psi=-\int_{3/2}^xh'(t)\psi(t,\chi)\,dt
+=-h'(x)\psi_1(x,\chi)+\int_{3/2}^xh''(t)\psi_1(t,\chi)\,dt ,
+\]
+where we used $\psi(\tfrac32,\chi)=\psi_1(\tfrac32,\chi)=0$ and that
+$\psi_1(\cdot,\chi)$ is absolutely continuous with derivative
+$\psi(\cdot,\chi)$ almost everywhere. By \eqref{eq:hbounds},
+\begin{equation}\label{eq:SLpsi1}
+S_\Lambda(x)=\frac{\kappa\,x^{m-1}}{\log x}\,\psi_1(x,\chi)
++\int_{3/2}^xh''(t)\,\psi_1(t,\chi)\,dt .
+\end{equation}
+
+\emph{Step 4 (inserting the zeros).} Insert Lemma~\ref{lem:psi1}.
+Under GRH$(\chi)$, $|t^{\rho+1}|=t^{3/2}$, so the series
+$\sum_\rho t^{\rho+1}/(\rho(\rho+1))$ converges absolutely and
+uniformly on $[\tfrac32,x]$ and may be integrated termwise against
+the bounded function $h''$. Thus
+\begin{equation}\label{eq:SLzeros}
+S_\Lambda(x)=\sum_\rho c_\rho(x)+R(x),
+\end{equation}
+\[
+c_\rho(x):=-\frac{1}{\rho(\rho+1)}\Bigl[\frac{\kappa\,x^{m+\rho}}{\log x}
++\int_{3/2}^xh''(t)\,t^{\rho+1}\,dt\Bigr],
+\qquad
+R(x):=\frac{\kappa\,x^{m-1}}{\log x}\,r_1(x)+\int_{3/2}^xh''(t)\,r_1(t)\,dt .
+\]
+By Lemma~\ref{lem:psi1} and \eqref{eq:hbounds}, and since
+$\log(2t)/\log t$ is bounded on $[\tfrac32,\infty)$,
+\[
+|R(x)|\ll x^m+\int_{3/2}^xt^{m-1}\,dt\ll(1+x^m)\log x
+\ll\frac{x^M}{\log^2x},
+\]
+because $M>0$ and $M>m$.
+
+\emph{Step 5 (one zero).} Fix a zero $\rho=\tfrac12+i\gamma$,
+$\gamma\in\mathbb R$, and write $s=m+\rho=M+i\gamma$,
+$s'=m'+\rho=M'+i\gamma$. By \eqref{eq:hderivs},
+\[
+\int_{3/2}^xh''(t)\,t^{\rho+1}\,dt
+=m(m-1)\int_{3/2}^x\frac{t^{s-1}}{\log t}\,dt
+-m'(m'-1)\,x^{-\kappa}\int_{3/2}^x\frac{t^{s'-1}}{\log t}\,dt
++\int_{3/2}^xk(t)\,t^{\rho+1}\,dt .
+\]
+The last integral is $O(\int_{3/2}^xt^{M-1}\log^{-2}t\,dt)
+=O(x^M/\log^2x)$ by \eqref{eq:hbounds} and Lemma~\ref{lem:intlog}.
+Applying \eqref{eq:intlog-s} with $a=M$ and with $a=M'$ (note
+$x^{-\kappa}x^{M'}=x^M$ and $x^{-\kappa}x^{s'}=x^{s}$),
+\[
+\int_{3/2}^xh''(t)\,t^{\rho+1}\,dt
+=\Bigl[\frac{m(m-1)}{m+\rho}-\frac{m'(m'-1)}{m'+\rho}\Bigr]
+\frac{x^{m+\rho}}{\log x}+O\Bigl(\frac{x^M}{\log^2x}\Bigr),
+\]
+with an implied constant independent of $\gamma$. Now
+$m(m-1)=(m+\rho)(m-1-\rho)+\rho(\rho+1)$, and likewise for $m'$, so
+\begin{equation}\label{eq:bracket}
+\kappa+\frac{m(m-1)}{m+\rho}-\frac{m'(m'-1)}{m'+\rho}
+=\rho(\rho+1)\Bigl[\frac1{m+\rho}-\frac1{m'+\rho}\Bigr]
+=\frac{\kappa\,\rho(\rho+1)}{(m+\rho)(m'+\rho)} .
+\end{equation}
+Therefore
+\begin{equation}\label{eq:crho}
+c_\rho(x)=-\frac{\kappa\,x^{M+i\gamma}}{(M+i\gamma)(M'+i\gamma)\log x}
++O\Bigl(\frac{1}{|\rho|^2}\cdot\frac{x^M}{\log^2x}\Bigr),
+\end{equation}
+uniformly in $\rho$.
+
+\emph{Step 6 (assembling).} Summing \eqref{eq:crho} over all zeros
+(the error terms are summable by \eqref{eq:zerosum}) and inserting
+into \eqref{eq:SLzeros},
+\[
+S_\Lambda(x)=-\frac{\kappa\,x^M}{\log x}
+\sum_\rho\frac{x^{i\gamma}}{(M+i\gamma)(M'+i\gamma)}
++O\Bigl(\frac{x^M}{\log^2x}\Bigr).
+\]
+The zeros are $\tfrac12$ (with multiplicity $n_0$) and the conjugate
+pairs $\tfrac12\pm i\gamma$, $\gamma>0$; hence
+\[
+\sum_\rho\frac{x^{i\gamma}}{(M+i\gamma)(M'+i\gamma)}
+=\frac{n_0}{MM'}+2\,\re\sum_{\gamma>0}\frac{x^{i\gamma}}{(M+i\gamma)(M'+i\gamma)}.
+\]
+Combining with \eqref{eq:SLsplit}, Step~1 and \eqref{eq:biasterm},
+\[
+I(x)=\frac{\kappa\,x^M}{2MM'\log x}-S_\Lambda(x)
++O\Bigl(\frac{x^M}{\log^2x}\Bigr),
+\]
+which is \eqref{eq:formula}.
+\end{proof}
+
+\begin{remark}[signs and conventions]\label{rem:signs}
+With $\chi^*=-\chi$ the bias term of $I$ is \emph{positive} (it comes
+from the squares of primes, $\chi(p)^2=1$), a central zero increases
+it, and the oscillating sum enters with a plus sign and the kernel
+$1/((M+i\gamma)(M'+i\gamma))$. In terms of the normalised races
+\eqref{eq:normalised}, \eqref{eq:formula} reads
+\begin{equation}\label{eq:formula-normalised}
+\frac{\cE_{m,0}(x)}{M}-\frac{\cE_{m',0}(x)}{M'}
+=\kappa\Bigl[\frac{1+2n_0}{MM'}
++4\,\re\sum_{\gamma>0}\frac{x^{i\gamma}}{(M+i\gamma)(M'+i\gamma)}\Bigr]
++O\Bigl(\frac1{\log x}\Bigr),
+\end{equation}
+which is what one obtains formally by subtracting the (conditionally
+convergent) expansions of Lemma~\ref{lem:WRexp} for the two weights,
+since $r_\gamma(M)/M-r_\gamma(M')/M'=4\kappa/((M+i\gamma)(M'+i\gamma))$.
+The point of Proposition~\ref{prop:formula} is that the difference is
+controlled \emph{pointwise}, with an absolutely convergent zero sum
+and an error $O(1/\log x)$, whereas each of the two expansions is
+controlled only in mean square. Formula \eqref{eq:formula} was checked
+numerically against a sieve (Section~\ref{sec:numerics}).
+\end{remark}
+
+\section{Inheritance of leads: Theorem~\ref{thm:A} and its corollaries}
+\label{sec:thmA}
+
+\subsection{Proof of Theorem~\ref{thm:A}}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+(i) is Proposition~\ref{prop:formula}.
+
+(ii) Put $B:=\sum_{\gamma>0}4/(|M+i\gamma|\,|M'+i\gamma|)$, so that
+$\lambda_\chi(M,M')=(1+2n_0)/(MM')-B$. For every $x$,
+\begin{equation}\label{eq:bracketbounds}
+\begin{gathered}
+\Bigl|2\,\re\sum_{\gamma>0}\frac{x^{i\gamma}}{(M+i\gamma)(M'+i\gamma)}
+\Bigr|\le\frac B2,
+\qquad\text{so}\\
+\frac{\lambda_\chi(M,M')}{2}\;\le\;
+\frac{1+2n_0}{2MM'}
++2\,\re\sum_{\gamma>0}\frac{x^{i\gamma}}{(M+i\gamma)(M'+i\gamma)}
+\;\le\;\frac{1+2n_0}{MM'}-\frac{\lambda_\chi(M,M')}{2}.
+\end{gathered}
+\end{equation}
+Let $C_0$ be the implied constant in \eqref{eq:formula}. Then
+$I(x)\ge\frac{\kappa x^M}{\log x}\bigl(\frac{\lambda_\chi}{2}
+-\frac{C_0}{\kappa\log x}\bigr)\ge\frac{\kappa\lambda_\chi}{4}\cdot
+\frac{x^M}{\log x}$ as soon as $\log x\ge4C_0/(\kappa\lambda_\chi)$.
+If $x\ge x_0$ and $D_{m'}(x)\ge0$, then
+$D_m(x)=x^{-\kappa}D_{m'}(x)+I(x)\ge I(x)>0$; the last assertion is
+the contrapositive, with $D_{m'}(x)\le-x^{\kappa}I(x)<0$ when
+$D_m(x)\le0$.
+
+(iii) By the Cauchy--Schwarz inequality,
+\[
+B\le\Bigl(\sum_{\gamma>0}\frac{4}{M^2+\gamma^2}\Bigr)^{1/2}
+\Bigl(\sum_{\gamma>0}\frac{4}{M'^2+\gamma^2}\Bigr)^{1/2}
+=\frac{\sigma_M}{\sqrt2\,M}\cdot\frac{\sigma_{M'}}{\sqrt2\,M'}
+=\frac{\sigma_M\sigma_{M'}}{2MM'} ,
+\]
+which gives the inequality. If $\sigma_{M'}^2\le2$ then, since
+$\sigma_M^2$ is strictly increasing in $M$
+(Proposition~\ref{prop:M0}(c)), $\sigma_M\sigma_{M'}<\sigma_{M'}^2\le2
+\le2+4n_0$.
+\end{proof}
+
+\begin{remark}[range of validity; examples]\label{rem:Arange}
+(1) Let $M_\sigma(\chi)$ be the root of $\sigma_M^2=2$. By
+Theorem~\ref{thm:A}(iii), $\lambda_\chi(M,M')>0$ for \emph{all}
+$0<M<M'\le M_\sigma(\chi)$. Under NCZ$(\chi)$ the variance is given in
+closed form by Proposition~\ref{prop:WRvar}; numerically
+$M_\sigma(\chi_4)=1.8239\ldots$ and $M_\sigma(\chi_3)=2.1277\ldots$,
+i.e.\ $m'\le1.32$ resp.\ $m'\le1.62$.
+
+(2) The Cauchy--Schwarz criterion is far from necessary when $M$ is
+small. Evaluating $\lambda_\chi$ from the zero lists of \cite{WR}, with
+the tail $\sum_{\gamma>\Gamma}4\gamma^{-2}=2C(\chi)-\sum_{\gamma\le\Gamma}
+4\gamma^{-2}$ as a rigorous upper bound for the omitted part
+(floating-point evaluation; Section~\ref{sec:numerics}):
+\[
+\begin{array}{llll}
+q=4:\quad&\lambda(\tfrac12,\tfrac32)\in[1.025,1.033],
+&\lambda(\tfrac12,\tfrac52)\in[0.498,0.506],
+&\lambda(\tfrac12,\tfrac{15}2)\in[0.011,0.018],\\[2pt]
+&\lambda(\tfrac32,\tfrac52)\in[-0.032,-0.024];&&\\[2pt]
+q=3:\quad&\lambda(\tfrac12,\tfrac32)\in[1.108,1.115],
+&\lambda(\tfrac32,\tfrac52)\in[0.045,0.052].&
+\end{array}
+\]
+Thus, under GRH$(\chi_4)$, a lead of the class $3$ mod $4$ in the race
+weighted by $p^{7}$ at a large $x$ forces a lead in Chebyshev's
+classical race at the same $x$; the pair $(m,m')=(1,2)$ has positive
+margin for $q=3$ and negative margin for $q=4$.
+
+(3) Comparison with Theorem~\ref{thm:B}. Under NCZ$(\chi)$, for all
+$0<M<M'$,
+\begin{equation}\label{eq:etalambda}
+\eta_\chi(M,M')\;\ge\;\kappa\,\lambda_\chi(M,M') ,
+\end{equation}
+because $0<|M+i\gamma|^{-1}-|M'+i\gamma|^{-1}
+\le|(M+i\gamma)^{-1}-(M'+i\gamma)^{-1}|
+=\kappa/(|M+i\gamma|\,|M'+i\gamma|)$. So every pair covered by
+Theorem~\ref{thm:A}(ii) is covered by Theorem~\ref{thm:B}(i) (under
+its stronger hypotheses), and the range $\sigma_M^2\le2$ is strictly
+inside the range $Q_\chi\le1$ (Proposition~\ref{prop:M0}(c)). The
+loss has a transparent origin. In the actual race the phase of the
+zero $\gamma$ at weight $M$ is $\gamma\log x-\arg(M+i\gamma)$, which
+rotates with $M$; the joint behaviour of the two races at the same
+$x$ is described by the ``natural'' coupling of
+Lemma~\ref{lem:joint} below, with coefficients
+$r_\gamma(M)=4M/(M+i\gamma)$. Theorem~\ref{thm:B} is free to use the
+more favourable equal-phase coupling (the same phases for both
+weights, coefficients $|r_\gamma(M)|$) because it concerns the
+marginal laws only. The pair $(m,m')=(1,2)$ for $\chi_4$ shows the
+difference concretely: $\lambda_{\chi_4}(\tfrac32,\tfrac52)<0$, so
+under LI the set of $x$ with $D_2(x)>0\ge D_1(x)$ has positive
+logarithmic density (Corollary~\ref{cor:sharp}(b)), although
+$M'=\tfrac52<M_0(\chi_4)$ and the equal-phase coupling nests
+$\{X_{5/2}>0\}\subset\{X_{3/2}>0\}$ almost surely. Theorem~\ref{thm:B}
+orders the \emph{densities} of the two lead sets; it does not nest
+the lead sets.
+\end{remark}
+
+\subsection{Densities without LI}
+
+\begin{corollary}\label{cor:densities}
+Assume GRH$(\chi)$ and let $-\tfrac12<m<m'$ with
+$\lambda_\chi(M,M')>0$. Let $d$ denote any one of: upper logarithmic
+density, lower logarithmic density, upper natural density, lower
+natural density. Then
+\[
+d\{x:D_m(x)>0\}\;\ge\;d\{x:D_{m'}(x)\ge0\}\;\ge\;d\{x:D_{m'}(x)>0\},
+\]
+and likewise $d\{x:D_{m'}(x)<0\}\ge d\{x:D_m(x)\le0\}\ge d\{x:D_m(x)<0\}$.
+In particular, on the interval $(-\tfrac12,M_\sigma(\chi)-\tfrac12]$
+the upper and the lower logarithmic (and natural) densities of
+$\{x:D_m(x)>0\}$ are non-increasing functions of $m$, under
+GRH$(\chi)$ alone.
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:A}(ii), $\{x\ge x_0:D_{m'}(x)\ge0\}
+\subset\{x:D_m(x)>0\}$ and $\{x\ge x_0:D_m(x)\le0\}\subset
+\{x:D_{m'}(x)<0\}$. Each of the four densities is monotone under
+inclusion and insensitive to a bounded set. The last sentence follows
+from Remark~\ref{rem:Arange}(1).
+\end{proof}
+
+We make no claim about the \emph{existence} of the logarithmic
+density without LI, nor about strictness; under LI,
+Theorem~\ref{thm:B} gives existence and strict decrease on a larger
+range.
+
+\subsection{Sharpness under LI}
+
+\begin{lemma}[joint limiting distribution]\label{lem:joint}
+Assume GRH$(\chi)$, NCZ$(\chi)$ and LI$(\chi)$, and let
+$-\tfrac12<m<m'$. On the probability space of \eqref{eq:XM} define
+\[
+Y_M:=1+\re\sum_{\gamma>0}r_\gamma(M)\,e^{i\theta_\gamma},
+\qquad
+Y_{M'}:=1+\re\sum_{\gamma>0}r_\gamma(M')\,e^{i\theta_\gamma},
+\qquad r_\gamma(M)=\frac{4M}{M+i\gamma},
+\]
+with the \emph{same} phases in both (the series converge almost
+surely). Then the $\mathbb R^2$-valued function
+$u\mapsto(\cE_{m,0}(e^u),\cE_{m',0}(e^u))$ has the limiting
+distribution $\mathrm{law}(Y_M,Y_{M'})$.
+The marginals are the laws of $X_M$ and $X_{M'}$, and almost surely
+\begin{equation}\label{eq:Ydiff}
+\frac{Y_M}{M}-\frac{Y_{M'}}{M'}
+=\kappa\Bigl[\frac1{MM'}+\sum_{\gamma>0}b_\gamma\cos(\theta_\gamma-\alpha_\gamma)\Bigr],
+\qquad b_\gamma:=\frac{4}{|M+i\gamma|\,|M'+i\gamma|},
+\end{equation}
+with $\alpha_\gamma:=\arg\bigl((M+i\gamma)(M'+i\gamma)\bigr)$, an
+absolutely convergent series.
+\end{lemma}
+
+\begin{proof}
+The series converge almost surely by Kolmogorov's criterion applied
+to real and imaginary parts. Since
+$\re(r\,e^{i\theta})=|r|\cos(\theta+\arg r)$ and the shifted phases
+are again independent and uniform, $Y_M$ has the law of $X_M$.
+Formula \eqref{eq:Ydiff} follows from
+$r_\gamma(M)/M-r_\gamma(M')/M'=4\kappa/((M+i\gamma)(M'+i\gamma))$.
+
+Fix $(\xi_1,\xi_2)\in\mathbb R^2$ and consider the real function
+$\phi_{\xi}(u):=\xi_1\,\cE_{m,0}(e^u)+\xi_2\,\cE_{m',0}(e^u)$. By
+Lemma~\ref{lem:WRexp} (the unlogged case $b=0$) for both weights, for
+$u\ge2$ and $T\ge2$,
+\[
+\phi_{\xi}(u)=(\xi_1+\xi_2)+\re\sum_{0<\gamma\le T}
+\bigl(\xi_1r_\gamma(M)+\xi_2r_\gamma(M')\bigr)e^{i\gamma u}
++\cE_{\xi}(u,T),
+\]
+where $\cE_{\xi}$ is the corresponding combination of the two error
+terms, so that
+\[
+\lim_{Y\to\infty}\frac1Y\int_2^Y|\cE_{\xi}(u,e^Y)|^2\,du=0
+\]
+(use $(x+y)^2\le2x^2+2y^2$). The coefficients are $O(1/\gamma)$, and
+$N(T+1)-N(T)\ll\log(T+2)$. These are the hypotheses of
+\cite[Corollary~1.3(a)]{ANS14}; they are verified exactly as in the
+proof of \cite[Theorem~1(i)]{WR}. Hence $\phi_{\xi}$ has a limiting
+distribution. Under LI$(\chi)$, \cite[Theorem~1.9]{ANS14}
+identifies it, exactly as in \cite{WR}, as the law of
+\[
+(\xi_1+\xi_2)+\sum_{\gamma>0}\bigl|\xi_1r_\gamma(M)+\xi_2r_\gamma(M')\bigr|
+\cos\theta_\gamma ,
+\]
+which is the law of $\xi_1Y_M+\xi_2Y_{M'}$ (shift the phases as
+above).
+
+Let $\mu_Y$ be the empirical measures on $\mathbb R^2$ of
+$u\mapsto(\cE_{m,0}(e^u),\cE_{m',0}(e^u))$, $u\in[0,Y]$. Applying the
+previous paragraph to the bounded continuous functions $\cos$ and
+$\sin$ shows that the characteristic function of $\mu_Y$ at
+$(\xi_1,\xi_2)$, namely $\frac1Y\int_0^Ye^{i\phi_{\xi}(u)}\,du$,
+converges to $\EE\,e^{i(\xi_1Y_M+\xi_2Y_{M'})}$ for every
+$(\xi_1,\xi_2)$. The limit is the characteristic function of
+$\mathrm{law}(Y_M,Y_{M'})$, so by L\'evy's continuity theorem on
+$\mathbb R^2$ \cite[Ch.~XV]{Fel71}, applied along an arbitrary
+sequence $Y_n\to\infty$, $\mu_Y$ converges weakly to
+$\mathrm{law}(Y_M,Y_{M'})$.
+\end{proof}
+
+(Alternatively, Theorems~1.4 and~1.9 of \cite{ANS14} are stated for
+functions with values in $\mathbb R^\ell$ and give
+Lemma~\ref{lem:joint} directly. We keep the Cram\'er--Wold argument
+because it uses only the scalar statements quoted in \cite{WR}.)
+
+\begin{corollary}[sharpness of $\lambda_\chi\ge0$]\label{cor:sharp}
+Let $-\tfrac12<m<m'$.
+\begin{enumerate}
+\item[(a)] Under GRH$(\chi)$,
+\[
+\liminf_{x\to\infty}\frac{\log x}{\kappa\,x^M}\,I_{m,m'}(x)\;\ge\;
+\frac{\lambda_\chi(M,M')}{2},
+\]
+with equality under LI$(\chi)$. In particular, under GRH$(\chi)$ and
+LI$(\chi)$: if $\lambda_\chi(M,M')<0$, then the Riesz-type mean
+$\int_2^xt^{-\kappa-1}D_{m'}(t)\,dt$ is negative for arbitrarily
+large $x$, whereas it is positive for all large $x$ if
+$\lambda_\chi(M,M')>0$.
+\item[(b)] Assume GRH$(\chi)$, NCZ$(\chi)$ and LI$(\chi)$. The set of
+violations of the inheritance of leads,
+\[
+\mathcal V\;:=\;\{x\ge2:\ D_{m'}(x)>0\ \text{and}\ D_m(x)\le0\},
+\]
+has a logarithmic density, equal to $\PP(Y_{M'}>0\ge Y_M)$. This
+density is $0$ if $\lambda_\chi(M,M')\ge0$ (and $\mathcal V$ is
+bounded if $\lambda_\chi(M,M')>0$), and it is strictly positive if
+$\lambda_\chi(M,M')<0$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(a) The inequality is \eqref{eq:formula} and
+\eqref{eq:bracketbounds}. Under LI$(\chi)$ the positive ordinates are
+distinct and linearly independent over $\mathbb Q$. Given $\eps>0$
+choose $J$ with $\sum_{j>J}b_{\gamma_j}<\eps$. By Kronecker's theorem
+\cite[Ch.~XXIII]{HW} there are arbitrarily large $u$ with
+$|\gamma_ju-\alpha_{\gamma_j}-\pi|<\eps$ modulo $2\pi$ for all
+$j\le J$. For such $u$ and $x=e^u$,
+\[
+4\,\re\sum_{\gamma>0}\frac{x^{i\gamma}}{(M+i\gamma)(M'+i\gamma)}
+=\sum_{\gamma>0}b_\gamma\cos(\gamma u-\alpha_\gamma)
+\le-\cos\eps\sum_{j\le J}b_{\gamma_j}+\eps
+\le-B+\eps\,(B+2),
+\]
+with $B=\sum_{\gamma>0}b_\gamma$ as in the proof of
+Theorem~\ref{thm:A} (we used $1-\cos\eps\le\eps$). By
+\eqref{eq:formula} the $\liminf$ is at most
+$\frac12\bigl(\frac{1+2n_0}{MM'}-B\bigr)+\eps(B+2)/2$ for every
+$\eps>0$.
+
+(b) By Lemma~\ref{lem:joint} and Lemma~\ref{lem:stability}(b) applied
+to $B_0:=\{(y,y'):y\le0<y'\}$, whose boundary lies in
+$\{y=0\}\cup\{y'=0\}$ and is a null set for $\mathrm{law}(Y_M,Y_{M'})$
+because both marginals are absolutely continuous
+(Theorem~\ref{thm:WRinterp}), the logarithmic density of $\mathcal V$
+exists and equals $\PP(Y_{M'}>0\ge Y_M)$. (Here
+$\cE_{m,0}(x)$ has the sign of $D_m(x)$.)
+
+On the event $\{Y_{M'}>0\ge Y_M\}$ we have $Y_M/M-Y_{M'}/M'<0$,
+while by \eqref{eq:Ydiff} this difference is almost surely at least
+$\kappa(1/(MM')-B)=\kappa\lambda_\chi(M,M')$. Hence the event is null
+if $\lambda_\chi\ge0$; boundedness of $\mathcal V$ for
+$\lambda_\chi>0$ is Theorem~\ref{thm:A}(ii).
+
+Let now $\lambda:=\lambda_\chi(M,M')<0$. Write
+$b_j=b_{\gamma_j}$, $\alpha_j=\alpha_{\gamma_j}$,
+$c_j'=c_{\gamma_j}(M')$, $\beta_j:=\arg(M'+i\gamma_j)$, so that
+$Y_{M'}=1+\sum_jc_j'\cos(\theta_j-\beta_j)$. Choose $J$ with
+$\sum_{j>J}b_j\le|\lambda|/8$, and let $A_\tau$ be the event that
+$|\theta_j-\alpha_j-\pi|<\tau$ modulo $2\pi$ for all $j\le J$. On
+$A_\tau$, by \eqref{eq:Ydiff},
+\[
+\frac{Y_M}{M}-\frac{Y_{M'}}{M'}
+\le\kappa\Bigl[\frac1{MM'}-\cos\tau\sum_{j\le J}b_j+\sum_{j>J}b_j\Bigr]
+\le\kappa\Bigl[\lambda+(1-\cos\tau)B+\frac{|\lambda|}{4}\Bigr],
+\]
+and the head $H':=1+\sum_{j\le J}c_j'\cos(\theta_j-\beta_j)$ differs
+from $h_0:=1-\sum_{j\le J}c_j'\cos(\alpha_j-\beta_j)$ by at most
+$\tau\sum_{j\le J}c_j'$. Fix $\tau>0$ so small that
+$(1-\cos\tau)B\le|\lambda|/4$ and
+$\eps_1:=\tau\sum_{j\le J}c_j'\le\kappa|\lambda|M'/8$. Then
+$\PP(A_\tau)>0$, and on $A_\tau$ we have
+$Y_M/M-Y_{M'}/M'\le\kappa\lambda/2$ and $|H'-h_0|\le\eps_1$. The tail
+$W':=\sum_{j>J}c_j'\cos(\theta_j-\beta_j)$ is independent of $A_\tau$
+and has full support (Lemma~\ref{lem:fullsupport}), so
+$B_1:=\{-h_0+\eps_1<W'<-h_0+2\eps_1\}$ has positive probability. On
+$A_\tau\cap B_1$: \ $0<Y_{M'}=H'+W'<3\eps_1$, hence
+\[
+\frac{Y_M}{M}\le\frac{Y_{M'}}{M'}+\frac{\kappa\lambda}{2}
+<\frac{3\eps_1}{M'}-\frac{\kappa|\lambda|}{2}<0 .
+\]
+Thus $\PP(Y_{M'}>0\ge Y_M)\ge\PP(A_\tau)\PP(B_1)>0$.
+\end{proof}
+
+\subsection{A Landau-type converse and an equivalence with GRH}
+
+The next two results are unconditional; no hypothesis on zeros is in
+force. Put $P(w,\chi):=\sum_p\chi(p)p^{-w}$ for $\re w>1$.
+
+\begin{lemma}[Landau; {\cite[Lemma~15.1]{MV07}}]\label{lem:landau}
+Let $A:[1,\infty)\to\mathbb R$ be bounded and Riemann integrable on
+every finite interval, with $A(x)\ge0$ for all $x>X_0$. Let
+$\sigma_c$ be the infimum of the real $\sigma$ for which
+$\int_{X_0}^\infty A(x)x^{-\sigma-1}\,dx<\infty$. Then
+$F(s):=\int_1^\infty A(x)x^{-s-1}\,dx$ is analytic in the half-plane
+$\re s>\sigma_c$, and, if $\sigma_c>-\infty$, $F$ has no analytic
+continuation to a neighbourhood of the point $s=\sigma_c$.
+\end{lemma}
+
+(In \cite{MV07} the kernel is $x^{-s}$; the statement above is the
+same with $s$ replaced by $s+1$.)
+
+\begin{lemma}\label{lem:mellin}
+Let $-\tfrac12<m<m'$ and $I=I_{m,m'}$ as in \eqref{eq:defI}, extended
+by $I(x)=0$ for $1\le x<2$. For $\re s>m+1$,
+\[
+\int_1^\infty I(x)\,x^{-s-1}\,dx
+=\frac{\kappa}{s(s+\kappa)}\sum_p\chi^*(p)\,p^{m-s}
+=-\frac{\kappa\,P(s-m,\chi)}{s(s+\kappa)} .
+\]
+Moreover, for $\re w>1$,
+\begin{equation}\label{eq:Pstructure}
+P(w,\chi)=\log L(w,\chi)-\tfrac12\log\zeta(2w)+H_\chi(w),
+\end{equation}
+where $\log L(w,\chi):=\sum_p\sum_{k\ge1}\chi(p)^kp^{-kw}/k$,
+$\log\zeta$ is defined likewise, and $H_\chi$ is analytic in
+$\re w>\tfrac13$.
+\end{lemma}
+
+\begin{proof}
+By Proposition~\ref{prop:formula}(a),
+$I(x)=\sum_{p\le x}\chi^*(p)p^m(1-p^\kappa x^{-\kappa})$. For real
+$\sigma>m+1$ (so $\sigma>\tfrac12>0$),
+$\sum_pp^m\int_p^\infty x^{-\sigma-1}\,dx=\sigma^{-1}\sum_pp^{m-\sigma}
+<\infty$, so by Fubini's theorem, for $\re s>m+1$,
+\[
+\int_1^\infty I(x)x^{-s-1}\,dx
+=\sum_p\chi^*(p)p^m\int_p^\infty\bigl(x^{-s-1}-p^\kappa x^{-s-\kappa-1}\bigr)dx
+=\sum_p\chi^*(p)p^{m-s}\Bigl(\frac1s-\frac1{s+\kappa}\Bigr).
+\]
+For \eqref{eq:Pstructure}: for $\re w>1$,
+$\log L(w,\chi)=P(w,\chi)+\tfrac12\sum_p\chi(p)^2p^{-2w}
++\sum_{k\ge3}\frac1k\sum_p\chi(p)^kp^{-kw}$ and
+$\sum_p\chi(p)^2p^{-2w}=\log\zeta(2w)-\sum_{k\ge2}\frac1k\sum_pp^{-2kw}
+-\sum_{p\mid q}p^{-2w}$. Hence \eqref{eq:Pstructure} holds with
+\[
+H_\chi(w)=\frac12\sum_{k\ge2}\frac1k\sum_pp^{-2kw}
++\frac12\sum_{p\mid q}p^{-2w}
+-\sum_{k\ge3}\frac1k\sum_p\chi(p)^kp^{-kw},
+\]
+and each of these series converges absolutely and locally uniformly
+in $\re w>\tfrac13$.
+\end{proof}
+
+\begin{corollary}[Landau-type converse]\label{cor:landau}
+Let $\chi$ be a real primitive character and let
+\[
+\beta_0(\chi):=\max\Bigl(\{\tfrac12\}\cup
+\{\beta\in(\tfrac12,1):L(\beta,\chi)=0\}\Bigr)
+\]
+(a maximum over a finite set). Suppose that for some
+$-\tfrac12<m<m'$ the function $I_{m,m'}(x)
+=\kappa\int_2^xt^{-\kappa-1}D_{m'}(t)\,dt$ is of constant sign for all
+sufficiently large $x$ (that is, $I_{m,m'}(x)\ge0$ for all
+$x\ge x_1$, or $I_{m,m'}(x)\le0$ for all $x\ge x_1$). Then
+$L(s,\chi)\ne0$ for $\re s>\beta_0(\chi)$. In particular, if
+$L(\sigma,\chi)\ne0$ for all real $\sigma\in(\tfrac12,1)$, then
+GRH$(\chi)$ holds.
+\end{corollary}
+
+\begin{proof}
+The real zeros of $L(\cdot,\chi)$ in $[\tfrac12,1]$ are finite in
+number and $L(\sigma,\chi)\ne0$ for real $\sigma\ge1$, so
+$\beta_0=\beta_0(\chi)\in[\tfrac12,1)$ is well defined and
+$L(\sigma,\chi)\ne0$ for real $\sigma>\beta_0$. The zeros of
+$L(\cdot,\chi)$ form a closed discrete set disjoint from the ray
+$(\beta_0,\infty)$, so there is a continuous function
+$r:(\beta_0,\infty)\to(0,\infty)$ such that $L(w,\chi)\ne0$ on
+$U:=\{\sigma+it:\sigma>\beta_0,\ |t|<r(\sigma)\}$. The region $U$ is
+simply connected and contains part of the half-plane $\re w>1$, and
+its intersection with any half-plane $\re w>c$ is connected; on $U$,
+$L(\cdot,\chi)$ has an analytic logarithm which is real on the real
+ray and therefore extends the function $\log L(w,\chi)$ of
+Lemma~\ref{lem:mellin} from $U\cap\{\re w>1\}$, $\zeta(2w)$ is analytic and zero-free (as
+$\re(2w)>1$), and $H_\chi$ is analytic. By \eqref{eq:Pstructure},
+$P(\cdot,\chi)$ extends analytically to $U$, and
+\[
+F_1(s):=-\frac{\kappa\,P(s-m,\chi)}{s(s+\kappa)}
+\]
+is analytic on $U+m$ (there $\re s>m+\tfrac12>0$, so $s(s+\kappa)\ne0$).
+
+Replacing $I$ by $-I$ if necessary, assume $I(x)\ge0$ for $x\ge x_1$.
+The function $I$ is a finite sum of continuous functions with jumps
+at primes; it is bounded and Riemann integrable on finite intervals.
+Let $F$ and $\sigma_c$ be as in Lemma~\ref{lem:landau} with $A=I$. By
+Lemma~\ref{lem:mellin}, $\sigma_c\le m+1$ and $F=F_1$ on
+$\re s>m+1$. Suppose $\sigma_c>m+\beta_0$. Then $F$ is analytic on
+$\re s>\sigma_c$, $F_1$ is analytic on $U+m$, and they agree on the
+connected set $(U+m)\cap\{\re s>\sigma_c\}$, because they agree on
+its nonempty open subset $(U+m)\cap\{\re s>m+1\}$. Hence $F_1$ is an
+analytic continuation of $F$ to a neighbourhood of $s=\sigma_c\in
+U+m$, contradicting Lemma~\ref{lem:landau}. Therefore
+$\sigma_c\le m+\beta_0$: $F$ is analytic in $\re s>m+\beta_0$ and
+equals $F_1$ on $\re s>m+1$. Consequently
+$P(w,\chi)=-\kappa^{-1}(w+m)(w+m+\kappa)F(w+m)$ extends analytically
+to $\re w>\beta_0$, and so does
+$G(w):=P(w,\chi)+\tfrac12\log\zeta(2w)-H_\chi(w)$ (recall
+$\beta_0\ge\tfrac12$). Since $e^{G(w)}=L(w,\chi)$ for $\re w>1$, the
+identity theorem gives $e^{G}=L(\cdot,\chi)$ on $\re w>\beta_0$, so
+$L(w,\chi)\ne0$ there. If $\beta_0=\tfrac12$, all nontrivial zeros
+have $\beta\le\tfrac12$, hence $\beta=\tfrac12$ by the functional
+equation.
+\end{proof}
+
+\begin{corollary}[equivalence with GRH for $q\in\{3,4\}$]
+\label{cor:equiv}
+Let $\chi\in\{\chi_3,\chi_4\}$ and $-\tfrac12<m<m'$.
+\begin{enumerate}
+\item[(a)] If $I_{m,m'}(x)$ is of constant sign for all sufficiently
+large $x$, then GRH$(\chi)$ holds.
+\item[(b)] If GRH$(\chi)$ holds and $\lambda_\chi(M,M')>0$, then
+$I_{m,m'}(x)>0$ for all sufficiently large $x$.
+\item[(c)] Suppose that the (unconditionally defined) number
+$V_\chi(M'):=4M'\,\frac{\Lambda'}{\Lambda}(M'+\tfrac12,\chi)$ satisfies
+$V_\chi(M')\le2$. Then the following three statements are
+equivalent: (1) GRH$(\chi)$; (2) $D_m(x)>x^{-(m'-m)}D_{m'}(x)$ for
+all sufficiently large $x$; (3) $I_{m,m'}(x)$ is of constant sign
+for all sufficiently large $x$.
+\end{enumerate}
+In particular, since $V_{\chi_4}(\tfrac32)=1.3686\ldots$ and
+$V_{\chi_3}(\tfrac32)=1.0070\ldots$, for $(m,m')=(0,1)$:
+\[
+\text{GRH}(\chi_4)\iff
+\sum_{p\le x}\bigl(-\chi_4(p)\bigr)\Bigl(1-\frac px\Bigr)>0
+\ \text{ for all sufficiently large }x ,
+\]
+the sum being $x^{-1}\int_2^x\bigl(\pi(t;4,3)-\pi(t;4,1)\bigr)dt$; and
+the same holds for $\chi_3$ with $\pi(t;3,2)-\pi(t;3,1)$.
+\end{corollary}
+
+\begin{proof}
+(a) For both characters the Dirichlet series converges for real
+$\sigma>0$ to $L(\sigma,\chi)$ (bounded partial sums of $\chi$;
+\cite[Ch.~4]{Dav00}), and grouping consecutive terms of the
+convergent series gives
+$L(\sigma,\chi_4)=\sum_{k\ge0}[(4k+1)^{-\sigma}-(4k+3)^{-\sigma}]>0$
+and
+$L(\sigma,\chi_3)=\sum_{k\ge0}[(3k+1)^{-\sigma}-(3k+2)^{-\sigma}]>0$
+for $0<\sigma<1$. So $\beta_0(\chi)=\tfrac12$ and
+Corollary~\ref{cor:landau} applies. (b) is Theorem~\ref{thm:A}(ii).
+(c) NCZ$(\chi)$ holds unconditionally for these two characters. If
+GRH$(\chi)$ holds, then $\sigma_{M'}^2=V_\chi(M')\le2$ by
+Proposition~\ref{prop:WRvar}, so $\lambda_\chi(M,M')>0$ by
+Theorem~\ref{thm:A}(iii) and (b) gives the second statement; the
+second statement trivially implies the third; and the third implies
+GRH$(\chi)$ by (a). The value $V_{\chi_4}(\tfrac32)=\sigma^2$ at
+$m=1$ is $1.368555\ldots$ \cite[Table~2]{WR}; the value for $\chi_3$
+was computed here in multiprecision floating point and is enclosed in
+ball arithmetic in the auxiliary file of the direct certificate
+(Sections~\ref{subsec:confirm}(a) and~\ref{sec:numerics}); both are far below $2$. The
+identity for the sum is Proposition~\ref{prop:formula}(a) with
+$\kappa=1$: $I_{0,1}(x)=\int_2^xt^{-2}D_1(t)\,dt
+=\sum_{p\le x}\chi^*(p)(1-p/x)=x^{-1}\int_2^xD_0(t)\,dt$.
+\end{proof}
+
+\begin{remark}[the exceptional-zero caveat]\label{rem:exceptional}
+For a general real primitive character Corollary~\ref{cor:landau}
+gives only the zero-free half-plane $\re s>\beta_0(\chi)$: a real
+zero $\beta\in(\tfrac12,1)$ of $L(s,\chi)$ produces a genuine real
+singularity of $P(s-m,\chi)$ at $s=m+\beta$, and Landau's theorem
+cannot see past it. An equivalence with GRH$(\chi)$ therefore
+requires the absence of real zeros in $(\tfrac12,1)$ as a separate
+input, which for $q=3,4$ is elementary and in general is open. For
+general $\chi$ the statement that survives is: \emph{if
+$L(\sigma,\chi)\ne0$ on $(\tfrac12,1)$ and $\lambda_\chi(M,M')>0$
+under GRH$(\chi)$, then GRH$(\chi)$ is equivalent to the eventual
+positivity of $I_{m,m'}$.}
+\end{remark}
+
+\begin{remark}[relation to the literature]\label{rem:literature}
+(1) By Proposition~\ref{prop:formula}(a), $I_{m,m'}(x)$ is the Riesz
+typical mean of order one,
+$\sum_{p\le x}a_p\bigl(1-(p/x)^\kappa\bigr)$ with $a_p=\chi^*(p)p^m$,
+of the series defining $D_m$, and simultaneously a power-weighted
+integral mean of the heavier race $D_{m'}$; for $(m,m')=(0,1)$ it is
+the Ces\`aro mean of Chebyshev's race. Smoothed versions of
+Chebyshev's bias that hold for all large $x$ are classical. The
+closest in spirit are the following (we quote statements at the level
+at which we were able to check them; see Section~\ref{sec:gaps}).
+Hardy--Littlewood and Landau \cite{HL18,Lan18} showed that Chebyshev's
+assertion $\sum_{p>2}(-1)^{(p-1)/2}e^{-p/x}\to-\infty$ is equivalent
+to GRH$(\chi_4)$; Fujii \cite{Fuj88} and Platt--Trudgian \cite{PT19}
+extended this to the kernels $e^{-(p/x)^\alpha}$ for
+$0<\alpha<4.19$ resp.\ $0<\alpha<20.40442$. Johnston \cite{Joh23}
+showed that RH is equivalent to $\int_2^x(\pi(t)-\mathrm{li}(t))\,dt<0$
+for all $x>2$; Washington \cite[Theorem~3]{Was24} showed that for
+$0<k\le10.32$, RH is equivalent to
+$\int_1^x(\pi_k(t)-\pi(t^{k+1}))\,dt<0$ for all sufficiently large
+$x$, where $\pi_k(t)=\sum_{p\le t}p^k$; and Zhao \cite{Zhao25} showed
+that RH is equivalent to the positivity, for all $X>2$, of the
+integrated error terms in Mertens' theorems, with analogues for
+quadratic characters. In these results, as in Theorem~\ref{thm:A}
+with Corollaries~\ref{cor:landau}--\ref{cor:equiv}, a bias is
+compared with an absolutely convergent sum over zeros and a
+Landau-type argument gives the converse. In the three parametric
+ones --- Fujii, Platt--Trudgian and Washington --- the result is
+established only for a limited range of the smoothing parameter
+($\alpha$, resp.\ $k$), determined by a numerical inequality between
+the bias and the zero sum; this is the analogue of the condition
+$\lambda_\chi(M,M')>0$. The results of Johnston and Zhao involve no
+such parameter. Suzuki \cite{Suz25} is of a different type: he proves
+that sign constancy of certain weighted summatory functions of
+$\Lambda$ implies RH or GRH (one direction only), and establishes
+that sign constancy on average. Liu--Wang--Shi \cite{LWS26} announce
+a classification of the residue-class pairs for which an integrated
+prime-counting error is eventually of one sign. We therefore claim no
+novelty for the method of Theorem~\ref{thm:A}, and none for the
+identity of Proposition~\ref{prop:formula}(a) as such, which is one
+line of partial summation. What we did not find in the literature
+searched is the use of that identity as a link \emph{between two
+races of different weights}, and the resulting inheritance of leads
+and monotonicity of upper and lower densities
+(Theorem~\ref{thm:A}(ii), Corollary~\ref{cor:densities}).
+
+(2) Hayani \cite{Hay25} obtains, under GRH alone, density-one
+statements at the single critical weight $p^{-1/2}$; the present
+GRH-only statements concern pairs of weights in $m>-\tfrac12$ and are
+of a different nature.
+\end{remark}
+
+\begin{remark}[on the status of GRH]\label{rem:GRHstatus}
+Theorem~\ref{thm:A}, Corollary~\ref{cor:densities} and the inequality
+of Corollary~\ref{cor:sharp}(a) need GRH$(\chi)$ only (the equality
+clause of Corollary~\ref{cor:sharp}(a) needs LI$(\chi)$ as well). A
+proof of GRH for Dirichlet $L$-functions was announced on 20 November
+2026 \cite{Alp26}, accompanied by a Lean formalization that
+\cite{Lean26} reports to have checked; no human-readable proof has
+been refereed. We have not examined either, and do not use them.
+Every result of this article remains stated conditionally. If that
+proof is confirmed, Theorem~\ref{thm:A},
+Corollary~\ref{cor:densities} and the inequality in
+Corollary~\ref{cor:sharp}(a) become unconditional, and
+Corollary~\ref{cor:equiv} becomes an unconditional positivity
+statement. Theorems~\ref{thm:B} and~\ref{thm:C} and the results of
+Sections~\ref{sec:envelope}--\ref{sec:nonmono} would still need
+NCZ$(\chi)$ (automatic for $q=3,4$) and, for their statements about
+races, LI$(\chi)$; the computer-assisted ones would also still depend
+on their trusted inputs.
+\end{remark}
+
+\section{Logarithmic weights: proof of Theorem~\ref{thm:C}}
+\label{sec:thmC}
+
+Assume GRH$(\chi)$ and NCZ$(\chi)$ and fix $m>-\tfrac12$. We write
+$E(x):=\cE_{m,1}(x)=2M\,x^{-M}R_m(x)$ for $x\ge1$ (so $E(x)=0$ for
+$x<2$).
+
+\begin{lemma}[local mean-square bound]\label{lem:localms}
+Under GRH$(\chi)$ and NCZ$(\chi)$,
+\[
+K_m:=\sup_{U\ge0}\int_U^{U+1}\bigl|E(e^u)\bigr|^2\,du<\infty .
+\]
+\end{lemma}
+
+\begin{proof}
+On $0\le u\le3$ the function $E(e^u)$ is bounded, since
+$|R_m(x)|\le\sum_{p\le e^3}p^m\log p$ there. Let $U\ge2$,
+$u\in[U,U+1]$ and $T:=e^{U+1}$. By Lemma~\ref{lem:WRexp} with $b=1$,
+\[
+E(e^u)=1+\re S_T(u)+\cE^{(1)}(u,T),\qquad
+S_T(u):=\sum_{0<\gamma\le T}r_\gamma(M)e^{i\gamma u},
+\]
+and $|\cE^{(1)}(u,T)|\ll(U+1)e^{(U+1)/2}(2U+2)^2e^{-(U+1)}
++u^2e^{-\kappa_mu}+ue^{-u/6}+ue^{-c\sqrt u}\ll1$. It remains to bound
+$\int_U^{U+1}|S_T(u)|^2\,du$ uniformly in $U$ and $T$. Let
+$\mathcal F(v):=\bigl(\sin(v/2)/(v/2)\bigr)^2\ge0$; then
+$\mathcal F(v)\ge(\sin(\tfrac12)/\tfrac12)^2>0.9$ for $|v|\le1$, and
+$\int_{\mathbb R}\mathcal F(v)e^{i\xi v}\,dv=2\pi\max(0,1-|\xi|)$
+(the Fej\'er kernel; \cite[Ch.~XV, \S2]{Fel71}). Hence, with
+$U':=U+\tfrac12$,
+\begin{align*}
+0.9\int_U^{U+1}|S_T(u)|^2\,du
+&\le\int_{\mathbb R}|S_T(u)|^2\mathcal F(u-U')\,du
+=2\pi\sum_{\gamma,\gamma'}r_\gamma\overline{r_{\gamma'}}\,
+e^{i(\gamma-\gamma')U'}\max(0,1-|\gamma-\gamma'|)\\
+&\le2\pi\sum_{\substack{\gamma,\gamma'\\|\gamma-\gamma'|<1}}
+|r_\gamma|\,|r_{\gamma'}|
+\;\le\;2\pi\sum_{\gamma>0}|r_\gamma|^2\,\#\{\gamma':|\gamma'-\gamma|<1\},
+\end{align*}
+the sums being over ordinates in $(0,T]$ and the last step using
+$|r_\gamma||r_{\gamma'}|\le\tfrac12(|r_\gamma|^2+|r_{\gamma'}|^2)$ and
+symmetry. Since $|r_\gamma|^2\le16M^2\gamma^{-2}$ and
+$\#\{\gamma':|\gamma'-\gamma|<1\}\ll\log(\gamma+3)$ by
+\eqref{eq:zerosum}, the right-hand side is at most
+$C\sum_{\gamma>0}\gamma^{-2}\log(\gamma+3)<\infty$ by
+\eqref{eq:gammasums}, uniformly in $U$ and $T$. Finally
+$|E|^2\le3(1+|S_T|^2+|\cE^{(1)}|^2)$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:C}]
+(i) Since $(\log p)^b=(\log p)^{b-1}\log p$, Riemann--Stieltjes
+partial summation gives, for $x\ge2$ (recall $R_m=0$ on $[1,2)$),
+\[
+D_{m,b}(x)=\int_{3/2}^x(\log t)^{b-1}\,dR_m(t)
+=(\log x)^{b-1}R_m(x)-(b-1)\int_2^xR_m(t)(\log t)^{b-2}\,\frac{dt}{t}.
+\]
+Multiplying by $2Mx^{-M}(\log x)^{1-b}$ and substituting
+$R_m(t)=t^ME(t)/(2M)$,
+\begin{equation}\label{eq:Cdecomp}
+\cE_{m,b}(x)=E(x)-(b-1)\,\mathcal R_b(x),
+\qquad
+\mathcal R_b(e^u)=u^{1-b}\int_{\log2}^ue^{-M(u-v)}E(e^v)\,v^{b-2}\,dv .
+\end{equation}
+Let $u\ge2$ and split the integral at $v=u/2$. For
+$\log2\le v\le u/2$ we have $e^{-M(u-v)}\le e^{-Mu/2}$ and
+$v^{b-2}\le(\log2)^{b-2}+(u/2)^{b-2}$, and by the Cauchy--Schwarz
+inequality on unit intervals
+$\int_0^{u/2}|E(e^v)|\,dv\le(u/2+1)K_m^{1/2}$; this part of
+$\mathcal R_b(e^u)$ is therefore
+$\ll u^{1-b}e^{-Mu/2}\bigl(1+u^{b-2}\bigr)(u+1)\ll1/u$. For
+$u/2\le v\le u$ we have $v^{b-2}\le2^{|b-2|}u^{b-2}$, and covering
+$[u/2,u]$ by the intervals $[u-k-1,u-k]$, $k\ge0$, on which
+$e^{-M(u-v)}\le e^{-Mk}$,
+\[
+\int_{u/2}^ue^{-M(u-v)}|E(e^v)|\,dv
+\le\sum_{k\ge0}e^{-Mk}\Bigl(\int_{u-k-1}^{u-k}|E(e^v)|^2\,dv\Bigr)^{1/2}
+\le\frac{K_m^{1/2}}{1-e^{-M}}
+\]
+(with $E(e^v):=0$ for $v<0$). Hence this part is at most
+$2^{|b-2|}K_m^{1/2}(1-e^{-M})^{-1}u^{-1}$, and altogether
+$|\mathcal R_b(e^u)|\ll1/u$ for $u\ge2$. This proves (i) for
+$x\ge e^2$; for $3\le x\le e^2$ both sides are bounded.
+
+(ii) By Theorem~\ref{thm:WRinterp}, $u\mapsto E(e^u)$ has the limiting
+distribution $\nu_m$; by (i) and Lemma~\ref{lem:stability}(a) so does
+$u\mapsto\cE_{m,b}(e^u)$.
+
+(iii) Under LI$(\chi)$, $\nu_m$ is absolutely continuous, so the
+boundary $\{0\}$ of $B:=(0,\infty)$ is a $\nu_m$-null set, and
+Lemma~\ref{lem:stability}(b) shows that the logarithmic density of
+the set
+\[
+\{x>1:\cE_{m,b}(x)>0\}=\{x>1:D_{m,b}(x)>0\}
+\]
+exists and equals $\nu_m((0,\infty))=\PP(X_M>0)=\delta_\chi(m)$.
+\end{proof}
+
+\begin{remark}\label{rem:Cgeneral}
+(1) The proof uses of the factor $(\log p)^{b-1}$ only that the
+function $w(v)=v^{b-1}$ is $C^1$ and positive on $[\log2,\infty)$
+with $|w'(v)|\ll w(v)/v$ and $w(v)\ll w(u)$ for $u/2\le v\le u$, and
+grows or decays at most polynomially; the same argument therefore
+applies to weights $p^m\,w(\log p)$ with such a $w$, the normalisation
+being $2Mx^{-M}(\log x)D(x)/w(\log x)$. We do not pursue this.
+(2) Theorem~\ref{thm:C}(i) is a pointwise statement: the races with
+different $b$ differ, after normalisation, by $O(1/\log x)$. They do
+\emph{not} have the same sign for all large $x$; only the densities
+agree. (3) NCZ$(\chi)$ enters through Lemma~\ref{lem:WRexp}. With a
+central zero of order $n_0$ the constant $1$ in the expansions becomes
+$1+2n_0$ (cf.\ Theorem~\ref{thm:A}(i)) and we expect the same
+conclusion; since \cite{WR} assumes NCZ we have not written this out.
+\end{remark}
+
+\section{The derivative of the density and an envelope criterion}
+\label{sec:envelope}
+
+This section and the next are transcribed from two working notes in
+the repository: \S\S1--3A of \texttt{BRIDGE-ATTEMPT.md} and the note
+\texttt{ANALYTIC-LEG.md} of the envelope certificate (directories
+\texttt{monotonicity/} and \texttt{monotonicity/envelope-cert/}).
+There
+Lemma~\ref{lem:diff}, Lemmas~\ref{lem:J} and~\ref{lem:L},
+Proposition~\ref{prop:C0}, Theorem~\ref{thm:envelope},
+Corollary~\ref{cor:cell} and Theorem~\ref{thm:E} are called Lemma~D,
+Lemmas~J and~L, Proposition~C$_0$, Theorem~C, Corollary~C$'$ and
+Theorem~E. The proofs were checked by internal referees
+(Appendix~\ref{sec:review}); we re-checked each step while
+transcribing and found no error.
+
+\subsection{Setting}\label{subsec:envsetting}
+Nothing arithmetic enters this section. Let
+$0<\gamma_1\le\gamma_2\le\cdots$ be a finite or infinite sequence of
+positive real numbers with \emph{at least nine terms} and
+$\sum_j\gamma_j^{-2}<\infty$. For $M>0$ put
+\begin{gather*}
+c_j=c_j(M):=\frac{4M}{\sqrt{M^2+\gamma_j^2}},\qquad
+\eps_j=\eps_j(M):=\frac{M^2}{M^2+\gamma_j^2},\qquad
+S=S_M:=\sum_jc_j\cos\theta_j,\\
+\Phi(t)=\Phi_M(t):=\prod_jJ_0(c_jt),\qquad
+\Phi^{(j)}(t):=\prod_{i\ne j}J_0(c_it),\\
+\sigma^2=\sigma^2(M):=\sum_j\frac{c_j^2}{2},\qquad
+S_4=S_4(M):=\sum_jc_j^4,
+\end{gather*}
+with independent uniform phases $\theta_j$, and
+\[
+\hd(M):=\PP(S_M>-1)=\PP(1+S_M>0).
+\]
+Thus $c_1=\max_jc_j$ belongs to the lowest $\gamma$, and
+$\Phi_M$ is the characteristic function of $S_M$ (the product
+converges because $0\le1-J_0(z)\le z^2/4$ and $\sum_jc_j^2<\infty$).
+For the positive ordinates of $L(s,\chi)$, $\chi$ real primitive, the
+hypotheses hold under GRH$(\chi)$ and NCZ$(\chi)$ (by
+\eqref{eq:gammasums}; there are infinitely many ordinates), and then
+$\hd=\hd_\chi$, $\sigma^2(M)=\sigma_M^2$ in the notation of
+Section~\ref{subsec:setting}. A zero of multiplicity $k$ is $k$ equal
+terms of the sequence, with $k$ independent phases; this is the model
+of Section~\ref{subsec:setting}, and it is the race only under LI,
+when all zeros are simple.
+
+\subsection{Facts about \texorpdfstring{$J_0$}{J0}}\label{subsec:bessel}
+We use the following, for real $z$.
+\begin{itemize}
+\item[(B1)] $|J_0(z)|\le1$, \ $0\le1-J_0(z)\le z^2/4$, \ $J_0'=-J_1$
+and $|J_1(z)|\le|z|/2$. (All from Bessel's integral
+$J_0(z)=\frac1{2\pi}\int_0^{2\pi}\cos(z\cos\theta)\,d\theta$ and
+$J_1(z)=\frac1{2\pi}\int_0^{2\pi}\sin(z\cos\theta)\cos\theta\,d\theta$.)
+\item[(B2)] $|J_0(z)|\le\frac8\pi z^{-1/2}$ for $z>0$
+\cite[Lemma~4, (J2)]{WR}. (It also follows from the sharper classical
+bound $|J_0(z)|\le\sqrt{2/(\pi z)}$ of \cite[\S13.74]{Wat44}.)
+\item[(B3)] The first positive zero of $J_0$ satisfies $j_{0,1}>2.4$,
+and for $|z|<j_{0,1}$
+\[
+-\log J_0(z)=\sum_{n\ge1}\frac{\lambda_n}{n}\,z^{2n}
+\qquad\text{with all }\lambda_n>0,\ \lambda_1=\tfrac14
+\]
+\cite[Lemma~14(i), (iii)]{WR}; this is the Hadamard product of $J_0$,
+and $\lambda_n=\sum_kj_{0,k}^{-2n}$.
+\item[(B4)] $J_0$ is strictly decreasing on $[0,2\sqrt2\,]$, and
+$\sup_{z\ge2\sqrt2}|J_0(z)|\le0.446$ \cite[Lemma~15(i), (ii)]{WR}.
+\end{itemize}
+We also use the elementary inequality
+$|1-\prod_ka_k|\le\sum_k|1-a_k|$ for real numbers $|a_k|\le1$.
+
+\subsection{The derivative identity}
+
+\begin{lemma}[derivative identity at every weight]\label{lem:diff}
+In the setting of Section~\ref{subsec:envsetting}, $\hd$ is
+continuously differentiable on $(0,\infty)$, the law of $S_M$ has a
+bounded continuous even density $f_M$, and for every $M>0$
+\begin{equation}\label{eq:deriv}
+\begin{aligned}
+\hd'(M)&=\mathcal D(M):=\frac1\pi\int_0^\infty
+\partial_M\Phi_M(t)\,\frac{\sin t}{t}\,dt,\\
+\partial_M\Phi_M(t)&=-\sum_{j}c_j'(M)\,t\,J_1\bigl(c_j(M)t\bigr)\,
+\Phi_M^{(j)}(t),\qquad c_j'(M)=\frac{4\gamma_j^2}{(M^2+\gamma_j^2)^{3/2}},
+\end{aligned}
+\end{equation}
+and
+\begin{equation}\label{eq:Did}
+\begin{aligned}
+-M\,\hd'(M)&=f_M(1)+R(M),\qquad
+f_M(1)=\frac1\pi\int_0^\infty\Phi_M(t)\cos t\,dt,\\
+R(M)&:=-\frac1\pi\sum_j\eps_jc_j\int_0^\infty J_1(c_jt)\,
+\Phi_M^{(j)}(t)\,\sin t\,dt ,
+\end{aligned}
+\end{equation}
+all integrals and series converging absolutely.
+\end{lemma}
+
+For the ordinates of $L(s,\chi)$ we write $\mathcal D_\chi$ for
+$\mathcal D$. Since $\hd$ is $C^1$ on the open half-line, it has a
+two-sided derivative, given by \eqref{eq:deriv}, at every point of
+every closed interval $[M_a,M_b]\subset(0,\infty)$, endpoints
+included. Probabilistically $R(M)=\EE[Z;S=-1]$ with
+$Z=\sum_j\eps_jc_j\cos\theta_j$, so that \eqref{eq:Did} is the
+rigorous form of the formal identity of
+Remark~\ref{rem:infinitesimal}; the proof does not use this reading.
+The number nine is a convenient sufficient number of terms, not a
+sharp one.
+
+\begin{proof}
+\emph{Step 1 (the product is $C^1$ in $(M,t)$).} Fix $0<M_a\le M_b$
+and $T>0$, and let $M\in[M_a,M_b]$, $|t|\le T$. We have
+$c_j\le4M_b/\gamma_j$ and $c_j'=dc_j/dM=c_j(1-\eps_j)/M$, so
+$0<c_j'\le c_j/M_a$. Put $A:=16M_b^2\sum_j\gamma_j^{-2}$ and
+$A_N:=16M_b^2\sum_{j>N}\gamma_j^{-2}$; then $\sum_jc_j^2\le A$,
+$\sum_{j>N}c_j^2\le A_N$, and $A_N\to0$. Let
+$P_N(M,t):=\prod_{j\le N}J_0(c_jt)$, a $C^1$ function with
+\[
+\partial_MP_N=-\sum_{j\le N}c_j'\,t\,J_1(c_jt)\!\!\prod_{i\le N,\,i\ne j}\!\!J_0(c_it),
+\qquad
+\partial_tP_N=-\sum_{j\le N}c_j\,J_1(c_jt)\!\!\prod_{i\le N,\,i\ne j}\!\!J_0(c_it).
+\]
+By (B1) and the inequality for products, the infinite products
+$\Phi_M(t)$ and $\Phi^{(j)}_M(t)$ converge and
+\[
+|P_N-\Phi_M(t)|\le\tfrac14T^2A_N,\qquad
+\Bigl|\prod_{i\le N,\,i\ne j}J_0(c_it)-\Phi_M^{(j)}(t)\Bigr|\le\tfrac14T^2A_N
+\quad(j\le N).
+\]
+By (B1), the $j$-th summand of $\partial_MP_N$ is at most
+$c_jc_j't^2/2\le c_j^2T^2/(2M_a)$ in modulus and that of
+$\partial_tP_N$ at most $c_j^2T/2$. Hence, with the absolutely
+convergent series
+\[
+R_M:=-\sum_jc_j'tJ_1(c_jt)\Phi^{(j)}_M(t),\qquad
+R_t:=-\sum_jc_jJ_1(c_jt)\Phi^{(j)}_M(t),
+\]
+we have
+\[
+|\partial_MP_N-R_M|\le\frac{T^2}{2M_a}\Bigl(\frac{T^2A_N}{4}\,A+A_N\Bigr),
+\qquad
+|\partial_tP_N-R_t|\le\frac{T}{2}\Bigl(\frac{T^2A_N}{4}\,A+A_N\Bigr),
+\]
+and both tend to $0$ uniformly on $[M_a,M_b]\times[-T,T]$. Since
+$P_N\to\Phi$ and the gradients of the $C^1$ functions $P_N$ converge
+locally uniformly, $\Phi$ is $C^1$ in $(M,t)$ on
+$(0,\infty)\times\mathbb R$, with
+\begin{equation}\label{eq:dPhi}
+\partial_M\Phi_M(t)=-\sum_jc_j'\,t\,J_1(c_jt)\,\Phi_M^{(j)}(t),
+\qquad
+\Phi_M'(t)=-\sum_jc_j\,J_1(c_jt)\,\Phi_M^{(j)}(t).
+\end{equation}
+(For a finite sequence this step is the product rule.)
+
+\emph{Step 2 (decay).} Put $\kappa:=c_9(M_a)>0$. For
+$M\in[M_a,M_b]$ and $i\le9$, $c_i(M)\ge c_i(M_a)\ge\kappa$, because
+$c_i(M)$ is increasing in $M$ and nonincreasing in $i$. In $\Phi$ and
+in every $\Phi^{(j)}$ at least eight of the first nine factors are
+present, and by (B1), (B2) each of them is at most
+$\min(1,\frac8\pi(\kappa t)^{-1/2})$ in modulus. With
+$C:=(8/\pi)^8\kappa^{-4}$, for $t>0$, all $j$ and all
+$M\in[M_a,M_b]$,
+\begin{equation}\label{eq:decay}
+\begin{gathered}
+|\Phi_M(t)|,\ |\Phi_M^{(j)}(t)|\le\min(1,Ct^{-4}),\\
+|\partial_M\Phi_M(t)|\le\frac{t^2}{2M_a}\,A\,\min(1,Ct^{-4}),\qquad
+|\Phi_M'(t)|\le\frac t2\,A\,\min(1,Ct^{-4}).
+\end{gathered}
+\end{equation}
+
+\emph{Step 3 (differentiation under the integral).} By
+\eqref{eq:decay}, $\Phi_M\in L^1(\mathbb R)$; it is real and even.
+Hence $S_M$ has the bounded continuous even density
+$f_M(x)=\frac1\pi\int_0^\infty\Phi_M(t)\cos(tx)\,dt$, and
+\[
+\hd(M)-\frac12=\frac1\pi\int_0^\infty\Phi_M(t)\,\frac{\sin t}{t}\,dt
+\]
+(\cite[Lemma~7(b)]{WR}; its proof uses only that $\Phi_M$ is an
+integrable real even characteristic function). By \eqref{eq:decay}
+and $|\sin t|/t\le\min(1,1/t)$, the function
+$\frac{A}{2M_a}\min(t^2,Ct^{-3})$ is an integrable dominant for
+$\partial_M\Phi_M(t)\sin t/t$, uniform on $[M_a,M_b]$. Therefore
+$\hd$ is differentiable on $[M_a,M_b]$ with derivative
+$\mathcal D(M)$, and $\mathcal D$ is continuous because
+$\partial_M\Phi_M(t)$ is continuous in $M$ and dominated. As
+$0<M_a\le M_b$ were arbitrary, $\hd\in C^1(0,\infty)$ and
+\eqref{eq:deriv} holds.
+
+\emph{Step 4 (algebra).} By \eqref{eq:dPhi} and
+$c_j'=c_j(1-\eps_j)/M$,
+\[
+\partial_M\Phi_M(t)=\frac tM\,\Phi_M'(t)
++\frac tM\sum_j\eps_jc_j\,J_1(c_jt)\,\Phi_M^{(j)}(t),
+\]
+so
+\[
+M\,\hd'(M)=\frac1\pi\int_0^\infty\Phi_M'(t)\sin t\,dt
++\frac1\pi\int_0^\infty\sum_j\eps_jc_j\,J_1(c_jt)\,\Phi_M^{(j)}(t)\,\sin t\,dt .
+\]
+Integrating by parts, with vanishing boundary terms by
+\eqref{eq:decay}, the first integral equals
+\[
+-\int_0^\infty\Phi_M(t)\cos t\,dt=-\pi f_M(1).
+\]
+In the second, sum and integral may be exchanged, because by (B1) and \eqref{eq:decay}
+\[
+\sum_j\eps_jc_j\int_0^\infty|J_1(c_jt)|\,|\Phi_M^{(j)}(t)|\,dt
+\le\Bigl(\sum_j\frac{c_j^2}{2}\Bigr)\int_0^\infty t\min(1,Ct^{-4})\,dt<\infty .
+\]
+This gives \eqref{eq:Did}.
+\end{proof}
+
+\subsection{Envelopes for \texorpdfstring{$J_0$}{J0}}
+Fix the constants
+\[
+\rho:=0.446,\qquad z_*:=2\sqrt{\log(1/\rho)}=1.79714\ldots,\qquad
+z_{\mathrm{far}}:=\Bigl(\frac{8}{\pi\rho}\Bigr)^2=32.59\ldots,
+\]
+and define
+\[
+b(z):=\begin{cases}e^{-z^2/4}&(0\le z\le z_*),\\
+\rho&(z_*\le z\le z_{\mathrm{far}}),\\
+\frac8\pi z^{-1/2}&(z\ge z_{\mathrm{far}}),\end{cases}
+\qquad
+\beta(z_1):=\frac{-\log J_0(z_1)-z_1^2/4}{z_1^4}\quad(0<z_1<j_{0,1}).
+\]
+The function $b$ is continuous and nonincreasing, with $0<b\le1$
+(the three pieces agree at $z_*$ and at $z_{\mathrm{far}}$), and
+$z_*<2.4<j_{0,1}$.
+
+\begin{lemma}\label{lem:J}
+$|J_0(z)|\le b(z)$ for all $z\ge0$.
+\end{lemma}
+
+\begin{proof}
+For $0\le z<j_{0,1}$, (B3) gives $0<J_0(z)\le e^{-z^2/4}$; this
+covers $z\le z_*$. On $[z_*,2\sqrt2\,]$, $J_0$ is decreasing by (B4),
+so $J_0(z)\le J_0(z_*)\le e^{-z_*^2/4}=\rho$ and
+$J_0(z)\ge J_0(2\sqrt2)\ge-\rho$, the last by (B4). For $z\ge2\sqrt2$,
+$|J_0(z)|\le0.446=\rho$ by (B4). Finally $|J_0(z)|\le\frac8\pi z^{-1/2}$
+by (B2), and this is $\le\rho$ exactly when $z\ge z_{\mathrm{far}}$.
+\end{proof}
+
+\begin{lemma}\label{lem:L}
+For $0\le z\le z_1<j_{0,1}$: \
+$J_0(z)\ge\exp\bigl(-z^2/4-\beta(z_1)z^4\bigr)$, and $\beta(z_1)>0$.
+\end{lemma}
+
+\begin{proof}
+By (B3), $-\log J_0(z)-z^2/4=z^4\sum_{n\ge2}\frac{\lambda_n}{n}z^{2n-4}
+\le z^4\sum_{n\ge2}\frac{\lambda_n}{n}z_1^{2n-4}=\beta(z_1)z^4$, by the
+positivity of the $\lambda_n$.
+\end{proof}
+
+\subsection{The criterion}
+
+\begin{proposition}\label{prop:C0}
+In the setting of Section~\ref{subsec:envsetting} let $M>0$,
+$z_1\in(0,j_{0,1})$ and $0<t_1\le\min(\pi/2,\,z_1/c_1(M))$. Let
+$\overline{\sigma}^2\ge\sigma^2(M)$ and $\overline S_4\ge S_4(M)$ be
+real numbers, and let $W,W^1:[0,\infty)\to[0,\infty)$ be measurable
+functions with
+\[
+|\Phi_M(t)|\le W(t)\quad(t\ge t_1),\qquad
+|\Phi_M^{(j)}(t)|\le W^1(t)\quad(t\ge0,\ \text{every }j).
+\]
+Then
+\[
+-M\,\hd'(M)\;\ge\;\frac1\pi\int_0^{t_1}
+\exp\bigl(-\tfrac12\overline{\sigma}^2t^2-\beta(z_1)\overline S_4t^4\bigr)\cos t\,dt
+-\frac1\pi\int_{t_1}^\infty W(t)\,dt
+-\frac{\overline S_4}{32\pi}\int_0^\infty t^2\,W^1(t)\,dt .
+\]
+\end{proposition}
+
+\begin{proof}
+By Lemma~\ref{lem:diff}, $-M\hd'(M)=f_M(1)+R(M)$.
+
+\emph{The term $R$.} By (B1) and $|\sin t|\le t$,
+\[
+|R(M)|\le\frac1{2\pi}\sum_j\eps_jc_j^2\int_0^\infty t^2\,|\Phi_M^{(j)}(t)|\,dt
+\le\frac1{2\pi}\Bigl(\sum_j\eps_jc_j^2\Bigr)\int_0^\infty t^2W^1(t)\,dt
+\le\frac{\overline S_4}{32\pi}\int_0^\infty t^2W^1(t)\,dt,
+\]
+because $\eps_jc_j^2=16M^4/(M^2+\gamma_j^2)^2=c_j^4/16$, i.e.\
+$\sum_j\eps_jc_j^2=S_4/16$.
+
+\emph{The term $f_M(1)$.} For $0\le t\le t_1$ every argument
+satisfies $c_jt\le c_1t_1\le z_1$, so by Lemma~\ref{lem:L}
+\begin{align*}
+\Phi_M(t)&\ge\exp\Bigl(-\sum_j\frac{c_j^2t^2}{4}-\beta(z_1)\sum_jc_j^4t^4\Bigr)
+=\exp\bigl(-\tfrac12\sigma^2t^2-\beta(z_1)S_4t^4\bigr)\\
+&\ge\exp\bigl(-\tfrac12\overline{\sigma}^2t^2-\beta(z_1)\overline S_4t^4\bigr),
+\end{align*}
+and $\cos t\ge0$ there. Hence
+\begin{align*}
+\pi f_M(1)&=\int_0^{t_1}\Phi_M\cos t\,dt+\int_{t_1}^\infty\Phi_M\cos t\,dt\\
+&\ge\int_0^{t_1}\exp\bigl(-\tfrac12\overline{\sigma}^2t^2-\beta(z_1)\overline S_4t^4\bigr)\cos t\,dt
+-\int_{t_1}^\infty W(t)\,dt .\qedhere
+\end{align*}
+\end{proof}
+
+\begin{theorem}[envelope criterion]\label{thm:envelope}
+In the setting of Section~\ref{subsec:envsetting} let $M>0$ and
+$n\ge9$, and consider the $n$ lowest terms
+$\gamma_1\le\cdots\le\gamma_n$ of the sequence. Let $v\ge0$ be either
+\begin{itemize}
+\item[(a)] $v=0$, or
+\item[(b)] $v=v_n:=\sigma^2(M)-\sum_{i\le n}c_i^2/2
+=\sum_{i>n}c_i^2/2$.
+\end{itemize}
+Put
+\[
+B(t):=\prod_{i=1}^nb(c_it)\cdot
+\exp\Bigl(-\frac v2\,\min\bigl(t,\,z_*/c_n\bigr)^2\Bigr),
+\qquad B^1(t):=\frac{B(t)}{b(c_1t)},
+\]
+choose $z_1\in(0,j_{0,1})$ and $0<t_1\le\min(\pi/2,z_1/c_1)$, and
+define
+\begin{align*}
+\mathrm{MAIN}&:=\frac1\pi\int_0^{t_1}
+\exp\bigl(-\tfrac12\sigma^2t^2-\beta(z_1)S_4t^4\bigr)\cos t\,dt,\\
+\mathrm{TAILF}&:=\frac1\pi\int_{t_1}^\infty B(t)\,dt,\qquad
+\mathrm{NUM}:=\frac{S_4}{32\pi}\int_0^\infty t^2B^1(t)\,dt .
+\end{align*}
+Then
+\[
+-M\,\hd'(M)\;\ge\;\mathrm{MAIN}-\mathrm{TAILF}-\mathrm{NUM}.
+\]
+In particular $\hd'(M)<0$ whenever
+$\mathrm{MAIN}-\mathrm{TAILF}-\mathrm{NUM}>0$.
+\end{theorem}
+
+(In case (b) the sequence is ordered, so every term with index $>n$
+has $c_i\le c_n$; for the ordinates of an $L$-function this means
+that $\gamma_1,\dots,\gamma_n$ must be \emph{all} the ordinates in
+$(0,\gamma_n]$, with multiplicity.)
+
+\begin{proof}
+We verify the hypotheses of Proposition~\ref{prop:C0} with $W=B$,
+$W^1=B^1$, $\overline{\sigma}^2=\sigma^2$, $\overline S_4=S_4$.
+
+\emph{$|\Phi|\le B$.} By Lemma~\ref{lem:J} and $|J_0|\le1$,
+$|\Phi(t)|\le\prod_{i\le n}b(c_it)$, which is case (a). In case (b),
+every $i>n$ has $c_i\le c_n$. For $t\le z_*/c_n$ then $c_it\le z_*$
+and $b(c_it)=\exp(-c_i^2t^2/4)$, and the product of these over $i>n$
+is $\exp(-v_nt^2/2)$. For $t>z_*/c_n$,
+$b(c_it)\le b(c_iz_*/c_n)$ by monotonicity, with product
+$\exp(-v_nz_*^2/(2c_n^2))$. So $|\Phi(t)|\le B(t)$ in both cases.
+
+\emph{$|\Phi^{(j)}|\le B^1$ for every $j$.} For $j=1$ this is the same
+computation with the first factor omitted. For $2\le j\le n$ the
+bound obtained is $B(t)/b(c_jt)$, and $b(c_1t)\le b(c_jt)$ since
+$c_1\ge c_j$. For $j>n$ the bound obtained is $B(t)$ in case (a), and
+$B(t)/b\bigl(c_j\min(t,z_*/c_n)\bigr)$ in case (b) (the factor
+$\exp(-c_j^2\min(t,z_*/c_n)^2/4)$ is absent from the product); and
+$b(c_1t)\le b\bigl(c_j\min(t,z_*/c_n)\bigr)\le1$ because
+$c_j\min(t,z_*/c_n)\le c_1t$.
+
+Since $B^1$ contains at least eight factors $b(c_it)$, we have
+$t^2B^1(t)=O(t^{-2})$ and all integrals converge.
+Proposition~\ref{prop:C0} gives the claim.
+\end{proof}
+
+\begin{corollary}[cell form]\label{cor:cell}
+Let $0<M_a\le M_b$. With the notation of Theorem~\ref{thm:envelope},
+evaluate $\mathrm{MAIN}$ with $\sigma^2(M_b)$, $S_4(M_b)$ and
+$t_1\le\min(\pi/2,z_1/c_1(M_b))$; evaluate $B$ and $B^1$ with
+$c_i(M_a)$ $(i\le n)$ and, in case \textup{(b)}, with $v_n(M_a)$ and
+$c_n(M_a)$; evaluate the prefactor of $\mathrm{NUM}$ with $S_4(M_b)$.
+Call the results $\mathrm{MAIN}_{\mathrm{cell}}$,
+$\mathrm{TAILF}_{\mathrm{cell}}$, $\mathrm{NUM}_{\mathrm{cell}}$,
+$B_{\mathrm{cell}}$, $B^1_{\mathrm{cell}}$. Then for every
+$M\in[M_a,M_b]$
+\[
+-M\,\hd'(M)\;\ge\;\mathrm{MAIN}_{\mathrm{cell}}
+-\mathrm{TAILF}_{\mathrm{cell}}-\mathrm{NUM}_{\mathrm{cell}} ,
+\]
+so $\hd'<0$ on the whole closed cell if the right-hand side is
+positive.
+\end{corollary}
+
+\begin{proof}
+Fix $M\in[M_a,M_b]$; we verify the hypotheses of
+Proposition~\ref{prop:C0} with $W=B_{\mathrm{cell}}$,
+$W^1=B^1_{\mathrm{cell}}$, $\overline{\sigma}^2=\sigma^2(M_b)$,
+$\overline S_4=S_4(M_b)$.
+
+(i) \emph{Monotone quantities.} Each
+$c_i(M)=4/\sqrt{1+\gamma_i^2/M^2}$ is increasing in $M$; hence so are
+$\sigma^2(M)$ and $S_4(M)$, termwise. So
+$\sigma^2(M)\le\sigma^2(M_b)$, $S_4(M)\le S_4(M_b)$,
+$c_i(M)\ge c_i(M_a)$, and $t_1\le z_1/c_1(M_b)\le z_1/c_1(M)$: the
+chosen $t_1$ is admissible for $M$.
+
+(ii) \emph{Listed factors.} For $i\le n$:
+$|J_0(c_i(M)t)|\le b(c_i(M)t)\le b(c_i(M_a)t)$, by Lemma~\ref{lem:J}
+and because $b$ is nonincreasing.
+
+(iii) \emph{Unlisted factors, case (b).} Put
+$\mu:=\min(t,z_*/c_n(M_a))$. For any set $I$ of indices $>n$, using
+that $b$ is nonincreasing (twice) and then
+$c_i(M_a)\mu\le c_n(M_a)\mu\le z_*$,
+\[
+\prod_{i\in I}|J_0(c_i(M)t)|\le\prod_{i\in I}b(c_i(M_a)t)
+\le\prod_{i\in I}b(c_i(M_a)\mu)
+=\exp\Bigl(-\frac{\mu^2}{4}\sum_{i\in I}c_i(M_a)^2\Bigr).
+\]
+For $I=\{i>n\}$ the exponent is $-\frac{\mu^2}{2}v_n(M_a)$; for
+$I=\{i>n\}\setminus\{j\}$ the bound is
+\[
+\exp\bigl(-\tfrac{\mu^2}{2}v_n(M_a)\bigr)\big/b(c_j(M_a)\mu).
+\]
+(In case (a) the unlisted factors are bounded by $1$.)
+
+(iv) \emph{Assembly.} From (ii)--(iii),
+$|\Phi_M(t)|\le B_{\mathrm{cell}}(t)$. For $j\le n$,
+\[
+|\Phi_M^{(j)}(t)|\le\frac{B_{\mathrm{cell}}(t)}{b(c_j(M_a)t)}
+\le\frac{B_{\mathrm{cell}}(t)}{b(c_1(M_a)t)}=B^1_{\mathrm{cell}}(t),
+\]
+because $c_1(M_a)\ge c_j(M_a)$. For $j>n$,
+\[
+|\Phi_M^{(j)}(t)|\le\frac{B_{\mathrm{cell}}(t)}{b(c_j(M_a)\mu)}
+\le B^1_{\mathrm{cell}}(t),
+\]
+because $c_j(M_a)\mu\le c_1(M_a)t$ (in case (a) simply
+$|\Phi_M^{(j)}|\le B_{\mathrm{cell}}\le B^1_{\mathrm{cell}}$).
+Proposition~\ref{prop:C0} now gives the claim.
+\end{proof}
+
+\begin{remark}\label{rem:K}
+(1) Where $\mathrm{MAIN}>\mathrm{TAILF}$, the ratio
+$K:=\mathrm{NUM}/(\mathrm{MAIN}-\mathrm{TAILF})$ measures the margin
+of the criterion, which holds when $K<1$. (The inequality $K<1$ alone
+proves nothing when $\mathrm{MAIN}\le\mathrm{TAILF}$.) In the Gaussian
+regime $\mathrm{MAIN}\approx(2\pi\sigma^2)^{-1/2}$ and
+$\mathrm{NUM}\approx\frac{S_4}{32\sigma^2}(2\pi\sigma^2)^{-1/2}$, so
+$K\approx S_4/(32\sigma^2)=\sum_j\eps_jc_j^2/\sum_jc_j^2\le\tfrac12$
+once $S_4\le16\sigma^2$: heuristically the criterion needs no better
+than a factor $2$, which is why it has room where bounds that track
+the oscillation of the inversion integral do not. This is a
+heuristic; the statements used below are
+Theorems~\ref{thm:envelope} and~\ref{thm:E} and
+Corollary~\ref{cor:cell}.
+
+(2) No cancellation is used anywhere: the proof bounds
+$|J_1(z)|\le z/2$, $|\sin t|\le t$, $|J_0|\le b$, and uses the
+positivity of the Taylor coefficients of $-\log J_0$.
+\end{remark}
+
+\subsection{Closed forms for the ordinates of an \texorpdfstring{$L$}{L}-function}
+
+\begin{lemma}\label{lem:S4}
+Let $\chi$ be a real primitive character mod $q$ with
+$\chi(-1)=(-1)^a$, assume GRH$(\chi)$ and NCZ$(\chi)$, and for $M>0$
+put $s=M+\tfrac12$ and
+\[
+h(M):=\frac{\Lambda'}{\Lambda}(s,\chi)
+=\tfrac12\log\frac q\pi+\tfrac12\,\psi\Bigl(\frac{s+a}{2}\Bigr)+\frac{L'}{L}(s,\chi).
+\]
+Then, for the sequence of positive ordinates of $L(s,\chi)$,
+\begin{gather*}
+\sigma^2(M)=4M\,h(M),\qquad
+S_4(M)=64M\,h(M)-64M^2\,h'(M),\\
+h'(M)=\tfrac14\,\psi'\Bigl(\frac{s+a}{2}\Bigr)+\Bigl(\frac{L'}{L}\Bigr)'(s,\chi).
+\end{gather*}
+\end{lemma}
+
+\begin{proof}
+The first identity is Proposition~\ref{prop:WRvar}; it says
+$\sum_\gamma(M^2+\gamma^2)^{-1}=h(M)/(2M)$. The series
+$\sum_\gamma2M(M^2+\gamma^2)^{-2}$ of termwise derivatives converges
+locally uniformly on $(0,\infty)$, so
+$-2M\sum_\gamma(M^2+\gamma^2)^{-2}=h'(M)/(2M)-h(M)/(2M^2)$, i.e.\
+$\sum_\gamma(M^2+\gamma^2)^{-2}=h/(4M^3)-h'/(4M^2)$, and
+$S_4=256M^4\sum_\gamma(M^2+\gamma^2)^{-2}$.
+\end{proof}
+
+\section{A uniform large-weight theorem, and the General Theorem}
+\label{sec:largeweight}
+
+Throughout this section $\chi$ is a real primitive Dirichlet character
+mod $q\ge3$ with $\chi(-1)=(-1)^a$, GRH$(\chi)$ and NCZ$(\chi)$ are
+assumed, the sequence of Section~\ref{subsec:envsetting} is the
+sequence of positive ordinates of $L(s,\chi)$ (with multiplicity), and
+$h$ is the function of Lemma~\ref{lem:S4}. Put
+\begin{gather*}
+\tau:=\frac{z_*}{4}=0.44928\ldots,\qquad
+c_\kappa:=\frac{4}{\sqrt{26}},\qquad
+T_c:=\Bigl(\frac8\pi\Bigr)^2\frac1{c_\kappa}=8.2662\ldots,\\
+\beta_*:=\beta(z_*)=\frac{\log(\rho/J_0(z_*))}{z_*^4},
+\end{gather*}
+so that $\rho=e^{-z_*^2/4}$ and $e^{-x\tau^2/2}=\rho^{x/8}$, and for
+$x>8$
+\begin{multline}\label{eq:defG}
+G(x):=1-\frac{\frac12+48\beta_*}{x}-\frac12\Bigl(1-\frac8x\Bigr)^{-3/2}
+-\sqrt{2\pi x}\,\Bigl[\frac{\rho^{x/8}}{\pi x\tau}
++\frac{9}{7\pi}\,T_c\,\rho^{(x-72)/8}\Bigr]\\
+-\frac{x^{3/2}}{\sqrt{2\pi}}\cdot\frac43\,T_c^3\,\rho^{(x-80)/8}.
+\end{multline}
+
+\begin{theorem}[uniform large-weight theorem]\label{thm:E}
+Let $\chi$ be a real primitive Dirichlet character and assume
+GRH$(\chi)$ and $L(\tfrac12,\chi)\ne0$. Then for every $M\ge40$
+\[
+-M\,\hd_\chi'(M)\;\ge\;\frac{G(\sigma_M^2)}{\sqrt{2\pi}\,\sigma_M}
+\;\ge\;\frac{0.3219}{\sqrt{2\pi}\,\sigma_M}\;>\;0 .
+\]
+In particular $\hd_\chi$ is strictly decreasing on $[40,\infty)$.
+\end{theorem}
+
+No ordinate of any zero is used. The proof reduces the theorem to the
+four numerical inequalities \textup{(E2)--(E5)} below, between values
+of elementary functions, the digamma function and $J_0$ at explicit
+points. These were evaluated in ball arithmetic (program
+\texttt{analytic\_leg.py} in \texttt{monotonicity/envelope-cert/},
+$128$-bit Arb balls, lower endpoints rounded down and upper endpoints
+rounded up) and recomputed independently at $30$ digits by an internal
+referee; the certified values are
+\begin{equation}\label{eq:Evalues}
+\begin{gathered}
+\textup{(E2)}\ \ \frac1{2(s+1)}-Z_2(s)\ \ge\ 0.0120481\ \ (s=40.5);\qquad
+\textup{(E3)}\ \ \sigma_0^2\ \ge\ 236.97110;\\
+\textup{(E4)}\ \ N_\chi(200)\ \ge\ 11.3751;\qquad
+\textup{(E5)}\ \ G(\sigma_0^2)\ \ge\ 0.3219715,\\
+\text{with }\beta_*\le0.025553,\ T_c\le8.266220\text{ in (E5)},
+\end{gathered}
+\end{equation}
+in the notation introduced in the proof.
+
+\begin{proof}
+Write $s=M+\tfrac12$ and $L_2:=\log2$. For real $s\ge4$,
+\begin{align*}
+\Bigl|\frac{L'}{L}(s,\chi)\Bigr|&\le\sum_{n\ge2}\frac{\log n}{n^{s}}
+\le Z_1(s):=L_2\,2^{-s}+2^{1-s}\Bigl(\frac{L_2}{s-1}+\frac1{(s-1)^2}\Bigr),\\
+\Bigl|\Bigl(\frac{L'}{L}\Bigr)'(s,\chi)\Bigr|&\le\sum_{n\ge2}\frac{\log^2n}{n^{s}}
+\le Z_2(s):=L_2^2\,2^{-s}+2^{1-s}\Bigl(\frac{L_2^2}{s-1}+\frac{2L_2}{(s-1)^2}
++\frac{2}{(s-1)^3}\Bigr)
+\end{align*}
+(the first term plus the integral over $[2,\infty)$; the integrands
+$x^{-s}\log x$ and $x^{-s}\log^2x$ are decreasing on $[2,\infty)$
+because $\log2>2/s$). $Z_1$ and $Z_2$ are decreasing in $s$.
+
+\emph{Step 0.} Every $c_j=4/\sqrt{1+\gamma_j^2/M^2}$ is $<4$, so
+$c_j^2/2\le8$.
+
+\emph{Step 1: $S_4\le16\sigma^2$ for $M\ge40$.} By
+Lemma~\ref{lem:S4}, $S_4=16\sigma^2-64M^2h'$. Since
+$\psi'(x)=\sum_{k\ge0}(x+k)^{-2}\ge\int_x^\infty u^{-2}du=1/x$ and
+$\psi'$ is decreasing,
+\[
+h'(M)\ge\tfrac14\psi'\Bigl(\frac{s+1}{2}\Bigr)-Z_2(s)
+\ge\frac{1}{2(s+1)}-Z_2(s).
+\]
+The function $(s+1)Z_2(s)$ is decreasing for $s\ge4$ (a product of
+positive decreasing functions), so $\frac1{2(s+1)}>Z_2(s)$ for all
+$s\ge40.5$ as soon as it holds at $s=40.5$; that is (E2). Hence
+$h'(M)>0$ and $S_4(M)\le16\sigma^2(M)$ for all $M\ge40$.
+
+\emph{Step 2: $\sigma^2(M)\ge\sigma_0^2$ for $M\ge40$.} Each term
+$8M^2/(M^2+\gamma^2)$ of $\sigma^2(M)$ is increasing in $M$, so
+$\sigma^2(M)\ge\sigma^2(40)=160\,h(40)$, and by Lemma~\ref{lem:S4}
+\[
+h(40)\ge\tfrac12\log\frac q\pi+\tfrac12\psi\Bigl(\frac{40.5+a}{2}\Bigr)-Z_1(40.5).
+\]
+Odd real primitive characters have $q\ge3$ and even ones $q\ge5$.
+Let $\sigma_0^2$ be the minimum, over the two pairs
+$(a,q_{\min})\in\{(1,3),(0,5)\}$, of
+$160\,[\tfrac12\log(q_{\min}/\pi)+\tfrac12\psi((40.5+a)/2)-Z_1(40.5)]$.
+Then $\sigma^2(M)\ge\sigma_0^2$ for every $\chi$ and every $M\ge40$,
+and (E3) is the evaluation of $\sigma_0^2$ (the minimum is attained
+for $(a,q)=(1,3)$).
+
+\emph{Step 3: at least nine ordinates are $\le5M$, for $M\ge40$.} Let
+$N_\chi(\Gamma)$ be the number of ordinates in $(0,\Gamma]$. We claim
+that for all $Y,\Gamma>0$
+\begin{equation}\label{eq:countlemma}
+N_\chi(\Gamma)\;\ge\;\frac Y2\Bigl[h(Y)-\frac{2Y}{\Gamma}\,h(\Gamma)\Bigr].
+\end{equation}
+Indeed, in $\sigma^2(Y)=\sum_\gamma8Y^2/(Y^2+\gamma^2)$ each ordinate
+$\gamma\le\Gamma$ contributes at most $8$, and for $\gamma>\Gamma$
+\[
+\frac{8Y^2}{Y^2+\gamma^2}\le\frac{2Y^2}{\Gamma^2}\cdot
+\frac{8\Gamma^2}{\Gamma^2+\gamma^2},
+\]
+because this is equivalent to $\Gamma^2+\gamma^2\le2Y^2+2\gamma^2$.
+Summing, $\sigma^2(Y)\le8N_\chi(\Gamma)+(2Y^2/\Gamma^2)\sigma^2(\Gamma)$,
+and \eqref{eq:countlemma} follows from $\sigma^2(Y)=4Yh(Y)$,
+$\sigma^2(\Gamma)=4\Gamma h(\Gamma)$. Take $Y=40$, $\Gamma=200$,
+$w:=2Y/\Gamma=\tfrac25$. By Lemma~\ref{lem:S4},
+\[
+h(Y)-w\,h(\Gamma)\ge(1-w)\,\tfrac12\log\frac q\pi
++\tfrac12\psi\Bigl(\frac{Y+\frac12+a}{2}\Bigr)
+-\frac w2\,\psi\Bigl(\frac{\Gamma+\frac12+a}{2}\Bigr)
+-Z_1(Y+\tfrac12)-w\,Z_1(\Gamma+\tfrac12),
+\]
+and since $1-w\ge0$ the right-hand side is smallest at $q=q_{\min}$.
+(E4) states that for both pairs $(a,q_{\min})$ the resulting lower
+bound for $\frac Y2[\,\cdots]$ is at least $11.3751$. Hence
+$N_\chi(200)\ge12\ge9$ for every $\chi$, and for $M\ge40$ the nine
+lowest ordinates satisfy $\gamma_i\le200\le5M$, i.e.
+\begin{equation}\label{eq:ninelow}
+c_i(M)\ge c_\kappa=\frac4{\sqrt{26}}\qquad(i=1,\dots,9).
+\end{equation}
+
+\emph{Step 4: envelopes.} Let $\mathcal L:=\{1,\dots,9\}$ and
+$M\ge40$.
+
+For $0\le t\le\tau$: $c_jt\le4\tau=z_*<j_{0,1}$ for all $j$, and
+$0<J_0(c_jt)\le e^{-c_j^2t^2/4}$ by (B3). Hence
+\[
+|\Phi(t)|\le e^{-\sigma^2t^2/2},\qquad
+|\Phi^{(j)}(t)|\le e^{-(\sigma^2-c_j^2/2)t^2/2}\le e^{-(\sigma^2-8)t^2/2}
+\quad(\text{every }j).
+\]
+For $t\ge\tau$ and $j\notin\mathcal L$:
+$|J_0(c_jt)|\le b(c_jt)\le b(c_j\tau)=e^{-c_j^2\tau^2/4}$, by
+Lemma~\ref{lem:J}, because $b$ is nonincreasing and $c_j\tau\le z_*$.
+For $i\in\mathcal L$: $|J_0(c_it)|\le p(t):=\min\bigl(1,\frac8\pi(c_\kappa t)^{-1/2}\bigr)$
+by (B1), (B2) and \eqref{eq:ninelow}; thus $p(t)=1$ for $t\le T_c$ and
+$p(t)=(T_c/t)^{1/2}$ for $t\ge T_c$. The terms outside $\mathcal L$
+carry the variance $\sigma^2-\sum_{i\in\mathcal L}c_i^2/2\ge\sigma^2-72$.
+Therefore, for $t\ge\tau$,
+\[
+|\Phi(t)|\le\rho^{(\sigma^2-72)/8}\,p(t)^9,\qquad
+|\Phi^{(j)}(t)|\le\rho^{(\sigma^2-80)/8}\,p(t)^8\quad(\text{every }j):
+\]
+for $j\in\mathcal L$ eight factors $p$ remain and the other terms give
+$\rho^{(\sigma^2-72)/8}\le\rho^{(\sigma^2-80)/8}$; for
+$j\notin\mathcal L$ nine factors $p\le1$ remain and the terms outside
+$\mathcal L\cup\{j\}$ have variance at least $\sigma^2-72-8$. Define
+\[
+W(t):=\rho^{(\sigma^2-72)/8}p(t)^9\ \ (t\ge\tau),\qquad
+W^1(t):=\begin{cases}e^{-(\sigma^2-8)t^2/2}&(t\le\tau),\\
+\rho^{(\sigma^2-80)/8}p(t)^8&(t>\tau).\end{cases}
+\]
+
+\emph{Step 5: Proposition~\ref{prop:C0}.} Apply it with $z_1=z_*$
+($<2.4<j_{0,1}$), $t_1=\tau$ ($\le\pi/2$, and $c_1t_1\le4\tau=z_1$),
+$\overline{\sigma}^2=\sigma^2$, $\overline S_4=16\sigma^2$ (Step~1),
+and $W$, $W^1$ as above (the sequence has at least nine terms by
+Step~3):
+\begin{equation}\label{eq:Ethree}
+-M\hd'(M)\ge\frac1\pi\int_0^\tau e^{-\sigma^2t^2/2-16\beta_*\sigma^2t^4}\cos t\,dt
+-\frac1\pi\int_\tau^\infty W\,dt-\frac{\sigma^2}{2\pi}\int_0^\infty t^2W^1\,dt .
+\end{equation}
+\emph{First integral.} For $x\ge0$ and $0\le t\le\tau$,
+$e^{-x}\cos t\ge1-x-t^2/2$ (if $1-x\ge0$ multiply the bounds
+$e^{-x}\ge1-x\ge0$ and $\cos t\ge1-t^2/2>0$; otherwise the left side
+is $\ge0\ge1-x$). With $x=16\beta_*\sigma^2t^4$, the Gaussian moments
+$\int_0^\infty t^2e^{-\sigma^2t^2/2}dt=\sqrt{\pi/2}\,\sigma^{-3}$,
+$\int_0^\infty t^4e^{-\sigma^2t^2/2}dt=3\sqrt{\pi/2}\,\sigma^{-5}$, and
+$\int_\tau^\infty e^{-\sigma^2t^2/2}dt\le e^{-\sigma^2\tau^2/2}/(\sigma^2\tau)
+=\rho^{\sigma^2/8}/(\sigma^2\tau)$,
+\[
+\frac1\pi\int_0^\tau e^{-\sigma^2t^2/2-16\beta_*\sigma^2t^4}\cos t\,dt
+\ge\frac{1}{\sqrt{2\pi}\,\sigma}\Bigl[1-\frac1{2\sigma^2}-\frac{48\beta_*}{\sigma^2}\Bigr]
+-\frac{\rho^{\sigma^2/8}}{\pi\sigma^2\tau}.
+\]
+\emph{Second integral.} $\int_\tau^\infty p^9\le T_c+\int_{T_c}^\infty(T_c/t)^{9/2}dt
+=\frac97T_c$, so
+$\frac1\pi\int_\tau^\infty W\le\frac{9}{7\pi}T_c\,\rho^{(\sigma^2-72)/8}$.
+
+\noindent\emph{Third integral.}
+$\int_0^\tau t^2e^{-(\sigma^2-8)t^2/2}dt\le\sqrt{\pi/2}\,(\sigma^2-8)^{-3/2}$
+and $\int_\tau^\infty t^2p^8\le\frac13T_c^3+\int_{T_c}^\infty T_c^4t^{-2}dt
+=\frac43T_c^3$, so
+\[
+\frac{\sigma^2}{2\pi}\int_0^\infty t^2W^1\,dt\le
+\frac{1}{\sqrt{2\pi}\,\sigma}\cdot\frac12\Bigl(1-\frac8{\sigma^2}\Bigr)^{-3/2}
++\frac{\sigma^2}{2\pi}\cdot\frac43\,T_c^3\,\rho^{(\sigma^2-80)/8}.
+\]
+Multiplying \eqref{eq:Ethree} by $\sqrt{2\pi}\,\sigma$ and collecting
+the terms gives $\sqrt{2\pi}\,\sigma\cdot(-M\hd'(M))\ge G(\sigma^2)$,
+with $G$ as in \eqref{eq:defG}.
+
+\emph{Step 6: $G(\sigma^2)\ge G(\sigma_0^2)>0$.} For $x\ge15$ every
+subtracted term of $G$ is decreasing in $x$: $1/x$;
+$(1-8/x)^{-3/2}$; $x^{-1/2}\rho^{x/8}$; $x^{1/2}\rho^{x/8}$ (for
+$x>4/\log(1/\rho)=4.954\ldots$); and $x^{3/2}\rho^{x/8}$ (for
+$x>12/\log(1/\rho)=14.862\ldots$). So $G$ is increasing on $[15,\infty)$, and
+by Step~2, $G(\sigma^2(M))\ge G(\sigma_0^2)$; by (E5) this is
+$\ge0.3219715>0.3219$.
+\end{proof}
+
+\begin{remark}\label{rem:Enotes}
+(1) \emph{Multiplicities.} The theorem concerns the model of
+Section~\ref{subsec:setting}, in which a zero of multiplicity $k$
+contributes $k$ independent amplitudes $c\le4$; the step
+$c_j\tau\le z_*$ would fail if such a zero were modelled as one
+amplitude $kc$. Under LI all zeros are simple and the two readings
+coincide.
+
+(2) \emph{What the bound is worth.} For $q=3,4$ and
+$M\in\{40,50,100,400,2000\}$ the bound of Theorem~\ref{thm:E} is
+between $0.50$ and $0.88$ of the certified lower bound of
+Section~\ref{sec:main} for the same $M$, and never above it (for
+instance $q=4$, $M=50$: $0.010220$ against $0.013341$). The constant
+$0.3219$ is not optimised; the same proof with other auxiliary
+parameters gives $G\ge0.475$ for $M\ge50$, and on the grid of
+parameters that was searched the smallest threshold reached is
+$M\ge38.5$. The theorem does not reproduce the two-sided asymptotic
+for $\hd_\chi'$ of \cite[Theorem~4]{WR}.
+
+(3) \emph{Relation to \cite{WR}.} The argument is independent of the
+large-weight results of the companion paper: it uses none of its zero
+counts or tail bounds, only the variance identity and the facts (B1)--(B4).
+\end{remark}
+
+\begin{theorem}[General Theorem, precise form]\label{thm:general}
+Let $\chi$ be a real primitive Dirichlet character and assume
+GRH$(\chi)$ and $L(\tfrac12,\chi)\ne0$. Then:
+\begin{enumerate}
+\item[(i)] $\hd_\chi\in C^1(0,\infty)$, and $\hd_\chi'$ is given by
+\eqref{eq:deriv} and \eqref{eq:Did};
+\item[(ii)] $\hd_\chi$ is strictly decreasing on $(0,M_0(\chi)]$;
+\item[(iii)] for every $M\ge40$,
+$-M\hd_\chi'(M)\ge G(\sigma_M^2)/(\sqrt{2\pi}\,\sigma_M)
+\ge0.3219/(\sqrt{2\pi}\,\sigma_M)>0$; in particular $\hd_\chi$ is
+strictly decreasing on $[40,\infty)$;
+\item[(iv)] $Q_\chi(40)>38$, hence $M_0(\chi)<40$.
+\end{enumerate}
+Under LI$(\chi)$ in addition, $\hd_\chi(M)$ is the logarithmic density
+of $\{x\ge2:D_{m,b}(x)>0\}$, $m=M-\tfrac12$, for every real $b$.
+\end{theorem}
+
+\begin{proof}
+(i) is Lemma~\ref{lem:diff}, (ii) is Theorem~\ref{thm:B}(ii), (iii) is
+Theorem~\ref{thm:E}, and the last sentence is
+Theorem~\ref{thm:B}(iii). For (iv): since $c_j<4$,
+$Q_\chi(M)=\sum_jc_j^3/16\ge\sum_jc_j^4/64=S_4(M)/64$. At $M=40$,
+$s=40.5$, Lemma~\ref{lem:S4} gives
+$S_4=16\sigma^2-64\cdot1600\cdot h'(40)$, and
+$h'(40)\le\frac14\psi'(20.25)+Z_2(40.5)\le0.01296+10^{-10}$, using
+$\psi'(x)=\sum_{k\ge0}(x+k)^{-2}\le x^{-2}+x^{-1}$ at $x=20.25$ (the
+smaller of the two possible arguments $(s+a)/2$) and
+$Z_2(40.5)<2^{-39}$. With $\sigma^2(40)\ge236.97$ (Step~2 of the proof
+of Theorem~\ref{thm:E}),
+$S_4(40)\ge16\cdot236.97-102400\cdot0.01297>2463$, so
+$Q_\chi(40)>38$. As $Q_\chi$ is increasing and $Q_\chi(M_0)=1$, this
+gives $M_0(\chi)<40$.
+\end{proof}
+
+Thus for every real primitive $\chi$ (under GRH$(\chi)$ and
+NCZ$(\chi)$) the half-line splits into a range $(0,M_0(\chi)]$ of
+monotonicity near the critical weight, a range $[40,\infty)$ of
+monotonicity for large weights, and a nonempty intermediate interval
+$(M_0(\chi),40)$ on which Theorem~\ref{thm:general} asserts nothing.
+Sections~\ref{sec:main} and~\ref{sec:nonmono} show that both
+behaviours occur there.
+
+\section{Full monotonicity for \texorpdfstring{$q=3,4$}{q=3,4}: a
+computer-assisted theorem}\label{sec:main}
+
+Throughout this section $q\in\{3,4\}$ and $\chi=\chi_q$; both
+characters are odd, NCZ$(\chi)$ holds unconditionally, and
+GRH$(\chi)$ is assumed. The sequence of
+Section~\ref{subsec:envsetting} is the sequence of positive ordinates
+of $L(s,\chi_q)$, and $\hd_q$, $\sigma^2$, $S_4$, $h$ are as in
+Sections~\ref{sec:envelope}--\ref{sec:largeweight}.
+
+\subsection{The envelope certificate}\label{subsec:envcert}
+
+The certificate (directory \texttt{monotonicity/envelope-cert/} of the
+repository; program \texttt{certify\_envelope.py}, method note
+\texttt{METHOD.md}) evaluates the hypothesis of
+Corollary~\ref{cor:cell}, case~(b), with the $n=12$ lowest ordinates,
+in Arb ball arithmetic at $128$ bits. For a cell $[M_a,M_b]$ with
+exact rational endpoints it computes a number
+$\mathrm{LB}$ and reports the cell as certified only if it has verified
+that
+\[
+\mathrm{MAIN}_{\mathrm{cell}}-\mathrm{TAILF}_{\mathrm{cell}}
+-\mathrm{NUM}_{\mathrm{cell}}\;\ge\;\mathrm{LB}\;>\;0 ,
+\]
+the last comparison being made on the lower endpoint of a ball. By
+Corollary~\ref{cor:cell} this gives $-M\hd_q'(M)\ge\mathrm{LB}$, hence
+$\hd_q'(M)\le-\mathrm{LB}/M_b<0$, for every real $M$ in the closed
+cell. In outline:
+\begin{itemize}
+\item \emph{Ordinates.} The twelve lowest ordinates enter as balls
+$d\pm10^{-20}$, $d$ the listed decimal. Completeness of the list is
+used to identify $v_{12}(M_a)$ with the contribution of all other
+zeros.
+\item \emph{Closed forms.} $\sigma^2=4Mh$ and $S_4=64Mh-64M^2h'$
+(Lemma~\ref{lem:S4}) are evaluated at the exact endpoints. For
+$s=M+\tfrac12\ge4$ this is done from the Dirichlet series of $L'/L$ and
+$(L'/L)'$ over prime powers up to $20000$ with integral-test bounds
+for the remainder, and $\psi$, $\psi'$ in Arb. For the $127$ cells
+with $M_a<3.5$, $h$ is evaluated by a complex-step formula with a
+Cauchy remainder, and $S_4$ is enclosed without $h'$ from the full
+list of ordinates:
+$\sum_{i\le N}c_i^4\le S_4\le\sum_{i\le N}c_i^4+c_N^2\cdot2V$, where
+$V=\sigma^2-\sum_{i\le N}c_i^2/2$ is the variance of the unlisted
+zeros; this step uses that the list is complete and the listed zeros
+simple.
+\item \emph{Integrals.} $\mathrm{MAIN}$ is a lower Riemann sum of a
+positive decreasing integrand; $\mathrm{TAILF}$ and $\mathrm{NUM}$ are
+upper Riemann sums (the envelopes $B$, $B^1$ are nonincreasing) on an
+exact dyadic grid, plus a closed-form bound for the part beyond the
+last grid point, where nine factors are in the range
+$z\ge z_{\mathrm{far}}$. For $\beta(z_1)$ the function $J_0$ is
+evaluated at one of $20$ exact rational points $z_1<2.4$. Floating
+point is used only to place grid points and to print; every quantity
+chosen with its help is an exact rational that is re-verified in ball
+arithmetic.
+\end{itemize}
+
+\noindent\textbf{Recorded result} (from the summary blocks of the
+files \texttt{results\_q4.txt} and \texttt{results\_q3.txt} of that
+directory, which also record the SHA-256 digests of the program, of
+the shared module and of the zero file used):
+\[
+\begin{array}{c|c|c|c|c|c}
+q & \text{certified range of }M & \text{cells} & \text{failed} &
+\text{smallest }\mathrm{LB} & \text{weakest bound on }\hd_q'\\\hline
+4 & [1,\,2000] & 765 & 0 & 1.318804\times10^{-3} & \hd_4'\le-6.616829\times10^{-7}\\
+3 & [1,\,2000] & 765 & 0 & 1.353296\times10^{-3} & \hd_3'\le-6.789885\times10^{-7}
+\end{array}
+\]
+The cells are contiguous, consecutive endpoints having ratio $1.01$,
+and tile $[1,2000]$ exactly. On every cell
+$\mathrm{MAIN}>\mathrm{TAILF}$ and
+$\mathrm{NUM}/(\mathrm{MAIN}-\mathrm{TAILF})\le0.44115$ ($q=4$), resp.\
+$\le0.43819$ ($q=3$), the largest values occurring at the top of the
+range; so the criterion never has less than a factor $2.26$ to spare.
+The first cell $[1,1.01]$ carries the certified upper bounds
+\begin{equation}\label{eq:sig101}
+\sigma^2(1.01)\le0.6292\quad(q=4),\qquad
+\sigma^2(1.01)\le0.4599\quad(q=3).
+\end{equation}
+We re-parsed the two result files with the script of
+Section~\ref{sec:numerics}(5): $765$ certified cells each, contiguous,
+covering $[1,2000]$, with the values of the table.
+
+\begin{proposition}[content of the envelope certificate]
+\label{prop:envcert}
+Let $q\in\{3,4\}$ and assume GRH$(\chi_q)$. Granted the inputs
+\textup{(T1)--(T3)} of Section~\ref{subsec:inputs},
+$\hd_q'(M)<0$ for every $M\in[1,2000]$, with the bounds of the table
+above, and \eqref{eq:sig101} holds.
+\end{proposition}
+
+\begin{proof}
+Corollary~\ref{cor:cell}, case (b), $n=12$, on each cell; its
+hypothesis is what the certificate evaluates. The identification of
+the computed numbers with $\sigma^2$, $S_4$, $v_{12}$ uses
+Lemma~\ref{lem:S4} (i.e.\ (T3)) and the completeness and simplicity of
+the lists (T1).
+\end{proof}
+
+\subsection{The trusted inputs}\label{subsec:inputs}
+
+\begin{itemize}
+\item[\textup{(T1)}] \emph{The zero files.} The two files
+\texttt{chi4\_zeros.txt} and \texttt{chi3\_zeros.txt} of the
+directory \texttt{prototype/explore/} ($511$ ordinates of
+$L(s,\chi_4)$ and $537$ ordinates of $L(s,\chi_3)$), with SHA-256
+digests
+\begin{center}
+\small
+\begin{tabular}{ll}
+$\chi_4$: & \texttt{0e73e00a6c1609bdb4eec62c13292435}\\
+          & \texttt{d0beee55750735a51f0fab84024ddfbc}\\
+$\chi_3$: & \texttt{e3075235a847f43eb35057d3998a853f}\\
+          & \texttt{9383e27e958cc5fd3c4115dad7eb8aaa}
+\end{tabular}
+\end{center}
+together with the certificate, produced by the separate program
+\texttt{certify\_arb.py} of \cite[\S7]{WR} in ball arithmetic,
+that Hardy's function changes sign in each window $d\pm10^{-20}$ and
+that the winding number of $L(s,\chi)$ around a rectangle reaching
+height $640.165707$ (resp.\ $700.024747$) equals the number of
+windows. This certificate implies that every listed value is within
+$10^{-20}$ of an ordinate, that the listed zeros are simple, that
+there is no other zero with ordinate in $(0,\gamma_N]$, and that
+$L(\tfrac12,\chi)\ne0$. It was re-run by two internal auditors with
+the same outcome. The envelope certificate uses of it: the twelve
+lowest ordinates, the absence of other zeros below $\gamma_{12}$, and,
+for the $127$ cells with $M_a<3.5$, the whole list.
+\item[\textup{(T2)}] \emph{Software.} The correctness of FLINT/Arb
+(FLINT~3.6.0 through python-flint~0.9.0: ball arithmetic, elementary
+functions, $\psi$, the Hurwitz zeta function, $J_0$ at exact points,
+and Dirichlet $L$-functions at complex arguments for $M<3.5$), and of
+the certifying programs \texttt{certify\_envelope.py} (with the module
+it shares with the direct certificate of
+Section~\ref{subsec:confirm}) and \texttt{analytic\_leg.py}.
+\item[\textup{(T3)}] \emph{The variance identity} of the companion
+paper, $\sigma_M^2=4M\frac{\Lambda'}{\Lambda}(M+\tfrac12,\chi)$
+\cite[eq.~(8)]{WR} (Proposition~\ref{prop:WRvar}); its $M$-derivative
+is Lemma~\ref{lem:S4}.
+\end{itemize}
+The only unproved mathematical hypothesis is GRH$(\chi_q)$. Besides
+(T1)--(T3) the argument uses the proofs of this article and the facts
+(B1)--(B4) of Section~\ref{subsec:bessel} and
+\cite[Lemma~7(b)]{WR}, which are ordinary mathematics and can be
+refereed as such.
+
+\subsection{The theorem}
+
+\begin{theorem}[computer-assisted]\label{thm:q34}
+Let $q\in\{3,4\}$ and assume GRH$(\chi_q)$. Granted the inputs
+\textup{(T1)--(T3)} of Section~\ref{subsec:inputs}, the function
+$\hd_q$ is strictly decreasing on $(0,\infty)$; equivalently
+$m\mapsto\delta_q(m)$ is strictly decreasing on $(-\tfrac12,\infty)$,
+which is \cite[Conjecture~1]{WR} for this $q$. More precisely,
+$\hd_q$ is strictly decreasing on $(0,M_0(\chi_q)]$, where
+$M_0(\chi_q)>1.01$, and $\hd_q'(M)<0$ for every $M\ge1$. Under
+LI$(\chi_q)$ in addition, the logarithmic density of
+$\{x\ge2:D_{m,b}(x)>0\}$ exists for every $m>-\tfrac12$ and every real
+$b$ and is a strictly decreasing function of $m$.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:B}(ii), $\hd_q$ is strictly decreasing on
+$(0,M_0(\chi_q)]$. By Proposition~\ref{prop:M0}(c) and
+\eqref{eq:sig101}, $Q_{\chi_q}(1.01)<\sigma^2(1.01)/2<1$, so
+$M_0(\chi_q)>1.01$. By Proposition~\ref{prop:envcert},
+$\hd_q'<0$ on $[1,2000]$, and by Theorem~\ref{thm:E}, $\hd_q'<0$ on
+$[40,\infty)$; the two ranges overlap. Thus $\hd_q$ is strictly
+decreasing on $(0,1.01]$ and on $[1,\infty)$, hence on $(0,\infty)$.
+The last assertion is Theorem~\ref{thm:C}(iii).
+\end{proof}
+
+Theorem~\ref{thm:E} is needed here only for $M>2000$. Neither
+\cite[Theorem~4]{WR} nor \cite[Corollary~7]{WR} (with its
+Proposition~5 and Lemma~24) is used.
+
+\subsection{Independent confirmations}\label{subsec:confirm}
+
+The following are not links of the chain above. They confirm its
+conclusion on parts of the range by other means.
+
+\subsubsection*{(a) The direct certificate}\label{subsec:cert}
+A second certificate (the program \texttt{certify\_derivative.py}
+in the directory \texttt{monotonicity/cert/}) encloses the
+oscillatory integral
+$\mathcal D_\chi(M)$ of \eqref{eq:deriv} itself, simultaneously for
+all $M$ in a cell: interval Riemann sums of the integrand on
+$[0,T_1]$, in which all listed zeros ($511$ resp.\ $537$) enter
+through evaluated Bessel functions and the unlisted ones through
+exact tail sums obtained from the variance identity and its
+derivative, and an explicit bound for $t\ge T_1$. It certifies
+two-sided bounds $\mathrm{lo}\le\hd_q'(M)\le\mathrm{hi}<0$ on each
+cell:
+\[
+\begin{array}{c|l|c|c|c|l}
+q & \text{file} & \text{range of }M & \text{cells} &
+\text{largest }\mathrm{hi} & \text{status}\\\hline
+4 & \texttt{results\_q4.txt} & [3.6,\,17.4] & 317 & -1.675\times10^{-3}
+& \text{audited, re-proved}\\
+4 & \texttt{results\_q4\_stretch.txt} & [17.4,\,320] & 293 & -1.224\times10^{-5}
+& \text{not audited}\\
+3 & \texttt{results\_q3.txt} & [4.4,\,19.2] & 296 & -1.549\times10^{-3}
+& \text{audited, re-proved}\\
+3 & \texttt{results\_q3\_stretch.txt} & [19.2,\,350] & 292 & -1.098\times10^{-5}
+& \text{not audited}
+\end{array}
+\]
+Its auxiliary file reports, under the same hypotheses,
+\begin{equation}\label{eq:M0cert}
+3.688854<M_0(\chi_4)<3.689059,\qquad
+4.483812<M_0(\chi_3)<4.484161 ,
+\end{equation}
+(these lie inside the cruder floating-point brackets of
+Remark~\ref{rem:M0values}), as well as enclosures of the root of
+$\sigma_M^2=2$ and of $\lambda_\chi(M,M')$ for the pairs quoted in
+Section~\ref{sec:numerics}.
+
+\emph{Outcome of the independent audit} (report
+\texttt{monotonicity/cert-audit/AUDIT.md}; internal). No break of
+rigor was found: every inequality of the method was re-derived, is
+used in the correct direction and inside its range of validity, and is
+implemented as stated. Three gaps were identified. (G1) The identity
+between the enclosed integral and $\hd_q'$ was not covered by
+\cite[Lemma~21]{WR} on most of the range; it is Lemma~\ref{lem:diff}
+of this article, which holds at every $M>0$, endpoints of closed cells
+included. (G2) The certificate is tied to its zero files only by
+convention, and the program accepts a wrong list silently (with the
+lowest ordinate deleted it still reports a cell as certified, with a
+false enclosure); this is why the digests of the files are part of
+(T1). (G3) The result files had been produced by an earlier version of
+the program; the audit recomputed the two audited ranges from scratch
+with the final version and reproduced all $613$ lines field for field.
+Eleven minor items are listed in the report. Beyond the audit of the
+code (including mutation tests), the statement was \emph{re-proved by a
+second, independently written rigorous program} on every one of the
+$317+296$ cells of $[3.6,17.4]$ and $[4.4,19.2]$: every independent
+enclosure is negative and lies strictly inside the audited one, giving
+$\hd_4'\le-1.706259\times10^{-3}$ on $[3.6,17.4]$ and
+$\hd_3'\le-1.574568\times10^{-3}$ on $[4.4,19.2]$. The values
+\eqref{eq:M0cert} were re-certified independently as well. The
+stretch files up to $320$ and $350$ were produced by the same program
+and are pinned by their digests in the audit's list, but they were not
+audited; we re-parsed them (contiguous, all cells certified) and
+nothing more.
+
+\subsubsection*{(b) Agreement of the two certificates}
+On the common range, whenever a cell of the envelope certificate and a
+cell of the direct certificate overlap in $[x,y]$, both statements
+hold there, so necessarily $\mathrm{LB}\le x\,|\mathrm{lo}|$. This
+holds for all $1061$ ($q=4$) and $1028$ ($q=3$) overlapping pairs, the
+largest value of $\mathrm{LB}/(x|\mathrm{lo}|)$ being $0.945$. (This
+comparison uses printed decimals and is a consistency check, not a
+proof; as an internal referee observed, it would not detect an error
+in $\mathrm{TAILF}$, which was tested separately by an independent
+evaluation of the cell quantity.) The two certificates share the
+hypotheses (T1)--(T3), the zero files and the evaluation of $h$ and
+$h'$; they share no integrand, no quadrature, and no Bessel evaluation
+on wide balls.
+
+\subsubsection*{(c) The analytic large-weight lemma of the companion paper}
+For $M\ge300$, \cite[Lemma~24]{WR} asserts $\hd_q'(M)<0$ with no zero
+data. In \cite{WR} the extension from the single point $M=300$ to all
+$M\ge300$ was described as checked in floating point only.
+\emph{Outcome of the audit of that leg} (report
+\texttt{monotonicity/ANALYTIC-LEG-AUDIT.md}; internal): the chain of
+lemmas of \cite[\S6]{WR} leading to Lemma~24 was re-derived from first
+principles and the following was established.
+\begin{quote}
+Assume GRH$(\chi_q)$, $q\in\{3,4\}$. Then $\hd_q$ is differentiable on
+$(299,\infty)$ and $\hd_q'(M)<0$ for all $M\ge300$.
+\end{quote}
+No fatal finding. The extension step is a correct hand proof once
+three monotonicity facts, left implicit in \cite{WR}, are stated; the
+report writes it out in full and certifies every numerical fact it
+uses in ball arithmetic ($90$ checks, all passing), and confirms it
+independently on $[300,10^7]$ by a cell sweep. The report lists three
+repairable items in the text of \cite{WR}, none of which affects the
+statement above; they are recorded there for a revision of \cite{WR}.
+That leg uses neither zero lists nor LI.
+
+\medskip
+In summary: on $[3.6,17.4]$ resp.\ $[4.4,19.2]$ the conclusion
+$\hd_q'<0$ is established three times (envelope certificate; direct
+certificate; independent re-proof of the latter), on the rest of
+$[3.6,320]$ resp.\ $[4.4,350]$ twice (the second time unaudited), and
+for $M\ge300$ three times (envelope certificate up to $2000$;
+Theorem~\ref{thm:E}; the audited lemma of \cite{WR}). On
+$1\le M<3.6$ (resp.\ $<4.4$) it rests on the envelope certificate
+alone, and there Theorem~\ref{thm:B} applies independently up to
+$M_0(\chi_q)$, so that the only part of the half-line resting on a
+single argument is $0<M<1$ (Theorem~\ref{thm:B}).
+
+\begin{remark}[what is taken on trust]\label{rem:mainstatus}
+Theorem~\ref{thm:q34} is a computer-assisted theorem, conditional on
+GRH$(\chi_q)$. Its inputs (T1)--(T3) are not mathematical hypotheses
+in the usual sense. (T1) and (T2) are statements about computations:
+that a certified list of zeros is the one that was used, and that a
+library and three programs do what they are meant to do. The programs
+were read line by line, re-run from scratch and subjected to mutation
+tests by internal referees, and the envelope certificate was compared
+with an independent evaluation at $13$ cells per modulus; none of
+this is a formal verification. (T3) is a theorem of an unrefereed
+companion preprint; it was re-derived in three of the internal
+reports. All of
+this refereeing was internal and AI-conducted
+(Section~\ref{sec:gaps}).
+\end{remark}
+
+\section{Monotonicity is not a general fact}\label{sec:nonmono}
+
+The monotonicity established for $q=3,4$ is not a consequence of the
+shape of the random variables \eqref{eq:XM} alone: it depends on
+where the zeros are. This section gives an elementary model in which
+$\hd$ increases, and then a computer-assisted theorem showing that the
+same happens for two actual characters.
+
+\subsection{A two-zero model}
+
+Here $\gamma_1<\gamma_2$ are any two positive numbers, not ordinates
+of an $L$-function, and Lemma~\ref{lem:diff} (which needs nine terms)
+is not used.
+
+\begin{proposition}[a two-zero model in which the density increases]
+\label{prop:twozero}
+Let $0<\gamma_1<\gamma_2$, let $\theta_1,\theta_2$ be independent and
+uniform on $[0,2\pi)$, and for $M>0$ put
+$c_j=4M/\sqrt{M^2+\gamma_j^2}$,
+$c_j'=4\gamma_j^2(M^2+\gamma_j^2)^{-3/2}$ and
+\[
+\delta^{(2)}(M):=\PP\bigl(1+c_1\cos\theta_1+c_2\cos\theta_2>0\bigr).
+\]
+If, at some $M$, $c_2<1$, $c_1>1+c_2$ and
+\begin{equation}\label{eq:condN}
+\frac{c_2\,c_2'}{2c_1^3}\;>\;
+\frac{c_1'\,(1+c_2)}{c_1\sqrt{c_1^2-(1+c_2)^2}} ,
+\end{equation}
+then $\delta^{(2)}$ is differentiable at $M$ with
+$\frac{d}{dM}\delta^{(2)}(M)>0$. For fixed $\gamma_2$ and fixed
+$M<\gamma_2/\sqrt{15}$ these conditions hold for all sufficiently
+small $\gamma_1$. For example, for
+$(\gamma_1,\gamma_2,M)=(0.03,10,1)$ the two sides of \eqref{eq:condN}
+are $1.23\times10^{-3}$ and $3.4\times10^{-4}$.
+\end{proposition}
+
+\begin{proof}
+For $-1<\alpha<1$, $\PP(\cos\theta_1>-\alpha)=\tfrac12+\tfrac1\pi\arcsin\alpha$.
+The conditions $c_2<1$, $c_1>1+c_2$ are open in $M$, and under them
+$0<1-c_2\le1+c_2x\le1+c_2<c_1$ for all $x\in[-1,1]$. Conditioning on
+$x=\cos\theta_2$,
+\[
+\delta^{(2)}=\frac12+\frac1\pi\,G_2(c_1,c_2),\qquad
+G_2(c_1,c_2):=\EE\Bigl[\arcsin\frac{1+c_2x}{c_1}\Bigr],
+\]
+and $G_2$ is continuously differentiable on the open set
+$\{c_2<1,\ c_1>1+c_2\}$, with derivatives obtained by differentiating
+under the expectation (the integrands are bounded there). With
+$g(u):=(c_1^2-u^2)^{-1/2}$ and the symmetry of $x$,
+\[
+\frac{\partial G_2}{\partial c_2}
+=\EE\Bigl[\frac{x}{\sqrt{c_1^2-(1+c_2x)^2}}\Bigr]
+=\frac12\,\EE\Bigl[|x|\bigl(g(1+c_2|x|)-g(1-c_2|x|)\bigr)\Bigr].
+\]
+Since $g'(u)=u(c_1^2-u^2)^{-3/2}\ge u\,c_1^{-3}$ on $[0,c_1)$, we have
+$g(1+y)-g(1-y)\ge c_1^{-3}\int_{1-y}^{1+y}u\,du=2y\,c_1^{-3}$ for
+$0\le y\le c_2$, and therefore
+$\partial G_2/\partial c_2\ge c_2\,\EE[x^2]\,c_1^{-3}=c_2/(2c_1^3)$. On
+the other hand, $u\mapsto u(c_1^2-u^2)^{-1/2}$ is increasing on
+$[0,c_1)$, so
+\[
+\Bigl|\frac{\partial G_2}{\partial c_1}\Bigr|
+=\EE\Bigl[\frac{1+c_2x}{c_1\sqrt{c_1^2-(1+c_2x)^2}}\Bigr]
+\le\frac{1+c_2}{c_1\sqrt{c_1^2-(1+c_2)^2}} .
+\]
+By the chain rule
+$\pi\,\frac{d}{dM}\delta^{(2)}=\frac{\partial G_2}{\partial c_1}c_1'
++\frac{\partial G_2}{\partial c_2}c_2'$, with $c_1',c_2'>0$, and
+\eqref{eq:condN} makes the right-hand side positive. For the second
+assertion: $c_2<1$ is equivalent to $M<\gamma_2/\sqrt{15}$, and as
+$\gamma_1\to0$ with $M$ and $\gamma_2$ fixed, $c_1\to4>1+c_2$ and
+$c_1'\to0$, so the right-hand side of \eqref{eq:condN} tends to $0$
+while the left-hand side tends to $c_2c_2'/128>0$. The numerical
+example is a direct evaluation.
+\end{proof}
+
+The mechanism is that a saturated arcsine summand (here $c_1\approx4$,
+i.e.\ $M\gg\gamma_1$) has a density that is \emph{smallest} at the
+centre of its support, so that adding independent symmetric noise
+raises $\PP(|c_1\cos\theta_1+\,\cdot\,|<1)$ and hence $\delta^{(2)}$.
+There is no conflict with Lemma~\ref{lem:det}, which holds for finite
+sequences as well: in the example $Q(u)=1$ already at
+$u\approx0.811\,\gamma_1=0.024$, far below $M=1$.
+
+\subsection{Two real characters}
+
+Let $\chi_{-163}=(\frac{-163}{\cdot})$ and
+$\chi_{-232}=(\frac{-232}{\cdot})$ (Kronecker symbols): the real
+primitive characters of conductor $163$ and $232$; both are odd. Their
+first two ordinates are $\gamma_1=0.2029013\ldots$,
+$\gamma_2=2.3685339\ldots$ for $\chi_{-163}$ and
+$\gamma_1=0.3106761\ldots$, $\gamma_2=2.4922\ldots$ for $\chi_{-232}$,
+so the first zero is very low compared with the second
+($\gamma_1/\gamma_2\approx0.086$ and $0.125$, against $0.59$ and $0.71$
+for $\chi_4$ and $\chi_3$).
+
+\begin{theorem}[non-monotonicity; computer-assisted]\label{thm:nonmono}
+\textup{(i)} Assume GRH$(\chi_{-163})$ and write
+$\hd=\hd_{\chi_{-163}}$. Then
+\[
+\begin{array}{c|c|c}
+M & m=M-\tfrac12 & \text{certified enclosure of }\hd(M)\\\hline
+3/10 & -1/5 & [0.599269990566,\ 0.599270019978]\\
+57/100 & 7/100 & [0.590250631768,\ 0.590250669413]\\
+3/5 & 1/10 & [0.590328985850,\ 0.590329024804]\\
+117/100 & 67/100 & [0.596052042574,\ 0.596052089770]\\
+6/5 & 7/10 & [0.596034510065,\ 0.596034556476]\\
+2 & 3/2 & [0.586642408419,\ 0.586642448867]
+\end{array}
+\]
+Hence
+$\hd(\tfrac3{10})>\hd(\tfrac{57}{100})<\hd(\tfrac35)<\hd(\tfrac{117}{100})
+>\hd(\tfrac65)>\hd(2)$, with
+\[
+\hd(\tfrac65)-\hd(\tfrac35)\in[0.005705485,\,0.005705571],\qquad
+\hd(\tfrac{117}{100})-\hd(\tfrac{57}{100})\in[0.005801373,\,0.005801459].
+\]
+\textup{(ii)} Assume GRH$(\chi_{-232})$ and write
+$\hd=\hd_{\chi_{-232}}$. Then
+\[
+\begin{array}{c|c|c}
+M & m=M-\tfrac12 & \text{certified enclosure of }\hd(M)\\\hline
+2/5 & -1/10 & [0.606642556775,\ 0.606642613806]\\
+71/100 & 21/100 & [0.597435124908,\ 0.597435193395]\\
+18/25 & 11/50 & [0.597438040240,\ 0.597438108755]\\
+1 & 1/2 & [0.598231098965,\ 0.598231174771]\\
+101/100 & 51/100 & [0.598233617676,\ 0.598233693573]\\
+3/2 & 1 & [0.594070789210,\ 0.594070852885]
+\end{array}
+\]
+Hence
+$\hd(\tfrac25)>\hd(\tfrac{71}{100})<\hd(\tfrac{18}{25})<\hd(1)
+<\hd(\tfrac{101}{100})>\hd(\tfrac32)$, with
+\[
+\hd(1)-\hd(\tfrac{18}{25})\in[0.000792990,\,0.000793135],\qquad
+\hd(\tfrac{101}{100})-\hd(\tfrac{71}{100})\in[0.000798424,\,0.000798569].
+\]
+\textup{(iii)} Under GRH,
+\[
+0.16441017<M_0(\chi_{-163})<0.16441035,\qquad
+0.2511058<M_0(\chi_{-232})<0.2511076 .
+\]
+These statements hold provided the hypotheses and trusted inputs
+\textup{(N1)--(N5)} listed below are correct.
+\end{theorem}
+
+\begin{corollary}[race form]\label{cor:nonmono}
+Let $\chi\in\{\chi_{-163},\chi_{-232}\}$ and assume GRH$(\chi)$ and
+LI$(\chi)$. Granted \textup{(N1)--(N5)}, the logarithmic density
+$\delta_\chi(m)$ of $\{x\ge2:D_{m,b}(x)>0\}$, which exists for every
+$m>-\tfrac12$ and every real $b$, is not a monotone function of $m$ on
+$(-\tfrac12,\infty)$. For $\chi_{-163}$:
+$\delta_\chi(\tfrac1{10})<\delta_\chi(\tfrac7{10})$, while
+$\delta_\chi(-\tfrac15)>\delta_\chi(\tfrac1{10})$ and
+$\delta_\chi(\tfrac7{10})>\delta_\chi(\tfrac32)$. For $\chi_{-232}$:
+$\delta_\chi(\tfrac{11}{50})<\delta_\chi(\tfrac12)$, while
+$\delta_\chi(-\tfrac1{10})>\delta_\chi(\tfrac{21}{100})$ and
+$\delta_\chi(\tfrac{51}{100})>\delta_\chi(1)$.
+\end{corollary}
+
+\begin{proof}
+$L(\tfrac12,\chi)\ne0$ is part of what the certificate establishes
+(N3). By Theorems~\ref{thm:WRinterp} and~\ref{thm:C}(iii),
+$\delta_\chi(m)=\hd_\chi(m+\tfrac12)$ for every real $b$, and the
+inequalities are those of Theorem~\ref{thm:nonmono}.
+\end{proof}
+
+\noindent\textbf{Hypotheses and trusted inputs} (as stated in the note
+\texttt{NONMONOTONE.md} of the directory
+\texttt{monotonicity/nonmonotone/}, which contains the programs and the
+file \texttt{results.txt} from which the tables are copied, and in the
+audit report quoted below).
+\begin{itemize}
+\item[\textup{(N1)}] \emph{Assumed:} GRH$(\chi)$. It makes the
+ordinates real and gives the variance identity. LI$(\chi)$ is assumed
+in Corollary~\ref{cor:nonmono} only.
+\item[\textup{(N2)}] \emph{Certified by the certificate itself,
+unconditionally:} the listed zeros ($133$ ordinates up to height
+$7617/64=119.015625$ for $\chi_{-163}$, $114$ up to
+$6351/64=99.234375$ for $\chi_{-232}$) are all the zeros of
+$\Lambda(s,\chi)$ with $|\im s|$ below that height, each simple and
+within $10^{-20}$ of the listed value. (Sign changes of Hardy's
+function in each window, and the argument principle on a rectangle,
+the count being exactly twice the number of windows.)
+\item[\textup{(N3)}] \emph{Certified:} $L(\tfrac12,\chi)\ne0$
+($L(\tfrac12,\chi_{-163})=0.0685317\ldots$,
+$L(\tfrac12,\chi_{-232})=0.2462991\ldots$; it also follows from the
+count in (N2)).
+\item[\textup{(N4)}] \emph{Cited, not re-proved there:} the classical
+facts on the completed $L$-function (entire of order one, root number
+$+1$, zeros in the critical strip); $|J_0(x)|\le x^{-1/2}$
+\cite[\S13.74]{Wat44}; $0<J_0(x)\le e^{-x^2/4}$ and
+$-\log J_0(x)-x^2/4\le0.018\,x^4$ on $[0,1]$; the remainder of
+Gauss--Legendre quadrature; the inversion formula
+\cite[Lemma~7(b)]{WR}. \emph{Imported from \cite{WR}:} the variance
+identity (Proposition~\ref{prop:WRvar}) and, for the corollary, the
+limiting-distribution theorem (Theorem~\ref{thm:WRinterp}).
+\item[\textup{(N5)}] \emph{Trusted:} FLINT/Arb~3.6.0 through
+python-flint~0.9.0 (ball arithmetic, Dirichlet $L$-functions, Hardy's
+function, the power-series jet of $L$, $\log\Gamma$, $\psi$,
+$J_0$) and the certifying programs; and that the zero files used
+are the certified ones, namely those with SHA-256 digests
+\begin{center}
+\small
+\begin{tabular}{ll}
+\texttt{zeros\_q163.txt}: & \texttt{b9d38aba6df821dea401035ea6ae24aa}\\
+                          & \texttt{045305e757f81ea1a6233b632ad25b9d}\\
+\texttt{zeros\_q232.txt}: & \texttt{42f40b29d79cc5228478acfd0480f239}\\
+                          & \texttt{39c6f3b5d0479acaf178c661fa0af378}
+\end{tabular}
+\end{center}
+\end{itemize}
+
+\noindent\textbf{Method, in brief.} For a rational $M$ the density is
+the inversion integral
+$\hd(M)-\tfrac12=\frac1\pi\int_0^\infty\Phi_M(t)\frac{\sin t}{t}\,dt$.
+The listed zeros enter through evaluated factors $J_0(c_jt)$; the
+unlisted ones through the exact variance
+$V=\sigma^2(M)-\sum_{\mathrm{listed}}c_j^2/2$ and the two-sided bound
+$e^{-Vt^2/2-c_bt^4}\le\prod_{\mathrm{unlisted}}J_0(c_\gamma t)\le e^{-Vt^2/2}$
+on the range where all unlisted arguments are at most $1$, with no
+statistical assumption on the unlisted zeros. The integral over
+$[0,T]$ is computed by composite Gauss--Legendre quadrature in
+$192$-bit balls with a rigorous remainder, the model error by upper
+Riemann sums, and the truncation error from
+$|J_0(x)|\le x^{-1/2}$. The width of each enclosure (at most
+$7.6\times10^{-8}$) is essentially the model error, i.e.\ the price of
+knowing the zeros only up to height about $100$; the gaps
+$5.7\times10^{-3}$ (conductor $163$) and $7.9\times10^{-4}$
+(conductor $232$) exceed it by a factor of more than $10^4$. The
+final comparisons are made on the printed, outward-rounded endpoints
+in exact rational arithmetic.
+
+\medskip
+\noindent\textbf{Outcome of the independent audit of this
+certificate.} \NonmonoAuditOutcome
+
+\begin{remark}[what the theorem shows, and what it does not]
+\label{rem:nonmono}
+(1) The intermediate range of Theorem~\ref{thm:general} genuinely
+matters: for $\chi_{-163}$ the density is larger at $M=1.17$ than at
+$M=0.57$, and for $\chi_{-232}$ larger at $M=1.01$ than at $M=0.71$,
+and these points lie well inside $(M_0(\chi),40)$. So Theorem~\ref{thm:q34} is not an instance
+of a general fact about real primitive characters; the proof for
+$q=3,4$ uses quantitative information on the lowest ordinates (twelve
+of them on most of the range), and some such information is unavoidable.
+
+(2) Theorem~\ref{thm:B} is not contradicted: by
+Theorem~\ref{thm:nonmono}(iii) both increases lie above $M_0(\chi)$.
+But its range cannot be extended, uniformly over real primitive
+characters, by more than a bounded factor: for $\chi_{-163}$,
+$\hd(0.57)<\hd(0.6)$ although $0.6\approx3.65\,M_0(\chi_{-163})$.
+Theorem~\ref{thm:E} is not contradicted either; for $M\ge40$ the
+character $\chi_{-163}$ satisfies its conclusion like every other.
+
+(3) Nothing is claimed about the location of the local extrema, about
+the exact intervals on which $\hd'>0$ (in floating point, about
+$[0.57,1.17]$ and $[0.71,1.01]$), or about the sign of $\hd'$ at any
+point: the theorem asserts only inequalities between values of $\hd$
+at the listed points. Nothing is claimed for other characters. An
+exploratory floating-point survey of the $224$ real primitive
+characters of conductor at most $420$, reported in the repository
+notes, found these two cases and one too marginal to call
+(conductor $403$); it is not part of this article.
+\end{remark}
+
+\section{Numerical sanity checks}\label{sec:numerics}
+
+The following checks were run for this article. They are
+floating-point computations (double precision or \texttt{mpmath} at
+$20$--$30$ digits), not certified, and they are not part of any proof.
+The scripts are in \texttt{monotonicity/checks/} of the repository;
+the zero lists are those of \cite[\S7]{WR}, i.e.\ the files of (T1).
+
+\medskip\noindent\textbf{(1) Constants.} From the $511$ resp.\ $537$
+ordinates, the closed form $C(\chi)=(\log\Lambda)''(\tfrac12,\chi)$,
+and the enclosure \eqref{eq:Qenclose}: the bounds of
+Remark~\ref{rem:M0values} and
+\[
+M_0(\chi_4)\in[3.68848,\,3.68931],\qquad
+M_0(\chi_3)\in[4.48317,\,4.48459],
+\]
+which contain the ball-arithmetic enclosures \eqref{eq:M0cert} of the
+direct certificate (those use a sharper tail bound). The roots of
+$\sigma_M^2=2$ were found from the closed form of
+Proposition~\ref{prop:WRvar}: $M_\sigma(\chi_4)=1.823915$ and
+$M_\sigma(\chi_3)=2.127751$; the auxiliary file of the direct
+certificate encloses them in the intervals $[1.82391477,1.82391478)$ and
+$[2.12775095,2.12775096)$. The margins $\lambda_\chi(M,M')$ of
+Remark~\ref{rem:Arange}(2) were computed from the listed zeros with
+the tail bound stated there. For the pairs $(m,m')$ with
+$m,m'\in\{0,1,2,3\}$ the same file gives
+ball-arithmetic enclosures, for example
+\begin{gather*}
+\lambda_{\chi_4}(\tfrac12,\tfrac32)\in[1.0257439,1.0257440],\qquad
+\lambda_{\chi_4}(\tfrac32,\tfrac52)\in[-0.0311712,-0.0311711],\\
+\lambda_{\chi_3}(\tfrac32,\tfrac52)\in[0.0454118,0.0454119],
+\end{gather*}
+and $\sigma^2=1.0070099\ldots$ for $\chi_3$ at $m=1$.
+
+\medskip\noindent\textbf{(2) The formula of Theorem~\ref{thm:A}(i).}
+For $q=4$, $(m,m')=(0,1)$, we sieved the primes up to $10^7$ and
+computed $I(x)=D_0(x)-D_1(x)/x$ directly (in double precision). We
+compared it with (a) the right-hand side of \eqref{eq:formula} without
+the $O$-term, truncated to the $511$ listed zeros, and (b) the
+quantity
+\[
+I_{\mathrm{pred}}(x):=2\,\re\sum_{0<\gamma\le\Gamma}\int_2^xh(t)\,
+t^{-1/2+i\gamma}\,dt+\sum_{k\ge2}\frac1k\sum_{p^k\le x}\chi(p)^kg(p^k),
+\]
+in the notation of the proof of Proposition~\ref{prop:formula}, the
+integrals being evaluated in closed form by exponential integrals.
+(b) is the formal one-integration-by-parts version of the explicit
+formula, whose zero sum is only conditionally convergent; it differs
+from $I(x)$ by boundary terms that are $O(1)$, and it tests every sign
+and constant of Section~\ref{sec:formula} more sharply than (a).
+Results:
+\[
+\begin{array}{r|rrr|r}
+x & I(x) & I_{\mathrm{pred}}(x) & I-I_{\mathrm{pred}} &
+I(x)\log x/(\kappa x^M)\\\hline
+10^3 & 4.131 & 3.698 & 0.433 & 0.902\\
+10^4 & 9.017 & 8.581 & 0.435 & 0.831\\
+10^5 & 22.667 & 22.232 & 0.436 & 0.825\\
+10^6 & 63.588 & 63.151 & 0.437 & 0.879\\
+9.99\cdot10^6 & 170.097 & 169.643 & 0.454 & 0.867
+\end{array}
+\]
+The difference $I-I_{\mathrm{pred}}$ is constant to within $0.02$
+over four decades, as it should be. For (a), the discrepancy
+$\bigl(I(x)-\text{main term}\bigr)\log x/(\kappa x^M)$ equals
+$0.20$, $0.24$, $0.21$, $0.18$, $0.15$ at the five points, i.e.\
+about $2.4/\log x$, consistent with the error term
+$O(x^M/\log^2x)$. On a grid of $2\times10^4$ points in
+$[10^4,10^7]$ the normalised quantity $I(x)\log x/(\kappa x^M)$
+stays in $[0.753,0.961]$; the asymptotic range allowed by
+\eqref{eq:bracketbounds} is
+$[\lambda/2,\,1/(MM')-\lambda/2]=[0.513,0.821]$, and the excess over
+$0.821$ is accounted for by the positive $O(1/\log x)$ correction. In
+particular $I(x)>0$ throughout this range. Two further runs, $q=4$
+with $(m,m')=(1,2)$ and $q=3$ with $(m,m')=(-\tfrac14,\tfrac12)$,
+behaved in the same way (in the first, double-precision rounding of
+sums of size $10^{20}$ limits the comparison to relative accuracy
+$10^{-3}$; in the second, $M=\tfrac14$ is small and the $O(1/\log x)$
+correction is correspondingly large, about $19/\log x$ in the
+normalised quantity at $x=10^7$).
+
+\medskip\noindent\textbf{(3) The coupling.} With the $511$ listed
+zeros of $\chi_4$ (no tail) and $4\times10^5$ samples of the phase
+vector we evaluated $X_M$ for several $M$ simultaneously. For the
+pairs $(M,M')=(0.5,1.5)$, $(1.5,2.5)$, $(2.5,3.5)$, $(3,3.68)$,
+$(1,5)$, $(2,5)$, for which the truncated $\eta$ is positive
+($1.306$, $0.217$, $0.049$, $0.014$, $0.552$, $0.091$), there was no
+sample with $X_{M'}>0\ge X_M$, and the sample minimum of
+$X_M/M-X_{M'}/M'$ exceeded $\eta$ in every case, as
+Lemma~\ref{lem:det} requires. For $(5,8)$ and $(8,12)$
+($\eta=-0.174$, $-0.273$) there were $1416$ and $3658$ such samples,
+in accordance with Proposition~\ref{prop:sharpB}; for $(3.68,4.5)$
+and $(3.6,5)$ ($\eta=-0.013$, $-0.031$) the sample minimum of
+$X_M/M-X_{M'}/M'$ was negative ($-0.007$, $-0.019$) but no violation
+of the nesting occurred among the $4\times10^5$ samples, the
+probability of a violation being positive but small.
+
+\medskip\noindent\textbf{(4) Theorem~\ref{thm:C}(i).} For $q=4$,
+$m\in\{0,1\}$ and $b\in\{-1,0,2,3\}$ we computed
+$(\cE_{m,b}(x)-\cE_{m,1}(x))\log x$ from the same sieve at the five
+values of $x$ of the table above. The values stay bounded, as
+Theorem~\ref{thm:C}(i) requires; they lie in the following intervals.
+\[
+\begin{array}{c|cccc}
+ & b=-1 & b=0 & b=2 & b=3\\\hline
+m=1 & [1.25,1.87] & [0.54,0.88] & [-0.82,-0.42] & [-1.57,-0.74]\\
+m=0 & [8.1,12.6] & [2.84,3.01] & [-2.01,-1.29] & [-3.54,-2.07]
+\end{array}
+\]
+(For $m=0$ the weight $M=\tfrac12$ is small and the values for
+$b=-1,2,3$ are still drifting slowly at $x=10^7$, as lower-order
+terms in $1/\log x$ would produce.) The signs agree with
+\eqref{eq:Cdecomp}.
+
+\medskip\noindent\textbf{(5) Result files of the certificates.} The
+script \texttt{parse\_cert.py} reads a result file of either
+certificate with exact rational endpoints and checks that every cell
+is marked as certified with a bound of the right sign, that
+consecutive cells share their endpoints, and that the file covers the
+stated range; it reports the number of cells and the weakest bound.
+Run on the two files of the envelope certificate it reproduces the
+table of Section~\ref{subsec:envcert} ($765$ cells each, contiguous
+from $1$ to $2000$, smallest lower bounds $1.318804\times10^{-3}$ and
+$1.353296\times10^{-3}$); run on the four files of the direct
+certificate it reproduces the table of
+Section~\ref{subsec:confirm}(a) ($317$, $293$, $296$, $292$ cells;
+ranges $[3.6,17.4]$, $[17.4,320]$, $[4.4,19.2]$, $[19.2,350]$). This
+checks what the files say, not that the programs which wrote them are
+correct.
+
+\medskip\noindent\textbf{(6) Constants of Theorems~\ref{thm:E}
+and~\ref{thm:general}.} The script \texttt{thmE\_constants.py}
+recomputes, at $30$ digits, the quantities of \eqref{eq:Evalues} and
+of the proof of Theorem~\ref{thm:general}(iv):
+$z_*=1.7971492\ldots$, $\tau=0.4492873\ldots$,
+$T_c=8.2662190\ldots$, $\beta_*=0.0255529\ldots$; the left-hand side
+of (E2) is $0.01204819\ldots$; the two candidates for $\sigma_0^2$ are
+$236.971101\ldots$ for $(a,q)=(1,3)$ and $275.837\ldots$ for $(0,5)$;
+the two bounds of (E4) are $11.37517\ldots$ and $14.21016\ldots$;
+$G(\sigma_0^2)=0.32197151\ldots$; and the lower bound for
+$Q_\chi(40)$ is $38.51\ldots$. All agree with the certified values.
+
+\section{Gaps and caveats}\label{sec:gaps}
+
+\begin{enumerate}
+\item \emph{All refereeing so far is internal and AI-conducted.} This
+article, its proofs, the certifying programs, the audits of those
+programs and the referee reports summarised in
+Appendix~\ref{sec:review} were all produced by AI agents under the
+author's direction. No part of it has been examined by an external
+referee. The reports found errors of presentation and of rounding
+and hypotheses that had to be made explicit (all repaired or stated
+here), and found no error in a proof; this is evidence of care, not a
+substitute for independent human review.
+\item \emph{Nothing is formally verified beyond the Lean core.} The
+directory \texttt{monotonicity/lean/} of the repository contains a
+Lean~4 (Mathlib) formalization, without \texttt{sorry}, of the
+following and nothing else: the deterministic coupling inequality of
+Lemma~\ref{lem:det}; the criterion ``$Q\le1$ on $[M,M']$ implies
+$\eta(M,M')\ge0$'', for finite sums and for series; and the
+measure-theoretic step from the pathwise inequality to the inequality
+between probabilities used in Theorem~\ref{thm:B}. It contains
+nothing about $L$-functions, zeros, GRH, LI, limiting distributions,
+Bessel functions, Lemma~\ref{lem:diff}, Theorems~\ref{thm:envelope}
+and~\ref{thm:E}, or any certificate. Every other statement of this
+article rests on the written proofs and, where indicated, on
+computation.
+\item \emph{The certificates certify soundness given the listed
+inputs, and no more.} Theorem~\ref{thm:q34} holds provided
+(T1)--(T3) of Section~\ref{subsec:inputs} are correct, and
+Theorem~\ref{thm:nonmono} provided (N1)--(N5) of
+Section~\ref{sec:nonmono} are. In both cases this includes the
+correctness of FLINT/Arb, the correctness of the certifying programs
+(Python programs, audited internally but not formally verified), and the identity of the zero files:
+both audits showed by mutation that a zero file with an ordinate
+removed produced a false ``certified'' output without any error, which
+is why the digests of the files are part of the hypotheses (the
+programs of the non-monotonicity certificate have since been changed
+to refuse such a file). A
+certificate of this kind excludes rounding error; it does not exclude
+an error in the mathematics that the program implements, which is why
+that mathematics is written out in
+Sections~\ref{sec:envelope}--\ref{sec:largeweight} and was re-derived
+by the internal referees. Theorem~\ref{thm:E}, and with it parts
+(iii) and (iv) of the General Theorem, is not free of computation
+either: its proof ends with the four numerical inequalities
+\eqref{eq:Evalues} between explicit values of elementary functions,
+$\psi$ and $J_0$. They were evaluated in ball arithmetic and
+recomputed in floating point at $30$ digits
+(Section~\ref{sec:numerics}(6)); they involve no zero data and could
+be checked by hand, which we have not done.
+\item \emph{What was audited and what was not.} Audited: the direct
+certificate on $[3.6,17.4]$ and $[4.4,19.2]$ (and independently
+re-proved there); the analytic leg of \cite{WR} on $M\ge300$; the
+envelope certificate and the proof of Theorem~\ref{thm:E} (by a
+referee who re-derived the estimates, recomputed the constants, re-ran
+the certificate in full and evaluated the exact cell quantity
+independently at thirteen cells per modulus, on the version of the
+program preceding the last one; see Appendix~\ref{sec:review}); the
+non-monotonicity certificate. Not separately audited: the stretch
+files of the direct certificate ($[17.4,320]$ and $[19.2,350]$), which
+is one reason why the direct certificate is presented as a
+confirmation and not as a link in the proof; and the changes made to
+the certifying programs after their audits in response to the audit
+findings.
+\item \emph{The variance identity for general $\chi$.}
+Proposition~\ref{prop:WRvar} is proved in \cite{WR} for $\chi_4$, with
+the statement that the proof applies verbatim to every real primitive
+$\chi$ with $L(\tfrac12,\chi)\ne0$. The ingredients are that the
+completed $L$-function is entire of order one, real on the real axis,
+with root number $+1$, together with GRH and NCZ; three of the
+internal reports re-derived the identity, two of them for characters
+other than $\chi_3$, $\chi_4$. Theorems~\ref{thm:E}, \ref{thm:general}
+and~\ref{thm:nonmono} use it for characters other than $\chi_3$,
+$\chi_4$.
+\item \emph{Quoted limiting-distribution theory.}
+Theorems~\ref{thm:B}(iii) and~\ref{thm:C}(ii)--(iii),
+Lemma~\ref{lem:joint}, Corollaries~\ref{cor:sharp}(b)
+and~\ref{cor:nonmono} and the race forms of the three headline
+theorems rest on \cite[Theorem~1, Proposition~1]{WR} and, through
+them and directly in Lemma~\ref{lem:joint}, on
+\cite[Corollary~1.3(a), Theorem~1.9]{ANS14}. We did not re-derive
+these. When the article was written we relied on the statements of
+\cite{ANS14} as reproduced in \cite{WR}; an internal referee has since
+checked them against the arXiv version of \cite{ANS14} and found them
+to match. The two-dimensional statement of Lemma~\ref{lem:joint} is
+obtained from the one-dimensional results by the Cram\'er--Wold device
+(it could also be quoted from \cite[Theorems~1.4, 1.9]{ANS14}).
+\item \emph{What $\delta_\chi$ means without LI.} Under GRH$(\chi)$
+and NCZ$(\chi)$ alone, $\hd_\chi(M)=\PP(X_M>0)$ is a quantity of the
+random model with independent phases; Theorems~\ref{thm:B}(i), (ii),
+(iv), Lemma~\ref{lem:diff}, Theorems~\ref{thm:envelope},
+\ref{thm:E}, \ref{thm:general}, \ref{thm:q34} and~\ref{thm:nonmono}
+are statements about it. Its identification with the logarithmic
+density of the race needs LI$(\chi)$. Moreover Theorem~\ref{thm:B}
+orders densities; it does not nest the lead sets $\{x:D_m(x)>0\}$
+(Remark~\ref{rem:Arange}(3)).
+\item \emph{What is not proved about the intermediate range.} For a
+general real primitive $\chi$ nothing is proved on
+$(M_0(\chi),40)$, and by Theorem~\ref{thm:nonmono} nothing of the
+form ``$\hd_\chi$ is decreasing there'' can be. The constant $40$ of
+Theorem~\ref{thm:E} is not optimised beyond what is said in
+Remark~\ref{rem:Enotes}, and we do not know the least $M_1$ such that
+$\hd_\chi$ is decreasing on $[M_1,\infty)$ for every $\chi$; the
+example of conductor $232$ shows $M_1>1$, since
+$\hd(1)<\hd(\tfrac{101}{100})$ there. The non-monotonicity
+theorem concerns two characters only; it asserts inequalities between
+values at six points each and nothing about the derivative or the
+extrema.
+\item \emph{Numerical values.} The values of $M_0$, $M_\sigma$ and
+$\lambda_\chi$ in Remarks~\ref{rem:M0values}, \ref{rem:Arange} and
+Section~\ref{sec:numerics} are floating-point evaluations with
+rigorous tail bounds but without interval arithmetic, except where a
+ball-arithmetic value from a certificate's file is quoted. They enter
+no proof: Theorems~\ref{thm:A}--\ref{thm:C} are stated in terms of
+$M_0(\chi)$, $\lambda_\chi$, $\sigma_M$. Corollary~\ref{cor:equiv}
+for the specific pair $(0,1)$ uses $\sigma^2<2$ at $m=1$, where the
+margin is large. The proof of Theorem~\ref{thm:q34} uses the single
+certified inequality \eqref{eq:sig101} to place $M_0(\chi_q)$ above
+$1.01$; it does not use the enclosures \eqref{eq:M0cert}.
+\item \emph{The size of $M_0(\chi)$ for large $q$} is not determined
+(Remark~\ref{rem:corner}). The proved bounds of this article are
+those of Proposition~\ref{prop:M0} and $M_0(\chi)<40$
+(Theorem~\ref{thm:general}); the sharper bounds and the numerical
+values in Remark~\ref{rem:corner} are quoted from a repository note
+and are not claimed as results of this article.
+\item \emph{Effectivity.} The threshold $x_0$ of
+Theorem~\ref{thm:A}(ii) is effective in principle but was not made
+explicit; the numerical evidence of Section~\ref{sec:numerics}
+suggests it is small for $q=4$, $(m,m')=(0,1)$, but we prove nothing
+about its size.
+\item \emph{Scope of Theorem~\ref{thm:A}.} It is a statement about
+pairs of weights with $\lambda_\chi(M,M')>0$; for $q=4$ this excludes
+e.g.\ $(m,m')=(1,2)$. Without LI it gives monotonicity of upper and
+lower densities only on $M'\le M_\sigma(\chi)$, and only in the
+non-strict sense. All results other than Theorem~\ref{thm:A} and
+Corollaries~\ref{cor:densities}, \ref{cor:sharp}(a),
+\ref{cor:landau} assume NCZ$(\chi)$.
+\item \emph{Corollary~\ref{cor:landau}} gives GRH$(\chi)$ only in the
+absence of real zeros in $(\tfrac12,1)$
+(Remark~\ref{rem:exceptional}).
+\item \emph{Literature and bibliography.} The works cited in
+Remark~\ref{rem:literature} were checked at different levels. For
+\cite{PT19,Was24,BBLMR24} the relevant statements were read in the
+arXiv texts; for \cite{Joh23,Zhao25,Suz25,Hay25} the statements were
+confirmed at the level of the arXiv abstracts (by an internal
+referee); \cite{LWS26} was seen at abstract level only;
+\cite{HL18,Lan18,Fuj88} are cited as they appear in \cite{PT19}, and
+their originals were not consulted; \cite{GW18} is cited as it is
+described in \cite{Was24}. Entries of the reference list whose
+bibliographic details have not been verified against the published
+source carry a visible \textsf{TODO-cite} mark. The entries
+\cite{AK23,Sheth24,SK25,Aym22,BMS26,BMOR21,Wat44,Bir48,Pro65,KS99} are
+reused from the reference list of \cite{WR} and were not re-checked
+for this article. The literature search behind the novelty remarks of
+Section~\ref{sec:intro} was limited and is recorded in the repository;
+``not found'' means not found by that search. In particular we did
+not search specifically for earlier examples of non-monotone
+dependence of a bias density on a weight parameter.
+\item \emph{The announcement mentioned in
+Remark~\ref{rem:GRHstatus}} is not used anywhere, and we examined
+neither the note nor the formalization.
+\item \emph{No claim is made} for $m\le-\tfrac12$, for non-real
+characters, or for races with more than two competitors.
+\item \emph{Differences from the working notes that preceded this
+article}: the oscillating sum in \eqref{eq:formula-normalised} enters
+with a plus sign (the notes had a minus sign; immaterial for the
+results, which use only its absolute value);
+Lemma~\ref{lem:diff} needs nine ordinates and no hypothesis on the
+weight, and replaces the use of \cite[Lemma~21]{WR}; in the proof of
+Lemma~\ref{lem:J} the value of $J_0$ at $2\sqrt2$ is bounded by (B4)
+instead of numerically; and the bound for $h'(40)$ in the proof of
+Theorem~\ref{thm:general}(iv) is ours ($0.01297$, giving
+$Q_\chi(40)>38$ as in the notes).
+\end{enumerate}
+
+\appendix
+\section{Review history}\label{sec:review}
+
+All reviewing recorded here was done by AI agents instructed to act as
+adversarial referees or auditors; the reports are in the directory
+\texttt{monotonicity/} of the repository under the names given.
+``R'' items were classified by the referees as repairable, ``M'' items
+as minor, ``G'' items as gaps (a hypothesis that had to be made
+explicit).
+
+\subsection*{Round 1: the first complete draft (reports
+\texttt{REFEREE-1.md}, \texttt{REFEREE-2.md})}
+The first draft contained Sections~\ref{sec:prelim}--\ref{sec:thmC}
+essentially as they are now and, in place of
+Sections~\ref{sec:envelope}--\ref{sec:nonmono}, a reduction of full
+monotonicity for $q=3,4$ to three hypotheses, to be supplied by the
+direct certificate and by \cite{WR}. Neither referee found a fatal
+error; all displayed identities, signs and constants of Sections~3--7
+were re-derived by them.
+
+\emph{Referee 1} (coupling, Theorem~\ref{thm:B}, the reduction).
+R1: the reduction was a conditional statement and the title, abstract
+and introduction overstated it; resolved at the time by separating a
+pure implication from a computer-assisted statement with an explicit
+list of what is taken on trust (this structure survives in
+Theorem~\ref{thm:q34} and Section~\ref{subsec:inputs}). R2: the
+description of the status of \cite[Corollary~7]{WR} was inaccurate,
+and the direct certificate on the large range was not used; resolved
+at the time by adopting the stretch certificates, and now moot, since
+neither is used in a proof. M1: stale enclosures of $M_0$ and a
+circular ``agreement'' sentence; resolved (\eqref{eq:M0cert} carries
+the values of the auxiliary file). M2: ``comonotone coupling'' was the
+wrong term; now ``equal-phase coupling'' throughout, with the
+referee's sentence on the quantile coupling after
+Proposition~\ref{prop:sharpB}. M3: the differentiability lemma cited
+the proof of a lemma whose hypothesis it removes; the proof of
+Lemma~\ref{lem:diff} is self-contained. M4: the companion's existence
+theorem also assumes $L(\tfrac12,\chi)\ne0$; stated. M5: the meaning
+of $\delta_\chi$ without LI; Section~\ref{subsec:setting} and item~7
+of Section~\ref{sec:gaps}. M6: Theorem~\ref{thm:B}(iii) could be
+misread as nesting of the lead sets; wording changed, and the example
+in Remark~\ref{rem:Arange}(3) added. M7: small corrections in
+Remark~\ref{rem:M0values} and in the wording ``nested almost
+surely''.
+
+\emph{Referee 2} (Theorems~\ref{thm:A}, \ref{thm:C}, the Landau
+converse, bibliography). R1: a wrong citation of Fujii, the two parts
+of Landau's paper, and the date of Hardy--Littlewood; corrected in the
+reference list following the reference list of \cite{PT19}, the
+entries remaining marked because the originals were not consulted.
+R2: the remark on the status of GRH asserted a machine-checking as a
+fact and listed two inaccurate consequences;
+Remark~\ref{rem:GRHstatus} uses the referee's wording. R3: the
+abstract stated the equivalence with GRH under a hypothesis defined
+only under GRH; Corollary~\ref{cor:equiv}(c) is stated with the
+unconditional quantity $4M'\frac{\Lambda'}{\Lambda}(M'+\frac12,\chi)$.
+R4: a sentence on ``a limited range of the smoothing parameter''
+overgeneralised; restricted (Remark~\ref{rem:literature}). Minor
+items: Lemma~\ref{lem:joint} can be quoted directly from
+\cite{ANS14} (noted); the statements quoted from \cite{ANS14} were
+checked by the referee against the arXiv version; the novelty sentence
+on Proposition~\ref{prop:formula}(a) was toned down; unverified
+bibliographic details are marked.
+
+At the same time the heuristic $M_0(\chi)\approx\pi/(2\log q)$ of the
+first draft was withdrawn (Remark~\ref{rem:corner}), and the two-zero
+model (Proposition~\ref{prop:twozero}) was added.
+
+\subsection*{Round 2: the derivative, the envelope criterion, the
+certificates}
+
+\emph{Referee 3} (report \texttt{REFEREE-3.md}, on the note
+\texttt{BRIDGE-ATTEMPT.md}, which is the source of
+Lemma~\ref{lem:diff}, Lemmas~\ref{lem:J} and~\ref{lem:L},
+Proposition~\ref{prop:C0}, Theorem~\ref{thm:envelope},
+Corollary~\ref{cor:cell} and Proposition~\ref{prop:twozero}). The
+referee re-derived these statements, re-implemented the criterion
+independently, and found no fatal error. Two repairable items. R1:
+the note's corollary ``the derivative is negative whenever
+$K:=\mathrm{NUM}/(\mathrm{MAIN}-\mathrm{TAILF})<1$'' lacked the sign
+condition $\mathrm{MAIN}>\mathrm{TAILF}$; here the criterion is
+stated as $\mathrm{MAIN}-\mathrm{TAILF}-\mathrm{NUM}>0$ and $K$
+appears only in Remark~\ref{rem:K}, with the sign condition. R2
+(presentation): a table of point values in the note had been computed
+with quantities other than those of the theorem; no such table is
+reproduced here. The referee also reproduced, in floating point, the
+numerical evidence for conductors $163$ and $232$ that preceded the
+certificate of Section~\ref{sec:nonmono}, noting that the case of
+conductor $232$ is sensitive to how the unlisted zeros are modelled;
+the certificate bounds that model error rigorously.
+
+\emph{Audit of the direct certificate} (report
+\texttt{cert-audit/AUDIT.md}). No break of rigour. Three gaps:
+G1, differentiability of the density at weights below those covered
+by \cite[Lemma~21]{WR} (supplied by Lemma~\ref{lem:diff}); G2, the
+certifying program accepts any zero file (met by the digests in (T1));
+G3, provenance of the result files (closed by the audit's replay,
+which reproduced the $613$ result lines). Eleven minor items. An
+independent program re-proved the negativity of the derivative on all
+$613$ cells of $[3.6,17.4]$ and $[4.4,19.2]$. The stretch files were
+not audited. See Section~\ref{subsec:confirm}(a).
+
+\emph{Audit of the analytic leg of \cite{WR}} (report
+\texttt{ANALYTIC-LEG-AUDIT.md}). No fatal error; the statement
+``under GRH$(\chi_q)$, $q\in\{3,4\}$, the density is differentiable
+on $(299,\infty)$ with negative derivative for all $M\ge300$'' was
+confirmed, with $90$ ball-arithmetic checks. Three repairable items
+concern the text of \cite{WR}, not this article. See
+Section~\ref{subsec:confirm}(c).
+
+\emph{Referee 5} (report \texttt{REFEREE-5.md}) examined the envelope
+certificate and the note that is the source of
+Theorem~\ref{thm:E}. Every step of the proof of
+Theorem~\ref{thm:E} was re-derived, the constants were recomputed
+independently, the certifying program was read line by line and
+subjected to mutation tests, and a full fresh run reproduced both
+result files. No fatal error. R1: the program for the constants of
+Theorem~\ref{thm:E} printed its bounds rounded to nearest, so that
+several displayed inequalities of the note were false in the last
+digit (for example ``$T_c\le8.2662$''); the decisions of the program,
+made on the balls, and the constant $0.3219$ were not affected. This
+article uses the values with directed rounding, \eqref{eq:Evalues}.
+Thirteen minor items, among them: sub-range maxima of the ratio $K$
+quoted in the notes omitted one cell (not quoted here); a statement
+on the loss of the bound held only on part of the range (likewise not
+quoted here); ``the smallest threshold $38.5$'' is the best
+on a searched grid only, and the convention on multiple zeros should
+be stated (Remark~\ref{rem:Enotes}); the result files should record
+digests (done in the re-run). The referee also observed that
+the proof of Theorem~\ref{thm:E} gives $M_0(\chi)<40$, which is
+Theorem~\ref{thm:general}(iv). After this report the envelope
+certificate was re-run with a revised program that records the
+digests of the program and of the zero file in the result files; the
+result lines quoted in Section~\ref{subsec:envcert} are those of the
+re-run and agree with the earlier ones in every figure quoted here.
+The revised program itself was not re-refereed.
+
+\emph{Audit of the non-monotonicity certificate} (report
+\texttt{nonmonotone-audit/AUDIT.md}). No break of rigour; one gap
+(the identity of the zero files, met by the digest clause of (N5));
+six minor items; all twelve enclosures confirmed by independent
+rigorous enclosures. See the end of Section~\ref{sec:nonmono}. After
+the audit the certifying programs of that directory were revised as
+it recommended (binding of the zero files by digest) and the result
+file was regenerated, with identical enclosures; the revised programs
+were not re-audited.
+
+\subsection*{What changed in this article in round 2}
+The reduction of the first draft and its hypotheses were removed. The
+article now contains the derivative lemma and the envelope criterion
+with proofs (Section~\ref{sec:envelope}), the uniform large-weight
+theorem and the General Theorem (Section~\ref{sec:largeweight}), the
+theorem for $q=3,4$, whose computational links are the envelope
+certificate and the four evaluated inequalities of
+Theorem~\ref{thm:E}, with the direct certificate and the analytic leg
+of \cite{WR} as confirmations (Section~\ref{sec:main}), and the
+non-monotonicity theorem (Section~\ref{sec:nonmono}). The title,
+abstract and introduction were rewritten accordingly.
+
+\begin{thebibliography}{99}
+\bibitem{WR} R. Sharma, \emph{Rubinstein--Sarnak densities for
+weighted prime number races}, preprint, August 2026,
+\href{https://doi.org/10.5281/zenodo.21947101}{doi:10.5281/zenodo.21947101};
+code and data: \url{https://github.com/raghavs1729/weighted-prime-races}.
+\bibitem{RS94} M. Rubinstein, P. Sarnak, \emph{Chebyshev's bias},
+Experiment.\ Math.\ \textbf{3} (1994), 173--197.
+\bibitem{ANS14} A. Akbary, N. Ng, M. Shahabi, \emph{Limiting
+distributions of the classical error terms of prime number theory},
+Q. J. Math.\ \textbf{65} (2014), 743--780. arXiv:1306.1657.
+\todocite{statements checked against the arXiv version; journal pages
+not checked}
+\bibitem{AK23} M. Aoki, S. Koyama, \emph{Chebyshev's bias against
+splitting and principal primes in global fields}, J. Number Theory
+\textbf{245} (2023), 233--262. arXiv:2203.12266.
+\todocite{entry reused from \cite{WR}; not re-checked}
+\bibitem{Sheth24} A. Sheth, \emph{Euler products at the centre and
+applications to Chebyshev's bias}, Math.\ Proc.\ Cambridge Philos.\
+Soc.\ \textbf{179} (2025), 331--349. arXiv:2405.01512.
+\todocite{entry reused from \cite{WR}; not re-checked}
+\bibitem{SK25} K. Shimada, S. Koyama, \emph{Weighted prime number
+theorem on arithmetic progressions with refinements}, Mathematics
+\textbf{13} (2025), no.\ 16, 2564.
+\todocite{entry reused from \cite{WR}; not re-checked}
+\bibitem{Hay25} M. Hayani, \emph{Chebyshev's bias without linear
+independence}, arXiv:2512.23302 (2025).
+\bibitem{Aym22} M. Aymone, \emph{A note on prime number races and zero
+free regions for $L$ functions}, Int.\ J. Number Theory \textbf{18}
+(2022). arXiv:2001.00764.
+\todocite{entry reused from \cite{WR}; not re-checked}
+\bibitem{BMS26} S. Bhattacharya, G. Martin, R.~M. Simpson,
+\emph{Correlations of error terms for weighted prime counting
+functions}, arXiv:2507.13504, to appear in Acta Arith.
+\todocite{entry reused from \cite{WR}; not re-checked}
+\bibitem{GW18} J. Gerard, L.~C. Washington, \emph{Sums of powers of
+primes}, Ramanujan J. \textbf{45} (2018), 171--180.
+\todocite{not verified; cited as described in \cite{Was24}}
+\bibitem{Was24} L.~C. Washington, \emph{Sums of powers of primes II},
+Ramanujan J. \textbf{65} (2024), 783--795. arXiv:2209.12845.
+\todocite{Theorem~3 read in the arXiv text; journal reference not
+verified}
+\bibitem{BBLMR24} M. Boran, J. Byun, Z. Li, S.~J. Miller, S. Reyes,
+\emph{Sums of powers of primes in arithmetic progression}, PUMP J.
+Undergrad.\ Res.\ \textbf{7} (2024), 29--50. arXiv:2309.16007.
+\bibitem{HL18} G.~H. Hardy, J.~E. Littlewood, \emph{Contributions to
+the theory of the Riemann zeta-function and the theory of the
+distribution of primes}, Acta Math.\ \textbf{41} (1917), 119--196.
+\todocite{details as in the reference list of \cite{PT19}, which
+gives the year 1917 (the volume is also cited as 1916 or 1918);
+original not consulted}
+\bibitem{Lan18} E. Landau, \emph{\"Uber einige \"altere Vermutungen
+und Behauptungen in der Primzahltheorie}, I and II, Math.\ Z.
+\textbf{1} (1918), 1--24 and 213--219. \todocite{details as in the
+reference list of \cite{PT19}; originals not consulted}
+\bibitem{Fuj88} A. Fujii, \emph{Some generalizations of Chebyshev's
+conjecture}, Proc.\ Japan Acad.\ Ser.~A Math.\ Sci.\ \textbf{64}
+(1988), no.~7, 260--263. \todocite{details as in the reference list
+of \cite{PT19}; original not consulted}
+\bibitem{PT19} D.~J. Platt, T.~S. Trudgian, \emph{Fujii's development
+on Chebyshev's conjecture}, Int.\ J. Number Theory \textbf{15}
+(2019), 639--644. arXiv:1802.00089. \todocite{arXiv text read; journal
+pages not checked}
+\bibitem{Joh23} D.~R. Johnston, \emph{On the average value of
+$\pi(t)-\mathrm{li}(t)$}, Canad.\ Math.\ Bull.\ \textbf{66} (2023),
+185--195. arXiv:2201.06184. \todocite{statement confirmed from the
+arXiv abstract; journal reference not verified}
+\bibitem{Zhao25} T. Zhao, \emph{On the mean values of the error terms
+in Mertens' theorems}, Res.\ Number Theory \textbf{11} (2025),
+paper~62. arXiv:2411.18903.
+\bibitem{Suz25} M. Suzuki, \emph{On variants of Chebyshev's
+conjecture}, Ramanujan J. \textbf{68} (2025), article~95.
+arXiv:2411.07436.
+\bibitem{LWS26} Liu, Wang, Shi, \emph{Two problems in comparative
+prime number theory: the five-way race modulo $11$, and the sign of
+the integrated prime counting error}, Zenodo,
+doi:10.5281/zenodo.22208026 (2026). \todocite{authors' initials;
+seen at abstract level only}
+\bibitem{Dav00} H. Davenport, \emph{Multiplicative Number Theory},
+3rd ed., revised by H.~L. Montgomery, Graduate Texts in Mathematics
+\textbf{74}, Springer, New York, 2000.
+\bibitem{MV07} H.~L. Montgomery, R.~C. Vaughan, \emph{Multiplicative
+Number Theory I: Classical Theory}, Cambridge Studies in Advanced
+Mathematics 97, Cambridge University Press, Cambridge, 2007.
+\bibitem{BMOR21} M.~A. Bennett, G. Martin, K. O'Bryant,
+A. Rechnitzer, \emph{Counting zeros of Dirichlet $L$-functions},
+Math.\ Comp.\ \textbf{90} (2021), 1455--1482.
+\bibitem{HW} G.~H. Hardy, E.~M. Wright, \emph{An Introduction to the
+Theory of Numbers}, 5th ed., Oxford University Press, Oxford, 1979.
+\bibitem{Fel71} W. Feller, \emph{An Introduction to Probability Theory
+and Its Applications}, Vol.~II, 2nd ed., Wiley, New York, 1971.
+\bibitem{Bil99} P. Billingsley, \emph{Convergence of Probability
+Measures}, 2nd ed., Wiley, New York, 1999.
+\bibitem{Wat44} G.~N. Watson, \emph{A Treatise on the Theory of Bessel
+Functions}, 2nd ed., Cambridge University Press, Cambridge, 1944.
+\bibitem{Bir48} Z.~W. Birnbaum, \emph{On random variables with
+comparable peakedness}, Ann.\ Math.\ Statist.\ \textbf{19} (1948),
+76--81.
+\bibitem{Pro65} F. Proschan, \emph{Peakedness of distributions of
+convex combinations}, Ann.\ Math.\ Statist.\ \textbf{36} (1965),
+1703--1706.
+\bibitem{KS99} N.~M. Katz, P. Sarnak, \emph{Zeroes of zeta functions
+and symmetry}, Bull.\ Amer.\ Math.\ Soc.\ \textbf{36} (1999), 1--26.
+\bibitem{Alp26} L. Alp\"oge, note dated 20 November 2026,
+\url{https://alpo.ge/remark.pdf}. \todocite{not examined by the
+author of this article; title to be added; re-check before
+submission}
+\bibitem{Lean26} Lean FRO and Mathlib Initiative, joint statement of
+21 November 2026,
+\url{https://leanprover-community.github.io/blog/posts/riemann-hypothesis/}.
+\todocite{not examined by the author of this article; re-check
+before submission}
+\end{thebibliography}
+
+\end{document}

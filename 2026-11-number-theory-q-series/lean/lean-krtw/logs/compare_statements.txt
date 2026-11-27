@@ -1,0 +1,63 @@
+OK (textual): the definition block and the 9 statements of KRTWStatement.lean occur verbatim in KRTW/Defs.lean and KRTWSolution.lean; both import only Mathlib resp. the library; no sorry/axiom/native_decide on the solution side
+OK (elaborated): the 9 statements and the 11 definitions are identical in KRTWStatement and KRTWSolution:
+@krtw_sum_eq_melzer_sum_refined : ∀ {K : Type u_1} [inst : Field K] (x : PowerSeries K) (k : ℕ),
+  krtwSum x k = melzerSum x k
+krtw_sum_eq_melzer_sum : ∀ (k : ℕ), krtwSum 1 k = melzerSum 1 k
+@coeff_krtwTerm_eq_zero : ∀ {K : Type u_1} [inst : Field K] (x : PowerSeries K) {k : ℕ} (r s : Fin k → ℕ) (N : ℕ),
+  r ∉ box k N ∨ s ∉ box k N → (PowerSeries.coeff N) (krtwTerm x r s) = 0
+@coeff_melzerTerm_eq_zero : ∀ {K : Type u_1} [inst : Field K] (x : PowerSeries K) {k : ℕ} (M : Fin k → ℕ) (N : ℕ),
+  M ∉ box k N → (PowerSeries.coeff N) (melzerTerm x M) = 0
+krtw_identity : ∀ (k : ℕ),
+  krtwSum 1 k =
+    qPochInf 1 (k + 2) * qPochInf (k + 1) (k + 2) * qPochInf (k + 2) (k + 2) * (qPochInf 1 2 * qPochInf 1 1)⁻¹
+krtw_identity_theta : ∀ (k : ℕ), krtwSum 1 k * (qPochInf 1 2 * qPochInf 1 1) = thetaSum k
+theta_eq_triple_product : ∀ (k : ℕ),
+  thetaSum k = qPochInf 1 (k + 2) * qPochInf (k + 1) (k + 2) * qPochInf (k + 2) (k + 2)
+melzer_identity : ∀ (k : ℕ),
+  melzerSum 1 k =
+    qPochInf 1 (k + 2) * qPochInf (k + 1) (k + 2) * qPochInf (k + 2) (k + 2) * (qPochInf 1 2 * qPochInf 1 1)⁻¹
+@coeff_qPochInf : ∀ {K : Type u_1} [inst : Field K] (a d : ℕ),
+  1 ≤ a →
+    1 ≤ d →
+      ∀ (N M : ℕ),
+        N ≤ M →
+          (PowerSeries.coeff N) (qPochInf a d) =
+            (PowerSeries.coeff N) (∏ i ∈ Finset.range (M + 1), (1 - PowerSeries.X ^ (a + d * i)))
+def KRTW.qPoch.{u_1} : {K : Type u_1} → [Field K] → ℕ → PowerSeries K :=
+fun {K} [Field K] n => ∏ i ∈ Finset.range n, (1 - PowerSeries.X ^ (i + 1))
+def KRTW.q2Poch.{u_1} : {K : Type u_1} → [Field K] → ℕ → PowerSeries K :=
+fun {K} [Field K] n => ∏ i ∈ Finset.range n, (1 - PowerSeries.X ^ (2 * (i + 1)))
+def KRTW.nxt : {k : ℕ} → (Fin k → ℕ) → Fin k → ℕ :=
+fun {k} r i => if h : ↑i + 1 < k then r ⟨↑i + 1, h⟩ else 0
+def KRTW.prv : {k : ℕ} → (Fin k → ℕ) → Fin k → ℕ :=
+fun {k} s i => if h : ↑i = 0 then 0 else s ⟨↑i - 1, ⋯⟩
+def KRTW.box : (k : ℕ) → ℕ → Finset (Fin k → ℕ) :=
+fun k N => Fintype.piFinset fun x => Finset.range (N + 1)
+def KRTW.krtwTerm.{u_1} : {K : Type u_1} →
+  [Field K] → PowerSeries K → {k : ℕ} → (Fin k → ℕ) → (Fin k → ℕ) → PowerSeries K :=
+fun {K} [Field K] x {k} r s =>
+  ∏ i,
+    x ^ (r i + 2 * s i) * PowerSeries.X ^ ((r i + s i) ^ 2 + s i ^ 2 + s i) * (qPoch (r i - nxt r i))⁻¹ *
+      (q2Poch (s i - prv s i))⁻¹
+def KRTW.krtwSum.{u_1} : {K : Type u_1} → [Field K] → PowerSeries K → ℕ → PowerSeries K :=
+fun {K} [Field K] x k =>
+  PowerSeries.mk fun N =>
+    ∑ r ∈ box k N,
+      ∑ s ∈ box k N,
+        if (∀ (i : Fin k), nxt r i ≤ r i) ∧ ∀ (i : Fin k), prv s i ≤ s i then (PowerSeries.coeff N) (krtwTerm x r s)
+        else 0
+def KRTW.melzerTerm.{u_1} : {K : Type u_1} → [Field K] → PowerSeries K → {k : ℕ} → (Fin k → ℕ) → PowerSeries K :=
+fun {K} [Field K] x {k} M => ∏ i, x ^ M i * PowerSeries.X ^ (M i * (M i + 1) / 2) * (qPoch (M i - nxt M i))⁻¹
+def KRTW.melzerSum.{u_1} : {K : Type u_1} → [Field K] → PowerSeries K → ℕ → PowerSeries K :=
+fun {K} [Field K] x k =>
+  PowerSeries.mk fun N =>
+    ∑ M ∈ box k N, if ∀ (i : Fin k), nxt M i ≤ M i then (PowerSeries.coeff N) (melzerTerm x M) else 0
+def KRTW.qPochInf.{u_1} : {K : Type u_1} → [Field K] → ℕ → ℕ → PowerSeries K :=
+fun {K} [Field K] a d =>
+  PowerSeries.mk fun N => (PowerSeries.coeff N) (∏ i ∈ Finset.range (N + 1), (1 - PowerSeries.X ^ (a + d * i)))
+def KRTW.thetaSum.{u_1} : {K : Type u_1} → [Field K] → ℕ → PowerSeries K :=
+fun {K} [Field K] k =>
+  PowerSeries.mk fun N =>
+    ∑ n ∈ Finset.range (N + 1),
+      (PowerSeries.coeff N)
+        ((-1) ^ n * PowerSeries.X ^ (((k + 2) * n ^ 2 + k * n) / 2) * (1 - PowerSeries.X ^ (2 * n + 1)))

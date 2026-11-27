@@ -1,0 +1,614 @@
+{
+ "baseline": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "bessel_radius_div1000": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 5776,
+   "J1_misses": 5722,
+   "first": "J0 miss: x0=0.016259254965174802, r=0.016259254965174802, x=0.0"
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 470,
+   "first": "t-box [7.108621,7.112460], t=7.108621, M=3.6: true F = [1.36e-34 +/- 5.32e-37], box enclosure = [1.1e-34 +/- 7.95e-36]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 487,
+   "first": "t-box [1.421724,1.422492], t=1.421724, M=17.3701: true F = [3.6e-31 +/- 5.63e-33], box enclosure = [3.3e-31 +/- 6.67e-33]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "bessel_drop_second_order": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 1526,
+   "J1_misses": 1630,
+   "first": "J1 miss: x0=0.016259254965174802, r=0.016259254965174802, x=0.0"
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "t_midpoint_sampling": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 119,
+   "first": "t-box [0.656358,0.660196], t=0.656358, M=3.6: true F = [-0.155460 +/- 2.33e-7], box enclosure = [-0.15 +/- 5.44e-3]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 280,
+   "first": "t-box [0.596479,0.597247], t=0.596479, M=17.3701: true F = [-1.836e-8 +/- 3.88e-12], box enclosure = [-1.7e-8 +/- 7.98e-10]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "M_left_endpoint_only": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 74,
+   "first": "t-box [7.108621,7.112460], t=7.108621, M=3.618: true F = [7.7e-35 +/- 5.10e-37], box enclosure = [1e-34 +/- 6.85e-35]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 31,
+   "first": "t-box [0.596479,0.597247], t=0.596863, M=17.4: true F = [-1.698e-8 +/- 3.45e-12], box enclosure = [-1.8e-8 +/- 8.94e-10]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "V_left_endpoint_only": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "zero_radius_removed": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "tail_model_radius_dropped": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "tail_model_wrong_direction": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "tail_variance_x3": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 498,
+   "first": "t-box [7.108621,7.112460], t=7.108621, M=3.6: true F = [1.36e-34 +/- 5.32e-37], box enclosure = [+/- 5.55e-38]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 597,
+   "first": "t-box [1.421724,1.422492], t=1.421724, M=17.3701: true F = [3.6e-31 +/- 5.63e-33], box enclosure = [+/- 1.27e-34]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "J1_to_J2": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 1855,
+   "J1_misses": 2951,
+   "first": "J0 miss: x0=0.016259254965174802, r=0.016259254965174802, x=0.032518509930349604"
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 368,
+   "first": "t-box [7.108621,7.112460], t=7.108621, M=3.6: true F = [1.36e-34 +/- 5.32e-37], box enclosure = [+/- 1.12e-34]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 510,
+   "first": "t-box [1.421724,1.422492], t=1.421724, M=17.3701: true F = [3.6e-31 +/- 5.63e-33], box enclosure = [+/- 1.24e-31]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "z0_2p3": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "series_tail_dropped": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "drop_zero1": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 564,
+   "first": "t-box [7.108621,7.112460], t=7.108621, M=3.6: true F = [1.36e-34 +/- 5.32e-37], box enclosure = [+/- 5.85e-56]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 441,
+   "first": "t-box [1.421724,1.422492], t=1.421724, M=17.3701: true F = [3.6e-31 +/- 5.63e-33], box enclosure = [+/- 7.63e-33]",
+   "T1": 2.4326171875,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "drop_zero3": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 427,
+   "first": "t-box [7.108621,7.112460], t=7.108621, M=3.6: true F = [1.36e-34 +/- 5.32e-37], box enclosure = [+/- 1.11e-39]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 368,
+   "first": "t-box [1.421724,1.422492], t=1.421724, M=17.3701: true F = [3.6e-31 +/- 5.63e-33], box enclosure = [+/- 1.01e-32]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "drop_zero100": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "drop_zero400": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "drop_last_zero": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "zero1_plus_1e-3": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "zero1_plus_0.05": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 4,
+   "first": "t-box [0.596479,0.597247], t=0.597247, M=17.4: true F = [-1.644e-8 +/- 6.78e-12], box enclosure = [-2e-8 +/- 3.49e-9]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "zero250_plus_0.05": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "E2_dropped": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "watson_too_strong": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 6.6982421875,
+   "tested_up_to": 6.6982421875
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.2451171875,
+   "tested_up_to": 1.2451171875
+  }
+ },
+ "chi_sign_error": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "error": "ArithmeticError: tail variance not certified positive: [-0.19320922179 +/- 3.06e-12]"
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 0,
+   "first": null,
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "tail_sign_flip": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 58,
+   "first": "t-box [0.656358,0.660196], t=0.656358, M=3.6: true F = [-0.155460 +/- 2.33e-7], box enclosure = [-0.15 +/- 7.69e-3]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 232,
+   "first": "t-box [0.596479,0.597247], t=0.596479, M=17.3701: true F = [-1.836e-8 +/- 3.88e-12], box enclosure = [-2e-8 +/- 5.60e-9]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "gaussian_tail_dropped": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 108,
+   "first": "t-box [1.477764,1.481602], t=1.477764, M=3.6: true F = [0.0011778 +/- 3.33e-8], box enclosure = [0.001 +/- 5.32e-4]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 360,
+   "first": "t-box [1.421724,1.422492], t=1.421724, M=17.3701: true F = [3.6e-31 +/- 5.63e-33], box enclosure = [+/- 3.79e-29]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "cprime_wrong_exponent": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 66,
+   "first": "t-box [0.656358,0.660196], t=0.656358, M=3.6: true F = [-0.155460 +/- 2.33e-7], box enclosure = [-0.16 +/- 7.58e-3]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 233,
+   "first": "t-box [0.596479,0.597247], t=0.596479, M=17.3701: true F = [-1.836e-8 +/- 3.88e-12], box enclosure = [-2e-8 +/- 4.14e-9]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ },
+ "c_large_gamma_approx": {
+  "L1": {
+   "samples": 7500,
+   "J0_misses": 0,
+   "J1_misses": 0,
+   "first": null
+  },
+  "L2 q=4 [3.6,3.618]": {
+   "samples": 678,
+   "misses": 286,
+   "first": "t-box [2.982397,2.986235], t=2.982397, M=3.6: true F = [2.777e-11 +/- 4.58e-15], box enclosure = [+/- 6.74e-11]",
+   "T1": 10.46484375,
+   "tested_up_to": 7.8609375
+  },
+  "L2 q=4 [17.3701,17.4]": {
+   "samples": 678,
+   "misses": 589,
+   "first": "t-box [1.421724,1.422492], t=1.421724, M=17.3701: true F = [3.6e-31 +/- 5.63e-33], box enclosure = [+/- 3.07e-32]",
+   "T1": 1.9462890625,
+   "tested_up_to": 1.5721875
+  }
+ }
+}

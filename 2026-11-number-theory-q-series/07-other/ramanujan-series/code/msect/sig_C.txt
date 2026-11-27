@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/user/weighted-prime-races/monotonicity/ramanujan-series/code/targets.py", line 150, in <module>
+    ns = load_exact(sys.argv[1])
+  File "/home/user/weighted-prime-races/monotonicity/ramanujan-series/code/targets.py", line 60, in load_exact
+    exec(compile(src, path, 'exec'), ns)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "../survey/verify_C.py", line 65, in <module>
+  File "/home/user/weighted-prime-races/monotonicity/ramanujan-series/code/targets.py", line 25, in _bad
+    raise NotRational()
+NotRational

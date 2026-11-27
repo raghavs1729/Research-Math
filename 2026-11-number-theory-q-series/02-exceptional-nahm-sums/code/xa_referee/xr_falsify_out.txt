@@ -1,0 +1,10 @@
+C_3 k=2 with transposed Cartan matrix (i.e. B_3 Gram) but twisted A_5^(2) data: failures = assertion: ('non-integral', (0, 0, 0), 1, 40, 32)
+C_3 k=2 with mult(j delta)=3 for all j: failures = assertion: ('non-integral', (0, 0, 0), 1, 72, 32)
+C_3 k=2 with C_3^(1) real roots: failures = assertion: ('LHS zero but RHS', (2, 2, 1), 1, 8)
+G_2 k=2 with C=[[2,-3],[-1,2]], D=(3,1): failures = 0
+T_1 k=4 with D=(2): failures = assertion: ('non-integral', (0,), 2, 16, 40)
+A_5^(2) strings vs (B_3,A_1) Nahm sectors (same basis order): (8, 8)
+D_4^(2) strings vs (C_3,A_1) Nahm sectors: (8, 8)
+A_5^(2) strings vs C_3 Gram with D=1 (q;q) denominators: (8, 8)
+A_2^(2) k=4 strings vs Nahm with G=(2) [i.e. (A_1,A_3)]: (4, 4)
+control: A_5^(2) strings vs (C_3,A_1): (0, 8)

@@ -1,0 +1,8 @@
+Part 2: beam search (own implementation, width 200), M = 1/2, weights {0,1}
+  TOY.md table (beam, N = 1024): eta 0.40 -> 0.282, 0.25 -> 0.0615, 0.05 -> 0.0017
+  N=256, eta=0.40: beam score (grid 8N) 2.8412e-01; same m on grid 16N 2.8447e-01; on grid 512N 2.8470e-01; ones = 82, only even n: False (3s)
+  N=256, eta=0.25: beam score (grid 8N) 6.4714e-02; same m on grid 16N 6.5310e-02; on grid 512N 6.5390e-02; ones = 44, only even n: False (2s)
+  N=256, eta=0.05: beam score (grid 8N) 2.7995e-03; same m on grid 16N 2.7845e-03; on grid 512N 2.8491e-03; ones = 31, only even n: True (2s)
+  N=1024, eta=0.40: beam score (grid 8N) 2.8201e-01; same m on grid 16N 2.8221e-01; on grid 512N 2.8217e-01; ones = 151, only even n: False (41s)
+  N=1024, eta=0.25: beam score (grid 8N) 6.2029e-02; same m on grid 16N 6.2070e-02; on grid 512N 6.2084e-02; ones = 97, only even n: False (39s)
+  N=1024, eta=0.05: beam score (grid 8N) 1.6539e-03; same m on grid 16N 1.7332e-03; on grid 512N 1.7570e-03; ones = 92, only even n: True (39s)

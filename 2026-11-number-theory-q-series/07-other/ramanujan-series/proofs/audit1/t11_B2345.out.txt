@@ -1,0 +1,38 @@
+L(x*)   = log((1 - sqrt(3)/2)**2*(1 + sqrt(3))**4/((-1 + sqrt(3))**4*(sqrt(3)/2 + 1)**2))  numeric: 0
+L'(x)   = 12/(4*x**4 - 5*x**2 + 1) ;  L'(x*) = -24
+sup |L''| on [0.8,0.93] ~ 387.94910870689193
+phi' - L = 0
+phi(x*) numeric: 0.e-161 ; exp(phi(x*)) simplified: 1
+psi0(x*) - sqrt3/(sqrt2 pi^(5/2)) = 0 ; psi0(x*) sqrt(pi/12) - sqrt2/(4pi^2) = 0
+Stirling main terms minus claimed [N phi - (1/2) log N + log psi0] = 0
+
+(B2) uniform:  N*|log r(k) - L(k/N)| over k/N in [0.8,0.93];  ratio-expansion constant; summed-expansion constant
+  N=     100  J=    15  |j| range [-6,7]  C(B2 uniform)=43.112  C(ratio exp)=38.799  C(summed)=8.558  max err*N^(1/5)=2.242
+  N=    1000  J=    63  |j| range [-64,64]  C(B2 uniform)=41.269  C(ratio exp)=65.198  C(summed)=20.247  max err*N^(1/5)=26.289
+  N=   10000  J=   251  |j| range [-252,252]  C(B2 uniform)=41.105  C(ratio exp)=46.965  C(summed)=15.422  max err*N^(1/5)=18.024
+  N=  100000  J=   999  |j| range [-1000,1000]  C(B2 uniform)=41.089  C(ratio exp)=42.252  C(summed)=13.745  max err*N^(1/5)=15.119
+  N= 1000000  J=  3981  |j| range [-3982,3982]  C(B2 uniform)=41.087  C(ratio exp)=41.465  C(summed)=13.802  max err*N^(1/5)=14.683
+
+(B4) tail-ratio claims and a(min I)
+  r(k0+J) <= e^{-12J/N} and r(k0-J-1) >= e^{12J/N}: last N <= 20000 where it fails or k0+J > N-2: 164
+  N=100000: (True, True)
+  N=1000000: (True, True)
+  N=10000000: (True, True)
+  N=     4: log(a(min I)/a(k0)) = -7.8785041,  -4 N^(3/5) = -9.1895868,  N log(4/27) = -7.63817
+  N=    10: log(a(min I)/a(k0)) = -19.555482,  -4 N^(3/5) = -15.924287,  N log(4/27) = -19.095425
+  N=   100: log(a(min I)/a(k0)) = -191.44072,  -4 N^(3/5) = -63.395728,  N log(4/27) = -190.95425
+  N=  1000: log(a(min I)/a(k0)) = -1910.0266,  -4 N^(3/5) = -252.38294,  N log(4/27) = -1909.5425
+  N= 10000: log(a(min I)/a(k0)) = -19095.915,  -4 N^(3/5) = -1004.7546,  N log(4/27) = -19095.425
+  N=100000: log(a(min I)/a(k0)) = -190954.74,  -4 N^(3/5) = -4000.0,  N log(4/27) = -190954.25
+  a(min I) <= a(k0) e^{-4 N^(3/5)}: last failing N in 4..3000: 13
+
+(B5) Stirling: N*(log a(N,k) - [N phi(x) - (1/2) log N + log psi0(x)]),  x = k/N
+  N=   100  x~0.8,0.83,x*,0.9,0.93: ['-7.68508', '-7.26231', '-6.99856', '-6.95476', '-7.3427']
+  N=  1000  x~0.8,0.83,x*,0.9,0.93: ['-7.74645', '-7.31275', '-7.00731', '-6.98894', '-7.37314']
+  N= 10000  x~0.8,0.83,x*,0.9,0.93: ['-7.75269', '-7.31786', '-7.01142', '-6.99235', '-7.37607']
+  N=100000  x~0.8,0.83,x*,0.9,0.93: ['-7.75331', '-7.31837', '-7.01173', '-6.99269', '-7.37636']
+
+(B3)-(B5) combined: T_N, centre, tails
+  N=  1000: T_N/target-1=2.62e-39  a(k0)sqrtN/psi0(x*)-1=-0.00654  centre/(a(k0)sqrt(pi N/12))-1=0.00659  upper tail/(a(k0)sqrtN)=2.28e-26  lower=7.41e-22  (bound N^(2/5)e^(-11N^(1/5))=1.52e-18)
+  N= 10000: T_N/target-1=6.11e-37  a(k0)sqrtN/psi0(x*)-1=-0.000327  centre/(a(k0)sqrt(pi N/12))-1=0.000327  upper tail/(a(k0)sqrtN)=9.74e-37  lower=1.69e-34  (bound N^(2/5)e^(-11N^(1/5))=2.87e-29)
+  N=100000: T_N/target-1=-2.69e-35  a(k0)sqrtN/psi0(x*)-1=-9.11e-6  centre/(a(k0)sqrt(pi N/12))-1=9.11e-6  upper tail/(a(k0)sqrtN)=2.46e-55  lower=4.48e-54  (bound N^(2/5)e^(-11N^(1/5))=1.69e-46)

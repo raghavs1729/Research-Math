@@ -1,0 +1,6 @@
+# density.py  q=163  chi = Kronecker (-163/.)  zeros used: 60 (gamma_1 = 0.202901337499, gamma_last = 58.5226731225)  max|partial sum| = 9
+# zero file zeros_q163.txt  sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d  bound to a passing certificate record (K=133, T_cert=7617/64, W=266, verify)  = hypothesis (H-Z)
+DELTA q=163 M=3/5 (m=1/10)  lower=0.590328859673  upper=0.590329153124  width=2.93e-07  | sigma2=8.37716380533145  V_tail=0.06439256579  c_1=3.789200  T=24.375000  K=60  E1=4.61e-07  E2=3.62e-13  Egl=9.42e-22  radI=2.38e-19  gauss_cells=260  e1_cells=28938  time=22s  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+#   guard M=3/5: V_tail=0.06439257 vs RvM estimate 0.06478636 (tolerance 3.17e-03) OK;  59 of the K=60 envelope factors have b_j*T > 1
+DELTA q=163 M=6/5 (m=7/10)  lower=0.596034403752  upper=0.596034753220  width=3.49e-07  | sigma2=12.2068736380107  V_tail=0.2575460776  c_1=3.944018  T=12.187500  K=60  E1=5.49e-07  E2=5.56e-13  Egl=1.18e-21  radI=4.75e-21  gauss_cells=130  e1_cells=10779  time=8s  zeros_sha256=b9d38aba6df821dea401035ea6ae24aa045305e757f81ea1a6233b632ad25b9d
+#   guard M=6/5: V_tail=0.25754608 vs RvM estimate 0.25912077 (tolerance 1.27e-02) OK;  59 of the K=60 envelope factors have b_j*T > 1

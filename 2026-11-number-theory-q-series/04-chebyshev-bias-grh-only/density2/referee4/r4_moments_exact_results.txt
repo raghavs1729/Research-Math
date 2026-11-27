@@ -1,0 +1,43 @@
+INVLO Prop B' (moment identity)
+  (B1) {1, 2, sqrt2, sqrt3, 2sqrt2+3sqrt3}
+    L=2: S_L = [] (indices); moments agree for j <= L: True; first disagreement at j = 3
+    L=3: S_L = [0, 1] (indices); moments agree for j <= L: True; first disagreement at j = 6
+    L=4: S_L = [0, 1] (indices); moments agree for j <= L: True; first disagreement at j = 6
+    L=5: S_L = [0, 1] (indices); moments agree for j <= L: True; first disagreement at j = 6
+    L=6: S_L = [0, 1, 2, 3, 4] (indices); moments agree for j <= L: True; first disagreement at j = None
+    expected: L=2: S empty, first failure at 3; L=3..5: S={0,1}, first failure at 6; L>=6: none
+  (B2) sparse cyclic {1,3,5}: relations of length <= 3: []; of length <= 4: 6 (e.g. [(-3, 1, 0), (-2, -1, 1)]): S_3 is empty, S_4 is everything
+  (B2) {1,3,5}
+    L=3: S_L = [] (indices); moments agree for j <= L: True; first disagreement at j = 4
+    L=4: S_L = [0, 1, 2] (indices); moments agree for j <= L: True; first disagreement at j = None
+  (B3) full cyclic {1..6}: S_3 = [1, 2, 3, 4, 5, 6] (all)
+  (B4) Gamma' = 1e-4 * (60209, 102438, 129881) (= [6.0209, 10.2438, 12.9881]), m = 1, M = 1/2: sigma^2 = 0.0856 <= 0.1556; shortest relation (search ||k||_1 <= 400): length 127, k = (-22, -53, 52)
+       so S_L = empty for all L < 127: a cyclic model in the class C that is NOT saturated at those lengths; smaller beta pushes this further (not uniform over C).
+  (B5) a Sidon set need not be relation-free: {1,3,4} is Sidon (pairwise sums 2,4,5,6,7,8 distinct) but has the length-3 relation 1 + 3 - 4 = 0: relations(len<=3) = [(-1, -1, 1), (1, 1, -1)]
+  Gauss-integer example (complex coefficients) is covered by linearity; real case suffices for the identity.
+
+PRIMECORR Thm P1 (duality on finite multiset models)
+  model 1: ordinates {1 (m=2), 2, sqrt2}
+    E_Haar G^k  : ['1', '0', '518/225', '2', '165662/16875', '772/45', '128470666/2278125']
+    mu_k (ind.) : ['1', '0', '293/225', '0', '287123/67500', '0', '177281089/9112500']
+    Delta_k     : ['0', '0', '1', '2', '1669/300', '772/45', '166223/4500']  (all >= 0: True)
+    brute-force sum over sequences with net vector a multiset relation = Delta_k for k <= 5: True
+    (P1a) Delta_1 = 0 (0); Delta_2 = 1 vs sum 2m(m-1)a^2 = 1: True
+    (P1b) odd k: mu_3 = 0, mu_5 = 0; Delta_3 = 2 > 0 (odd relations 1+1-2, 2*1-2 exist): M_3 = -Delta_3 < 0
+    (P1e) mu_4 = 287123/67500 vs 12 s2^2 - 6 s4 = 287123/67500: True
+  model 2: ordinates {1, 2, sqrt2} (only relation family 2*1 - 2 = 0)
+    E_Haar G^k  : ['1', '0', '361/450', '1/2', '198721/135000', '161/90', '138436831/36450000', '1934807/324000']
+    mu_k (ind.) : ['1', '0', '361/450', '0', '198721/135000', '0', '130843081/36450000', '0']
+    Delta_k     : ['0', '0', '0', '1/2', '0', '161/90', '5/24', '1934807/324000']  (all >= 0: True)
+    brute-force sum over sequences with net vector a multiset relation = Delta_k for k <= 5: True
+    Delta_3 = 1/2; single relation (2,-1) and its negative: 2 * 3!/(2!1!) * a1^2 a2 = 1/2
+    (S3) padding: Delta_5 = 161/90 >= weight * (sum a^2)^1 = 361/10800: True (ratio 53.52); Delta_7 = 1934807/324000 >= weight*(sum a^2)^2 = 130321/9720000
+    P1(b) 'iff' for k = 5 needs padding: Delta_5 > 0 although the only odd relations have length 3 (and 6+...)
+  model 3: ordinates {sqrt2, sqrt3, 2sqrt2+3sqrt3} (shortest relation has length 6)
+    E_Haar G^k  : ['1', '0', '3/2', '0', '45/8', '0', '495/16']
+    mu_k (ind.) : ['1', '0', '3/2', '0', '45/8', '0', '465/16']
+    Delta_k     : ['0', '0', '0', '0', '0', '0', '15/8']  (all >= 0: True)
+    brute-force sum over sequences with net vector a multiset relation = Delta_k for k <= 4: True
+    (P4b) Delta_2..Delta_5 = ['0', '0', '0', '0'] (all 0); Delta_6 = 15/8 = 2*6!/(2!3!1!) * weight = 15/8
+    So a relation of length l contributes nothing to Delta_k for k < l, and contributes a multinomial
+    multiple of its weight at k = l: per-relation contributions are not 'of order 1' uniformly in l.

@@ -1,0 +1,46 @@
+# aux_results.txt -- produced by certify_derivative.py aux
+# All enclosures are Arb balls (outward rounded).  Hypotheses: GRH(chi) (for the
+# variance identity) and the certified zero lists; see METHOD.md section 8.
+
+== (a)  Q_chi(M) = sum_{gamma>0} 4 M^3 / (M^2+gamma^2)^{3/2} ==
+q=4: Q(3.68) in [0.994002446136, 0.994136813997]   Q <= 1 certified: True
+q=4: largest 1e-6-grid M with Q(M) < 1 certified : M = 3.688854   Q in [0.999864372453, 0.999999712182]
+q=4: smallest 1e-6-grid M with Q(M) > 1 certified: M = 3.689059   Q in [1.000000286945, 1.000135649231]
+q=4: hence (Q strictly increasing)  3.688854 < M_0(chi_4) < 3.689059
+q=3: Q(4.47) in [0.991976837653, 0.992172513350]   Q <= 1 certified: True
+q=3: largest 1e-6-grid M with Q(M) < 1 certified : M = 4.483812   Q in [0.999802043622, 0.999999538763]
+q=3: smallest 1e-6-grid M with Q(M) > 1 certified: M = 4.484161   Q in [1.000000173329, 1.000197714589]
+q=3: hence (Q strictly increasing)  4.483812 < M_0(chi_3) < 4.484161
+
+== (b1)  M* := sup{M : sigma_M^2 <= 2}  (sigma^2 strictly increasing in M) ==
+q=4: sigma^2(1.82391477) in [1.999999981444446, 1.999999981444448]  <= 2 certified
+q=4: sigma^2(1.82391478) in [2.000000002599841, 2.000000002599843]  >  2 certified
+q=4: hence  1.82391477 <= M* < 1.82391478   (m* = M* - 1/2)
+q=3: sigma^2(2.12775095) in [1.999999983182305, 1.999999983182307]  <= 2 certified
+q=3: sigma^2(2.12775096) in [2.000000001503963, 2.000000001503965]  >  2 certified
+q=3: hence  2.12775095 <= M* < 2.12775096   (m* = M* - 1/2)
+
+== (b2)  Lambda(M,M') = 1/(M M') - sum_{gamma>0} 4/(|M+i gamma| |M'+i gamma|),  M=m+1/2 ==
+# columns: q m m'  Lambda_lower  Lambda_upper  sign   sigma_M*sigma_M' (upper)   [Cauchy-Schwarz test: < 2]
+q=4 m=0 m'=1  [1.025743922572, 1.025743927694]  sign +   sigma*sigma' <= 0.461414505  (< 2)
+q=4 m=0 m'=2  [0.498840387907, 0.498840403271]  sign +   sigma*sigma' <= 0.753296231  (< 2)
+q=4 m=0 m'=3  [0.278592545808, 0.278592576536]  sign +   sigma*sigma' <= 1.026771785  (< 2)
+q=4 m=1 m'=2  [-0.031171116288, -0.031171106044]  sign -   sigma*sigma' <= 2.234276021  (not < 2)
+q=4 m=1 m'=3  [-0.099221273218, -0.099221247611]  sign -   sigma*sigma' <= 3.045404296  (not < 2)
+q=4 m=2 m'=3  [-0.169713509964, -0.169713494599]  sign -   sigma*sigma' <= 4.971867059  (not < 2)
+q=3 m=0 m'=1  [1.108221564327, 1.108221568116]  sign +   sigma*sigma' <= 0.337673960  (< 2)
+q=3 m=0 m'=2  [0.577444221439, 0.577444232806]  sign +   sigma*sigma' <= 0.556476862  (< 2)
+q=3 m=0 m'=3  [0.352398701892, 0.352398724624]  sign +   sigma*sigma' <= 0.767042605  (< 2)
+q=3 m=1 m'=2  [0.045411850063, 0.045411857641]  sign +   sigma*sigma' <= 1.659523053  (< 2)
+q=3 m=1 m'=3  [-0.027294717736, -0.027294698792]  sign -   sigma*sigma' <= 2.287471360  (not < 2)
+q=3 m=2 m'=3  [-0.101097092360, -0.101097080993]  sign -   sigma*sigma' <= 3.769686259  (not < 2)
+
+== sigma_m^2 at m = 0..3 (for reference) ==
+q=4 m=0: sigma^2 in [0.155567979923585, 0.155567979923586]
+q=4 m=1: sigma^2 in [1.368555053954510, 1.368555053954512]
+q=4 m=2: sigma^2 in [3.647635016776441, 3.647635016776443]
+q=4 m=3: sigma^2 in [6.776846348600175, 6.776846348612121]
+q=3 m=0: sigma^2 in [0.113229969857472, 0.113229969857473]
+q=3 m=1: sigma^2 in [1.007009918870904, 1.007009918870905]
+q=3 m=2: sigma^2 in [2.734845714790342, 2.734845714790344]
+q=3 m=3: sigma^2 in [5.196100976123147, 5.196100976135093]

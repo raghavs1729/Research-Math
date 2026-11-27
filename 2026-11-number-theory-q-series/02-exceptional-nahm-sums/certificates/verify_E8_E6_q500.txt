@@ -1,0 +1,6 @@
+terms: 72395
+E8: sum_{n in N^8} q^{n C(E8)^-1 n/2}/(q)_n == 1/(q,q^2,q^3,q^4,q^7,q^8,q^9,q^10;q^11)_inf  mod q^500 : True  time 17.6s
+terms: 4989
+AG rank 4 multisum == product: True  time 19.0s
+terms: 96636
+E6: sum == RR * Zagier-ex10(B=0)  mod q^300 : True  time 64.7s

@@ -1,0 +1,11 @@
+zeros used: 511 (max 639.92); primes up to 568080
+T=4.0: what(gamma_max/T) = 3.64e-10 (truncation of the zero sum)
+  y=  7.0: Pi_T = +2.753789; Omega_T - zero sum = +2.753561; difference = +2.28e-04; (Omega_T = -2.74e-05)
+  y=  9.0: Pi_T = +4.039716; Omega_T - zero sum = +4.039720; difference = -3.86e-06; (Omega_T = -1.13e-06)
+  y= 11.0: Pi_T = +0.608957; Omega_T - zero sum = +0.608773; difference = +1.84e-04; (Omega_T = +8.62e-08)
+  y= 13.0: Pi_T = -0.193093; Omega_T - zero sum = -0.193135; difference = +4.23e-05; (Omega_T = +5.86e-08)
+T=8.0: what(gamma_max/T) = 8.57e-08 (truncation of the zero sum)
+  y=  7.0: Pi_T = +2.175854; Omega_T - zero sum = +2.175702; difference = +1.52e-04; (Omega_T = -2.76e-05)
+  y=  9.0: Pi_T = +5.301850; Omega_T - zero sum = +5.301311; difference = +5.40e-04; (Omega_T = -1.16e-06)
+  y= 11.0: Pi_T = -0.416290; Omega_T - zero sum = -0.416093; difference = -1.97e-04; (Omega_T = +1.77e-07)
+  y= 13.0: Pi_T = +1.882963; Omega_T - zero sum = +1.883215; difference = -2.52e-04; (Omega_T = +1.10e-07)

@@ -1,0 +1,59 @@
+r3_galois.py results (AI-produced, 2026-11-27)
+symmetric 0/1 q=2: 2 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.000; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=3: 2 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.000; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=4: 4 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.000; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=5: 4 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=6: 8 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.000; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=7: 8 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.333; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=8: 16 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.286; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=9: 16 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.250; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=10: 32 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.444; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=11: 32 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.200; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=12: 64 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.182; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=13: 64 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=14: 128 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.308; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=15: 128 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.429; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=16: 256 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.267; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=17: 256 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=18: 512 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.235; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=19: 512 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.333; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=20: 1024 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.421; integer values n not in {0,-1} on >= 60%: 4 (e.g. v=(0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0), n=-2, on 12 of 19)
+symmetric 0/1 q=21: 1024 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.300; integer values n not in {0,-1} on >= 60%: 2 (e.g. v=(0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0), n=-2, on 12 of 20)
+symmetric 0/1 q=22: 2048 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.190; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=23: 2048 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.091; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=24: 4096 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.261; integer values n not in {0,-1} on >= 60%: 4 (e.g. v=(0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0), n=-2, on 14 of 23)
+symmetric 0/1 q=25: 4096 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.417; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=26: 8192 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.480; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=27: 8192 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.231; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=28: 16384 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.296; integer values n not in {0,-1} on >= 60%: 4 (e.g. v=(0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0), n=-2, on 18 of 27)
+symmetric 0/1 q=29: 16384 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 0
+symmetric 0/1 q=30: 32768 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.414; integer values n not in {0,-1} on >= 60%: 8 (e.g. v=(0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0), n=-2, on 20 of 29)
+all 0/1 (non-symmetric included) q=2: 2 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.000; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=3: 4 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=4: 8 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.333; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=5: 16 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=6: 32 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.400; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=7: 64 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=8: 128 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.286; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=9: 256 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.375; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=10: 512 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.444; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=11: 1024 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=12: 2048 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.364; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=13: 4096 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 0
+all 0/1 (non-symmetric included) q=14: 8192 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.462; integer values n not in {0,-1} on >= 60%: 0
+all {0,1,2}-valued q=2: 3 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.000; integer values n not in {0,-1} on >= 60%: 1 (e.g. v=(0, 2), n=-2, on 1 of 1)
+all {0,1,2}-valued q=3: 9 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 1 (e.g. v=(0, 2, 2), n=-2, on 2 of 2)
+all {0,1,2}-valued q=4: 27 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.333; integer values n not in {0,-1} on >= 60%: 3 (e.g. v=(0, 0, 2, 0), n=-2, on 2 of 3)
+all {0,1,2}-valued q=5: 81 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 1 (e.g. v=(0, 2, 2, 2, 2), n=-2, on 4 of 4)
+all {0,1,2}-valued q=6: 243 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.400; integer values n not in {0,-1} on >= 60%: 13 (e.g. v=(0, 0, 0, 2, 0, 0), n=-2, on 3 of 5)
+all {0,1,2}-valued q=7: 729 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.500; integer values n not in {0,-1} on >= 60%: 1 (e.g. v=(0, 2, 2, 2, 2, 2, 2), n=-2, on 6 of 6)
+all {0,1,2}-valued q=8: 2187 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.429; integer values n not in {0,-1} on >= 60%: 8 (e.g. v=(0, 0, 0, 2, 2, 0, 0, 2), n=-2, on 5 of 7)
+all {0,1,2}-valued q=9: 6561 patterns; violations (iv-1) 0, (iv-2) 0, (C1b) 0, (C2) 0; max share of a non-rational value 0.375; integer values n not in {0,-1} on >= 60%: 9 (e.g. v=(0, 0, 0, 2, 0, 0, 2, 0, 0), n=-2, on 6 of 8)
+
+TOTAL: 124522 patterns checked; total violations 0; largest share of {1..q-1} on which a non-rational value is taken: 0.500 (proof needs < 0.6)
+Smallest q with a symmetric 0/1 pattern having an integer value n not in {0,-1} on >= 60% of {1..q-1}: q=20 (4 patterns; e.g. v=(0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0), n=-2 on 12 of 19, i.e. kappa = 2n+1 = -3)
+Remark (3): v = 1_units mod 21: V(e) values [-6, -2, 1]; V = mu(q) = 1 on the units; V = 1 on 12 of 20 (share 0.600)
+Remark (3): v = 1_units mod 15: V(e) values [-4, -2, 1]; V = mu(q) = 1 on the units; V = 1 on 8 of 14 (share 0.571)
+Remark (3): v = 1_units mod 35: V(e) values [-6, -4, 1]; V = mu(q) = 1 on the units; V = 1 on 24 of 34 (share 0.706)
+Remark (3): v = 1_units mod 77: V(e) values [-10, -6, 1]; V = mu(q) = 1 on the units; V = 1 on 60 of 76 (share 0.789)
+Remark (3): v = 1_units mod 221: V(e) values [-16, -12, 1]; V = mu(q) = 1 on the units; V = 1 on 192 of 220 (share 0.873)

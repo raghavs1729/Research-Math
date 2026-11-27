@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+"""Generate ChebyshevChallenge.lean from the two Mathlib-only definition files
+(ChebLib/Race/Defs.lean, ChebLib/Cheb/Defs.lean) and ChebyshevSolution.lean (statements).
+
+ChebyshevChallenge.lean = header + the two definition layers inlined verbatim + every theorem of
+ChebyshevSolution.lean with its docstring and statement copied byte for byte and its proof replaced
+by `sorry`.  Also regenerates scripts/PrintAxioms.lean and comparator.json.
+Run from the project root:   python3 scripts/gen_challenge.py
+With --check it only verifies that the committed files are up to date (exit code 1 if not).
+"""
+import json
+import re
+import sys
+from pathlib import Path
+
+root = Path(__file__).resolve().parent.parent
+deps1 = (root / "ChebLib" / "Race" / "Defs.lean").read_text()
+deps2 = (root / "ChebLib" / "Cheb" / "Defs.lean").read_text()
+sol = (root / "ChebyshevSolution.lean").read_text()
+
+
+def after(text, marker):
+    return text[text.index(marker) + len(marker):].strip("\n")
+
+
+body1 = after(deps1, "import Mathlib\n")
+body2 = after(deps2, "import ChebLib.Race.Defs\n")
+
+# theorems: docstring + statement up to ` := by`, proof = following indented lines
+pat = re.compile(r"(/--(?:.|\n)*?-/\ntheorem (\w+)(?:.|\n)*?) := by\n((?:  .*\n?)+)")
+thms = pat.findall(sol)
+if not thms:
+    sys.exit("no theorems found in ChebyshevSolution.lean")
+opens = "\n".join(l for l in sol.splitlines() if l.startswith("open "))
+
+HEADER = '''/-
+ChebyshevChallenge.lean — the TRUSTED challenge module: WHAT IS CLAIMED.   (GENERATED FILE: see
+scripts/gen_challenge.py; the definitions are inlined verbatim from ChebLib/Race/Defs.lean and
+ChebLib/Cheb/Defs.lean, and the statements are copied byte for byte from ChebyshevSolution.lean,
+with every proof replaced by `sorry`.)
+
+Machine-checked statements on Chebyshev's bias for primes modulo 4, conditional on an explicit
+Riemann hypothesis for the single Dirichlet L-function L(s,χ₋₄) (`GRHFor chi4`).  Headline:
+
+  * `grh_chebyshev_bias`, `grh_chebyshev_assertion` — CHEBYSHEV'S ASSERTION (1853):
+    under GRH for L(s,χ₋₄),  Σ_p χ₋₄(p) e^{−p/x} → −∞  as x → +∞  (and in Chebyshev's own form,
+    e^{−3c} − e^{−5c} + e^{−7c} + e^{−11c} − ⋯ → +∞ as c → 0⁺);  `chebyshevSum_summable`: the series
+    converges; `chi4_natCast_two`, `chi4_natCast_of_odd`: the sign is (−1)^{(p−1)/2};
+  * `grh_chi4_chebyshevLogSum_two_sided`, `grh_chi4_chebyshevLogSum_neg`,
+    `grh_chi4_smoothed_race_abel_window` — the logarithmically weighted sum over primes:
+    |Σ_p χ₋₄(p) (log p) e^{−p/x} + (√π/2)√x| ≤ (Σ_ρ m_ρ|Γ(ρ)| + ε)√x, hence ≤ −c√x; equivalently a
+    smoothed race with the concrete window e^{u/2} exp(−e^u), with no numerical hypothesis;
+  * `grh_chi4_gammaZeroSum_lt` — Σ_ρ m_ρ |Γ(ρ)| < √π/2 under GRH (no zero numerics);
+  * `grh_chi4_chebyshevPsi_bound` — |Σ_n Λ(n) χ₋₄(n) e^{−n/x}| ≤ (Σ_ρ m_ρ|Γ(ρ)| + ε)√x;
+  * `grh_explicit_formula_integrable_test` — the explicit formula of a primitive Dirichlet
+    L-function for C² test functions with integrable derivatives (no compact support), under GRH.
+
+Part I (statements taken over from monotonicity/lean-race, compactly supported windows):
+
+  * `explicit_formula_zero_sum` — the explicit formula at shift 0, unconditional (a restatement of
+    the Zeta23 library's `EF_lit_chi_L`);
+  * `grh_smoothed_prime_power_sum_bound`, `grh_smoothed_prime_power_sum_le_zero_sum` — for every
+    primitive Dirichlet character χ mod q > 1: under GRH for L(s,χ),
+    ‖S(L) − Γ_L‖ ≤ Σ_ρ m_ρ ĝ(γ_ρ) for g = f ⋆ f̃ and every shift L beyond the support;
+  * `grhFor_of_dirichlet_zeros_on_line` — the shape of the GRH hypothesis;
+  * `chi4_isPrimitive`, `chi4_archWeight`, `grh_chi4_smoothed_prime_power_sum_bound`;
+  * `prime_number_theorem_theta` — θ(x)/x → 1 (unconditional);
+  * `grh_chi4_smoothed_race_two_sided`, `grh_chi4_smoothed_race`, `chi4_primeSum_eq_chi4RaceSum`,
+    `chi4_archTerm_zero_eq_chi4Gamma0`, `chi4Gamma0_integrand_integrable`,
+    `grh_chi4_smoothed_race_real_two_sided`, `grh_chi4_smoothed_race_real` — the smoothed race for
+    compactly supported windows (the one-sided forms carry a numerical hypothesis on the window).
+
+This module imports ONLY Mathlib.  Every hypothesis is an explicit binder: there is no `axiom`.
+ChebyshevSolution.lean (untrusted) proves exactly these statements from ChebLib/ and the Zeta23
+library.  The `sorry`s below are deliberate (this is the challenge side).
+-/
+import Mathlib
+
+/-
+The definitions below are inlined character for character from ChebLib/Race/Defs.lean and
+ChebLib/Cheb/Defs.lean (the Mathlib-only definition layers used by the Solution build), so that
+this module's only import is Mathlib.
+-/
+section
+'''
+
+out = [HEADER, body1, "\n\nend\n\nsection\n", body2, "\n\nend\n\n/-! ## The statements -/\n\n", opens, "\n"]
+for stmt, name, _proof in thms:
+    out.append("\n" + stmt + " := by\n  sorry\n")
+text = "".join(out)
+
+names = [n for _, n, _ in thms]
+axioms_text = """/-
+scripts/PrintAxioms.lean — axiom audit of the headline theorems (GENERATED by
+scripts/gen_challenge.py):
+    lake build ChebyshevSolution && lake env lean scripts/PrintAxioms.lean
+Every line must print exactly
+    'X' depends on axioms: [propext, Classical.choice, Quot.sound]
+(no sorryAx, no other axiom).  GRH (and, in Part I only, the numerical window certificate) are
+explicit hypotheses of the theorems, visible in their statements; they are not axioms.
+-/
+import ChebyshevSolution
+
+""" + "".join(f"#print axioms {n}\n" for n in names)
+comparator_text = json.dumps({
+    "challenge_module": "ChebyshevChallenge",
+    "solution_module": "ChebyshevSolution",
+    "theorem_names": names,
+    "definition_names": [],
+    "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+    "enable_nanoda": True,
+}, indent=2) + "\n"
+
+target = root / "ChebyshevChallenge.lean"
+aux = [(root / "scripts" / "PrintAxioms.lean", axioms_text), (root / "comparator.json", comparator_text)]
+if "--check" in sys.argv:
+    if not target.exists() or target.read_text() != text:
+        sys.exit("ChebyshevChallenge.lean is NOT up to date with the definition files / ChebyshevSolution.lean")
+    for path, content in aux:
+        if not path.exists() or path.read_text() != content:
+            sys.exit(f"{path.name} is NOT up to date")
+    print(f"ChebyshevChallenge.lean is up to date ({len(thms)} statements: {', '.join(names)})")
+else:
+    target.write_text(text)
+    for path, content in aux:
+        path.write_text(content)
+    print(f"wrote ChebyshevChallenge.lean ({len(thms)} statements: {', '.join(names)})")

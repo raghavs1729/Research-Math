@@ -1,0 +1,38 @@
+# Mutation demonstration (audit G1). m1 = zeros_q163.txt with gamma_1 deleted, m2 = with gamma_67 deleted.
+$ python3 density.py --q 163 --M 3/5 6/5 --zeros m1_gamma1_deleted.txt
+FAIL-CLOSED (density.py): REFUSED: zero file m1_gamma1_deleted.txt (sha256 4ae4b2b57b0b5c1ddaab7054962c13a87611dff682e85bb322c479b1ab082743) has no passing completeness record in /home/user/weighted-prime-races/monotonicity/nonmonotone/zeros_q163.cert.txt. Run: python3 zeros_cert.py 163 --verify [--file ... --T p/q]
+[exit status 2]
+
+$ python3 density.py --q 163 --M 3/5 6/5 --zeros m1_gamma1_deleted.txt --uncertified-zeros
+# density.py  q=163  chi = Kronecker (-163/.)  zeros used: 132 (gamma_1 = 2.36853394679, gamma_last = 118.218287414)  max|partial sum| = 9
+# *** zero file m1_gamma1_deleted.txt  sha256=4ae4b2b57b0b5c1ddaab7054962c13a87611dff682e85bb322c479b1ab082743  has NO certificate record: output below is UNCERTIFIED ***
+FAIL-CLOSED (density.py): REFUSED (RvM guard): tail variance V = 7.2139 but the Riemann-von Mangoldt estimate of the unlisted zeros is 0.0349027 (tolerance 0.000967): the zero list is incomplete or wrong
+[exit status 2]
+
+$ python3 zeros_cert.py 163 --verify --file m1_gamma1_deleted.txt
+# VERIFY m1_gamma1_deleted.txt (sha256 4ae4b2b57b0b5c1ddaab7054962c13a87611dff682e85bb322c479b1ab082743): q=163, character number 162 = Kronecker (-163/.), 132 listed windows, T_cert = 7617/64
+# [0] L(1/2, chi) = [0.06853175829607509930827032 +/- 4.02e-27] certified > 0;  [Z] all 132 windows: certified sign change of Z at d -+ 1e-20, disjoint, increasing, inside (0, T_cert)
+# [N] W = [266.000000000 +/- 3e-14] -> 266 zeros of Lambda in (-1,2)x(-T,T)  (theta/pi = 133.383921340, 218 L-evals);  2K = 264
+*** VERIFY FAILED: W = 266 but 2K = 264: the file is NOT the complete list of simple zeros below T_cert.  No hash record written.
+[exit status 1]
+
+$ python3 density.py --q 163 --M 3/5 6/5 --zeros m2_gamma67_deleted.txt
+FAIL-CLOSED (density.py): REFUSED: zero file m2_gamma67_deleted.txt (sha256 f84312e35b0595bd7e339280b8bbad33e270040ba113ac41327418f460669116) has no passing completeness record in /home/user/weighted-prime-races/monotonicity/nonmonotone/zeros_q163.cert.txt. Run: python3 zeros_cert.py 163 --verify [--file ... --T p/q]
+[exit status 2]
+
+$ python3 zeros_cert.py 163 --verify --file m2_gamma67_deleted.txt
+# VERIFY m2_gamma67_deleted.txt (sha256 f84312e35b0595bd7e339280b8bbad33e270040ba113ac41327418f460669116): q=163, character number 162 = Kronecker (-163/.), 132 listed windows, T_cert = 7617/64
+# [0] L(1/2, chi) = [0.06853175829607509930827032 +/- 4.02e-27] certified > 0;  [Z] all 132 windows: certified sign change of Z at d -+ 1e-20, disjoint, increasing, inside (0, T_cert)
+# [N] W = [266.000000000 +/- 3e-14] -> 266 zeros of Lambda in (-1,2)x(-T,T)  (theta/pi = 133.383921340, 218 L-evals);  2K = 264
+*** VERIFY FAILED: W = 266 but 2K = 264: the file is NOT the complete list of simple zeros below T_cert.  No hash record written.
+[exit status 1]
+
+# Limit of the heuristic RvM guard: with the hash requirement waived, m2 (one HIGH zero missing) passes the guard;
+# the output is then labelled UNCERTIFIED, is ignored by make_results.py, and is not a proof (premise c < c_top false).
+$ python3 density.py --q 163 --M 3/5 --zeros m2_gamma67_deleted.txt --uncertified-zeros
+# density.py  q=163  chi = Kronecker (-163/.)  zeros used: 132 (gamma_1 = 0.202901337499, gamma_last = 118.218287414)  max|partial sum| = 9
+# *** zero file m2_gamma67_deleted.txt  sha256=f84312e35b0595bd7e339280b8bbad33e270040ba113ac41327418f460669116  has NO certificate record: output below is UNCERTIFIED ***
+UNCERTIFIED q=163 M=3/5 (m=1/10)  lower=0.590328985432  upper=0.590329025159  width=3.97e-08  | sigma2=8.37716380533145  V_tail=0.03556720396  c_1=3.789200  T=28.156250  K=71  E1=6.24e-08  E2=3.11e-15  Egl=1.30e-21  radI=2.39e-19  gauss_cells=301  e1_cells=29070  time=25s  zeros_sha256=f84312e35b0595bd7e339280b8bbad33e270040ba113ac41327418f460669116
+#   guard M=3/5: V_tail=0.03556720 vs RvM estimate 0.03490273 (tolerance 9.67e-04) OK;  69 of the K=71 envelope factors have b_j*T > 1
+[exit status 0]
+

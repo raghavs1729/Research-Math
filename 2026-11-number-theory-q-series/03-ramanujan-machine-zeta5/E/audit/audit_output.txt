@@ -1,0 +1,42 @@
+PASS E1 poly identity
+PASS E1 U solves recurrence n=1..60 (n=1 uses U_-1)
+PASS E1 U_n>0 n=-1..200
+   U_-1=2, U_0=8
+PASS E1 prod(-b_i) formula j<=14
+PASS E1 telescoping poly identity
+PASS E1 Pi(j)=? summand form: T summand = (j+2)(j+3)/(6 (j+1)! Pi(j)Pi(j-1))
+PASS E1 Lemma formulas for q_n, p_n, p_n/q_n exact n<=40
+PASS E1 final algebra a0-U0/U-1+1/(U-1^2 T) == target
+PASS E1 T series == closed form (50 digits)
+   E1: PCF(400) = 6.69372660322108358827775481645106774520919875
+   E1: target   = 6.69372660322108358827775481645106774520919875  diff = 5.6e-60
+PASS E1 numeric agreement >= 40 digits
+PASS E2 poly identity
+PASS E2 U solves recurrence n=1..60 (n=1 uses U_-1)
+PASS E2 U_n>0 n=-1..200
+   U_-1=10, U_0=33
+PASS E2 prod(-b_i) formula j<=14
+PASS E2 Pi(j)=(j+3)c_{j+2}, Pi(j-1)=(j+2)c_{j+1}
+PASS E2 telescoping poly identity
+PASS E2 summand form
+PASS E2 Lemma formulas for q_n, p_n, p_n/q_n exact n<=40
+PASS E2 final algebra a0-U0/U-1+1/(U-1^2 T) == target
+PASS E2 T series == closed form (50 digits)
+   E2: PCF(400) = 3.43592503917804363316130012184276753867310311
+   E2: target   = 3.43592503917804363316130012184276753867310311  diff = 4.04e-60
+PASS E2 numeric agreement >= 40 digits
+PASS E3 poly identity
+PASS E3 U solves recurrence n=1..60 (n=1 uses U_-1)
+PASS E3 U_n>0 n=-1..200
+   U_-1=1, U_0=1
+PASS E3 prod(-b_i) formula j<=14
+PASS E3 Lemma formulas for q_n, p_n, p_n/q_n exact n<=40
+PASS E3 final algebra a0-U0/U-1+1/(U-1^2 T) == target
+PASS E3 T series == closed form (50 digits)
+   E3: PCF(400) = 2.45079934712112815793238233857772467712173806
+   E3: target   = 2.45079934712112815793238233857772467712173806  diff = 1.56e-60
+PASS E3 numeric agreement >= 40 digits
+row 2 with printed b_n = -(n+3)n^2 : 2.37296506030398963657750300766  vs 3/(4e-10) = 3.43592503917804363316130012184
+first partial numerators E1: [-4, -20, -54, -112]  E2 (+): [4, 20, 54, 112]  E3: [-3, -16, -45, -96]
+first partial denominators E1: [7, 14, 23, 34, 47]  E2: [3, 8, 15, 24, 35]  E3: [3, 7, 13, 21, 31]
+ALL PASS

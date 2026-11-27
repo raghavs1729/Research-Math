@@ -1,0 +1,22 @@
+Certificates: overpartition congruences mod 17 and 23 (arXiv:2603.08510, closing remarks)
+
+## pbar(17*11^2*n) = 0 mod 17 for n = 3 mod 8, (n/11) = -1
+step 1: T_17(phi^16) = sum alpha_j F^j phi^(16-4j), alpha mod 17 = [1, 13, 13, 0, 0]
+        c0 = sum gamma_j F^j phi^(15-4j), gamma = [1, 13, 13, 0]
+step 2: T(11^2) c0 = sum beta_j F^j phi^(15-4j), beta mod 17 = [8, 14, 14, 0]  (lam = 7, (-1/11)^lam = -1)
+step 3: for (n/11) = -1: c0(11^2 n) = b(n) - (+1)*11^6 c0(n) = h(n), 11^6 = 8 mod 17;
+        h = sum eta_j F^j phi^(15-4j) mod 17, eta = [0, 12, 12, 0]
+step 4: Sturm bound for weight 8 on Gamma_1(256): 32768; h(n) mod 17 at the 4096 values n = 3 mod 8, n <= 32768: ALL ZERO
+        (for comparison, number of nonzero h(n), n < 2000, by n mod 8: {0: 211, 1: 231, 2: 239, 3: 0, 4: 174, 5: 238, 6: 221, 7: 230})
+RESULT: PROVED
+
+## pbar(23*13^2*n) = 0 mod 23 for n = 5 mod 8, (n/13) = +1
+step 1: T_23(phi^22) = sum alpha_j F^j phi^(22-4j), alpha mod 23 = [1, 9, 5, 14, 17, 20]
+        c0 = sum gamma_j F^j phi^(21-4j), gamma = [1, 9, 5, 14, 17, 20]
+step 2: T(13^2) c0 = sum beta_j F^j phi^(21-4j), beta mod 23 = [3, 20, 8, 10, 12, 6]  (lam = 10, (-1/13)^lam = +1)
+step 3: for (n/13) = +1: c0(13^2 n) = b(n) - (+1)*13^9 c0(n) = h(n), 13^9 = 3 mod 23;
+        h = sum eta_j F^j phi^(21-4j) mod 23, eta = [0, 16, 16, 14, 7, 15]
+step 4: Sturm bound for weight 11 on Gamma_1(256): 45056; h(n) mod 23 at the 5632 values n = 5 mod 8, n <= 45056: ALL ZERO
+        (for comparison, number of nonzero h(n), n < 2000, by n mod 8: {0: 210, 1: 233, 2: 229, 3: 231, 4: 168, 5: 0, 6: 226, 7: 219})
+RESULT: PROVED
+

@@ -1,0 +1,1 @@
+OK: the 31 headline statements elaborate to identical types in ChebyshevChallenge and ChebyshevSolution

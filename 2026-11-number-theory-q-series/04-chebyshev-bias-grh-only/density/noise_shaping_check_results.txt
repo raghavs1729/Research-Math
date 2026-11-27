@@ -1,0 +1,10 @@
+tapered round-up (Thm 9.6 rounding)      rms E on T = 1.409e-03   max|mult(e^Psi u)| = 1.448e-01
+k=0: B=3, sup_T|H|=1.0e+00               rms E on T = 1.409e-03   max|mult(e^Psi u)| = 1.448e-01
+k=1: B=4, sup_T|H|=3.1e-01               rms E on T = 7.065e-04   max|mult(e^Psi u)| = 6.898e-02
+k=2: B=6, sup_T|H|=9.8e-02               rms E on T = 1.064e-04   max|mult(e^Psi u)| = 1.233e-02
+k=3: B=10, sup_T|H|=3.1e-02              rms E on T = 2.187e-05   max|mult(e^Psi u)| = 2.023e-03
+k=4: B=18, sup_T|H|=9.6e-03              rms E on T = 6.045e-06   max|mult(e^Psi u)| = 4.744e-04
+k=5: B=34, sup_T|H|=3.0e-03              rms E on T = 1.680e-06   max|mult(e^Psi u)| = 1.817e-04
+k=6: B=66, sup_T|H|=9.4e-04              rms E on T = 4.188e-07   max|mult(e^Psi u)| = 3.284e-05
+k=7: B=130, sup_T|H|=2.9e-04             rms E on T = 1.159e-07   max|mult(e^Psi u)| = 1.145e-05
+k=8: B=258, sup_T|H|=9.2e-05             rms E on T = 2.651e-08   max|mult(e^Psi u)| = 2.789e-06

@@ -1,0 +1,28 @@
+Referee 2, r2_hyp_orbits.py: HYP.md Proposition 1.1 (finite models) and section 2 examples.
+
+Model A (circle, X = {2^k : k < 9}):
+  k0=1 (H = 2Z, N = 2, Lambda = [1]): max|F_H(th+k)-F_H(th)| = 2.2e-14; orbit gap of F_Lambda: min 5.60e-05, P(gap<1e-3) = 8.00e-05
+      c=0.0: [d=3e-02: E|S|=3.664e-02, N*lam=3.685e-02, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-03: E|S|=3.825e-03, N*lam=3.650e-03, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-04: E|S|=2.200e-04, N*lam=2.300e-04, P(S>=2)/P(S>=1)=0.00e+00] 
+      c=1.0: [d=3e-02: E|S|=1.681e-02, N*lam=1.660e-02, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-03: E|S|=5.750e-04, N*lam=5.400e-04, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-04: E|S|=5.000e-05, N*lam=4.000e-05, P(S>=2)/P(S>=1)=0.00e+00] 
+  k0=2 (H = 4Z, N = 4, Lambda = [1, 2]): max|F_H(th+k)-F_H(th)| = 2.2e-14; orbit gap of F_Lambda: min 5.63e-05, P(gap<1e-3) = 5.50e-04
+      c=0.0: [d=3e-02: E|S|=7.209e-02, N*lam=7.380e-02, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-03: E|S|=7.370e-03, N*lam=7.980e-03, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-04: E|S|=4.350e-04, N*lam=5.000e-04, P(S>=2)/P(S>=1)=0.00e+00] 
+      c=1.0: [d=3e-02: E|S|=3.449e-02, N*lam=3.462e-02, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-03: E|S|=1.230e-03, N*lam=1.220e-03, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-04: E|S|=1.600e-04, N*lam=1.800e-04, P(S>=2)/P(S>=1)=0.00e+00] 
+  k0=3 (H = 8Z, N = 8, Lambda = [1, 2, 4]): max|F_H(th+k)-F_H(th)| = 2.0e-14; orbit gap of F_Lambda: min 1.37e-06, P(gap<1e-3) = 2.77e-03
+      c=0.0: [d=3e-02: E|S|=1.447e-01, N*lam=1.442e-01, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-03: E|S|=1.499e-02, N*lam=1.476e-02, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-04: E|S|=1.025e-03, N*lam=8.800e-04, P(S>=2)/P(S>=1)=0.00e+00] 
+      c=1.0: [d=3e-02: E|S|=6.811e-02, N*lam=6.644e-02, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-03: E|S|=2.210e-03, N*lam=1.720e-03, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-04: E|S|=2.750e-04, N*lam=2.400e-04, P(S>=2)/P(S>=1)=0.00e+00] 
+  k0=4 (H = 16Z, N = 16, Lambda = [1, 2, 4, 8]): max|F_H(th+k)-F_H(th)| = 2.5e-14; orbit gap of F_Lambda: min 6.29e-08, P(gap<1e-3) = 1.44e-02
+      c=0.0: [d=3e-02: E|S|=2.903e-01, N*lam=2.935e-01, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-03: E|S|=2.961e-02, N*lam=3.000e-02, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-04: E|S|=1.870e-03, N*lam=1.120e-03, P(S>=2)/P(S>=1)=0.00e+00] 
+      c=1.0: [d=3e-02: E|S|=1.378e-01, N*lam=1.443e-01, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-03: E|S|=4.855e-03, N*lam=5.120e-03, P(S>=2)/P(S>=1)=0.00e+00] [d=3e-04: E|S|=4.650e-04, N*lam=2.400e-04, P(S>=2)/P(S>=1)=0.00e+00] 
+
+Model B (2-torus, G/H = Z/8 x Z/2, N = 16):
+  Lambda = [(1, 0), (2, 0), (4, 0), (0, 1)]; generators of H: [(8, 2), (16, 2), (32, 2), (64, 2), (128, 2)]; Smith invariants of H in Z^2: [2, 8] -> index 16
+  max|F_H(th k) - F_H(th)| over K = 2.3e-14;  orbit gap of F_Lambda: min 3.12e-07, P(gap < 1e-3) = 1.69e-02
+      c=0.0: [d=3e-02: E|S|=1.639e-01, N*lam=1.600e-01, P(S>=2)/P(S>=1)=7.20e-02] [d=3e-03: E|S|=1.600e-02, N*lam=1.376e-02, P(S>=2)/P(S>=1)=4.39e-03] [d=3e-04: E|S|=1.710e-03, N*lam=1.920e-03, P(S>=2)/P(S>=1)=0.00e+00] 
+      c=1.0: [d=3e-02: E|S|=1.211e-01, N*lam=1.195e-01, P(S>=2)/P(S>=1)=5.48e-02] [d=3e-03: E|S|=1.248e-02, N*lam=1.184e-02, P(S>=2)/P(S>=1)=4.83e-03] [d=3e-04: E|S|=1.400e-03, N*lam=1.120e-03, P(S>=2)/P(S>=1)=0.00e+00] 
+
+Examples of HYP.md section 2:
+  (4) X = {2^k}: T=1: index 2; T=10: index 16; T=100: index 128; T=1000: index 1024; T=1000000: index 1048576  -> TS_Z holds; G_T = Z for T >= 1, so every nonzero
+      hom G_T -> Z is nonzero on all #X_T ~ log2 T elements: FD fails; TS fails (Q-span = Q).
+  (5) X = odd multiples: T=1: index 1; T=10: index 1; T=100: index 1; relation lattice basis e_k - x_k e_0 (x_0 = 1, a Z-basis),
+      all coordinate sums even: True -> Devin's parity hypothesis holds; TS_Z fails (index 1) and FD fails.
+  (6) Example 3.3a truncated (4 primary, 3 linking each), T = 1000.0: rank of <X_>T> = 16 of 16, Smith invariants [1] -> <X_>T> = G (index 1): TS_Z fails

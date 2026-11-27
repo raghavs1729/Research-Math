@@ -1,0 +1,25 @@
+(F) y = 9/10: Phi(1/y) = [0.003332482950757623830098929 +/- 4.16e-28],  Phi(1/y) - y Phi(y) = [+/- 1.18e-83]
+(F) y = 3/4: Phi(1/y) = [0.002589344799880835215876784 +/- 6.16e-30],  Phi(1/y) - y Phi(y) = [+/- 9.90e-84]
+(F) y = 1/2: Phi(1/y) = [0.0008221458528310575894419927 +/- 4.64e-29],  Phi(1/y) - y Phi(y) = [+/- 9.33e-84]
+(M1) {'M1_baseline_pass': True, 'M1_signflip_rejected': True, 'M1_tau3_5_11_flipped_rejected': True}
+(M2) {'M2_bad_sigma_rejected': True, 'M2_H12_rejected': True, 'M2_baseline_pass': True}
+(M3) baseline max Rem (P=2e4, grid 1/4) = 0.1865; with zero #1, #8, #21, #41 deleted: ['0.7432', '0.7414', '0.7576', '0.8417']
+(M3) zero #11 shifted by 0.3: max Rem = 0.1865 (the sign-change step would reject this zero; Rem alone rises from 0.1865)
+(M4) sigma0^2 = [0.11225214047190852675 +/- 4.42e-21] ; with tau(2)+1: [0.11220135890207042535 +/- 3.44e-21]
+{
+ "F_1/2": true,
+ "F_3/4": true,
+ "F_9/10": true,
+ "M1_baseline_pass": true,
+ "M1_signflip_rejected": true,
+ "M1_tau3_5_11_flipped_rejected": true,
+ "M2_H12_rejected": true,
+ "M2_bad_sigma_rejected": true,
+ "M2_baseline_pass": true,
+ "M3_baseline_rem_lt_2over3": true,
+ "M3_deleted_zero_rejected": true,
+ "M3_shifted_zero_rem": "0.1865",
+ "M4_baseline_in_pinned": true,
+ "M4_mutant_outside_pinned": true
+}
+SELFTEST PASS

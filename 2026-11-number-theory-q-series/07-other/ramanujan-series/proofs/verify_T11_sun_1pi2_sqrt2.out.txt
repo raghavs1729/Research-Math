@@ -1,0 +1,15 @@
+A1. sigma, rho agree with the closed form of a(n,k): OK
+A2. WZ equation: generic identity, boundary identity (k = n-1), all cases on the grid 1<=n<6, k<8: OK
+A3. gam(n,0) = -t(n)/256 (n = 1..8 exactly + ratio identity), a(1,0) = t(0)/256: OK
+A4. finite identity sum_{n<N} t(n) = 256 T_N for N = 1,2,3,5 (exact): OK
+B1. phi' = log[(1-x)^2(2x+1)^4/((1+x)^2(2x-1)^4)], phi'(x*) = 0 at x* = sqrt3/2, phi''(x*) = -24, phi(x*) = 0,
+    psi0(x*) = sqrt3/(sqrt2 pi^(5/2)), psi0(x*) sqrt(pi/12) = sqrt2/(4 pi^2): OK
+B1. (exact, N = 4..400) a > 0, log-concave on I = [N/2-1, N-1], r >= 1 below I, lower bound for r: OK
+B2. algebraic identity for the region k < N/2: OK
+B3. N=    40: T_N - sqrt2/(4pi^2) = 7.4e-31;  a(k0) sqrt(N)/psi0(x*) - 1 = -0.014;  T_N/(a(k0) sqrt(pi N/12)) - 1 = 0.0142
+B3. N=   200: T_N - sqrt2/(4pi^2) = -6.4e-30;  a(k0) sqrt(N)/psi0(x*) - 1 = -0.0191;  T_N/(a(k0) sqrt(pi N/12)) - 1 = 0.0195
+B3. N=  1000: T_N - sqrt2/(4pi^2) = -4.59e-29;  a(k0) sqrt(N)/psi0(x*) - 1 = -0.00654;  T_N/(a(k0) sqrt(pi N/12)) - 1 = 0.00659
+B3. N=  5000: T_N - sqrt2/(4pi^2) = 3.36e-29;  a(k0) sqrt(N)/psi0(x*) - 1 = -0.000989;  T_N/(a(k0) sqrt(pi N/12)) - 1 = 0.00099
+B3. N= 20000: T_N - sqrt2/(4pi^2) = -1.21e-27;  a(k0) sqrt(N)/psi0(x*) - 1 = -5.4e-5;  T_N/(a(k0) sqrt(pi N/12)) - 1 = 5.4e-5
+final: |lhs - 64 sqrt2/pi^2| = 0.0
+ALL CHECKS PASSED

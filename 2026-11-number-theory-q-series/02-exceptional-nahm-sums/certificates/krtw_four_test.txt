@@ -1,0 +1,11 @@
+self-test (transfer recursion vs brute-force enumeration, k <= 3, mod q^30): OK
+KRTW four Andrews-Gordon-type identities, exact comparison mod q^400
+k=1: (i) OK   (ii) OK   (iii) OK   (iv) OK
+k=2: (i) OK   (ii) OK   (iii) OK   (iv) OK
+k=3: (i) OK   (ii) OK   (iii) OK   (iv) OK
+k=4: (i) OK   (ii) OK   (iii) OK   (iv) OK
+k=5: (i) OK   (ii) OK   (iii) OK   (iv) OK
+k=6: (i) OK   (ii) OK   (iii) OK   (iv) OK
+k=7: (i) OK   (ii) OK   (iii) OK   (iv) OK
+k=8: (i) OK   (ii) OK   (iii) OK   (iv) OK
+ALL OK

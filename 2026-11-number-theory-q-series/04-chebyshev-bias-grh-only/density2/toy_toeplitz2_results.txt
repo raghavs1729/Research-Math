@@ -1,0 +1,15 @@
+toy_toeplitz2.py results (AI-produced, 2026-11-26)
+qs=[2, 3, 2, 5, 3, 2, 2, 3] level i+1=1 (q_1=2, P=2): (a) max diff of fine part across sub-arcs 6.7e-16; (b) B constant on sub-arcs to 0.0e+00, recursion error 0.0e+00; (c) ||fine||^2=2.20e-02 <= bound 8.22e-01: True
+qs=[2, 3, 2, 5, 3, 2, 2, 3] level i+1=2 (q_2=3, P=6): (a) max diff of fine part across sub-arcs 8.9e-16; (b) B constant on sub-arcs to 0.0e+00, recursion error 0.0e+00; (c) ||fine||^2=2.20e-02 <= bound 9.14e-02: True
+qs=[2, 3, 2, 5, 3, 2, 2, 3] level i+1=3 (q_3=2, P=12): (a) max diff of fine part across sub-arcs 6.7e-16; (b) B constant on sub-arcs to 0.0e+00, recursion error 0.0e+00; (c) ||fine||^2=2.19e-02 <= bound 2.28e-02: True
+qs=[2, 3, 2, 5, 3, 2, 2, 3] level i+1=4 (q_4=5, P=60): (a) max diff of fine part across sub-arcs 6.7e-16; (b) B constant on sub-arcs to 5.7e-16, recursion error 1.4e-17; (c) ||fine||^2=7.62e-05 <= bound 9.14e-04: True
+qs=[2, 3, 2, 5, 3, 2, 2, 3] level i+1=5 (q_5=3, P=180): (a) max diff of fine part across sub-arcs 4.4e-16; (b) B constant on sub-arcs to 3.8e-16, recursion error 6.9e-18; (c) ||fine||^2=7.62e-05 <= bound 1.02e-04: True
+qs=[2, 3, 2, 5, 3, 2, 2, 3] level i+1=6 (q_6=2, P=360): (a) max diff of fine part across sub-arcs 0.0e+00; (b) B constant on sub-arcs to 8.2e-16, recursion error 1.4e-17; (c) ||fine||^2=0.00e+00 <= bound 2.54e-05: True
+qs=[3, 7, 2, 11, 2, 3] level i+1=1 (q_1=3, P=3): (a) max diff of fine part across sub-arcs 1.8e-15; (b) B constant on sub-arcs to 1.8e-15, recursion error 0.0e+00; (c) ||fine||^2=2.31e-01 <= bound 3.66e-01: True
+qs=[3, 7, 2, 11, 2, 3] level i+1=2 (q_2=7, P=21): (a) max diff of fine part across sub-arcs 1.3e-15; (b) B constant on sub-arcs to 1.8e-15, recursion error 4.4e-16; (c) ||fine||^2=2.10e-04 <= bound 7.46e-03: True
+qs=[3, 7, 2, 11, 2, 3] level i+1=3 (q_3=2, P=42): (a) max diff of fine part across sub-arcs 5.6e-16; (b) B constant on sub-arcs to 7.4e-16, recursion error 6.9e-17; (c) ||fine||^2=2.11e-04 <= bound 1.87e-03: True
+qs=[3, 7, 2, 11, 2, 3] level i+1=4 (q_4=11, P=462): (a) max diff of fine part across sub-arcs 8.9e-16; (b) B constant on sub-arcs to 2.2e-15, recursion error 8.9e-16; (c) ||fine||^2=3.41e-06 <= bound 1.54e-05: True
+qs=[2, 2, 31, 2, 3, 2] level i+1=1 (q_1=2, P=2): (a) max diff of fine part across sub-arcs 8.9e-16; (b) B constant on sub-arcs to 0.0e+00, recursion error 0.0e+00; (c) ||fine||^2=6.16e-01 <= bound 8.22e-01: True
+qs=[2, 2, 31, 2, 3, 2] level i+1=2 (q_2=2, P=4): (a) max diff of fine part across sub-arcs 5.6e-16; (b) B constant on sub-arcs to 6.7e-16, recursion error 0.0e+00; (c) ||fine||^2=2.89e-02 <= bound 2.06e-01: True
+qs=[2, 2, 31, 2, 3, 2] level i+1=3 (q_3=31, P=124): (a) max diff of fine part across sub-arcs 0.0e+00; (b) B constant on sub-arcs to 1.3e-15, recursion error 2.8e-16; (c) ||fine||^2=0.00e+00 <= bound 2.14e-04: True
+qs=[2, 2, 31, 2, 3, 2] level i+1=4 (q_4=2, P=248): (a) max diff of fine part across sub-arcs 0.0e+00; (b) B constant on sub-arcs to 4.7e-16, recursion error 5.6e-17; (c) ||fine||^2=0.00e+00 <= bound 5.35e-05: True

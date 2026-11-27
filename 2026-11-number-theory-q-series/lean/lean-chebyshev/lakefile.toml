@@ -1,0 +1,38 @@
+name = "LeanChebyshev"
+version = "0.1.0"
+defaultTargets = ["ChebyshevChallenge", "ChebyshevSolution"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+
+# zeta23 (anthropics/formal-math, folder zeta23/), pinned.  It pins Mathlib
+# 51e6992efd06126df61a496bebf8f49482a4e129 and Lean v4.33.0-rc2; we inherit both.
+[[require]]
+name = "Zeta23"
+git = "https://github.com/anthropics/formal-math"
+rev = "11b6c7e3c927df2658f513b6b68ea7f8929c62c5"
+subDir = "zeta23"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "51e6992efd06126df61a496bebf8f49482a4e129"
+
+# The proof development.
+[[lean_lib]]
+name = "ChebLib"
+
+# Comparator-style statement layer.  Trusted: ChebyshevChallenge (Mathlib only; the definitions of
+# ChebLib/Race/Defs.lean and ChebLib/Cheb/Defs.lean inlined).  Untrusted: ChebyshevSolution (imports
+# ChebLib, hence Zeta23).
+# (The modules cannot be called Challenge / Solution as in the Palomar template: the Zeta23
+# dependency already ships root modules with exactly those names, and Lake refuses to disambiguate
+# imports between two packages.)
+[[lean_lib]]
+name = "ChebyshevChallenge"
+roots = ["ChebyshevChallenge"]
+
+[[lean_lib]]
+name = "ChebyshevSolution"
+roots = ["ChebyshevSolution"]

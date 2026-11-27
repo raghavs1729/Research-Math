@@ -1,0 +1,14 @@
+N = 90 (modulo q^N, all powers of x)
+C_1 = (-xq;q^2)_inf: True
+k = 1: [F] True  [S1] True  [S2] True  [S3] True  [S4] True
+k = 2: [F] True  [S1] True  [S2] True  [S3] True  [S4] True  [S6] True
+k = 3: [F] True  [S1] True  [S2] True  [S3] True  [S4] True
+k = 4: [F] True  [S1] True  [S2] True  [S3] True  [S4] True  [S6] True
+k = 5: [F] True  [S1] True  [S2] True  [S3] True  [S4] True
+k = 6: [F] True  [S1] True  [S2] True  [S3] True  [S4] True  [S6] True
+k = 7: [F] True  [S1] True  [S2] True  [S3] True  [S4] True
+ALL CHECKS PASSED
+
+real	0m10.327s
+user	0m10.253s
+sys	0m0.020s

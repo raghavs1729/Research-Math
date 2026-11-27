@@ -1,0 +1,164 @@
+Referee 2, r2_subarcs.py: direct smoothed Fourier sums vs the sub-arc formulas of TOY.md Thm 2.3.
+N = 1048576 coefficients, flat-top C^inf window, interior points u in [0.25,0.75].
+
+=== symmetric #0: q_1.. = [6, 4, 3, 2, 6]..., level i = 2, P = 72, q = 3, M = 1.0, eps = 0.08727
+  v_1..v_3 = [[0, 0, 0, 1, 0, 0], [0, 1, 1, 1], [0, 1, 1]]
+  patterns v_1..v_3 symmetric: True;  p_a == 0: True   (P) OK
+  S1 max|B_fit(s,u) - B_rec(s)|                                  2.742e-14
+  S1 max|Im C(s)|                                                3.413e-13
+  S2 max_{q∤s}|C(s) - V(s mod q)|                                2.177e-13
+  S2 max_{q∤s}|B(s)-e^-eps B(s-1)-eps V|                         1.881e-14
+  S3 max|w' - 1/2| on sub-arcs                                   2.562e-12
+  (info) max_{q|s}|C(s) - V(0)|                                  2.100e+01
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  2.061e-03
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 2.061e-03
+  (ii) bound (4pi^2/3)M^2/P^2                                    2.538e-03
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 1.776e-15
+
+=== symmetric #1: q_1.. = [6, 6, 6, 7]..., level i = 1, P = 36, q = 6, M = 1.0, eps = 0.17453
+  v_1..v_2 = [[0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0]]
+  patterns v_1..v_2 symmetric: True;  p_a == 0: True   (P) OK
+  S1 max|B_fit(s,u) - B_rec(s)|                                  9.492e-15
+  S1 max|Im C(s)|                                                5.402e-14
+  S2 max_{q∤s}|C(s) - V(s mod q)|                                3.222e-14
+  S2 max_{q∤s}|B(s)-e^-eps B(s-1)-eps V|                         5.551e-15
+  S3 max|w' - 1/2| on sub-arcs                                   1.436e-12
+  (info) max_{q|s}|C(s) - V(0)|                                  6.000e+00
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  2.349e-03
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 2.349e-03
+  (ii) bound (4pi^2/3)M^2/P^2                                    1.015e-02
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 1.332e-15
+
+=== symmetric #2: q_1.. = [4, 6, 4, 7]..., level i = 1, P = 24, q = 6, M = 0.5, eps = 0.13090
+  v_1..v_2 = [[0, 0, 0, 0], [0, 1, 1, 0, 1, 1]]
+  patterns v_1..v_2 symmetric: True;  p_a == 0: True   (P) OK
+  S1 max|B_fit(s,u) - B_rec(s)|                                  2.970e-15
+  S1 max|Im C(s)|                                                2.309e-14
+  S2 max_{q∤s}|C(s) - V(s mod q)|                                2.225e-14
+  S2 max_{q∤s}|B(s)-e^-eps B(s-1)-eps V|                         2.885e-15
+  S3 max|w' - 1/2| on sub-arcs                                   7.276e-12
+  (info) max_{q|s}|C(s) - V(0)|                                  1.592e-14
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  3.556e-04
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 3.556e-04
+  (ii) bound (4pi^2/3)M^2/P^2                                    5.712e-03
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 4.441e-16
+
+=== symmetric #3: q_1.. = [2, 7, 5, 7, 5]..., level i = 2, P = 70, q = 5, M = 3.0, eps = 0.26928
+  v_1..v_3 = [[0, 0], [0, 1, 1, 1, 1, 1, 1], [0, 1, 1, 1, 1]]
+  patterns v_1..v_3 symmetric: True;  p_a == 0: True   (P) OK
+  S1 max|B_fit(s,u) - B_rec(s)|                                  8.527e-14
+  S1 max|Im C(s)|                                                2.274e-13
+  S2 max_{q∤s}|C(s) - V(s mod q)|                                2.383e-13
+  S2 max_{q∤s}|B(s)-e^-eps B(s-1)-eps V|                         6.446e-14
+  S3 max|w' - 1/2| on sub-arcs                                   5.457e-12
+  (info) max_{q|s}|C(s) - V(0)|                                  3.000e+01
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  8.446e-03
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 8.445e-03
+  (ii) bound (4pi^2/3)M^2/P^2                                    2.417e-02
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 8.882e-15
+
+=== period doubling: q_1.. = [2, 2, 2, 2, 2, 2, 2]..., level i = 4, P = 32, q = 2, M = 0.5, eps = 0.09817
+  v_1..v_5 = [[0, 0], [0, 1], [0, 0], [0, 1], [0, 0]]
+  patterns v_1..v_5 symmetric: True;  p_a == 0: True   (P) OK
+  S1 max|B_fit(s,u) - B_rec(s)|                                  8.521e-15
+  S1 max|Im C(s)|                                                4.606e-14
+  S2 max_{q∤s}|C(s) - V(s mod q)|                                4.652e-14
+  S2 max_{q∤s}|B(s)-e^-eps B(s-1)-eps V|                         4.621e-15
+  S3 max|w' - 1/2| on sub-arcs                                   1.058e-12
+  (info) max_{q|s}|C(s) - V(0)|                                  1.000e+01
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  2.570e-03
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 2.570e-03
+  (ii) bound (4pi^2/3)M^2/P^2                                    3.213e-03
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 8.882e-16
+
+=== non-symmetric #0 (asym at level 1): q_1.. = [4, 4, 4, 3]..., level i = 1, P = 16, q = 4, M = 1.0, eps = 0.39270
+  v_1..v_2 = [[0, 0, 0, 1], [0, 1, 0, 0]]
+  patterns v_1..v_2 symmetric: False;  p_a == 0: False   (P) OK
+  N1 max|w'_Fourier - formula sin/sin|                           5.158e-13
+  N1 max|w'_Fourier - formula Im[p_a]/sin(pi u)|                 5.151e-13
+  N2 max|w'_{s-1}-w'_s - (-Im sum A e^{iwu}/sin)|                7.365e-13
+  N2 min_s max_u|w'_{s-1}-w'_s|  (must be > 0)                   7.854e-01
+  N3 min_s (spread of (F'-1)e^{eps u}/2 over u)  (>0: not exponential) 3.583e-02
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  8.123e-03
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 8.123e-03
+  (ii) bound (4pi^2/3)M^2/P^2                                    5.140e-02
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 2.665e-15
+
+=== non-symmetric #1 (asym at level 1): q_1.. = [3, 6, 6]..., level i = 0, P = 3, q = 3, M = 1.0, eps = 2.09440
+  v_1..v_1 = [[0, 1, 0]]
+  patterns v_1..v_1 symmetric: False;  p_a == 0: False   (P) OK
+  N1 max|w'_Fourier - formula sin/sin|                           1.624e-11
+  N1 max|w'_Fourier - formula Im[p_a]/sin(pi u)|                 1.624e-11
+  N2 max|w'_{s-1}-w'_s - (-Im sum A e^{iwu}/sin)|                2.520e-11
+  N2 min_s max_u|w'_{s-1}-w'_s|  (must be > 0)                   2.366e+00
+  N3 min_s (spread of (F'-1)e^{eps u}/2 over u)  (>0: not exponential) 1.589e+00
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  5.228e-01
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 5.228e-01
+  (ii) bound (4pi^2/3)M^2/P^2                                    1.462e+00
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 5.329e-15
+
+=== non-symmetric #2 (asym at level 1): q_1.. = [3, 4, 4]..., level i = 0, P = 3, q = 3, M = 3.0, eps = 6.28319
+  v_1..v_1 = [[0, 1, 0]]
+  patterns v_1..v_1 symmetric: False;  p_a == 0: False   (P) OK
+  N1 max|w'_Fourier - formula sin/sin|                           1.624e-11
+  N1 max|w'_Fourier - formula Im[p_a]/sin(pi u)|                 1.624e-11
+  N2 max|w'_{s-1}-w'_s - (-Im sum A e^{iwu}/sin)|                2.520e-11
+  N2 min_s max_u|w'_{s-1}-w'_s|  (must be > 0)                   2.366e+00
+  N3 min_s (spread of (F'-1)e^{eps u}/2 over u)  (>0: not exponential) 4.721e+01
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  2.024e-01
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 2.024e-01
+  (ii) bound (4pi^2/3)M^2/P^2                                    1.316e+01
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 1.066e-14
+
+=== non-symmetric #3 (asym at level 1): q_1.. = [4, 5, 6, 3]..., level i = 1, P = 20, q = 5, M = 1.0, eps = 0.31416
+  v_1..v_2 = [[0, 1, 1, 0], [0, 0, 1, 1, 0]]
+  patterns v_1..v_2 symmetric: False;  p_a == 0: False   (P) OK
+  N1 max|w'_Fourier - formula sin/sin|                           3.628e-12
+  N1 max|w'_Fourier - formula Im[p_a]/sin(pi u)|                 3.627e-12
+  N2 max|w'_{s-1}-w'_s - (-Im sum A e^{iwu}/sin)|                6.559e-12
+  N2 min_s max_u|w'_{s-1}-w'_s|  (must be > 0)                   1.266e-02
+  N3 min_s (spread of (F'-1)e^{eps u}/2 over u)  (>0: not exponential) 9.321e-02
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  2.741e-03
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 2.741e-03
+  (ii) bound (4pi^2/3)M^2/P^2                                    3.290e-02
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 4.441e-15
+
+=== asym only at level 2, seen at i=1: q_1.. = [4, 5, 3, 2]..., level i = 1, P = 20, q = 5, M = 1.0, eps = 0.31416
+  v_1..v_2 = [[0, 1, 0, 1], [0, 1, 1, 0, 0]]
+  patterns v_1..v_2 symmetric: False;  p_a == 0: False   (P) OK
+  N1 max|w'_Fourier - formula sin/sin|                           3.976e-12
+  N1 max|w'_Fourier - formula Im[p_a]/sin(pi u)|                 3.977e-12
+  N2 max|w'_{s-1}-w'_s - (-Im sum A e^{iwu}/sin)|                5.553e-12
+  N2 min_s max_u|w'_{s-1}-w'_s|  (must be > 0)                   1.176e+00
+  N3 min_s (spread of (F'-1)e^{eps u}/2 over u)  (>0: not exponential) 7.341e-03
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  3.284e-02
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 3.284e-02
+  (ii) bound (4pi^2/3)M^2/P^2                                    3.290e-02
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 5.329e-15
+
+=== asym only at level 2, seen at i=2: q_1.. = [4, 5, 3, 2, 2]..., level i = 2, P = 60, q = 3, M = 1.0, eps = 0.10472
+  v_1..v_3 = [[0, 1, 0, 1], [0, 1, 1, 0, 0], [0, 1, 1]]
+  patterns v_1..v_3 symmetric: False;  p_a == 0: False   (P) OK
+  N1 max|w'_Fourier - formula sin/sin|                           7.273e-12
+  N1 max|w'_Fourier - formula Im[p_a]/sin(pi u)|                 7.253e-12
+  N2 max|w'_{s-1}-w'_s - (-Im sum A e^{iwu}/sin)|                7.561e-12
+  N2 min_s max_u|w'_{s-1}-w'_s|  (must be > 0)                   5.664e-02
+  N3 min_s (spread of (F'-1)e^{eps u}/2 over u)  (>0: not exponential) 2.057e-04
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  3.655e-03
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 3.655e-03
+  (ii) bound (4pi^2/3)M^2/P^2                                    3.655e-03
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 4.441e-15
+
+=== asym only at level 2, seen at i=0 (symmetric there): q_1.. = [4, 5, 3]..., level i = 0, P = 4, q = 4, M = 1.0, eps = 1.57080
+  v_1..v_1 = [[0, 1, 0, 1]]
+  patterns v_1..v_1 symmetric: True;  p_a == 0: True   (P) OK
+  S1 max|B_fit(s,u) - B_rec(s)|                                  2.665e-15
+  S1 max|Im C(s)|                                                4.899e-16
+  S2 max_{q∤s}|C(s) - V(s mod q)|                                0.000e+00
+  S2 max_{q∤s}|B(s)-e^-eps B(s-1)-eps V|                         8.903e-17
+  S3 max|w' - 1/2| on sub-arcs                                   7.105e-15
+  (info) max_{q|s}|C(s) - V(0)|                                  0.000e+00
+  (ii) ||F''||_2^2 (coefficient sum, truncated)                  6.723e-01
+  (ii) ||F - F'||_2^2 from the direct sums of F and F' (grid mean) 6.723e-01
+  (ii) bound (4pi^2/3)M^2/P^2                                    8.225e-01
+  (ii) max_t |F''(t + 2pi/P) - F''(t)|, F'' := F - F' (direct sums) 1.776e-15

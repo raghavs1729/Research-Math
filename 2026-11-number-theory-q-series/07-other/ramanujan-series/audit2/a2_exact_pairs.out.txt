@@ -1,0 +1,44 @@
+T4  (pair n*h, Q*h)
+  ok   closed form of h has the ratios sigma, rho of RESULTS.md (0<=n,k<=25)
+  ok   WZ equation for F = n h, G = Q h, term by term (0<=n,k<=25)
+  ok   h(n,0) = C(3n,n) C(6n,3n)^2 / 2^(15n)
+  ok   h(0,k) = (1/4)_k (3/4)_k / k!^2
+  ok   Q(n,0) h(n,0) = t(n)/64
+  ok   finite identity  sum_{n<N} Q(n,0)h(n,0) = sum_{n<N} Q(n,K)h(n,K) - N sum_{k<K} h(N,k)  (N,K<=12)
+  ok   1 - sigma - (3/4)(n+1)/(k+3n+1) = (4nk+4k+16n+1)/(16(k+n+1)(k+3n+1))  [>= 0]
+  ok   0 <= Q(n,k) <= k+3n+3  (numerators have nonnegative coefficients)
+  ok   rho(n,0) <= 27/32  (difference of cross products has nonnegative coefficients): 1119744*n^4 + 2944512*n^3 + 2799360*n^2 + 1126080*n + 158688
+  ok   c = 3(n+1)/4 <= m = 3n+1, so every factor 1 - c/(j+m) is in [0,1)
+  ok   1 + m/(c-1) = 1 + 4(3n+1)/(3n-1) <= 33/5 for n >= 2
+T11 (triangle pair a, gam)
+  ok   C_1 = 9/256 and a(1,0) = t(0)/256 = 9/256
+  ok   a(n,k) > 0 for 0 <= k < n <= 44
+  ok   closed form of a has the ratios sigma, rho of RESULTS.md on the triangle (n <= 44)
+  ok   WZ equation a(n+1,k)-a(n,k) = gam(n,k+1)-gam(n,k) for all 1<=n<=44, 0<=k<=49 (cases k<=n-2, k=n-1, k=n, k>n)
+  ok   gam(n,0) = -t(n)/256 for 1 <= n <= 44
+  ok   identity (A): sum_{n<N} t(n) = 256 T_N for N = 1..44
+      256*T_N, N=1..6: [9.0, 9.168434143066406, 9.170518653218096, 9.170546304947369, 9.170546686537218, 9.170546691933378]
+T5  (pair psi, gamma = R psi)
+  ok   psi is well defined by its ratios (rho consistent off the axis k = 0)
+  ok   WZ equation term by term (0<=n,k<=25)
+  ok   psi(0,k) = 4^k / ((2k+1)^2 C(2k,k))
+  ok   gamma(n,0) = -t(n+1)/3
+  ok   1 - sigma - (n+3/4)/(k+2n+3/2) = (8nk+6k+6n^2+12n+5)/(2(2k+2n+3)(2k+4n+3))  [>= 0]
+  ok   |rho(n,0)| <= 1/8
+  ok   0 <= R(n,k) <= 2k+2n+2
+  ok   1 + m/(c-1) = 1 + (2N+3/2)/(N-1/4) <= 6 for N >= 1
+T7  (triangle pair Phi, Gam; values are multiplied by pi^2)
+  ok   WZ equation for all 0<=n<=39, 0<=k<=44 (cases k<=n-2, k=n-1, k=n, k>n)
+  ok   pi^2 Gam(n,0) = -t(n+1)/6 for 0 <= n <= 39 (n = 0 uses Gam(0,0) = -Phi(1,0))
+  ok   finite identity sum_{m<=N} t(m) = 6 pi^2 sum_{k<N} Phi(N,k), N = 1..39
+  ok   |Phi(N,k+1)/Phi(N,k)| <= 1/24 on the support (N < 200)
+  ok   0 < Phi(N+1,0)/Phi(N,0) <= 1/6 (N < 400)
+      partial sums of T7, N = 1,2,3,6,12: [-0.4266666666666667, -0.032751010413348075, -0.0030706691652666093, -4.181558497888891e-06, -1.718067816932916e-11]
+  ok   |Phi(n,k+1)/Phi(n,k)| <= 1/24 for all 0 <= k <= n-2 (n = k+2+v: den - 24 num has nonnegative coefficients)
+  ok   Phi(n+1,0)/Phi(n,0) = rho(n,0) <= 1/6 for all n >= 1 (n = m+1: den - 6 num has nonnegative coefficients)
+  ok   rho(n,0) of the certificate file is the ratio Phi(n+1,0)/Phi(n,0) of the closed form (n < 60)
+T2  (inequalities of the limit step)
+  ok   sigma(n,k) <= (2k+1)/(2k+5) for n >= 1
+  ok   rho(n,0) <= 1/8
+  ok   R(n,k) <= k+2
+ALL EXACT CHECKS OK

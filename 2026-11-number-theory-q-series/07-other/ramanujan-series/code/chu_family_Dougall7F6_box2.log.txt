@@ -1,0 +1,2 @@
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Dougall7F6 box 2 patterns with a target z: 29 hits per target: {'T4': 0, 'T11': 0, 'ctl_Guillera_-1/4': 0, 'ctl_Guillera_1/16': 0, 'ctl_Ramanujan_1/4': 0, 'ctl_Ramanujan_-1/4': 0, 'ctl_Ramanujan_1/64': 0, 'T4_bisected': 0, 'T11_bisected': 0}

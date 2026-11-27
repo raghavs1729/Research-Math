@@ -1,0 +1,30 @@
+{
+  "challenge_module": "AllxChallenge",
+  "solution_module": "AllxSolution",
+  "theorem_names": [
+    "chebyshev_race_cesaro_pos",
+    "chebyshev_race_cesaro_eq_integral",
+    "chebyshev_race_integral_pos",
+    "chebyshev_race_theta1_pos",
+    "chebyshev_race_cesaro_lower_bound",
+    "chebyshev_race_lead_inheritance",
+    "chebyshev_race_cone_lower_bound",
+    "chebyshev_race_cone_lead_inheritance",
+    "chebyshev_race_cesaro_pos_of_le",
+    "grh_chi4_psi1_le",
+    "chebyshev_race_sum_eq_counts",
+    "neg_chi4_natCast",
+    "grhFor_of_dirichlet_zeros_on_line"
+  ],
+  "definition_names": [
+    "GRHFor",
+    "chi4",
+    "primeCountingMod4"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

@@ -1,0 +1,7 @@
+n <= 700: Conj 1 (all separable, peak k=2, n>=3) failures (n, unimodal, peak): []
+n <= 700: Conj 2 (rmax on irreducible, peak k=3, n>=5) failures: []
+n <= 700: Conj 3 (rmax on reducible, peak k=1) failures: []
+
+real	3m2.079s
+user	2m59.330s
+sys	0m0.545s

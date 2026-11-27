@@ -1,0 +1,2 @@
+L <= 160: failures (L, first n with negative difference for conj41, for conj26): []
+real	0m13.548s

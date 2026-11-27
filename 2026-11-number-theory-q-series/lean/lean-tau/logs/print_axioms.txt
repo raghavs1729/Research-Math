@@ -1,0 +1,4 @@
+'Tau.no_solution_461' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Tau.no_solution_neg599' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Tau.heckeSeq_four_ne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Tau.tau_prime_pow_four_ne' depends on axioms: [propext, Classical.choice, Quot.sound]

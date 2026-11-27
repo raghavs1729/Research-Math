@@ -1,0 +1,7 @@
+1. ratio formulas agree with the closed form of Phi: OK
+2. WZ equation: generic identity, boundary identity (k = n-1), and all cases on the grid n<7, k<9: OK
+3a. Gam(n,0) = -(1/(6 pi^2)) t(n+1): n<12 exactly, and ratio identity: OK
+3b. |Phi(N,k+1)/Phi(N,k)| <= 1/24 on the support; Phi(N+1,0)/Phi(N,0) <= 1/6 (N>=1): OK
+4a. finite identity sum_{n<N} Gam(n,0) = -sum_{k<N} Phi(N,k) for N = 1,2,5,9 (exact): OK
+4b. |sum| = 1.9784e-132 (first term -0.4266666667)
+ALL CHECKS PASSED

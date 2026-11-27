@@ -1,0 +1,97 @@
+State 0 = KRTW k=2 sum (variables a1=r1-r2, a2=r2, b1=s1, b2=s2-s1):
+     d=1  B=0     ['2', '2', '2', '0']
+     d=1  B=0     ['2', '4', '4', '2']
+     d=2  B=2     ['2', '4', '8', '4']
+     d=2  B=1     ['0', '2', '4', '4']
+Step  1: SELF-FUSE                          indices (0,)   exact check: ok   series equal mod q^30: True
+     d=1  B=-1/2  ['3', '2', '2', '0', '4']
+     d=1  B=0     ['2', '4', '4', '2', '4']
+     d=2  B=2     ['2', '4', '8', '4', '4']
+     d=2  B=1     ['0', '2', '4', '4', '0']
+     d=2  B=0     ['4', '4', '4', '0', '8']
+Step  2: FUSE                               indices (3, 4)   exact check: ok   series equal mod q^30: True
+     d=1  B=-1/2  ['3', '2', '2', '0', '4', '4']
+     d=1  B=0     ['2', '4', '4', '2', '4', '6']
+     d=2  B=2     ['2', '4', '8', '4', '4', '8']
+     d=2  B=1     ['0', '2', '4', '4', '2', '4']
+     d=2  B=0     ['4', '4', '4', '2', '8', '8']
+     d=2  B=1     ['4', '6', '8', '4', '8', '12']
+Step  3: SELF-DEFUSE (Lemma S backwards)    indices (1, 5)   exact check: ok   series equal mod q^30: True
+     d=1  B=-1/2  ['3', '2', '2', '0', '4']
+     d=1  B=1/2   ['2', '3', '4', '2', '4']
+     d=2  B=2     ['2', '4', '8', '4', '4']
+     d=2  B=1     ['0', '2', '4', '4', '2']
+     d=2  B=0     ['4', '4', '4', '2', '8']
+Step  4: SPLIT                              indices (0,)   exact check: ok   (numerical check skipped: matrix only semidefinite after SPLIT; sum is still admissible)
+     d=2  B=-1/2  ['3', '2', '2', '0', '4', '3']
+     d=1  B=1/2   ['2', '3', '4', '2', '4', '2']
+     d=2  B=2     ['2', '4', '8', '4', '4', '2']
+     d=2  B=1     ['0', '2', '4', '4', '2', '0']
+     d=2  B=0     ['4', '4', '4', '2', '8', '4']
+     d=2  B=1/2   ['3', '2', '2', '0', '4', '3']
+Step  5: FUSE                               indices (0, 3)   exact check: ok   (numerical check skipped: matrix only semidefinite after SPLIT; sum is still admissible)
+     d=2  B=-1/2  ['3', '2', '2', '2', '4', '3', '3']
+     d=1  B=1/2   ['2', '3', '4', '2', '4', '2', '4']
+     d=2  B=2     ['2', '4', '8', '4', '4', '2', '6']
+     d=2  B=1     ['2', '2', '4', '4', '2', '0', '4']
+     d=2  B=0     ['4', '4', '4', '2', '8', '4', '6']
+     d=2  B=1/2   ['3', '2', '2', '0', '4', '3', '3']
+     d=2  B=1/2   ['3', '4', '6', '4', '6', '3', '7']
+Step  6: DEFUSE (Lemma F backwards)         indices (0, 5, 4)   exact check: ok   (numerical check skipped: matrix only semidefinite after SPLIT; sum is still admissible)
+     d=2  B=-1/2  ['3', '2', '2', '2', '1', '3']
+     d=1  B=1/2   ['2', '3', '4', '2', '2', '4']
+     d=2  B=2     ['2', '4', '8', '4', '2', '6']
+     d=2  B=1     ['2', '2', '4', '4', '0', '4']
+     d=2  B=1/2   ['1', '2', '2', '0', '3', '3']
+     d=2  B=1/2   ['3', '4', '6', '4', '3', '7']
+Step  7: FUSE                               indices (3, 4)   exact check: ok   (numerical check skipped: matrix only semidefinite after SPLIT; sum is still admissible)
+     d=2  B=-1/2  ['3', '2', '2', '2', '1', '3', '3']
+     d=1  B=1/2   ['2', '3', '4', '2', '2', '4', '4']
+     d=2  B=2     ['2', '4', '8', '4', '2', '6', '6']
+     d=2  B=1     ['2', '2', '4', '4', '2', '4', '4']
+     d=2  B=1/2   ['1', '2', '2', '2', '3', '3', '3']
+     d=2  B=1/2   ['3', '4', '6', '4', '3', '7', '7']
+     d=2  B=3/2   ['3', '4', '6', '4', '3', '7', '7']
+Step  8: MERGE (Lemma P backwards)          indices (5, 6)   exact check: ok   (numerical check skipped: matrix only semidefinite after SPLIT; sum is still admissible)
+     d=2  B=-1/2  ['3', '2', '2', '2', '1', '3']
+     d=1  B=1/2   ['2', '3', '4', '2', '2', '4']
+     d=2  B=2     ['2', '4', '8', '4', '2', '6']
+     d=2  B=1     ['2', '2', '4', '4', '2', '4']
+     d=2  B=1/2   ['1', '2', '2', '2', '3', '3']
+     d=1  B=1/2   ['3', '4', '6', '4', '3', '7']
+Step  9: FUSE                               indices (0, 4)   exact check: ok   (numerical check skipped: matrix only semidefinite after SPLIT; sum is still admissible)
+     d=2  B=-1/2  ['3', '2', '2', '2', '3', '3', '4']
+     d=1  B=1/2   ['2', '3', '4', '2', '2', '4', '4']
+     d=2  B=2     ['2', '4', '8', '4', '2', '6', '4']
+     d=2  B=1     ['2', '2', '4', '4', '2', '4', '4']
+     d=2  B=1/2   ['3', '2', '2', '2', '3', '3', '4']
+     d=1  B=1/2   ['3', '4', '6', '4', '3', '7', '6']
+     d=2  B=0     ['4', '4', '4', '4', '4', '6', '8']
+Step 10: MERGE (Lemma P backwards)          indices (0, 4)   exact check: ok   (numerical check skipped: matrix only semidefinite after SPLIT; sum is still admissible)
+     d=1  B=-1/2  ['3', '2', '2', '2', '3', '4']
+     d=1  B=1/2   ['2', '3', '4', '2', '4', '4']
+     d=2  B=2     ['2', '4', '8', '4', '6', '4']
+     d=2  B=1     ['2', '2', '4', '4', '4', '4']
+     d=1  B=1/2   ['3', '4', '6', '4', '7', '6']
+     d=2  B=0     ['4', '4', '4', '4', '6', '8']
+Step 11: SELF-DEFUSE (Lemma S backwards)    indices (0, 5)   exact check: ok   (numerical check skipped: matrix only semidefinite after SPLIT; sum is still admissible)
+     d=1  B=0     ['2', '2', '2', '2', '3']
+     d=1  B=1/2   ['2', '3', '4', '2', '4']
+     d=2  B=2     ['2', '4', '8', '4', '6']
+     d=2  B=1     ['2', '2', '4', '4', '4']
+     d=1  B=1/2   ['3', '4', '6', '4', '7']
+Step 12: DEFUSE (Lemma F backwards)         indices (0, 1, 4)   exact check: ok   series equal mod q^30: True
+     d=1  B=0     ['2', '1', '2', '2']
+     d=1  B=1/2   ['1', '3', '4', '2']
+     d=2  B=2     ['2', '4', '8', '4']
+     d=2  B=1     ['2', '2', '4', '4']
+Step 13: SELF-DEFUSE (Lemma S backwards)    indices (0, 3)   exact check: ok   series equal mod q^30: True
+     d=1  B=1/2   ['1', '1', '2']
+     d=1  B=1/2   ['1', '3', '4']
+     d=2  B=2     ['2', '4', '8']
+Step 14: SELF-DEFUSE (Lemma S backwards)    indices (1, 2)   exact check: ok   series equal mod q^30: True
+     d=1  B=1/2   ['1', '1']
+     d=1  B=1     ['1', '2']
+Final state == Melzer-type rank 2 data M=[[1,1],[1,2]], B=(1/2,1): True
+KRTW k=2 sum == (-q;q)_inf (-q^2;q^2)_inf mod q^30: True
+ALL CHECKS PASSED

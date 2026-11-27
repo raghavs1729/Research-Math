@@ -1,0 +1,99 @@
+primes up to 10000000: 664579
+
+============================================================================
+q = 4
+(1)-(2) exact identities (relative residuals; should be ~1e-12):
+    (m,m') = ( 0.00, 1.0) theta     max rel. residual of S_m - x^-k S_m' = k*int : 4.26e-14
+    (m,m') = ( 0.00, 1.0) unlogged  max rel. residual of S_m - x^-k S_m' = k*int : 1.79e-14
+    (m,m') = (-0.25, 0.5) theta     max rel. residual of S_m - x^-k S_m' = k*int : 5.59e-14
+    (m,m') = (-0.25, 0.5) unlogged  max rel. residual of S_m - x^-k S_m' = k*int : 4.71e-14
+    (m,m') = ( 0.50, 2.0) theta     max rel. residual of S_m - x^-k S_m' = k*int : 9.29e-14
+    (m,m') = ( 0.50, 2.0) unlogged  max rel. residual of S_m - x^-k S_m' = k*int : 1.29e-13
+(3) Delta(y) = E_M(e^y) - int E_M'(e^{y-u}) mu(du)  (unlogged, no y/(y-u) factor);
+(4) E_M - E^theta_M;   both should be O(1/y):
+    (m,m')=( 0.00, 1.0): sup_{10^3<=x<=10^7} y|Delta| = 2.211,  sup y|E-Eth| = 3.157
+        x=1e+03: y*Delta=+1.945  y*(E-Eth)=+2.846
+        x=1e+04: y*Delta=+2.179  y*(E-Eth)=+3.010
+        x=1e+05: y*Delta=+2.179  y*(E-Eth)=+3.004
+        x=1e+06: y*Delta=+2.082  y*(E-Eth)=+2.960
+        x=1e+07: y*Delta=+1.976  y*(E-Eth)=+2.844
+    (m,m')=(-0.25, 0.5): sup_{10^3<=x<=10^7} y|Delta| = 5.921,  sup y|E-Eth| = 7.478
+        x=1e+03: y*Delta=+2.731  y*(E-Eth)=+4.016
+        x=1e+04: y*Delta=+4.118  y*(E-Eth)=+5.571
+        x=1e+05: y*Delta=+5.121  y*(E-Eth)=+6.662
+        x=1e+06: y*Delta=+5.694  y*(E-Eth)=+7.279
+        x=1e+07: y*Delta=+5.921  y*(E-Eth)=+7.478
+(5) G(y) = 2MM' x^{-M} int_2^x t^{-kappa-1} R_m'(t) dt  vs  1 + Re sum 4MM' x^{i gamma}/((M+ig)(M'+ig)):
+    x=1e+04: G = 0.78582, zero formula (511 zeros) = 0.88905, diff = -0.10323  (omitted-zero bound 0.0052; rest is the o(1))
+    x=1e+05: G = 0.87288, zero formula (511 zeros) = 0.92130, diff = -0.04843  (omitted-zero bound 0.0052; rest is the o(1))
+    x=1e+06: G = 1.02731, zero formula (511 zeros) = 1.05438, diff = -0.02708  (omitted-zero bound 0.0052; rest is the o(1))
+    x=1e+07: G = 1.06358, zero formula (511 zeros) = 1.07346, diff = -0.00988  (omitted-zero bound 0.0052; rest is the o(1))
+(6) time averages over y in [log 1e3, log 1e7] (uniform in y; theta-form g_M and unlogged f_M):
+        M |      mean       var |    E|g-1|     E g^- E(g-.5)^-  E(g-1)^4 | frac g>0
+     0.10 |   0.57434   0.01880 |   0.42566  0.000000  0.027410   0.05516 |  1.00000   (theta)
+          |   1.28459   0.05703 |   0.31756  0.000000  0.000000   0.03584 |  1.00000   (unlogged)
+     0.25 |   0.84173   0.04893 |   0.21760  0.000000  0.007228   0.01603 |  1.00000   (theta)
+          |   1.40329   0.04399 |   0.40955  0.000000  0.000000   0.07278 |  1.00000   (unlogged)
+     0.50 |   0.93900   0.15982 |   0.32206  0.001173  0.028838   0.07820 |  0.99154   (theta)
+          |   1.21323   0.15517 |   0.36048  0.000021  0.005623   0.11251 |  0.99894   (unlogged)
+     0.75 |   0.96094   0.35075 |   0.47189  0.013647  0.075819   0.35966 |  0.94272   (theta)
+          |   1.12120   0.34744 |   0.47870  0.006523  0.045621   0.37784 |  0.96789   (unlogged)
+     1.00 |   0.96959   0.61694 |   0.62400  0.042103  0.133644   1.10627 |  0.88853   (theta)
+          |   1.07985   0.61513 |   0.62622  0.031051  0.106572   1.11742 |  0.90972   (unlogged)
+     1.50 |   0.97825   1.36305 |   0.92603  0.132351  0.263398   5.40942 |  0.79551   (theta)
+          |   1.04585   1.36501 |   0.92750  0.119468  0.241535   5.43993 |  0.81218   (unlogged)
+     2.50 |   0.98830   3.62012 |   1.50842  0.358581  0.533865  38.66944 |  0.70574   (theta)
+          |   1.02656   3.63500 |   1.51144  0.349218  0.520399  39.01447 |  0.71690   (unlogged)
+    convex functionals (var, E|g-1|, E g^-, E(g-.5)^-, E(g-1)^4) nondecreasing in M on this window: False
+    [closed-form variances sigma_M^2 (if all zeros simple), q=4: M=.25: 0.03898, .5: 0.15557, 1: 0.61686, 1.5: 1.36856;
+     q=3: M=.25: 0.02834, .5: 0.11323, 1: 0.45088, 1.5: 1.00701.  Finite window => agreement only to ~10-20%.]
+
+============================================================================
+q = 3
+(1)-(2) exact identities (relative residuals; should be ~1e-12):
+    (m,m') = ( 0.00, 1.0) theta     max rel. residual of S_m - x^-k S_m' = k*int : 1.40e-14
+    (m,m') = ( 0.00, 1.0) unlogged  max rel. residual of S_m - x^-k S_m' = k*int : 7.22e-15
+    (m,m') = (-0.25, 0.5) theta     max rel. residual of S_m - x^-k S_m' = k*int : 4.55e-14
+    (m,m') = (-0.25, 0.5) unlogged  max rel. residual of S_m - x^-k S_m' = k*int : 6.48e-14
+    (m,m') = ( 0.50, 2.0) theta     max rel. residual of S_m - x^-k S_m' = k*int : 6.38e-14
+    (m,m') = ( 0.50, 2.0) unlogged  max rel. residual of S_m - x^-k S_m' = k*int : 1.04e-14
+(3) Delta(y) = E_M(e^y) - int E_M'(e^{y-u}) mu(du)  (unlogged, no y/(y-u) factor);
+(4) E_M - E^theta_M;   both should be O(1/y):
+    (m,m')=( 0.00, 1.0): sup_{10^3<=x<=10^7} y|Delta| = 2.418,  sup y|E-Eth| = 3.387
+        x=1e+03: y*Delta=+2.359  y*(E-Eth)=+3.279
+        x=1e+04: y*Delta=+2.402  y*(E-Eth)=+3.293
+        x=1e+05: y*Delta=+2.284  y*(E-Eth)=+3.180
+        x=1e+06: y*Delta=+2.133  y*(E-Eth)=+2.987
+        x=1e+07: y*Delta=+1.997  y*(E-Eth)=+2.824
+    (m,m')=(-0.25, 0.5): sup_{10^3<=x<=10^7} y|Delta| = 6.655,  sup y|E-Eth| = 8.307
+        x=1e+03: y*Delta=+3.976  y*(E-Eth)=+5.509
+        x=1e+04: y*Delta=+5.401  y*(E-Eth)=+7.072
+        x=1e+05: y*Delta=+6.257  y*(E-Eth)=+7.969
+        x=1e+06: y*Delta=+6.618  y*(E-Eth)=+8.283
+        x=1e+07: y*Delta=+6.627  y*(E-Eth)=+8.225
+(5) G(y) = 2MM' x^{-M} int_2^x t^{-kappa-1} R_m'(t) dt  vs  1 + Re sum 4MM' x^{i gamma}/((M+ig)(M'+ig)):
+    x=1e+04: G = 0.83825, zero formula (537 zeros) = 0.98161, diff = -0.14336  (omitted-zero bound 0.0046; rest is the o(1))
+    x=1e+05: G = 0.96366, zero formula (537 zeros) = 1.01654, diff = -0.05288  (omitted-zero bound 0.0046; rest is the o(1))
+    x=1e+06: G = 0.98337, zero formula (537 zeros) = 1.01056, diff = -0.02718  (omitted-zero bound 0.0046; rest is the o(1))
+    x=1e+07: G = 1.00172, zero formula (537 zeros) = 1.01181, diff = -0.01009  (omitted-zero bound 0.0046; rest is the o(1))
+(6) time averages over y in [log 1e3, log 1e7] (uniform in y; theta-form g_M and unlogged f_M):
+        M |      mean       var |    E|g-1|     E g^- E(g-.5)^-  E(g-1)^4 | frac g>0
+     0.10 |   0.56787   0.01660 |   0.43213  0.000000  0.026954   0.05466 |  1.00000   (theta)
+          |   1.52753   0.05101 |   0.52761  0.000000  0.000000   0.15860 |  1.00000   (unlogged)
+     0.25 |   0.83130   0.03795 |   0.20947  0.000000  0.003839   0.01185 |  1.00000   (theta)
+          |   1.51140   0.02948 |   0.51140  0.000000  0.000000   0.11674 |  1.00000   (unlogged)
+     0.50 |   0.93189   0.11753 |   0.28098  0.000234  0.016802   0.04280 |  0.99628   (theta)
+          |   1.22313   0.11455 |   0.32898  0.000000  0.001613   0.07131 |  1.00000   (unlogged)
+     0.75 |   0.95661   0.25758 |   0.41070  0.005937  0.050954   0.19017 |  0.97167   (theta)
+          |   1.11797   0.25575 |   0.42012  0.002040  0.026455   0.19993 |  0.98765   (unlogged)
+     1.00 |   0.96589   0.45456 |   0.54482  0.022495  0.099357   0.58501 |  0.92974   (theta)
+          |   1.07582   0.45365 |   0.54768  0.015695  0.074070   0.58379 |  0.94612   (unlogged)
+     1.50 |   0.97257   1.01307 |   0.81195  0.090511  0.214187   2.90215 |  0.82704   (theta)
+          |   1.04044   1.01375 |   0.81345  0.079244  0.193018   2.88084 |  0.84360   (unlogged)
+     2.50 |   0.97572   2.74894 |   1.33395  0.292755  0.460345  21.57965 |  0.70594   (theta)
+          |   1.01432   2.75507 |   1.33649  0.282311  0.446620  21.55088 |  0.71485   (unlogged)
+    convex functionals (var, E|g-1|, E g^-, E(g-.5)^-, E(g-1)^4) nondecreasing in M on this window: False
+    [closed-form variances sigma_M^2 (if all zeros simple), q=4: M=.25: 0.03898, .5: 0.15557, 1: 0.61686, 1.5: 1.36856;
+     q=3: M=.25: 0.02834, .5: 0.11323, 1: 0.45088, 1.5: 1.00701.  Finite window => agreement only to ~10-20%.]
+
+elapsed 1.9 s

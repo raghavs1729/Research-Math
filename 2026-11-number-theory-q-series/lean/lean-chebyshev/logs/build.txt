@@ -1,0 +1,60 @@
+Tue Nov 24 07:32:17 UTC 2026
+✔ [8797/8832] Built ChebLib.Cheb.Majorant (12s)
+✔ [8798/8832] Built ChebLib.Cheb.Numeric (13s)
+✔ [8799/8832] Built ChebLib.Cheb.Poisson (14s)
+✔ [8800/8832] Built ChebLib.Cheb.LogRemoval (15s)
+✔ [8801/8832] Built ChebLib.Race.RiemannLebesgue (5.8s)
+✔ [8803/8832] Built ChebLib.Cheb.AbelSum (9.4s)
+✔ [8804/8832] Built ChebLib.Race.NonPrime (9.2s)
+✔ [8815/8832] Built ChebLib.Cheb.Kernel (11s)
+✔ [8816/8832] Built ChebLib.Race.Defs (5.7s)
+✔ [8817/8832] Built ChebLib.Race.Abel (9.0s)
+✔ [8818/8832] Built ChebLib.Cheb.Defs (4.6s)
+⚠ [8819/8832] Built ChebyshevChallenge (7.4s)
+warning: ChebyshevChallenge.lean:197:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:208:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:228:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:238:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:250:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:257:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:262:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:274:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:285:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:297:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:315:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:325:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:331:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:338:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:351:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:374:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:383:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:388:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:393:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:408:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:421:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:436:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:441:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:447:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:455:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:468:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:480:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:493:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:507:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:528:8: declaration uses `sorry`
+warning: ChebyshevChallenge.lean:538:8: declaration uses `sorry`
+✔ [8821/8832] Built ChebLib.Race.PNT (5.6s)
+✔ [8822/8832] Built ChebLib.Race.S0 (5.0s)
+✔ [8823/8832] Built ChebLib.Race.Chi4 (5.8s)
+✔ [8824/8832] Built ChebLib.Cheb.EFExt (12s)
+✔ [8825/8832] Built ChebLib.Race.S1 (10s)
+✔ [8826/8832] Built ChebLib.Cheb.PsiAbel (9.5s)
+✔ [8827/8832] Built ChebLib.Cheb.ZeroSum (6.7s)
+✔ [8828/8832] Built ChebLib.Cheb.Final (5.6s)
+✔ [8829/8832] Built ChebLib.Cheb.Headline (5.9s)
+✔ [8830/8832] Built ChebLib (4.3s)
+✔ [8831/8832] Built ChebyshevSolution (5.4s)
+Build completed successfully (8832 jobs).
+real	1m35.415s
+user	3m12.123s
+sys	0m32.707s
+Tue Nov 24 07:33:52 UTC 2026

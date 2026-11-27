@@ -1,0 +1,1 @@
+sanity OK: krtwSum, melzerSum and the product agree with the independent values for k = 1, 2, 3 mod q^31; k = 3: #[1, 1, 2, 4, 5, 8, 12, 17, 24, 34, 46, 62, 84, 111, 146, 192, 248, 320, 411, 522, 662, 836, 1048, 1310, 1632, 2022, 2498, 3077, 3774, 4616, 5632]

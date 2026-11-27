@@ -1,0 +1,41 @@
+name = "LeanChebAllx"
+version = "0.1.0"
+defaultTargets = ["ChebAllxChallenge", "ChebAllxSolution"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+
+# lean-allx (this repository): `chebyshev_race_theta1_pos` (Theta_1(t) > 0 for every t > 3 under
+# GRHFor chi4) and the finite second-order partial summation (AllxLib/Coupling).
+[[require]]
+name = "LeanAllx"
+path = "../lean-allx"
+
+# lean-chebyshev (this repository): `chebyshevSum`, `chebyshevSum_summable`, `GRHFor`, `chi4`.
+[[require]]
+name = "LeanChebyshev"
+path = "../lean-chebyshev"
+
+[[require]]
+name = "Zeta23"
+git = "https://github.com/anthropics/formal-math"
+rev = "11b6c7e3c927df2658f513b6b68ea7f8929c62c5"
+subDir = "zeta23"
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "51e6992efd06126df61a496bebf8f49482a4e129"
+
+# The proof development.
+[[lean_lib]]
+name = "ChebAllxLib"
+
+[[lean_lib]]
+name = "ChebAllxChallenge"
+roots = ["ChebAllxChallenge"]
+
+[[lean_lib]]
+name = "ChebAllxSolution"
+roots = ["ChebAllxSolution"]

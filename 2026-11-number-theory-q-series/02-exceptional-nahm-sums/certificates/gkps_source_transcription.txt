@@ -1,0 +1,69 @@
+# GKPS arXiv:2411.06081 -- rank<=3 Nahm-sum identities (source: e-print Nahm.tex, latest version, file dated Oct 2025; published SciPost Phys. 19, 128)
+Scripts: lit3/code/chk.py, run.py, osp.py, osp2.py ; output lit3/run_output.txt ; TeX in lit3/gkps/ (untrusted, not executed).
+Equation numbers cannot be read from TeX (no pdflatex); locators below are section/label. The "main formula" label is duplicated in the TeX.
+
+## 1. General formula
+Sec. 3.3 "Half-index and modular functions" (\label{subsec: half index}), eq (half-index+loops):
+  I_half^{W_Q}(q,nu,eta) = \sum_{m\in N^r} q^{\frac12 m^t K m} eta^{-a^t m} (-q^{1/2})^{-\mu^t m} q^{-Q^t m} / ((q)_{m_1}...(q)_{m_r}) |_{\mu -> \mu_0 + nu a}
+A-twist (nu=-1, eta=1), first \label{main formula}:
+  \chi_A(q)= q^{\Delta} I_half(q,\nu=-1,\eta=1) = \sum_{m\in N^r} \frac{q^{\frac12 m^t K m+\Delta}(-q^{1/2})^{-(\mu_0-a)^t m}}{(q)_{m_1}\ldots(q)_{m_r}}
+with Wilson line (second \label{main formula}):
+  q^{\Delta} I^{W_{\vec Q}}_{half}(q,\nu=-1,\eta=1) = \sum_{m\in N^r} \frac{q^{\frac12 m^t K m+\Delta}(-q^{1/2})^{-(\mu_0-a)^t m} q^{-Q^t m}}{(q)_{m_1}\ldots(q)_{m_r}}
+"which we denote by q^\Delta I_A[W_Q]".  So I_A[W_Q] = sum WITHOUT q^Delta; sign factor is (-1)^{(mu_0-a).m}; your recorded form is right.
+Meaning: K = CS level matrix (positive definite integer); mu_0 = superconformal-R mixing vector, a = axial-symmetry charge vector (A = a.T), both integer vectors listed per example; Q = Wilson-line charge; Delta = modular prefactor (given per example as the q^{..} in front of the character). (-q^{1/2})^{-(mu0-a).m} gives sign (-1)^{(mu0-a).m} and q^{-(mu0-a).m/2}.
+Relation to Zagier (Sec. 4.3 "Comparision with Zagier's result"): A=K, B=-(mu_0-a-2Q)/2, C=Delta, valid when B integral.
+Logical status, Sec. 4.1 first paragraph: "Through these examples, we confirm the conjecture in the previous section by expressing the $I_A[W_{\vec{Q}}]$ in terms of the known characters of RCFTs. ... The identification of the indices with known RCFT characters are conjectures based on the $q$-series expansion, except for a few cases with known Nahm sum representations."
+Search: "all positive definite integer K for r=1,2,3 with entries between -17 and 17". Also (Sec 4.3) Nahm-conjecture-style modularity of the half-index stated only as "is expected to be a modular function" (eq conjecture2). They remark the sign factor means a generalization of Nahm's conjecture.
+
+## 2/3. Examples. Notation: I_A[W_Q] = sum_m (-1)^{(mu0-a).m} q^{m^T K m/2 -(mu0-a).m/2 - Q.m}/prod (q)_{m_i}; verified claim = (I_A = q^{P} * character, P as in paper), exact incl. exponent prefactor, through q^25 (t^50, t=q^{1/2}), my script, exact integers.
+Character defs (App. "Characters of rational VOAs"): chi^{M(P,Q)}_{(r,s)} = q^{h-c/24}/(q)_inf sum_n (q^{n^2PQ+n(Qr-Ps)} - q^{(nP+r)(nQ+s)}); this gives for M(2,Q): (1,s) = q^{h-c/24} prod_{n !=0,+-s mod Q}(1-q^n)^{-1} (standard; consistent with all checks). SM: same with exponents/2 and factor (-q^{1/2};q)_inf/(q)_inf. chi_F = q^{-1/48}prod(1+q^{n+1/2}). chi^{U(1)_k}_mu = q^{mu^2/2k-1/24}/(q)_inf sum_m q^{km^2/2+mu m}. W3(3,7): [(q^7;q^7)/(q)]^2 prod_6 (q^{j};q^7) "up to q-prefactor".
+Status of each: paper says "conjecture from q-expansion" for all except where noted.
+
+### Rank 1
+1-1: K=(2), mu0=(-1), a=(1), Q=0 / (1): I_A[1]=q^{-11/60}chi^{M(2,5)}_{(1,1)}, I_A[W_1]=q^{1/60}chi^{M(2,5)}_{(1,2)}. Footnote: coincidence with M(2,5) vacuum first observed in Gang:2023rei. (These are the classical Rogers-Ramanujan sum: sum q^{m^2}/(q)_m with sign...; known.) VERIFIED.
+### Rank 2
+2-1: K=[[2,-1],[-1,1]], mu0=(-1,0), a=(1,0): I_A[1]=q^{-19/96} chi_F chi^{SM(2,8)}_{(1,1)}; I_A[W_(1,0)]=q^{5/96} chi_F chi^{SM(2,8)}_{(1,3)}. (Studied in Baek:2024tuo.) VERIFIED.
+2-2: K=[[2,1],[1,1]], mu0=(-1,-1), a=(1,1): I_A[1]=q^{-7/32}chi^{SM(2,8)}_{(1,1)}; I_A[W_(1,1)]=q^{1/32}chi^{SM(2,8)}_{(1,3)}. VERIFIED.
+2-3: K=[[4,2],[2,2]], mu0=(-2,-1), a=(2,1): I_A[1]=q^{-17/42}chi^{M(2,7)}_{(1,1)}; W_(1,1): q^{-5/42}chi^{M(2,7)}_{(1,2)}; W_(2,1): q^{1/42}chi^{M(2,7)}_{(1,3)}. Paper cites Gang:2023rei, Ferrari:2023fez, Creutzig:2024ljv ("discussed in detail"). VERIFIED.
+### Rank 3 (all with K 3x3). "[1]" Q=0.
+3-1: K=[[2,-1,-1],[-1,2,0],[-1,0,1]], mu0=(-1,1,0), a=(1,-1,0); I_A[1]=q^{3/80}chi_F chi^{osp(1|2)_1}[1](q,x)|_{x=-q^{1/2}}; I_A[W_(1,-1,0)]=q^{27/80}chi_F chi^{osp(1|2)_1}[M](q,x=-q^{1/2}). Appendix: chi^{osp(1|2)_k}[M_i](z;q)=sum_{n=1}^{k+1}(-1)^{n-1}chi^{M(k+2,2k+3)}_{(n,2i+1)} chi[L^{(k)}_{n,0}](z;q) (affine su(2)_k char; paper doesn't define z convention). With my reading (su(2)_1 weight n-1, chi_lam = q^{-1/24}/(q)_inf sum_m q^{(m+lam/2)^2} x^{2m+lam}, x=-q^{1/2}; vacuum i=0, M: i=1) both match incl. prefactors 3/80, 27/80: VERIFIED (under that convention). Series: I_A[1]=2+3q^{1/2}+3q+8q^{3/2}+15q^2+...
+3-2: K=[[2,-1,-1],[-1,2,1],[-1,1,1]]
+  (1) mu0=(-1,1,0), a=(1,-1,-1): I_A[1]=q^{-11/60}chi^{M(2,5)}_{(1,1)}, I_A[W_(1,-1,-1)]=q^{1/60}chi^{M(2,5)}_{(1,2)}. VERIFIED
+  (2) mu0=(-1,0,-1), same a, same claims. VERIFIED
+  (3) mu0=(1,-1,-1)=a: I_A[1]=q^{19/60}chi^{osp(1|2)}[M](x=-q^{1/2}); I_A[W_(1,-1,-1)]=q^{1/60}chi^{osp(1|2)}[1]. VERIFIED (same osp convention; level 1).
+3-3: K=[[2,1,-1],[1,2,0],[-1,0,1]], mu0=(-1,0,0), a=(1,1,0): q^{-13/80}chi_F chi^{M(2,5)}_{(1,1)}; W_(1,1,0): q^{3/80}chi_F chi^{M(2,5)}_{(1,2)}. VERIFIED
+3-4: K=[[2,1,1],[1,2,1],[1,1,1]], a=(1,1,1), mu0=(-1,-1,-2) | (-1,0,-1) | (0,-1,-1) (three versions): q^{-11/60}chi^{M(2,5)}_{(1,1)}; W_(1,1,1): q^{1/60}chi^{M(2,5)}_{(1,2)}. VERIFIED (all 3)
+3-5: K=[[3,-2,2],[-2,2,-1],[2,-1,2]], mu0=(1,-1,0), a=(1,-1,1): I_A[1]=q^{3/80}chi_F chi^{M(2,5)}_{(1,2)}; I_A[W_(1,-1,1)]=q^{-13/80}chi_F chi^{M(2,5)}_{(1,1)}. VERIFIED
+3-6: K=[[3,-1,-1],[-1,1,0],[-1,0,1]], a=(1,0,0), mu0=(-4,1,1),(-2,0,1),(-2,1,0): claims I_A[1]=0, I_A[W_(1,0,0)]=0 (paper: BC seems incompatible with twist). VERIFIED (=0 to q^25, all 3 x 2)
+3-7: K=[[3,-1,1],[-1,1,0],[1,0,1]], a=(1,0,0): (1) mu0=(-2,1,-1), (2) mu0=(-4,1,-2): both I_A=0 (1 and W_(1,0,0)) VERIFIED; (3) mu0=(-1,0,0): I_A[1]=q^{-17/120}chi_F^2 chi^{M(2,5)}_{(1,1)}, I_A[W_(1,0,0)]=q^{7/120}chi_F^2 chi^{M(2,5)}_{(1,2)} VERIFIED.
+3-8: K=[[3,2,-1],[2,2,-1],[-1,-1,1]], mu0=(-2,-2,1), a=(1,1,0): I_A[1]=I_A[W_(1,1,0)]=0. VERIFIED
+3-9: K=[[3,2,1],[2,2,1],[1,1,1]]=C(T_3)^{-1}, mu0=(-1,-1,0), a=(1,1,0): q^{-13/80}chi_F chi^{M(2,5)}_{(1,1)}; W_(1,1,0): q^{3/80}chi_F chi^{M(2,5)}_{(1,2)}. VERIFIED
+3-10: K=[[5,4,-2],[4,4,-2],[-2,-2,2]], a=(2,2,-1), mu0=(1,0,-1) | (0,-1,-1): I_A[1]=q^{1/60}chi^{M(2,5)}_{(1,2)}; I_A[W_(2,2,-1)]=q^{-11/60}chi^{M(2,5)}_{(1,1)}. VERIFIED (both)
+3-11: K=[[5,4,2],[4,4,2],[2,2,2]], a=(2,2,1), mu0=(-1,-2,-1)|(0,-1,-1): q^{-11/60}chi_{(1,1)}; W_(2,2,1): q^{1/60}chi^{M(2,5)}_{(1,2)}. VERIFIED
+3-12 (family, a in Z\{0}): K=[[a^2+1,a^2,a],[a^2,a^2,a],[a,a,2]], vector a_vec=(a,a,1); 1) mu0=(-1,-2,-1) (a>0) or (1,0,-1) (a<0); 2) mu0=(0,-1,-1); claims q^{-11/60}chi^{M(2,5)}_{(1,1)}, W_(a,a,1): q^{1/60}chi^{M(2,5)}_{(1,2)}. Paper (commented-out note): checked "up to a=10" (BP). My check a=+-1,2,3: VERIFIED.
+3-13: K=[[4,2,2],[2,2,1],[2,1,2]], mu0=(-2,-1,-1), a=(2,1,1): I_A[1]=q^{-11/30}(chi^{M(2,5)}_{(1,1)})^2; W_(2,1,1): q^{1/30}(chi^{M(2,5)}_{(1,2)})^2. For I_A[1] paper says follows from identity proven in Sec. 7 of li2021some (Li--Wang?): sum_{n1,n2,n3} q^{(n1+n2+n3)(n1+n2)+n2(n2+n3)+n3^2+n3+n1+2n2}/((q)_{n1}(q)_{n2}(q)_{n3}) = sum_{n1,n2} q^{n1^2+n2^2+n1+n2}/((q)_{n1}(q)_{n2}). (PROVED in lit for [1]; W part not claimed.) VERIFIED numerically both.
+3-14: K=[[4,-2,2],[-2,2,-1],[2,-1,2]], a=(2,-1,1):
+  (1) mu0=(-2,1,-1): I_A[1]=q^{-47/120}chi^{U(1)_2}_1 chi^{M(2,5)}_{(1,1)}; W_(1,-1,1): q^{-17/120}chi^{U(1)_2}_0 chi^{M(2,5)}_{(1,1)}; W_(2,-1,1): q^{7/120}chi^{U(1)_2}_0 chi^{M(2,5)}_{(1,2)}; W_(3,-2,2): q^{-23/120}chi^{U(1)_2}_1 chi^{M(2,5)}_{(1,2)}. VERIFIED. (Sec 4.3 also: for K with a=2 family member, I_half = q^{7/120}chi^{M(2,5)}_{(1,2)} chi^{U(1)_a}_0.)
+  (2) mu0=(-3,2,-2): I_A[1]=-q^{-169/240}chi_F^{-1}chi^{M(2,5)}_{(1,1)}; I_A[W_(1,-1,1)]=-q^{1/2}I_A[1]; I_A[W_(2,-1,1)]=I_A[W_(3,-2,2)]=q^{-1/240}chi_F^{-1}chi^{M(2,5)}_{(1,2)}. VERIFIED (to q^{24.5} for the [1] case). Paper (Discussion) flags (2) as suspicious (chi_F^{-1}, Z_{S2xS1}=0).
+3-15: K=C(A_3)=[[2,-1,-1],[-1,2,0],[-1,0,2]], mu0=a=(1,-1,-1): I_A[1]=q^{1/14}chi^{osp(1|4)_1}[1](q,x=1); I_A[W_(1,-1,0)]=I_A[W_(1,0,-1)]=q^{-3/14}chi^{osp(1|4)_1}[M_1]; I_A[W_(1,-1,-1)]=q^{-5/14}chi^{osp(1|4)_1}[M_2]. osp(1|4)_1 characters not defined in paper -> CANNOT test as stated. But the TeX contains a commented-out alternative: I_A[1]=q^{1/14}(chi^{U(1)_2}_0 chi^{M(3,7)}_{(1,2)}+chi^{U(1)_2}_1 chi^{M(3,7)}_{(1,5)}) [1+6q+12q^2+28q^3+57q^4+...]; W_(1,-1,0): q^{-3/14}(chi^{U(1)_2}_1 chi^{M(3,7)}_{(1,3)}+chi^{U(1)_2}_0 chi^{M(3,7)}_{(1,4)}) [3+8q+21q^2+...]; W_(1,-1,-1): q^{-5/14}(chi^{U(1)_2}_1 chi^{M(3,7)}_{(1,1)}+chi^{U(1)_2}_0 chi^{M(3,7)}_{(1,6)}) [2+3q+12q^2+...]. These commented identities all VERIFIED to q^25 (also W_(1,0,-1)). The osp(1|4) identification itself: not independently tested.
+3-16: K=[[4,-2,-1],[-2,2,1],[-1,1,1]], mu0=(-2,1,0), a=(2,-1,-1): I_A[1]=q^{-17/42}chi^{M(2,7)}_{(1,1)}; W_(1,0,0): q^{-5/42}chi^{M(2,7)}_{(1,2)}; W_(2,-1,-1): q^{1/42}chi^{M(2,7)}_{(1,3)}. VERIFIED
+3-17: K=[[9,5,3],[5,4,1],[3,1,2]], mu0=(-2,-2,-1), a=(3,2,1): same M(2,7) triple with W_(2,1,1), W_(3,2,1). VERIFIED
+3-18: K=[[6,4,2],[4,4,2],[2,2,2]], mu0=(-3,-2,-1), a=(3,2,1): I_A[1]=q^{-23/36}chi^{M(2,9)}_{(1,1)}; W_(1,1,1): q^{-11/36}chi^{M(2,9)}_{(1,2)}; W_(2,2,1): q^{-1/12}chi^{M(2,9)}_{(1,3)}; W_(3,2,1): q^{1/36}chi^{M(2,9)}_{(1,4)}. VERIFIED
+3-19: K=[[4,2,1],[2,2,0],[1,0,1]], mu0=(-1,-1,-1), a=(2,1,1): q^{-7/32}chi^{SM(2,8)}_{(1,1)}; W_(2,1,1): q^{1/32}chi^{SM(2,8)}_{(1,3)}. VERIFIED
+3-20: K=[[2,1,1],[1,2,0],[1,0,2]], mu0=(-1,-1,-1), a=(0,1,-1): I_A[1]=q^{-7/48}chi_F^{-1}chi^{SM(2,12)}_{(1,3)}; I_A[W_(0,1,-1)] same; I_A[W_(1,1,0)]=q^{1/48}chi_F^{-1}(-chi^{SM(2,12)}_{(1,1)}+chi^{SM(2,12)}_{(1,5)}). VERIFIED. (Paper flags as suspect: chi_F^{-1}, sum of two characters.)
+3-21: K=[[4,2,-1],[2,2,-1],[-1,-1,1]], mu0=(-2,-1,0), a=(2,1,0): q^{-7/16}chi_F chi^{SM(2,12)}_{(1,1)}; W_(1,1,0): q^{-5/48}chi_F chi^{SM(2,12)}_{(1,3)}; W_(2,1,0): q^{1/16}chi_F chi^{SM(2,12)}_{(1,5)}. VERIFIED
+3-22: K=[[4,2,1],[2,2,0],[1,0,1]] (same as 3-19), mu0=(-2,-1,-1), a=(2,1,1): I_A[1]=q^{-11/24}chi^{SM(2,12)}_{(1,1)}; W_(2,1,1): q^{1/24}chi^{SM(2,12)}_{(1,5)}. VERIFIED
+3-23: K=[[5,-3,2],[-3,3,-1],[2,-1,1]], mu0=(-1,0,-1), a=(4,-3,2): I_A[1]=I_A[W_(4,-3,2)]=0; I_A[W_(2,-1,1)]=I_A[W_(3,-2,1)]=1 (exactly). VERIFIED
+3-24: K=[[6,-3,-1],[-3,2,1],[-1,1,1]], mu0=(-3,1,0), a=(3,-1,-1): I_A[1]=q^{-19/28}chi^{W_3(3,7)}_{(5,1,1)}; I_A[W_(1,0,0)]=q^{-1/4}chi^{W_3(3,7)}_{(4,2,1)}; I_A[W_(-1,1,0)]=q^{-1}I_A[W_(1,0,0)] (checked: leading q^{-1}); I_A[W_(3,-1,-1)]=q^{1/28}chi^{W_3(3,7)}_{(3,2,2)}. Using the appendix product formula the q-coefficients match to q^25 for (5,1,1),(4,2,1),(3,2,2): VERIFIED (coefficients; the q-prefactors from h,c not independently checked; c=-114/7 gives q^{-19/28}-consistent for vacuum).
+Unitary section (Sec 4.2): U1-1 K=(1): sum q^{m^2/2}/(q)_m = prod(1+q^{n+1/2}) (Euler); U2-1,U3-1,U3-2 (U(1)_a, with chi_F) via sum q^{m(m+n)}/((q)_m(q)_{m+n})=1/(q)_inf; U2-3: half-index 1. Not rank-3 numerics, not checked by me except they are classical.
+Duplicates in the paper (same Nahm sums): 3-2/3-4/3-10/3-11/3-12 all reduce to M(2,5) (Class 1); 3-16/3-17 and 2-3 to M(2,7).
+
+## Summary of numerical status
+Total tested 105 Nahm series (incl. +-a family a=1,2,3): all MATCH exact identities to q^25 (t^50). 0 failures. Exception: only osp(1|4)_1 (3-15 as stated) untestable; tested the commented-out M(3,7)xU(1)_2 version instead. osp(1|2)_1 (3-1, 3-2.3) tested under my stated su(2)_1 convention.
+
+## 4. Later literature (WebSearch/WebFetch only; limited)
+- arXiv:2412.15767, Z. Cao, L. Wang, "Some New Modular Rank Three Nahm Sums from a Lift-Dual Operation": abstract (fetched): lift rank-2 Zagier sums to rank 3, compute duals, prove modularity by Rogers-Ramanujan type identities. Page does NOT mention Gang-Kim-Park-Stubbs, and I did not verify which matrices overlap with GKPS.
+- arXiv:2512.23122 (Gang, Park, Sohn, "Torus Knots and Minimal Models Revisited..."): abstract only; "new Nahm-sum-like expressions for the characters of Virasoro minimal models"; no mention of 2411.06081 or proofs of its identities on the abstract page. Full text not read.
+- Search engine also returned (ids as returned, not checked by me): arXiv:2607.08606 (Modular Nahm sums for inverse Cartan matrix of type D_r, Wang/Cao-related, not about GKPS), 2606.25866, 2608.08347, 2607.23257 (other Nahm sum papers). None identified as proving GKPS rank-3 identities.
+- Only proof tied to GKPS found: 3-13 [1] via Li-Wang-type identity (li2021some, Sec 7), cited inside GKPS.
+- Not found: no paper explicitly proving GKPS's rank-3 M(2,5)/M(2,7)/M(2,9)/SM/W3 identities. Not accessed: Google Scholar / INSPIRE citation list of 2411.06081, full texts of 2512.23122 and 2412.15767, Wang-Cao-Li-Sun papers (not located), "signed Nahm sums" search returned nothing relevant. Many of these specific identities are likely provable from known results (e.g. K=[[2,-1,-1],...] reduce to M(2,5) etc.) but I did not locate a proof reference.

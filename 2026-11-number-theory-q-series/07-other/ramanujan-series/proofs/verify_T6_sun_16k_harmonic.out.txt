@@ -1,0 +1,7 @@
+(i) WZ equation with both parameters: identically 0: OK
+(ii) sum_n G(n,0;a,b) = sum_k F(0,k;a,b) at 5 parameter points (40 digits): OK
+(iii) sum_k F(0,k;a,0) = 1/sqrt2 (Ebisu's evaluation): OK
+(iv) S1, S2 = sqrt3 Ti_2(1/sqrt3) and d/db sum_k F(0,k;0,b)|_0 = -(15/4)(sqrt6/pi) K: OK
+(v) (d/da - 2 d/db) log F(n,0) = 3 H_n + log 432: OK
+final: |lhs - (5K/2 - pi log(432)/(6 sqrt3))| = 4.4777e-121
+ALL CHECKS PASSED

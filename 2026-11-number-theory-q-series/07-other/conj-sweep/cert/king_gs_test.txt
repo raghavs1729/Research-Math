@@ -1,0 +1,5 @@
+Conj 1: odd r<=31, k<=130: 2080 cases, 0 failures.  Conj 2: even r!=c <=31, k<=130: 27300 cases, 0 failures
+
+real	0m49.555s
+user	0m49.175s
+sys	0m0.020s

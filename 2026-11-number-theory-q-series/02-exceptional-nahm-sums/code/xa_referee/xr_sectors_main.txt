@@ -1,0 +1,13 @@
+A_2 (untw, r=1) k=2: h^vee=3 (rho|rho)=2 |alpha0|^2=2; depth <= 30/1; classes 4, reps checked 12, failures 0; #dominant mult entries 670; 0.6s
+A_2 (untw, r=1) k=3: h^vee=3 (rho|rho)=2 |alpha0|^2=2; depth <= 22/1; classes 9, reps checked 27, failures 0; #dominant mult entries 531; 0.5s
+D_4 (untw, r=1) k=2: h^vee=6 (rho|rho)=14 |alpha0|^2=2; depth <= 16/1; classes 16, reps checked 48, failures 0; #dominant mult entries 832; 3.2s
+C_3 (tw, r=2) k=2: h^vee=6 (rho|rho)=14 |alpha0|^2=2; depth <= 18/1; classes 8, reps checked 24, failures 0; #dominant mult entries 423; 0.7s
+B_3 (tw, r=2) k=2: h^vee=6 (rho|rho)=35/2 |alpha0|^2=2; depth <= 18/1; classes 8, reps checked 24, failures 0; #dominant mult entries 362; 0.5s
+G_2 (tw, r=3) k=2: h^vee=6 (rho|rho)=14 |alpha0|^2=2; depth <= 26/1; classes 4, reps checked 12, failures 0; #dominant mult entries 329; 0.4s
+G_2 (tw, r=3) k=3: h^vee=6 (rho|rho)=14 |alpha0|^2=2; depth <= 20/1; classes 9, reps checked 27, failures 0; #dominant mult entries 280; 0.4s
+T_1 (A2l2, r=2) k=4: h^vee=3 (rho|rho)=1 |alpha0|^2=1; depth <= 60/2; classes 4, reps checked 12, failures 0; #dominant mult entries 332; 0.4s
+T_1 (A2l2, r=2) k=6: h^vee=3 (rho|rho)=1 |alpha0|^2=1; depth <= 44/2; classes 6, reps checked 18, failures 0; #dominant mult entries 254; 0.4s
+T_2 (A2l2, r=2) k=2: h^vee=5 (rho|rho)=5 |alpha0|^2=1; depth <= 40/2; classes 4, reps checked 12, failures 0; #dominant mult entries 445; 0.9s
+C_2 (tw, r=2) k=2: h^vee=4 (rho|rho)=5 |alpha0|^2=2; depth <= 30/1; classes 4, reps checked 12, failures 0; #dominant mult entries 513; 0.5s
+E_6 (untw, r=1) k=2: h^vee=12 (rho|rho)=78 |alpha0|^2=2; depth <= 8/1; classes 64, reps checked 192, failures 0; #dominant mult entries 159; 6.3s
+F_4 (tw, r=2) k=2: h^vee=12 (rho|rho)=78 |alpha0|^2=2; depth <= 12/1; classes 16, reps checked 48, failures 0; #dominant mult entries 189; 0.9s

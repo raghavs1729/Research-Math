@@ -1,0 +1,6 @@
+crosscheck_mpmath.py (floating point, not a proof)
+Integral f                 ~ 1.03      (exact value 103/100)
+(1/pi) Int_0^800 fhat^2 W   ~ 0.161167958443
+window_cert.py certifies chi4Gamma0 f in [0.16116795432, 0.16116796545]
+difference from the certified main part 0.16116795988 ~ -1.44e-9
+agreement to 1e-6: True

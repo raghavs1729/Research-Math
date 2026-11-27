@@ -1,0 +1,4 @@
+pairs (m,delta): 4800 ; sink purely periodic with p: 4800 ; wall nim-values purely periodic with p: 4800
+duality fails (convention [.]_p in 1..p): 0 []
+duality fails (sink index shifted by +1, i.e. v_sink(2p - s_2 - x + 1) as in the commented conjecture): 4800 [(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10)]
+real	0m24.181s

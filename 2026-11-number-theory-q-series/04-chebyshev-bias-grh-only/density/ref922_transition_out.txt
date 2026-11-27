@@ -1,0 +1,12 @@
+offset: mean=1.6e-24; max leak eps^O_n on n<16384: 2.889e-01 (n<1024: 2.889e-01, n>=1024: 1.418e-01)
+band 0 [64,256) round-up: min target 0.500, low-coef err 2.8e-14, max|psi| on (T or circle)\E = 0.0e+00, max copy mult 4.98e-05->units 3.686e+04
+band 1 [256,1024) round-up: min target 0.361, low-coef err 2.0e-13, max|psi| on (T or circle)\E = 0.0e+00, max copy mult 3.67e-06->units 4.349e+04
+band 2 [1024,4096) shaped, spill=[ 0.14 -1.8   1.51 -0.39]: min target 33.359, low-coef err 8.9e-16, max|psi| on (T or circle)\E = 0.0e+00, max copy mult 2.13e-10->units 4.040e+01
+band 3 [4096,16384) shaped, spill=[ 3.47 -3.59  1.75 -0.33]: min target 31.790, low-coef err 2.7e-15, max|psi| on (T or circle)\E = 0.0e+00, max copy mult 1.46e-11->units 4.434e+01
+final on [64,16383]: max dist to Z = 3.64e-12, min m = 1.000, max m = 20671.000
+physical max |Psi - Psi_0| on S: 3.58e-17;  fraction of J' kept: 0.683
+   spectral (1-D/M) residual of offset on S: 2.00e-04   (sup of piece 4.35e-02)
+   spectral (1-D/M) residual of psi_0 on S: 1.52e-07   (sup of piece 1.32e-01)
+   spectral (1-D/M) residual of psi_1 on S: 1.17e-07   (sup of piece 3.44e-02)
+   spectral (1-D/M) residual of psi_2 on S: 5.38e-06   (sup of piece 1.85e-04)
+   spectral (1-D/M) residual of psi_3 on S: 2.31e-03   (sup of piece 3.24e-05)

@@ -1,0 +1,2 @@
+number of losing positions with rows+columns = L equals 5*2^(L-5) for even L, 0 for odd L, for all 8 <= L <= 80 (and 0,0,2,0,11,0 for L=2..7): True
+(both sides satisfy linear recurrences of total order <= 17 + 2, so agreement on 8..80 proves it for all L >= 8)

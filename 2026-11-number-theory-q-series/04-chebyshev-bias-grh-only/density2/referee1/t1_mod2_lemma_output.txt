@@ -1,0 +1,17 @@
+A. G = Z, random configurations f = sum n_i 1_{g_i + q_i Z}
+  trials = 20000; configurations with f = 1_0 mod 2 on the window: 0
+  failures of the proof mechanism (distinct subset sums, Delta f = 0, Delta 1_0 odd at 2^r pts): 0
+
+B. G = Z + alpha Z (= Z^2), GF(2) span of coset indicators on a box
+  box B_R, R = 34 (4761 points); inside box B_s, s = 3; family size = 185
+  margin R - s = 31 >= sum over subgroups of |l_j|_inf = 26 (so window solutions would be genuine)
+  rank of span restricted to outside coordinates = 151
+  dimension of (span) intersect (functions supported in B_s) = 0
+  adding 1_0 to the family raises that dimension to 1 (=1 means 1_0 NOT in span)
+
+C. Control: finite groups (Z/p)^2 (torsion), all cosets of all nontrivial subgroups
+  p = 2: 1_0 in GF(2)-span of cosets of nontrivial subgroups? no
+  p = 3: 1_0 in GF(2)-span of cosets of nontrivial subgroups? YES
+         explicit identity 1_G + sum_(p+1 lines through 0) = 1_0 (mod 2): True
+  p = 5: 1_0 in GF(2)-span of cosets of nontrivial subgroups? YES
+         explicit identity 1_G + sum_(p+1 lines through 0) = 1_0 (mod 2): True

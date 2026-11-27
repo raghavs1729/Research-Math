@@ -1,0 +1,3 @@
+k=4 r<=3 a<=30 b<=30: 2455200 cases; sufficiency failures 0; necessity failures 0
+first sufficiency failures: []
+first necessity failures: []

@@ -1,0 +1,4 @@
+WZ and compatibility: exact OK
+d_n / F(n,n-1) = -2*n*(12*n**2 + 18*n + 7)/(3*(2*n + 1)*(4*n + 1)*(4*n + 3))
+triangle identity for N = 2, 5, 12, 30; G(n,0) = -(9/35) t(n); d_n = -(4/35) u_n: OK (numerically)
+S - (28/9 + 4U/9) = 7.0065e-46   S - (8 log3 - 16/3 log2) = -7.0065e-46   U - (18 log3 - 12 log2 - 7) = -7.0065e-46

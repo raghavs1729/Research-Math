@@ -1,0 +1,12 @@
+M = 1/2, J = [2, 23/10], r = 19/10, delta = 1/20, N = 100, 33 nonzero coefficients
+sum c_n^(N)            = [0.271680583920348 +/- 1.35e-16]
+L4                     = [6948364.9 +/- 0.0108]
+E0 >= sup_J |F_N|      : [2.15305e-15 +/- 4.24e-21]
+E1 >= sup_J |F_N'|     : [4.90105e-10 +/- 4.97e-16]
+W2                     = [7.36287e-11 +/- 2.68e-17]
+eps                    = [1.39352e-10 +/- 2.47e-16]
+Zmin                   = [1.00000000000000 +/- 5.59e-17]
+certified: sum c_n <= [0.271680584060 +/- 3.01e-13] ;  sigma^2 = 2 sum c_n <= [0.543361168119 +/- 4.00e-13]
+certified comparison  sum c_n < 0.2717  (hence sigma^2 < 0.5434 < 2): True
+[num] largest weight w_n = c_n (M^2+n^2)/(4M^2) among the N fitted ones: 1.0986
+atom of the law of F at 0: mass >= |J|/(2 pi) = 0.04775

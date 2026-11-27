@@ -1,0 +1,5 @@
+Chu (7.10) n-th term == -(1/3) * Sun Conj. 4.33(i) term at k = n+1, for n = 0..399 (exact): True
+P(n+1) = 77n^3+145n^2+88n+17: True
+term ratios agree identically in n (flint, cross-multiplied): True
+sum of Chu (7.10) (60 terms) - 2G = 0.0 -> True
+CONCLUSION: T5 == Chu 2020, eq. (7.10), reindexed k = n+1 and multiplied by -3: True

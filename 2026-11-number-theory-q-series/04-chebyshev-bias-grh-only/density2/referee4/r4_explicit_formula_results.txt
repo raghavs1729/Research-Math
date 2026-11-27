@@ -1,0 +1,29 @@
+bump v = exp(-0.5/(1-4u^2)); int v = 1.000000000000; int w = 0.999999999999; int w*w = 1.0000000000
+zeros: 511, max 639.916; all listed ordinates distinct: True
+
+(E1) identity (1.1)
+  T=3.0, y= 6.00: Pi_T = +0.95141382; Omega_T - zero sum = +0.95141383; diff = -1.29e-08; Omega_T via (i) -1.250e-04, via (ii) -1.250e-04
+  T=3.0, y= 8.50: Pi_T = -1.38235219; Omega_T - zero sum = -1.38235218; diff = -1.22e-08; Omega_T via (i) -2.939e-06, via (ii) -2.939e-06
+  T=3.0, y=10.00: Pi_T = +1.60024355; Omega_T - zero sum = +1.60024355; diff = +1.56e-09; Omega_T via (i) -3.098e-07, via (ii) -3.098e-07
+  T=3.0, y=12.00: Pi_T = +2.06441120; Omega_T - zero sum = +2.06441119; diff = +4.63e-09; Omega_T via (i) -1.542e-08, via (ii) -1.542e-08
+  T=3.0: what(gamma_max/T) = 1.5e-09 (zero-sum truncation scale)
+  T=5.0, y= 6.00: Pi_T = +3.68432470; Omega_T - zero sum = +3.68432559; diff = -8.88e-07; Omega_T via (i) -1.240e-04, via (ii) -1.240e-04
+  T=5.0, y= 8.50: Pi_T = -2.14117705; Omega_T - zero sum = -2.14117626; diff = -7.83e-07; Omega_T via (i) -2.915e-06, via (ii) -2.915e-06
+  T=5.0, y=10.00: Pi_T = -0.72839522; Omega_T - zero sum = -0.72839463; diff = -5.86e-07; Omega_T via (i) -3.073e-07, via (ii) -3.073e-07
+  T=5.0, y=12.00: Pi_T = +1.29041123; Omega_T - zero sum = +1.29041101; diff = +2.26e-07; Omega_T via (i) -1.530e-08, via (ii) -1.530e-08
+  T=5.0: what(gamma_max/T) = 1.2e-07 (zero-sum truncation scale)
+
+(E2) P1(e) at y = 0
+  T=3.0, j=1: 2 s_2j (zeros) = 2.25107748; Gamma term = 2.25107748; prime sum term = -0.00000000 (n used: []); RHS = 2.25107748; diff = +3.55e-15
+  T=1.0, j=1: 2 s_2j (zeros) = 0.02396618; Gamma term = -0.02964998; prime sum term = +0.05361615 (n used: [3, 5, 7]); RHS = 0.02396618; diff = +7.54e-13
+  T=0.8, j=1: 2 s_2j (zeros) = 0.00069800; Gamma term = -0.12866847; prime sum term = +0.12936647 (n used: [3, 5, 7, 9, 11]); RHS = 0.00069800; diff = +1.63e-12
+  T=2.0, j=2: 2 s_2j (zeros) = 0.30620964; Gamma term = 0.30390698; prime sum term = +0.00230267 (n used: [3, 5, 7]); RHS = 0.30620964; diff = +6.93e-14
+  T=1.5, j=2: 2 s_2j (zeros) = 0.06136713; Gamma term = 0.02299812; prime sum term = +0.03836902 (n used: [3, 5, 7, 9, 11, 13]); RHS = 0.06136713; diff = +9.30e-13
+
+(E3) zero-counting facts (chi_{-4}, certified range)
+  #(distinct ordinates in (20,40]) = 9; (t/2pi) log t = 9.5; ratio 0.150 per t log t
+  #(distinct ordinates in (40,80]) = 23; (t/2pi) log t = 23.5; ratio 0.156 per t log t
+  #(distinct ordinates in (80,160]) = 55; (t/2pi) log t = 55.8; ratio 0.157 per t log t
+  #(distinct ordinates in (160,320]) = 128; (t/2pi) log t = 129.2; ratio 0.158 per t log t
+  #(distinct ordinates in (320,640]) = 291; (t/2pi) log t = 293.8; ratio 0.158 per t log t
+  max gap between consecutive ordinates (incl. 0 -> gamma_1) = 6.021; so every interval of length 18.06 in (0,640] contains >= 3 ordinates (H_chi of INVLO Thm C; numerics, not a proof)

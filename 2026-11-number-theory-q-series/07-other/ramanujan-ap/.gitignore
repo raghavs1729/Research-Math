@@ -1,0 +1,6 @@
+apcount
+apscan
+apstep
+*.o
+apscan_star
+apdelta

@@ -1,0 +1,49 @@
+(1)+(2) random Laurent polynomials: Lemma 2.1 and Lemma 2.2
+  d  #terms   m(P)      max_v log|c_v|   slack    | small-ball: max over delta of [lhs - rhs] (must be <= 0)
+  2   10     +2.4757     +2.4592       +0.0165 | -0.3628
+  2    4     +0.6955     +0.6907       +0.0048 | -0.4144
+  2    6     +1.1370     +0.9478       +0.1892 | -0.4247
+  2    3     +1.5861     +1.5861       +0.0000 | -0.2236
+  2    7     +2.4948     +2.4948       +0.0000 | -0.2173
+  2   11     +1.7414     +0.7158       +1.0256 | -0.3074
+  2   10     +1.2490     +1.0854       +0.1636 | -0.4348
+  2   11     +2.7920     +2.7920       +0.0000 | -0.1942
+  2   11     +1.7012     +1.6043       +0.0969 | -0.3721
+  2    4     +1.9809     +1.9670       +0.0139 | -0.4247
+  2    8     +2.6431     +2.6431       +0.0000 | -0.2637
+  2    4     +2.2813     +2.2813       -0.0000 | -0.3274
+  2   10     +1.3492     +1.0213       +0.3279 | -0.4349
+  2    4     +0.4779     +0.4779       -0.0000 | -0.2851
+  2   10     +1.9622     +1.9438       +0.0185 | -0.3908
+  2    9     +2.4379     +1.2633       +1.1746 | -0.2679
+  3    9     +1.7822     +1.2110       +0.5713 | -0.4304
+  3    6     +1.0793     +1.0310       +0.0482 | -0.3917
+  3   10     +1.3301     +0.9717       +0.3585 | -0.4373
+  3    8     +1.5395     +1.3620       +0.1775 | -0.4298
+  3    5     +1.9735     +1.9329       +0.0407 | -0.4191
+  3    7     +1.2621     +1.1683       +0.0938 | -0.4105
+  3   10     +3.1390     +3.1390       +0.0000 | -0.3131
+  3    7     +1.3816     +1.2283       +0.1534 | -0.4159
+  minimum of m(P) - vertex bound over all trials = -0.0000 (Lemma 2.1: >= 0 up to quadrature error)
+  maximum of small-ball defect = -0.1942 (Lemma 2.2: <= 0)
+
+(3) Example 3.7: frequencies b + n d, b = 6.0209, d = 2*sqrt(2) (Q-independent), M = 1/2, on T^2
+  vertex bound log|m_0 r(b)| (m_0 = 1) = -1.7987
+  all ones           N=   4  V=0.111   m(F_N - c) for c = 0, 1, 2: -0.0838, -1.7986, -0.0838
+  all ones           N=  16  V=0.135   m(F_N - c) for c = 0, 1, 2: -0.0589, -1.7987, -0.0589
+  all ones           N=  64  V=0.145   m(F_N - c) for c = 0, 1, 2: -0.0576, -1.7988, -0.0576
+  all ones           N= 200  V=0.147   m(F_N - c) for c = 0, 1, 2: -0.0586, -1.7985, -0.0586
+      small ball c=0: eps=1e-01: lambda=6.40e-03 <= bound 0.891, eps=1e-02: lambda=6.57e-04 <= bound 0.445, eps=1e-03: lambda=6.84e-05 <= bound 0.297
+      small ball c=1: eps=1e-01: lambda=2.23e-01 <= bound 0.861, eps=1e-02: lambda=2.16e-02 <= bound 0.431, eps=1e-03: lambda=2.09e-03 <= bound 0.287
+  random in {1,2,3}  N=   4  V=0.412   m(F_N - c) for c = 0, 1, 2: -0.1418, -1.1665, -0.1418
+  random in {1,2,3}  N=  16  V=0.239   m(F_N - c) for c = 0, 1, 2: -0.0492, -1.6810, -0.0492
+  random in {1,2,3}  N=  64  V=0.510   m(F_N - c) for c = 0, 1, 2: -0.1153, -1.1227, -0.1153
+  random in {1,2,3}  N= 200  V=0.564   m(F_N - c) for c = 0, 1, 2: -0.1370, -1.0664, -0.1370
+      small ball c=0: eps=1e-01: lambda=1.61e-02 <= bound 0.958, eps=1e-02: lambda=1.70e-03 <= bound 0.479, eps=1e-03: lambda=1.59e-04 <= bound 0.319
+      small ball c=1: eps=1e-01: lambda=1.09e-01 <= bound 0.861, eps=1e-02: lambda=1.08e-02 <= bound 0.431, eps=1e-03: lambda=1.14e-03 <= bound 0.287
+  (all values must be >= the vertex bound, up to quadrature error ~3e-4.  For c = 1,
+   m(F_N - 1) = m(h_N) with h_N(z) = sum_n m_n r(b + n d) z^n (since E log|2 cos| = 0), and this
+   equals log|h_N(0)| = the vertex bound exactly when h_N has no zeros in the open unit disk.)
+
+(4) Theorem 3.3(b) constant for chi_-4, M = 1/2, gamma_0 = 6.020949: log|M+i g|/(2M) = 1.7987, (1/2)log(1+V) = 0.0723, 1/(2e) = 0.1839; total C = 2.0549
+    nu_(1/2)((-eps, eps)) <= C/log(1/eps): eps = 1e-10 -> 0.0892, eps = 1e-20 -> 0.0446

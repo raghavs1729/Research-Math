@@ -1,0 +1,15 @@
+T1      random points: 300 pts, 0 failures | symbolic (flint, uncancelled): {'WZ': True, 'compat': True} (denominator degrees {'WZ': 10, 'compat': 12}) -> OK
+T2/T9   random points: 300 pts, 0 failures | symbolic (flint, uncancelled): {'WZ': True, 'compat': True} (denominator degrees {'WZ': 14, 'compat': 20}) -> OK
+T3      random points: 300 pts, 0 failures | symbolic (flint, uncancelled): {'WZ': True, 'compat': True} (denominator degrees {'WZ': 14, 'compat': 20}) -> OK
+T4/T10  random points: 300 pts, 0 failures | symbolic (flint, uncancelled): {'WZ': True, 'compat': True} (denominator degrees {'WZ': 11, 'compat': 14}) -> OK
+T5      random points: 300 pts, 0 failures | symbolic (flint, uncancelled): {'WZ': True, 'compat': True} (denominator degrees {'WZ': 13, 'compat': 14}) -> OK
+T6      random points: 300 pts, 0 failures | symbolic (flint, uncancelled): {'WZ': True, 'compat': True} (denominator degrees {'WZ': 14, 'compat': 20}) -> OK
+T7      random points: 300 pts, 0 failures | symbolic (flint, uncancelled): {'WZ': True, 'compat': True, 'row k=n-1': True} (denominator degrees {'WZ': 28, 'compat': 28, 'row k=n-1': 27}) -> OK
+T8      random points: 300 pts, 0 failures | symbolic (flint, uncancelled): {'WZ': True, 'compat': True} (denominator degrees {'WZ': 14, 'compat': 16}) -> OK
+T11     random points: 300 pts, 0 failures | symbolic (flint, uncancelled): {'WZ': True, 'compat': True, 'row k=n-1': True} (denominator degrees {'WZ': 28, 'compat': 28, 'row k=n-1': 22}) -> OK
+ALL CERTIFICATES OK
+negative control T4_T10.gp (612->613): rejected by random points: True, by flint: True
+negative control T11.gp (1310720->1310721): rejected by random points: True, by flint: True
+negative control T7.gp (10080->10081): rejected by random points: True, by flint: True
+negative control T5.gp (145->146): rejected by random points: True, by flint: True
+NEGATIVE CONTROLS OK

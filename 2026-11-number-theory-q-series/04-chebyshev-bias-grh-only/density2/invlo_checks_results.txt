@@ -1,0 +1,38 @@
+(1) needle polynomial checks
+  N=   1: q(0)=1.000000  min/max on [-1,1]=(1.000e+00,1.0000)  int q^2=2.00000 <= 8pi/(N+1)=12.56637: True  min q on |s|<=2/(N+1)=1.0000 (>=0.27: True)  max |q|/(2(2|s|)^N) on 1<=|s|<=50 = 2.500e-01
+  N=   2: q(0)=1.000000  min/max on [-1,1]=(2.000e-01,1.0000)  int q^2=1.18933 <= 8pi/(N+1)=8.37758: True  min q on |s|<=2/(N+1)=0.6444 (>=0.27: True)  max |q|/(2(2|s|)^N) on 1<=|s|<=50 = 9.995e-02
+  N=   3: q(0)=1.000000  min/max on [-1,1]=(-2.220e-16,1.0000)  int q^2=1.06667 <= 8pi/(N+1)=6.28319: True  min q on |s|<=2/(N+1)=0.7500 (>=0.27: True)  max |q|/(2(2|s|)^N) on 1<=|s|<=50 = 2.406e-02
+  N=   5: q(0)=1.000000  min/max on [-1,1]=(1.127e-10,1.0000)  int q^2=0.70445 <= 8pi/(N+1)=4.18879: True  min q on |s|<=2/(N+1)=0.7257 (>=0.27: True)  max |q|/(2(2|s|)^N) on 1<=|s|<=50 = 9.180e-03
+  N=  10: q(0)=1.000000  min/max on [-1,1]=(8.903e-03,1.0000)  int q^2=0.37613 <= 8pi/(N+1)=2.28479: True  min q on |s|<=2/(N+1)=0.7038 (>=0.27: True)  max |q|/(2(2|s|)^N) on 1<=|s|<=50 = 8.186e-03
+  N=  20: q(0)=1.000000  min/max on [-1,1]=(2.314e-03,1.0000)  int q^2=0.19879 <= 8pi/(N+1)=1.19680: True  min q on |s|<=2/(N+1)=0.7069 (>=0.27: True)  max |q|/(2(2|s|)^N) on 1<=|s|<=50 = 2.257e-03
+  N=  50: q(0)=1.000000  min/max on [-1,1]=(3.858e-04,1.0000)  int q^2=0.08209 <= 8pi/(N+1)=0.49280: True  min q on |s|<=2/(N+1)=0.7079 (>=0.27: True)  max |q|/(2(2|s|)^N) on 1<=|s|<=50 = 3.823e-04
+  N= 100: q(0)=1.000000  min/max on [-1,1]=(9.811e-05,1.0000)  int q^2=0.04147 <= 8pi/(N+1)=0.24884: True  min q on |s|<=2/(N+1)=0.7080 (>=0.27: True)  max |q|/(2(2|s|)^N) on 1<=|s|<=50 = 9.702e-05
+  N= 300: q(0)=1.000000  min/max on [-1,1]=(1.105e-05,1.0000)  int q^2=0.01392 <= 8pi/(N+1)=0.08350: True  min q on |s|<=2/(N+1)=0.7081 (>=0.27: True)  max |q|/(2(2|s|)^N) on 1<=|s|<=50 = nan
+
+(2) |J_0(y)| <= sqrt(2/(pi y)), y in (0, 2000]
+  max ratio = 1.000000 (must be <= 1)
+
+(3) moment identity (exact)
+  frequencies ['1', '2', '3', '1000003/7', '1000033/11']
+  relations of length <= 4: 8; support S = ['1', '2', '3']
+  moments j<=L (Haar on closure torus): ['1', '0', '2293369/10672200', '9/80', '10543208851561/75930568560000']
+  moments j<=L (mixed model):           ['1', '0', '2293369/10672200', '9/80', '10543208851561/75930568560000']
+  equal: True
+  second example ['1', '2', '3', '5/2', '1000033/11'], L=2: S = []
+    moments j<=4 (Haar): ['1', '0', '2293369/10672200', '9/80', '10698169195561/75930568560000']
+    moments j<=4 (mixed, S from L=2): ['1', '0', '2293369/10672200', '0', '8328567268561/75930568560000']
+    equal up to j=2: True;  equal up to j=4: False (expected False: the length-3 relation 2*(5/2) - 2 - 3 = 0 involves 5/2, outside S for L=2)
+
+(4) Lemma A on an example: Z = Gauss-quadrature discretisation of W = N(0,1)
+  N=  2: max atom of Z = 0.6667 (~ c/sqrt(N): 0.943/sqrt(N));  P(|Z|<=2R/(N+1)) = 1.0000 <= bound 2118.56: True
+  N=  5: max atom of Z = 0.4088 (~ c/sqrt(N): 0.914/sqrt(N));  P(|Z|<=2R/(N+1)) = 1.0000 <= bound 1674.70: True
+  N= 10: max atom of Z = 0.3694 (~ c/sqrt(N): 1.168/sqrt(N));  P(|Z|<=2R/(N+1)) = 1.0000 <= bound 1291.84: True
+  N= 20: max atom of Z = 0.2703 (~ c/sqrt(N): 1.209/sqrt(N));  P(|Z|<=2R/(N+1)) = 1.0000 <= bound 956.97: True
+  N= 40: max atom of Z = 0.1945 (~ c/sqrt(N): 1.230/sqrt(N));  P(|Z|<=2R/(N+1)) = 1.0000 <= bound 693.18: True
+  N= 80: max atom of Z = 0.1388 (~ c/sqrt(N): 1.242/sqrt(N));  P(|Z|<=2R/(N+1)) = 1.0000 <= bound 496.21: True
+(5) J_0(y) <= exp(-y^2/4) on [0, j_{0,1}):
+  j_(0,1) = 2.404826; min of exp(-y^2/4) - J_0(y) = -1.110e-16 (must be >= 0); Rayleigh sum of j_(0,k)^-2 over first 10^5 zeros = 0.249999 (-> 1/4)
+(6) Lemma D(b): density of sum c_k cos(theta_k) vs the bound
+  n=   10, c in [0.05,0.1]: density at 0 = 2.2656; Gaussian value 2.3165; bound 4.4294; ok: True
+  n=  100, c in [0.01,0.03]: density at 0 = 2.6606; Gaussian value 2.6669; bound 2.6681; ok: True
+  n= 1000, c in [0.002,0.01]: density at 0 = 2.7620; Gaussian value 2.7628; bound 2.7628; ok: True

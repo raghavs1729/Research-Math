@@ -1,0 +1,35 @@
+Referee 2, r2_galois.py: Galois proportions in TOY.md Thm 2.3 step (iv).
+q= 2:     2 patterns, 1 orbits, distinct values     2; values taken on >=60% of {1..q-1}: [-1, 0]
+q= 3:     4 patterns, 1 orbits, distinct values     4; values taken on >=60% of {1..q-1}: [-1, 0]
+q= 4:     8 patterns, 2 orbits, distinct values     8; values taken on >=60% of {1..q-1}: [-1, 0]
+q= 5:    16 patterns, 1 orbits, distinct values    16; values taken on >=60% of {1..q-1}: [-1, 0]
+q= 6:    32 patterns, 3 orbits, distinct values    16; values taken on >=60% of {1..q-1}: [-1, 0]
+q= 7:    64 patterns, 1 orbits, distinct values    64; values taken on >=60% of {1..q-1}: [-1, 0]
+q= 8:   128 patterns, 3 orbits, distinct values    72; values taken on >=60% of {1..q-1}: [-1, 0]
+q= 9:   256 patterns, 2 orbits, distinct values   222; values taken on >=60% of {1..q-1}: [-1, 0]
+q=10:   512 patterns, 3 orbits, distinct values   152; values taken on >=60% of {1..q-1}: [-1, 0]
+q=11:  1024 patterns, 1 orbits, distinct values  1024; values taken on >=60% of {1..q-1}: [-1, 0]
+q=12:  2048 patterns, 5 orbits, distinct values   328; values taken on >=60% of {1..q-1}: [-1, 0]
+q=13:  4096 patterns, 1 orbits, distinct values  4096; values taken on >=60% of {1..q-1}: [-1, 0]
+q=14:   300 patterns, 3 orbits, distinct values   835; values taken on >=60% of {1..q-1}: [-1, 0]
+q=15:   300 patterns, 3 orbits, distinct values  1361; values taken on >=60% of {1..q-1}: [-1, 0]
+q=16:   300 patterns, 4 orbits, distinct values  1212; values taken on >=60% of {1..q-1}: [-1, 0]
+q=17:   300 patterns, 1 orbits, distinct values  2599; values taken on >=60% of {1..q-1}: [-1]
+q=18:   300 patterns, 5 orbits, distinct values  1225; values taken on >=60% of {1..q-1}: [-1, 0]
+q=19:   300 patterns, 1 orbits, distinct values  3154; values taken on >=60% of {1..q-1}: [0]
+q=20:   300 patterns, 5 orbits, distinct values  1707; values taken on >=60% of {1..q-1}: [-1, 0]
+q=21:   300 patterns, 3 orbits, distinct values  3076; values taken on >=60% of {1..q-1}: [-1, 1]
+q=22:   300 patterns, 3 orbits, distinct values  3230; values taken on >=60% of {1..q-1}: []
+q=23:   300 patterns, 1 orbits, distinct values  4433; values taken on >=60% of {1..q-1}: []
+q=24:   300 patterns, 7 orbits, distinct values  2094; values taken on >=60% of {1..q-1}: [-1, 0]
+q=25:   300 patterns, 2 orbits, distinct values  4704; values taken on >=60% of {1..q-1}: []
+q=26:   300 patterns, 3 orbits, distinct values  4382; values taken on >=60% of {1..q-1}: []
+q=27:   300 patterns, 3 orbits, distinct values  4836; values taken on >=60% of {1..q-1}: []
+q=28:   300 patterns, 5 orbits, distinct values  4019; values taken on >=60% of {1..q-1}: [0]
+q=29:   300 patterns, 1 orbits, distinct values  6188; values taken on >=60% of {1..q-1}: []
+q=30:   300 patterns, 7 orbits, distinct values  3582; values taken on >=60% of {1..q-1}: []
+
+(a) V(ae) = sigma_a V(e): 2274586 checks, 0 mismatches
+(b) proportion on orbit = 1/deg: 0 mismatches (all orbits, all values, all patterns above)
+    numerical degree vs sympy exact minimal polynomial: 182 checked, 0 mismatches
+(c) q with a NON-integer value taken on >= 60%: none

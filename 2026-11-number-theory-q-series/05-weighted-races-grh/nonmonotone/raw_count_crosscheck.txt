@@ -1,0 +1,4 @@
+COUNT q=4 T=640.165707000: symmetric count W = [1022.00000000 +/- 3e-13] -> 1022 ; listed ordinates below T: 511 ; 2K = 1022 : AGREES  [60 L-evals, 0s]
+COUNT q=4 T=99.4450935594: symmetric count W = [100.000000000 +/- 3e-14] -> 100 ; listed ordinates below T: 50 ; 2K = 100 : AGREES  [49 L-evals, 0s]
+COUNT q=3 T=700.024747000: symmetric count W = [1074.00000000 +/- 3e-13] -> 1074 ; listed ordinates below T: 537 ; 2K = 1074 : AGREES  [74 L-evals, 0s]
+COUNT q=3 T=107.108188983: symmetric count W = [100.000000000 +/- 3e-14] -> 100 ; listed ordinates below T: 50 ; 2K = 100 : AGREES  [49 L-evals, 0s]

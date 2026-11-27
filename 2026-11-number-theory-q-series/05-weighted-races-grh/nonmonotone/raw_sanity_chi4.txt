@@ -1,0 +1,6 @@
+# density.py  q=4  chi = Kronecker (-4/.)  zeros used: 511 (gamma_1 = 6.02094890470, gamma_last = 639.915707253)  max|partial sum| = 1
+# zero file chi4_zeros.txt  sha256=0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc  bound to a passing certificate record (K=511, T_cert=640165707/1000000, W=1022, verify)
+DELTA q=4 M=1/2 (m=0)  lower=0.995927912125  upper=0.995927938565  width=2.64e-08  | sigma2=0.155567979923586  V_tail=0.003483638153  c_1=0.331034  T=72.500000  K=84  E1=4.15e-08  E2=3.12e-15  Egl=1.36e-21  radI=1.60e-21  gauss_cells=774  e1_cells=2661  time=43s  zeros_sha256=0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc
+#   guard M=1/2: V_tail=0.00348364 vs RvM estimate 0.00348438 (tolerance 4.95e-05) OK;  82 of the K=84 envelope factors have b_j*T > 1
+DELTA q=4 M=3/2 (m=1)  lower=0.797630385848  upper=0.797630412326  width=2.65e-08  | sigma2=1.36855505395451  V_tail=0.03135269728  c_1=0.966965  T=24.187500  K=84  E1=4.16e-08  E2=3.11e-15  Egl=1.90e-21  radI=1.57e-21  gauss_cells=258  e1_cells=1325  time=16s  zeros_sha256=0e73e00a6c1609bdb4eec62c13292435d0beee55750735a51f0fab84024ddfbc
+#   guard M=3/2: V_tail=0.03135270 vs RvM estimate 0.03135941 (tolerance 4.45e-04) OK;  82 of the K=84 envelope factors have b_j*T > 1

@@ -1,0 +1,25 @@
+name = "PiSeries"
+version = "0.1.0"
+defaultTargets = ["PiSeries", "PiSeriesStatement", "PiSeriesSolution"]
+
+[leanOptions]
+pp.unicode.fun = true
+relaxedAutoImplicit = false
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "51e6992efd06126df61a496bebf8f49482a4e129"
+
+# The proof development.
+[[lean_lib]]
+name = "PiSeries"
+
+# Statement layer.  Trusted: PiSeriesStatement/*.lean (Mathlib only, one theorem per file, proofs `sorry`).
+# Untrusted: PiSeriesSolution (imports PiSeries, proves the same statements).
+[[lean_lib]]
+name = "PiSeriesStatement"
+
+[[lean_lib]]
+name = "PiSeriesSolution"
+roots = ["PiSeriesSolution"]

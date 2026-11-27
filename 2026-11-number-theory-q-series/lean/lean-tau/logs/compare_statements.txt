@@ -1,0 +1,12 @@
+OK (textual): the definition block and the 4 statements of TauStatement.lean occur verbatim in Tau/Defs.lean and TauSolution.lean; both import only Mathlib resp. the library; no sorry/axiom/native_decide on the solution side
+OK (elaborated): the 4 statements and the 1 definitions are identical in TauStatement and TauSolution:
+no_solution_461 : ∀ (x y : ℤ), x ^ 22 - 3 * x ^ 11 * y ^ 2 + y ^ 4 ≠ 461
+no_solution_neg599 : ∀ (x y : ℤ), x ^ 22 - 3 * x ^ 11 * y ^ 2 + y ^ 4 ≠ -599
+heckeSeq_four_ne : ∀ (t p : ℤ), heckeSeq t p 4 ≠ 461 ∧ heckeSeq t p 4 ≠ -599
+tau_prime_pow_four_ne : ∀ (τ : ℕ → ℤ),
+  τ 1 = 1 →
+    ∀ (p : ℕ),
+      Nat.Prime p →
+        (∀ (k : ℕ), τ (p ^ (k + 2)) = τ p * τ (p ^ (k + 1)) - ↑p ^ 11 * τ (p ^ k)) → τ (p ^ 4) ≠ 461 ∧ τ (p ^ 4) ≠ -599
+def Tau.heckeSeq : ℤ → ℤ → ℕ → ℤ :=
+fun t p x => Nat.brecOn x (heckeSeq._f t p)

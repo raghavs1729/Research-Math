@@ -1,0 +1,16 @@
+{
+ "F_1/2": true,
+ "F_3/4": true,
+ "F_9/10": true,
+ "M1_baseline_pass": true,
+ "M1_signflip_rejected": true,
+ "M1_tau3_5_11_flipped_rejected": true,
+ "M2_H12_rejected": true,
+ "M2_bad_sigma_rejected": true,
+ "M2_baseline_pass": true,
+ "M3_baseline_rem_lt_2over3": true,
+ "M3_deleted_zero_rejected": true,
+ "M3_shifted_zero_rem": "0.1865",
+ "M4_baseline_in_pinned": true,
+ "M4_mutant_outside_pinned": true
+}

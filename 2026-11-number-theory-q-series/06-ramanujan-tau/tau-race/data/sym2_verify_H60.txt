@@ -1,0 +1,22 @@
+error bounds: tail [3.1706e-100 +/- 1.37e-105]  alias [4.3769e-95 +/- 2.61e-100]  M_theta [109.73 +/- 4.37e-3]
+largest radius of a table entry: 2.906e-84;  radius of Z(t) at t = 0, 30, 60, 72: ['1.21e-83', '7.67e-84', '7.68e-84', '7.71e-84']
+L_S(2): Euler [0.8059 +/- 3.71e-5]  Poisson [0.8058752094486687596101549426995036754376 +/- 3.73e-41]
+L_S(1/2) = [0.505549375222713515001575353290 +/- 3.31e-32]   L_S(1) = [0.631792945727883203011116326435 +/- 8.07e-32]
+55 sign changes on [0, 72]; first: [7.070224140286882, 10.32631786561251, 12.214217933604232, 15.689152964023378, 16.77023459841803, 18.82491995318196]
+widest isolating interval: 3.638e-12
+max Rem on grid <= 0.185062 at T = 60;  with Lipschitz factor: 0.196998  (must be < 2/3)
+   T =   0  Re Lambda'/Lambda(2+iT) >= 0.293951   Rem <= 0.068551
+   T =   5  Re Lambda'/Lambda(2+iT) >= 0.533904   Rem <= 0.068817
+   T =  10  Re Lambda'/Lambda(2+iT) >= 1.291827   Rem <= 0.069629
+   T =  15  Re Lambda'/Lambda(2+iT) >= 1.466208   Rem <= 0.071035
+   T =  20  Re Lambda'/Lambda(2+iT) >= 1.964787   Rem <= 0.073119
+   T =  25  Re Lambda'/Lambda(2+iT) >= 2.197903   Rem <= 0.076022
+   T =  30  Re Lambda'/Lambda(2+iT) >= 2.447300   Rem <= 0.079962
+   T =  35  Re Lambda'/Lambda(2+iT) >= 2.850364   Rem <= 0.085286
+   T =  40  Re Lambda'/Lambda(2+iT) >= 2.711234   Rem <= 0.092566
+   T =  45  Re Lambda'/Lambda(2+iT) >= 3.063705   Rem <= 0.102796
+   T =  50  Re Lambda'/Lambda(2+iT) >= 2.941893   Rem <= 0.117860
+   T =  55  Re Lambda'/Lambda(2+iT) >= 3.317337   Rem <= 0.141793
+   T =  60  Re Lambda'/Lambda(2+iT) >= 3.133566   Rem <= 0.185062
+RESULT: PASS: all zeros of L(s,Sym^2 Delta) with |Im s| <= 60 are simple and on the critical line; there are 41 with 0 < Im <= 60
+sha256 = 1e6a096b3c35965b34bd1cca053cbe7e676fd24a6967d3867bd1e0f7d747605b  time 42.9 s

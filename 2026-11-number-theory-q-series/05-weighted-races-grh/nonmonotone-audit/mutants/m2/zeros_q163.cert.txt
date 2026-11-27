@@ -1,0 +1,15 @@
+# zeros_cert.py  q=163  character number 162 = Kronecker symbol (-163/.), odd, real, primitive (checked for n <= 2q)
+# [0] L(1/2, chi) = [0.0685317582960750993082703159838 +/- 9.58e-33]  certified > 0
+BLOCK top T = 1275/64 = 19.921875 : 17 new windows, K = 17 in (0,T); theta/pi = 16.7640040996, ArgL(2+iT)/pi = 0.085627332, horizontal/pi = 0.15036857 (174 L-evals); W = [34.0000000000 +/- 3e-15] -> 34 ; |Z(T)| = 1.746 ; 20.6s
+      => exactly 34 zeros of Lambda in (-1,2)x(-T,T): the 17 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 2544/64 = 39.750000 : 21 new windows, K = 38 in (0,T); theta/pi = 37.6944389059, ArgL(2+iT)/pi = 0.073777027, horizontal/pi = 0.23178407 (170 L-evals); W = [76.0000000000 +/- 3e-14] -> 76 ; |Z(T)| = 1.627 ; 33.0s
+      => exactly 76 zeros of Lambda in (-1,2)x(-T,T): the 38 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 3793/64 = 59.265625 : 22 new windows, K = 60 in (0,T); theta/pi = 59.9068531596, ArgL(2+iT)/pi = 0.018141288, horizontal/pi = 0.075005552 (71 L-evals); W = [120.000000000 +/- 3e-14] -> 120 ; |Z(T)| = 8.206 ; 34.5s
+      => exactly 120 zeros of Lambda in (-1,2)x(-T,T): the 60 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 5095/64 = 79.609375 : 24 new windows, K = 84 in (0,T); theta/pi = 84.1667526679, ArgL(2+iT)/pi = -0.084640979, horizontal/pi = -0.082111689 (136 L-evals); W = [168.000000000 +/- 3e-14] -> 168 ; |Z(T)| = 3.032 ; 48.2s
+      => exactly 168 zeros of Lambda in (-1,2)x(-T,T): the 84 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 6385/64 = 99.765625 : 25 new windows, K = 109 in (0,T); theta/pi = 109.028773974, ArgL(2+iT)/pi = 0.0057040733, horizontal/pi = -0.034478048 (167 L-evals); W = [218.000000000 +/- 3e-14] -> 218 ; |Z(T)| = 2.798 ; 72.5s
+      => exactly 218 zeros of Lambda in (-1,2)x(-T,T): the 109 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 7617/64 = 119.015625 : 24 new windows, K = 133 in (0,T); theta/pi = 133.383921340, ArgL(2+iT)/pi = 0.012199729, horizontal/pi = -0.39612107 (218 L-evals); W = [266.000000000 +/- 3e-14] -> 266 ; |Z(T)| = 1.694 ; 87.8s
+      => exactly 266 zeros of Lambda in (-1,2)x(-T,T): the 133 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+# state: 133 zeros certified complete up to T_cert = 7617/64 = 119.015625 ; cumulative 296.5s

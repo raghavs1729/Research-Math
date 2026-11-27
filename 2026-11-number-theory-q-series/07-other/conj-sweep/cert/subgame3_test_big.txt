@@ -1,0 +1,1 @@
+a in [2,120], b<=300, c<=800, periods searched up to 6*c: triples 14671617, purely periodic 6019696 (period a+b: 782105, c+a: 1839129, c+b: 3398462), other: 0

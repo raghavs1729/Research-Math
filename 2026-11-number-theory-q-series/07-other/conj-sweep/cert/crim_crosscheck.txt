@@ -1,0 +1,5 @@
+all 66273 partitions of n <= 34: automaton vs brute force (row/column removal on tuples): mismatches 0
+Proposition thm:2parts ([l1,l2] in P iff l1 even) reproduced for l1 < 80: True
+Theorem thm:3parts reproduced for l1 < 50: False
+appendix "unexplained losing partitions" (first 19) accepted by the automaton: True
+number of P-positions with rows+columns = L, L=2..24: [0, 0, 2, 0, 11, 0, 40, 0, 160, 0, 640, 0, 2560, 0, 10240, 0, 40960, 0, 163840, 0, 655360, 0, 2621440]

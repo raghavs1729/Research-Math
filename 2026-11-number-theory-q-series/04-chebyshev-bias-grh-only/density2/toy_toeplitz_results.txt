@@ -1,0 +1,8 @@
+toy_toeplitz.py results (AI-produced, 2026-11-26)
+(1) valuation q=2, c=(0,1,1,0,1,0,0,1): P_K=256, max|closed-direct| at N=1e5,2e5,4e5: 9.02e-04, 3.49e-04, 1.31e-04 (tail of the direct sum is O(1/(N dist)); should halve with N)
+(1) random patterns q=(3,5,2,3,4): P_K=360, max|closed-direct| at N=1e5,2e5,4e5: 5.70e-04, 2.13e-04, 2.12e-04 (tail of the direct sum is O(1/(N dist)); should halve with N)
+(2) valuation q=2 (16 levels), c random, level i=6 (eps_i=4.909e-02): max |fine - first-order| / eps_i over 5 arcs = 6.523e-03 (should be O(eps_i))
+(2) valuation q=3 (10 levels), c random, level i=4 (eps_i=3.879e-02): max |fine - first-order| / eps_i over 5 arcs = 5.751e-03 (should be O(eps_i))
+(2) random patterns q in {2,3,5} (9 levels), level i=3 (eps_i=1.047e-01): max |fine - first-order| / eps_i over 5 arcs = 1.685e-02 (should be O(eps_i))
+(3) first arc with a sign change: B = -0.5029, c_i - 1/2 = -0.5000, range of Z = 0.9973 (uniform law predicts 1)
+(3) valuation q=2, 22 levels, 400 arcs of level 9 (eps=6.14e-03): max deviation of (F-mean)/eps from the first-order digit law = 7.03e-03; arcs with a sign change: 1, max normalised quantile distance to uniform there = 0.001

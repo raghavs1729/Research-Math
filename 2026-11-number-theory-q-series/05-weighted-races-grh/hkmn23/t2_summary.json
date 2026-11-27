@@ -1,0 +1,426 @@
+{
+ "candidates": {
+  "3": {
+   "members": [
+    1
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "2P"
+   ],
+   "undecided": []
+  },
+  "4": {
+   "members": [
+    1
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "3P"
+   ],
+   "undecided": []
+  },
+  "5": {
+   "members": [
+    1,
+    4
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "2P",
+    "3P"
+   ],
+   "undecided": []
+  },
+  "6": {
+   "members": [
+    1
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "5P"
+   ],
+   "undecided": []
+  },
+  "7": {
+   "members": [],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "3P",
+    "5P",
+    "6P"
+   ],
+   "undecided": [
+    1,
+    2,
+    4
+   ]
+  },
+  "8": {
+   "members": [
+    1
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "3P",
+    "5P",
+    "7P"
+   ],
+   "undecided": []
+  },
+  "9": {
+   "members": [],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "2P",
+    "5P",
+    "8P"
+   ],
+   "undecided": [
+    1,
+    4,
+    7
+   ]
+  },
+  "10": {
+   "members": [
+    1,
+    9
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "3P",
+    "7P"
+   ],
+   "undecided": []
+  },
+  "12": {
+   "members": [
+    1
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "5P",
+    "7P",
+    "11P"
+   ],
+   "undecided": []
+  },
+  "14": {
+   "members": [],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "3P",
+    "5P",
+    "13P"
+   ],
+   "undecided": [
+    1,
+    9,
+    11
+   ]
+  },
+  "15": {
+   "members": [
+    1,
+    4
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "2P",
+    "7P",
+    "8P",
+    "11P",
+    "13P",
+    "14P"
+   ],
+   "undecided": []
+  },
+  "16": {
+   "members": [],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "3P",
+    "5P",
+    "7P",
+    "11P",
+    "13P",
+    "15P"
+   ],
+   "undecided": [
+    1,
+    9
+   ]
+  },
+  "18": {
+   "members": [],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "5P",
+    "11P",
+    "17P"
+   ],
+   "undecided": [
+    1,
+    7,
+    13
+   ]
+  },
+  "20": {
+   "members": [
+    1,
+    9
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "3P",
+    "7P",
+    "11P",
+    "13P",
+    "17P",
+    "19P"
+   ],
+   "undecided": []
+  },
+  "21": {
+   "members": [],
+   "excluded_squares": [
+    "1P",
+    "4Z",
+    "16Z"
+   ],
+   "excluded_nonsquares": [
+    "2P",
+    "5P",
+    "8P",
+    "10P",
+    "11P",
+    "13P",
+    "17P",
+    "19P",
+    "20P"
+   ],
+   "undecided": []
+  },
+  "24": {
+   "members": [
+    1
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "5P",
+    "7P",
+    "11P",
+    "13P",
+    "17P",
+    "19P",
+    "23P"
+   ],
+   "undecided": []
+  },
+  "30": {
+   "members": [
+    1,
+    19
+   ],
+   "excluded_squares": [],
+   "excluded_nonsquares": [
+    "7P",
+    "11P",
+    "13P",
+    "17P",
+    "23P",
+    "29P"
+   ],
+   "undecided": []
+  },
+  "40": {
+   "members": [],
+   "excluded_squares": [
+    "1P",
+    "9Z"
+   ],
+   "excluded_nonsquares": [
+    "3P",
+    "7P",
+    "11P",
+    "13P",
+    "17P",
+    "19P",
+    "21P",
+    "23P",
+    "27P",
+    "29P",
+    "31P",
+    "33P",
+    "37P",
+    "39P"
+   ],
+   "undecided": []
+  },
+  "42": {
+   "members": [],
+   "excluded_squares": [
+    "1P",
+    "25Z",
+    "37Z"
+   ],
+   "excluded_nonsquares": [
+    "5P",
+    "11P",
+    "13P",
+    "17P",
+    "19P",
+    "23P",
+    "29P",
+    "31P",
+    "41P"
+   ],
+   "undecided": []
+  },
+  "48": {
+   "members": [],
+   "excluded_squares": [
+    "1P",
+    "25Z"
+   ],
+   "excluded_nonsquares": [
+    "5P",
+    "7P",
+    "11P",
+    "13P",
+    "17P",
+    "19P",
+    "23P",
+    "29P",
+    "31P",
+    "35P",
+    "37P",
+    "41P",
+    "43P",
+    "47P"
+   ],
+   "undecided": []
+  },
+  "60": {
+   "members": [],
+   "excluded_squares": [
+    "1P",
+    "49Z"
+   ],
+   "excluded_nonsquares": [
+    "7P",
+    "11P",
+    "13P",
+    "17P",
+    "19P",
+    "23P",
+    "29P",
+    "31P",
+    "37P",
+    "41P",
+    "43P",
+    "47P",
+    "53P",
+    "59P"
+   ],
+   "undecided": []
+  }
+ },
+ "undecided": {
+  "7": [
+   1,
+   2,
+   4
+  ],
+  "9": [
+   1,
+   4,
+   7
+  ],
+  "14": [
+   1,
+   9,
+   11
+  ],
+  "16": [
+   1,
+   9
+  ],
+  "18": [
+   1,
+   7,
+   13
+  ],
+  "83": [
+   69
+  ],
+  "91": [
+   30
+  ],
+  "93": [
+   76
+  ],
+  "97": [
+   24
+  ],
+  "99": [
+   49,
+   70
+  ],
+  "103": [
+   14,
+   81
+  ],
+  "104": [
+   9,
+   25
+  ],
+  "105": [
+   4,
+   46
+  ],
+  "107": [
+   40
+  ],
+  "108": [
+   97
+  ],
+  "109": [
+   12,
+   81
+  ],
+  "112": [
+   81
+  ],
+  "120": [
+   49
+  ]
+ },
+ "counts": {
+  "P": 4266,
+  "U": 32,
+  "Z": 49,
+  "T": 21
+ },
+ "a1_no_witness": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  12,
+  14,
+  15,
+  16,
+  18,
+  20,
+  24,
+  30
+ ]
+}

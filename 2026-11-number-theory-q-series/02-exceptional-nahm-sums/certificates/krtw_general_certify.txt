@@ -1,0 +1,16 @@
+[L1] OK   q-binomial theorem, t <= 8 (z = x)
+[L2] OK   0 <= R <= 8, 0 <= L <= 10, exact
+[L3] OK   0 <= R, d <= 7, exact (y = x)
+[L4] OK   key identity (*), 0 <= R, M <= 7, exact in Z[x,q]
+[L4s] OK   (**) for 0 <= R, M <= 8 and M = infinity, all powers of x, mod q^36
+[T1] OK   Theorem 1 for (j,R) in j<=4, R<=6,5,4,3 (brute force), all powers of x, mod q^36
+[T2a] OK   Theorem 2, k <= 3, left side by brute force, all powers of x, mod q^36
+[T2b] OK   Theorem 2, k <= 7, left side by transfer recursion, all powers of x, mod q^36
+[C5] OK   Corollary 5 (y^{r_1}-refinement) for k <= 3 at y = 0, -1, q, q^2, q^3, -q, all powers of x, mod q^36
+[B1] OK   (alpha^(i),beta^(i)) is a Bailey pair relative to a = x^2 q for i <= 3, n <= 4, mod q^36
+[B2] OK   Proposition 6: Mel_k(x) = very-well-poised sum, 0 <= k <= 7, all powers of x, mod q^36
+[T3a] OK   Mel_k(1) = (q,q^{k+1},q^{k+2};q^{k+2})_inf/((q;q^2)_inf (q)_inf), 1 <= k <= 20, mod q^300
+[T3b] OK   KRTW identity (i): 2k-fold sum = product, 1 <= k <= 8, mod q^300
+[X1] OK   x = 1/q: KRTW_k(1/q) = Mel_k(1/q) = ((-q)_inf/(q)_inf) sum_{i=1}^{k+1} (q^i,q^{k+2-i},q^{k+2};q^{k+2})_inf, k <= 6, mod q^80
+[X2] OK   (iii) product = [s-chain of (iii)] * (-q^2;q^2)_inf (q^{k+2},q^{k+2},q^{2k+4};q^{2k+4})_inf/(q^2;q^2)_inf, k <= 8, mod q^200
+ALL CHECKS PASSED  (13 s)

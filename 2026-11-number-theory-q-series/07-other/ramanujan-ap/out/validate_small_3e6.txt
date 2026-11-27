@@ -1,0 +1,18 @@
+class (1,0): bins 0..646 agree; failing primes >= 7: 42819
+class (3,1): bins 0..646 agree; failing primes >= 7: 19254
+class (3,2): bins 0..646 agree; failing primes >= 7: 49345
+class (4,1): bins 0..646 agree; failing primes >= 7: 22636
+class (4,3): bins 0..646 agree; failing primes >= 7: 48920
+class (5,1): bins 0..646 agree; failing primes >= 7: 20589
+class (5,2): bins 0..646 agree; failing primes >= 7: 29325
+class (5,3): bins 0..646 agree; failing primes >= 7: 21532
+class (5,4): bins 0..646 agree; failing primes >= 7: 14745
+class (8,1): bins 0..646 agree; failing primes >= 7: 8499
+class (8,3): bins 0..646 agree; failing primes >= 7: 21613
+class (8,5): bins 0..646 agree; failing primes >= 7: 35282
+class (8,7): bins 0..646 agree; failing primes >= 7: 29235
+class (12,1): bins 0..646 agree; failing primes >= 7: 14098
+class (12,5): bins 0..646 agree; failing primes >= 7: 22382
+class (12,7): bins 0..646 agree; failing primes >= 7: 18919
+class (12,11): bins 0..646 agree; failing primes >= 7: 35234
+mismatches: 0  total failing primes compared: 454427  component starts compared: 25817

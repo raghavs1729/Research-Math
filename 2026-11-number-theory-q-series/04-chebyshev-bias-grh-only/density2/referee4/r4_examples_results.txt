@@ -1,0 +1,21 @@
+Item 2 construction (alpha = 1, psi(t) = 2t):
+  n=1: e_n=1, u_n=3 (prime: True), x_n=1.500000 in (1,2): True; e_n - e_(n-1) = - >= log2 psi(n+1) = 2.000
+  n=2: e_n=4, u_n=37 (prime: True), x_n=2.312500 in (2,3): True; e_n - e_(n-1) = 3 >= log2 psi(n+1) = 2.585
+  n=3: e_n=7, u_n=389 (prime: True), x_n=3.039062 in (3,4): True; e_n - e_(n-1) = 3 >= log2 psi(n+1) = 3.000
+  n=4: e_n=11, u_n=8209 (prime: True), x_n=4.008301 in (4,5): True; e_n - e_(n-1) = 4 >= log2 psi(n+1) = 3.322
+  n=5: e_n=15, u_n=163841 (prime: True), x_n=5.000031 in (5,6): True; e_n - e_(n-1) = 4 >= log2 psi(n+1) = 3.585
+  n=6: e_n=19, u_n=3145739 (prime: True), x_n=6.000021 in (6,7): True; e_n - e_(n-1) = 4 >= log2 psi(n+1) = 3.807
+
+  (ii) shortest relations with largest index n* (exhaustive, ||k||_1 <= B):
+    n*=2: 2 relations found, minimal length 61 (k = [37, -24]); claim: >= 8 >= psi(x_n*) = 4.62: True; 2^(e_n*-E') | k_n* in all found: True
+    n*=3: 8 relations found, minimal length 35 (k = [10, -17, 8]); claim: >= 8 >= psi(x_n*) = 6.08: True; 2^(e_n*-E') | k_n* in all found: True
+    n*=4: 2 relations found, minimal length 40 (k = [-1, -10, -13, 16]); claim: >= 16 >= psi(x_n*) = 8.02: True; 2^(e_n*-E') | k_n* in all found: True
+    n*=5: no relation with ||k||_1 <= 26; claim: length >= 2^(e_n*-e_(n*-1)) = 16 >= psi(x_n*) = 10.00  (consistent)
+
+  (iii) TS_Z: gcd(u_m 2^(e_m'-e_m), u_m') for m < m':
+    all equal to 1: True; so <x_m, x_m'> = 2^(-e_m') Z, and since e_n -> infinity the tail X_(>T) generates Z[1/2] = <X> for every T (index 1): TS_Z fails.
+    X is contained in Q (= Q alpha): the Q-span of any infinite tail is Q, so TS fails; for FD, X_T minus any N_0 elements still spans Q once #X_T > N_0, so FD fails.
+
+Item 3: X = {beta} u {n alpha}, beta not in Q alpha.
+  relation (n+1)alpha - n alpha - alpha = 0: length 3, largest element (n+1)alpha -> infinity; so GLI(psi) fails as soon as psi > 3 eventually; TS holds with the form dual to beta.
+  Note: for psi <= 3 (e.g. psi = 0) GLI(psi) is vacuous, so 'incomparable' (item 4) needs psi > 3 eventually; Theorem C's hypothesis psi(t) log t / t -> infinity guarantees this.

@@ -1,0 +1,7 @@
+{
+ "gap_detected": true,
+ "fail_line_detected": true,
+ "positive_hi_marked_PASS_rejected": false,
+ "overlap_accepted_as_cover": true,
+ "float_endpoints_rejected": true
+}

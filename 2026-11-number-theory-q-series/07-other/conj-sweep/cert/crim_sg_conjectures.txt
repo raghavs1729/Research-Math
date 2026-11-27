@@ -1,0 +1,5 @@
+Conj (R^k_{r,r}): [r=1 k=0 SG=1 pred=2]  r<=15: 1 mismatches
+Conj (R^k_{r,r-1}, r>=7): [r=7 k=5 SG=1 pred=3] [r=8 k=6 SG=3 pred=1] [r=9 k=7 SG=1 pred=3] [r=10 k=8 SG=3 pred=1] [r=11 k=9 SG=1 pred=3] [r=12 k=10 SG=3 pred=1] [r=13 k=11 SG=1 pred=3] [r=14 k=12 SG=3 pred=1] [r=15 k=13 SG=1 pred=3]  r<=15: 9 mismatches
+Conj (staircases s_n):  n<=15: 0 mismatches
+Conj (padded staircases ps_n, n>=2 by definition; n=1 means [1,1]):  n<=14: 0 mismatches
+real	1m21.175s

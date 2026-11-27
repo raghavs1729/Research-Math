@@ -1,0 +1,13 @@
+# zeros_cert.py  q=232  character number 115 = Kronecker symbol (-232/.), odd, real, primitive (checked for n <= 2q)
+# [0] L(1/2, chi) = [0.246299135011975588519122848798 +/- 2.75e-32]  certified > 0
+BLOCK top T = 1276/64 = 19.937500 : 18 new windows, K = 18 in (0,T); theta/pi = 17.8996233812, ArgL(2+iT)/pi = 0.016780276, horizontal/pi = 0.083596343 (74 L-evals); W = [36.0000000000 +/- 3e-15] -> 36 ; |Z(T)| = 2.519 ; 9.3s
+      => exactly 36 zeros of Lambda in (-1,2)x(-T,T): the 18 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 2540/64 = 39.687500 : 22 new windows, K = 40 in (0,T); theta/pi = 39.8550586085, ArgL(2+iT)/pi = 0.0077605061, horizontal/pi = 0.13718089 (203 L-evals); W = [80.0000000000 +/- 3e-14] -> 80 ; |Z(T)| = 0.699 ; 14.6s
+      => exactly 80 zeros of Lambda in (-1,2)x(-T,T): the 40 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 3829/64 = 59.828125 : 24 new windows, K = 64 in (0,T); theta/pi = 63.9253221257, ArgL(2+iT)/pi = 0.018182603, horizontal/pi = 0.056495272 (74 L-evals); W = [128.000000000 +/- 3e-14] -> 128 ; |Z(T)| = 4.822 ; 20.3s
+      => exactly 128 zeros of Lambda in (-1,2)x(-T,T): the 64 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 5116/64 = 79.937500 : 25 new windows, K = 89 in (0,T); theta/pi = 89.0563370701, ArgL(2+iT)/pi = -0.0099337952, horizontal/pi = -0.046403275 (101 L-evals); W = [178.000000000 +/- 3e-14] -> 178 ; |Z(T)| = 2.617 ; 27.1s
+      => exactly 178 zeros of Lambda in (-1,2)x(-T,T): the 89 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+BLOCK top T = 6351/64 = 99.234375 : 25 new windows, K = 114 in (0,T); theta/pi = 113.939491435, ArgL(2+iT)/pi = 0.026848383, horizontal/pi = 0.033660182 (67 L-evals); W = [228.000000000 +/- 3e-14] -> 228 ; |Z(T)| = 5.931 ; 30.9s
+      => exactly 228 zeros of Lambda in (-1,2)x(-T,T): the 114 windows hold one SIMPLE zero each, no other zeros (none real, none off the line) up to T.
+# state: 114 zeros certified complete up to T_cert = 6351/64 = 99.234375 ; cumulative 102.3s

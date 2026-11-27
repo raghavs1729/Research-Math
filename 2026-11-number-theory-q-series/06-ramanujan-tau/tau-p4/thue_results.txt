@@ -1,0 +1,7 @@
+# thue_results.txt -- output of thue_check.gp (PARI/GP 2.15.4), 2026-11-26
+# run(d, c): thueinit(P, 1), certified, no GRH.  run0(d, c): thueinit(P), uncertified; tentative h and R printed.
+d = 23  c = -367  certified solutions (Y, X): []   [222 ms]
+d = 23  c = -139  certified solutions (Y, X): []   [209 ms]
+d = 59  c = 827  flag 0: tentative h = 1, R = 2275980944744796.5600324639783786433817;  solutions (Y, X): []   [11205 ms]
+d = 83  c = -829  flag 0: tentative h = 1, R = 29837391421490949714818341.273579323857;  solutions (Y, X): []   [64709 ms]
+d = 107  c = -643  flag 0: tentative h = 1, R = 1338726200257605933401683149821841563.2;  solutions (Y, X): []   [255693 ms]

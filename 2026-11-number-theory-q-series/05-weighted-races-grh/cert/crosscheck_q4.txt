@@ -1,0 +1,56 @@
+q=4: 610 certified cells in ['results_q4.txt', 'results_q4_stretch.txt'], spanning [3.6, 320.0]
+
+B. float delta(M) vs certified density grid
+   m=  1.50  float delta=0.7352799970  certified [0.7352799629, 0.7352800107]  inside
+   m=  2.00  float delta=0.6945211107  certified [0.6945210810, 0.6945211213]  inside
+   m=  2.50  float delta=0.6663340436  certified [0.6663340165, 0.6663340524]  inside
+   m=  3.00  float delta=0.6458510670  certified [0.6458510415, 0.6458510746]  inside
+   m=  4.00  float delta=0.6182382703  certified [0.6182382461, 0.6182382765]  inside
+   m=  5.00  float delta=0.6005166953  certified [0.6005166711, 0.6005167010]  inside
+   m=  6.00  float delta=0.5881439643  certified [0.5881439395, 0.5881439699]  inside
+   m=  8.00  float delta=0.5718701128  certified [0.5718700860, 0.5718701185]  inside
+   m= 10.00  float delta=0.5615127541  certified [0.5615127249, 0.5615127602]  inside
+   m= 12.00  float delta=0.5542583638  certified [0.5542583321, 0.5542583704]  inside
+   m= 15.00  float delta=0.5466228153  certified [0.5466227798, 0.5466228226]  inside
+   m= 20.00  float delta=0.5384553204  certified [0.5384552785, 0.5384553290]  inside
+   m= 25.00  float delta=0.5331903614  certified [0.5331903131, 0.5331903712]  inside
+   m= 30.00  float delta=0.5294670305  certified [0.5294669758, 0.5294670416]  inside
+   m= 40.00  float delta=0.5244781733  certified [0.5244781058, 0.5244781869]  inside
+   m= 50.00  float delta=0.5212357538  certified [0.5212356737, 0.5212357699]  inside
+   m= 60.00  float delta=0.5189284121  certified [0.5189283194, 0.5189284307]  inside
+   m= 75.00  float delta=0.5164631684  certified [0.5164630570, 0.5164631908]  inside
+   m= 90.00  float delta=0.5147032016  certified [0.5147030718, 0.5147032276]  inside
+   m=100.00  float delta=0.5137783552  certified [0.5137782134, 0.5137783837]  inside
+   worst excursion outside a certified density interval: 0.0e+00
+
+C. float delta'(M): formula vs central difference vs certified cell
+   M=   3.6030  formula=-3.33690366e-02  FD=-3.33690389e-02  |diff|=2.4e-09  cell [3.6, 3.618] enclosure [-3.392577e-02, -3.259580e-02]  INSIDE
+   M=   3.7000  formula=-3.16847302e-02  FD=-3.16847324e-02  |diff|=2.2e-09  cell [3.6906, 3.709] enclosure [-3.232148e-02, -3.105412e-02]  INSIDE
+   M=   5.0000  formula=-1.75480535e-02  FD=-1.75480542e-02  |diff|=6.9e-10  cell [4.999, 5.0239] enclosure [-1.781857e-02, -1.712003e-02]  INSIDE
+   M=   8.5000  formula=-6.31187688e-03  FD=-6.31187696e-03  |diff|=8.2e-11  cell [8.4754, 8.5177] enclosure [-6.442840e-03, -6.190366e-03]  INSIDE
+   M=  12.0000  formula=-3.33316590e-03  FD=-3.33316592e-03  |diff|=2.0e-11  cell [11.9527, 12.0124] enclosure [-3.408816e-03, -3.275141e-03]  INSIDE
+   M=  17.3000  formula=-1.72444838e-03  FD=-1.72444839e-03  |diff|=4.8e-12  cell [17.2837, 17.3701] enclosure [-1.754026e-03, -1.685286e-03]  INSIDE
+   M=  17.3970  formula=-1.70736974e-03  FD=-1.70736974e-03  |diff|=4.7e-12  cell [17.3701, 17.4] enclosure [-1.743515e-03, -1.675291e-03]  INSIDE
+   M=  40.0000  formula=-4.00172978e-04  FD=-4.00172978e-04  |diff|=1.7e-13  cell [39.7329, 40.1302] enclosure [-4.173663e-04, -3.852957e-04]  INSIDE
+   M= 100.5000  formula=-8.47872008e-05  FD=-8.47872009e-05  |diff|=2.9e-14  cell [100.2313, 101.2336] enclosure [-8.783546e-05, -8.108593e-05]  INSIDE
+   M= 200.0000  formula=-2.72721155e-05  FD=-2.72721155e-05  |diff|=1.9e-14  cell [199.1444, 201.1358] enclosure [-2.833064e-05, -2.615272e-05]  INSIDE
+   M= 319.9970  formula=-1.26818952e-05  FD=-1.26818952e-05  |diff|=2.9e-14  cell [317.8839, 320.0] enclosure [-1.326022e-05, -1.224122e-05]  INSIDE
+   all float values inside their certified cell enclosures: True
+
+D. integral of the certified delta' enclosures vs certified density differences
+   m in [  4.0,   5.0]: int delta' in [-0.01807551, -0.01736707]   delta(m2)-delta(m1) in [-0.01772161, -0.01772155]  CONSISTENT  (rel. width 4.00%)
+   m in [  5.0,   6.0]: int delta' in [-0.01261980, -0.01212519]   delta(m2)-delta(m1) in [-0.01237276, -0.01237270]  CONSISTENT  (rel. width 4.00%)
+   m in [  6.0,   8.0]: int delta' in [-0.01659882, -0.01594827]   delta(m2)-delta(m1) in [-0.01627388, -0.01627382]  CONSISTENT  (rel. width 4.00%)
+   m in [  8.0,  10.0]: int delta' in [-0.01056445, -0.01015040]   delta(m2)-delta(m1) in [-0.01035739, -0.01035733]  CONSISTENT  (rel. width 4.00%)
+   m in [ 10.0,  12.0]: int delta' in [-0.00739921, -0.00710922]   delta(m2)-delta(m1) in [-0.00725443, -0.00725435]  CONSISTENT  (rel. width 4.00%)
+   m in [ 12.0,  15.0]: int delta' in [-0.00778792, -0.00748269]   delta(m2)-delta(m1) in [-0.00763559, -0.00763551]  CONSISTENT  (rel. width 4.00%)
+   m in [ 15.0,  20.0]: int delta' in [-0.00842116, -0.00791213]   delta(m2)-delta(m1) in [-0.00816754, -0.00816745]  CONSISTENT  (rel. width 6.23%)
+   m in [ 20.0,  25.0]: int delta' in [-0.00547499, -0.00505448]   delta(m2)-delta(m1) in [-0.00526502, -0.00526491]  CONSISTENT  (rel. width 7.99%)
+   m in [ 25.0,  30.0]: int delta' in [-0.00387191, -0.00357441]   delta(m2)-delta(m1) in [-0.00372340, -0.00372327]  CONSISTENT  (rel. width 7.99%)
+   m in [ 30.0,  40.0]: int delta' in [-0.00518825, -0.00478948]   delta(m2)-delta(m1) in [-0.00498894, -0.00498879]  CONSISTENT  (rel. width 7.99%)
+   m in [ 40.0,  50.0]: int delta' in [-0.00337178, -0.00311267]   delta(m2)-delta(m1) in [-0.00324251, -0.00324234]  CONSISTENT  (rel. width 7.99%)
+   m in [ 50.0,  60.0]: int delta' in [-0.00239931, -0.00221496]   delta(m2)-delta(m1) in [-0.00230745, -0.00230724]  CONSISTENT  (rel. width 7.99%)
+   m in [ 60.0,  75.0]: int delta' in [-0.00256360, -0.00236661]   delta(m2)-delta(m1) in [-0.00246537, -0.00246513]  CONSISTENT  (rel. width 7.99%)
+   m in [ 75.0,  90.0]: int delta' in [-0.00183027, -0.00168966]   delta(m2)-delta(m1) in [-0.00176012, -0.00175983]  CONSISTENT  (rel. width 7.99%)
+   m in [ 90.0, 100.0]: int delta' in [-0.00096177, -0.00088787]   delta(m2)-delta(m1) in [-0.00092501, -0.00092469]  CONSISTENT  (rel. width 7.99%)
+   all consistent: True

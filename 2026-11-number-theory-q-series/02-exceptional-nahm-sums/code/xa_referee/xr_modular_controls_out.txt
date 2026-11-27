@@ -1,0 +1,12 @@
+control: rank-1 Nahm sum A=3 (non-modular): c_SW=1; t in [0.100,0.300] (9 pts); B=400, #terms=17, tail/max<=e^-30
+   free fit: a=0.5664326703 => c_eff=6a/pi^2=0.3443497717; b1=-0.0165645134 (-c_SW/24=-0.0416666667); b2=-9.6e-05; b3=-2.7e-03
+   constrained fits (a/t+b0 after adding c't/24): c'=1: rms=4.8e-04; c'=11/10: rms=5.6e-04; c'=9/10: rms=4.0e-04; c'=2: rms=1.3e-03; c'=0: rms=3.4e-04
+control: rank-1 Nahm sum A=2 (Rogers-Ramanujan, modular, c=2/5): c_SW=2/5; t in [0.100,0.300] (9 pts); B=400, #terms=21, tail/max<=e^-28
+   free fit: a=0.6579736267 => c_eff=6a/pi^2=0.4000000000; b1=-0.0166666658 (-c_SW/24=-0.0166666667); b2=-3.4e-09; b3=4.9e-09
+   constrained fits (a/t+b0 after adding c't/24): c'=2/5: rms=6.5e-13; c'=1/2: rms=8.2e-05; c'=3/10: rms=8.2e-05; c'=7/5: rms=8.2e-04; c'=-3/5: rms=8.2e-04
+control: C_3 Gram with (q;q) denominators, k=2 (D replaced by 1): c_SW=3; t in [0.100,0.300] (9 pts); B=600, #terms=78692, tail/max<=e^-41
+   free fit: a=3.5889470549 => c_eff=6a/pi^2=2.1818181818; b1=-0.0909090909 (-c_SW/24=-0.1250000000); b2=1.8e-11; b3=-2.0e-11
+   constrained fits (a/t+b0 after adding c't/24): c'=3: rms=6.7e-04; c'=31/10: rms=7.5e-04; c'=29/10: rms=5.9e-04; c'=4: rms=1.5e-03; c'=2: rms=1.5e-04
+control: B_3 Gram with D(C_3)=(1,1,2) denominators: c_SW=15/4; t in [0.100,0.300] (9 pts); B=700, #terms=70230, tail/max<=e^-51
+   free fit: a=2.8407156818 => c_eff=6a/pi^2=1.7269480516; b1=-0.1732550436 (-c_SW/24=-0.1562500000); b2=3.0e-02; b3=-1.4e-02
+   constrained fits (a/t+b0 after adding c't/24): c'=15/4: rms=6.0e-05; c'=77/20: rms=3.3e-05; c'=73/20: rms=1.4e-04; c'=19/4: rms=7.6e-04; c'=11/4: rms=8.8e-04

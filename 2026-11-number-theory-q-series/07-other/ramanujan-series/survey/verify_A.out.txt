@@ -1,0 +1,106 @@
+====================================================================================================
+SECTION O: open / status-unclear identities (mp.dps = 80)
+====================================================================================================
+O1-G252    |lhs-rhs| = 8.4338e-81    digits ~  80   sum (-1/48)^n (1/2)(1/3)(2/3)(1/4)(3/4)/(1)^5 (252n^2+63n+5) = 48/pi^2
+O2-G1640   |lhs-rhs| = 5.0603e-80    digits ~  80   ... (-1/2^10)^n (1/2)(1/4)(3/4)(1/6)(5/6) (1640n^2+278n+15) = 256/(sqrt3 pi^2)
+O3-G5418   |lhs-rhs| = 3.3735e-80    digits ~  80   ... (-1/80^3)^n (1/2)(1/3)(2/3)(1/6)(5/6) (5418n^2+693n+29) = 128 sqrt5/pi^2
+O4-G1920   |lhs-rhs| = 1.6868e-80    digits ~  80   ... (1/7^4)^n (1/2)(1/8)(3/8)(5/8)(7/8) (1920n^2+304n+15) = 56 sqrt7/pi^2
+O5-AG532   |lhs-rhs| = 3.3735e-80    digits ~  80   ... (3/5)^(6n) (1/2)(1/3)(2/3)(1/6)(5/6) (532n^2+126n+9) = 375/(4 pi^2)
+O6-GOLD    |lhs-rhs| = 2.3193e-80    digits ~  79   z=(3 phi5)^3, phi5=((sqrt5-1)/2)^5
+O6b-GOLD   |lhs-rhs| = 2.3509e-79    digits ~  78   Zudilin 2026 form (same identity)
+O8-GOLDud  |lhs-rhs| = 9.7515e-79    digits ~  77   = (1125/4) sqrt5 L_5(3) - 448 zeta(3)
+O9-GOLD1pi |lhs-rhs| = 2.0241e-79    digits ~  80   = 3 Phi^(3/2)/pi, Phi = golden ratio^5
+O11-RO10   |lhs-rhs| = 0.0           digits ~  80   sum 2^(-6n) (1/10)(3/10)(7/10)(9/10)/((1/2)(1)^3) (2100n^2+1160n+63)/(2n+1) = 200/pi
+O12-S35    |lhs-rhs| = 1.6868e-80    digits ~  80   sum (3/5)^(6n) (1/3)(2/3)(1/6)(5/6)/((1/2)(1)^3) (133n^2+79n+6)/(2n+1) = 625/(32 pi)
+O13-CG5h   |lhs-rhs| = 1.0542e-80    digits ~  79   Cohen-Guillera #5 shifted by x=1/2: S(1/2) = (sum*pi^2) * V / pi^3
+O14-CG7h   |lhs-rhs| = 2.6355e-81    digits ~  79   Cohen-Guillera #7 shifted by x=1/2: S(1/2) = (sum*pi^2) * V / pi^3
+O15-CG8h   |lhs-rhs| = 0.0           digits ~  80   Cohen-Guillera #8 shifted by x=1/2: S(1/2) = (sum*pi^2) * V / pi^3
+O16-CG9h   |lhs-rhs| = 1.0542e-81    digits ~  80   Cohen-Guillera #9 shifted by x=1/2: S(1/2) = (sum*pi^2) * V / pi^3
+O17-CG10h  |lhs-rhs| = 1.0542e-81    digits ~  80   Cohen-Guillera #10 shifted by x=1/2: S(1/2) = (sum*pi^2) * V / pi^3
+O18-CG6h   |lhs-rhs| = 1.3494e-79    digits ~  80   Cohen-Guillera #6 shifted by x=1/2: S(1/2) = (sum*pi^2) * V / pi^3
+O19-CG12h  |lhs-rhs| = 3.3735e-80    digits ~  80   Zhao 1/pi^4 series shifted by 1/2 = 9216 zeta(3)/pi^7
+O20-CG13h  |lhs-rhs| = 4.2169e-81    digits ~  80   Cullen series shifted by 1/2 = (2048/15)/pi^4
+O21-Gz5    |lhs-rhs| = 2.6988e-78    digits ~  80   = 4 pi^4 log2 + 186 zeta(5)
+O7-GOLDdiv |lhs-rhs| = 2.5301e-80    digits ~  80   analytic continuation at z=-27 Phi^3 (Barnes integral) '=' 36/pi^2  [29s]
+
+====================================================================================================
+SECTION P: proved identities (reference values; do not re-prove)
+====================================================================================================
+P1-G20     |lhs-rhs| = 3.1627e-81    digits ~  80   (1/2)^5, z=-1/4: 8/pi^2
+P2-G820    |lhs-rhs| = 0.0           digits ~  80   (1/2)^5, z=-1/2^10: 128/pi^2
+P3-G120    |lhs-rhs| = 8.4338e-81    digits ~  80   (1/2)^3(1/4)(3/4), z=1/16: 32/pi^2
+P4-G74     |lhs-rhs| = 2.5301e-80    digits ~  80   (1/2)^3(1/3)(2/3), z=27/64: 48/pi^2
+P5-G1930   |lhs-rhs| = 0.0           digits ~  80   (1/2)(1/3)(2/3)(1/6)(5/6), z=-(3/4)^6: 384/pi^2 (Au 2023)
+P6-GOUR    |lhs-rhs| = 2.1084e-81    digits ~  80   Gourevitch: (1/2)^7, z=1/64: 32/pi^3 (Au 2023)
+P7-CULLEN  |lhs-rhs| = 3.3735e-80    digits ~  80   Cullen: (1/2)^7(1/4)(3/4), z=1/2^12: 2048/pi^4 (Au 2023)
+P8-ZHAO    |lhs-rhs| = 1.6868e-80    digits ~  80   Zhao: (1/2)^5(1/3)(2/3)(1/4)(3/4), z=-27/256: 768/pi^4 (Au 2023)
+P9-SUN12   |lhs-rhs| = 0.0           digits ~  80   Sun: (4/27)^n (1/2)^7/((1/6)(5/6)(1)^5) (92n^3+54n^2+12n+1)/(6n+1) = 12/pi^2 (Au 2023)
+P10-SHALEV |lhs-rhs| = 1.3494e-79    digits ~  80   sum (-1)^n (2n)!^10 (5n)!/(n!^15 (10n)!) 3(5532n^4+5464n^3+2173n^2+416n+32)/((10n+1)(10n+3)) = 240/pi^2
+U14        |lhs-rhs| = 2.0241e-79    digits ~  80   upside-down =-28 zeta(3)
+U15        |lhs-rhs| = 0.0           digits ~  80   upside-down =-2 zeta(3) (Amdeberhan-Zeilberger)
+U16        |lhs-rhs| = 3.3735e-80    digits ~  80   upside-down =-14 zeta(3)
+U17        |lhs-rhs| = 6.4771e-78    digits ~  80   upside-down =-896 zeta(3) (Au Ex. IX)
+U18        |lhs-rhs| = 4.3181e-78    digits ~  80   upside-down =-1792 zeta(3) (Chu-Zhang)
+U19        |lhs-rhs| = 5.0603e-80    digits ~  80   upside-down =pi^4/8 (Au Ex. XI)
+U20        |lhs-rhs| = 1.0795e-78    digits ~  80   upside-down =8 pi^4 (Au Ex. IV)
+U21        |lhs-rhs| = 0.0           digits ~  80   upside-down =-380928 zeta(5) (Zhao; Au Ex. X)
+U22        |lhs-rhs| = 1.3494e-79    digits ~  80   upside-down =8 pi^2 (Guillera 1012.2681 (14))
+U18b-CZ42  |lhs-rhs| = 1.8892e-78    digits ~  79   Chu-Zhang Ex. 42 form: sum (-16/27)^n (1)^5/((3/2)(4/3)(5/3)(5/4)(7/4)) (172n^2+269n+106) = 63 zeta(3)
+U16b-Chu14 |lhs-rhs| = 3.3735e-80    digits ~  80   Chu Ex. 14 form: = (21/2) zeta(3)
+P11-G18    |lhs-rhs| = 1.3494e-79    digits ~  80   Guillera 1003.1915 (18): sum (27/64)^n (1)^3(1/6)(5/6)/(1/2)^5 (74n^2+101n+35)(6n+1)/(2n+1)^5 = 16 pi^2/3
+P17-RO7    |lhs-rhs| = 6.747e-80     digits ~  80   sum 7^(-4n) (1/8)(3/8)(5/8)(7/8)/((1/2)(1)^3) (1920n^2+1072n+55)/(2n+1) = 196 sqrt7/(3 pi) (Guillera NZJM 2017 per DPVZ)
+P18-HS     |lhs-rhs| = 0.0           digits ~  80   sum (-1/27)^n (1/2)^5/((1)^3(1/6)(5/6)) (28n^2+10n+1)/(6n+1) = 3/pi
+P19-GGOUR  |lhs-rhs| = 2.1084e-81    digits ~  80   sum_n (1/2+3k)_n^2(1/2-k)_n^2(1/2+k)_n^3/((1)_n^2(1+2k)_n^2(1+k)_n^3) (1/2)_k(1/6)_k^2(5/6)_k^2/(1)_k^5 64^-n (729/1024)^k (6n+6k+1)(28n^2+8n+1+12k^2+56nk+8k) = 32/pi^3 at k=0.3
+P12-CG1h   |lhs-rhs| = 2.6355e-81    digits ~  80   Cohen-Guillera #1 shifted by x=1/2
+P13-CG2h   |lhs-rhs| = 0.0           digits ~  80   Cohen-Guillera #2 shifted by x=1/2
+P14-CG3h   |lhs-rhs| = 1.6868e-80    digits ~  80   Cohen-Guillera #3 shifted by x=1/2
+P15-CG4h   |lhs-rhs| = 2.1084e-81    digits ~  80   Cohen-Guillera #4 shifted by x=1/2
+P16-CG11h  |lhs-rhs| = 1.5813e-81    digits ~  80   Gourevitch shifted by 1/2 = 8/pi^3 (equivalent to U19)
+D14        |lhs-rhs| = 5.5499e-89    digits ~  87   Barnes integral: (1/2)^5, z=-4, 10n^2+6n+1 '=' 4/pi^2 [23s]
+D15        |lhs-rhs| = 2.1084e-81    digits ~  80   Barnes integral: (1/2)^5, z=-2^10, 205n^2+160n+32 '=' 16/pi^2 [25s]
+D16        |lhs-rhs| = 2.1084e-81    digits ~  80   Barnes integral: (1/2)^3(1/3)(2/3), z=-27 '=' 6/pi^2 [24s]
+D17        |lhs-rhs| = 2.3446e-88    digits ~  88   Barnes integral: (1/2)(k/5), z=-5^5/2^8 '=' 80/pi^2 [24s]
+D18        |lhs-rhs| = 8.4338e-81    digits ~  80   Barnes integral: (1/2)(1/3)(2/3)(1/4)(3/4), z=-27/16 '=' 48/pi^2 [23s]
+D21        |lhs-rhs| = 2.4984e-87    digits ~  87   Barnes integral: (1/2)^5(k/5), z=-5^5/2^10 '=' 1280/pi^4 [37s]
+
+====================================================================================================
+SECTION SC: supercongruences for the OPEN 1/pi^2 series (exact arithmetic)
+  S_p = sum_{n<p} P(n) prod(s)_n/(1)_n^5 z^n == P(0) (D/p) p^2                      (mod p^5)   [Zudilin type]
+  S_p == P(0) (D/p) p^2 + C5 * L(chi_D, 4-p) * p^5                                   (mod p^6)   [Zhao type; C5 from Cohen-Guillera]
+====================================================================================================
+SC1-G252   D=1  C5=-91/9    primes [7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43] : mod p^5 ALL HOLD ; mod p^6 (with L-term) ALL HOLD
+SC2-G1640  D=12 C5=-15/2    primes [7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43] : mod p^5 ALL HOLD ; mod p^6 (with L-term) ALL HOLD
+SC3-G5418  D=5  C5=-35/216  primes [7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43] : mod p^5 ALL HOLD ; mod p^6 (with L-term) ALL HOLD
+SC4-G1920  D=28 C5=35/8     primes [11, 13, 17, 19, 23, 29, 31, 37, 41, 43] : mod p^5 ALL HOLD ; mod p^6 (with L-term) ALL HOLD
+SC5-AG532  D=1  C5=1953/50  primes [7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43] : mod p^5 ALL HOLD ; mod p^6 (with L-term) ALL HOLD
+
+====================================================================================================
+SECTION T: Cohen-Guillera Taylor expansions of the shifted OPEN series (mp.dps=110, Cauchy integral)
+  S(x) = a0*D*[ sqrt(D)/pi^2 + 0 x - a2 D sqrt(D) x^2 + 0 x^3 + a4 D^3 L(D,2) x^4 - a5 a0 D^4 L(D,3) x^5 + O(x^6) ]
+====================================================================================================
+T1-G252    coefficients x^0..x^5 agree; worst agreement ~ 85 digits
+T2-G5418   coefficients x^0..x^5 agree; worst agreement ~ 72 digits
+T3-AG532   coefficients x^0..x^5 agree; worst agreement ~ 74 digits
+T4-G1640   coefficients x^0..x^5 agree; worst agreement ~ 73 digits
+T5-G1920   coefficients x^0..x^5 agree; worst agreement ~ 65 digits
+
+====================================================================================================
+SECTION W: transcribed WZ pairs; max relative defect of F(n+1,k)-F(n,k) - (G(n,k+1)-G(n,k)) at sample (n,k)
+====================================================================================================
+W1    defect 0.0        1104.0396 Id.8 (13): 20n^2+8n+1
+W2    defect 1.42e-66   1104.0396 Id.8 (14): 20n^2+8n+1
+W3    defect 2.55e-66   1104.0396 Id.9 (16): 820n^2+180n+13
+W4    defect 4.16e-66   1104.0396 Id.9 (17): 820n^2+180n+13
+W5    defect 0.0        1104.0396 Id.10 pair 1 (numerically validated reading): 120n^2+34n+3
+W6    defect 1.19e-66   1104.0396 Id.10 pair 2: 120n^2+34n+3
+W7    defect 2.81e-66   1003.1915 (10)-(11)
+W8    defect 7.76e-66   1003.1915 (15)-(16): 74n^2+27n+3
+W9    defect 0.0        math/0503345 pair 1
+W10   defect 0.0        math/0503345 pair 2
+W11   defect 0.0        1012.2681 Ex.1 (12): holds as F(n+1,k)-F(n,k) = -(G(n,k+1)-G(n,k)) for the printed F,G
+W12   defect 7.63e-66   2503.00570 sec.4.4 with z=16/27: F(n+1,k)-F(n,k) = -(G(n,k+1)-G(n,k))
+W12sum k=0.0 |lhs-rhs| = 6.1473e-67    digits ~  66   sum_n G(n,k) = pi^2/8 (2503.00570 sec 4.4, z=16/27)
+W12sum k=1.5 |lhs-rhs| = 1.5448e-66    digits ~  65   sum_n G(n,k) = pi^2/8 (2503.00570 sec 4.4, z=16/27)
+
+====================================================================================================
+SUMMARY: 81 checks; minimum digits of agreement = 65; checks below 50 digits: none

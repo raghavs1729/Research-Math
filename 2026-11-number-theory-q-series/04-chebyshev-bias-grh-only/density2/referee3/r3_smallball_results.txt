@@ -1,0 +1,43 @@
+r3_smallball.py results (AI-produced, 2026-11-27)
+period doubling: depth 22, P = 4194304, M = 0.5, ||F''||^2 <= 1.9e-13
+    kappa = -3: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.000     0.000     0.000     0.003     0.094
+    kappa = -1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.000     0.000     0.000     0.003     0.094
+    kappa = +0: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.934     1.272     1.273     1.276     1.366
+    kappa = +1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.000     0.000     0.000     0.003     0.094
+    kappa = +3: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.000     0.000     0.000     0.003     0.094
+    jumps of F' at t = 0, pi, pi/2, pi/4, pi/8: 2.094395, 2.094395, -1.047198, 0.523598, -0.261800   (TOY Prop 2.1: 4 pi M/3 = 2.094395 at 0 and pi, +-(4 pi M/3) 2^-a at pi j/2^a)
+period doubling: depth 22, P = 4194304, M = 1.0, ||F''||^2 <= 7.5e-13
+    kappa = -3: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.000     0.000     0.000     0.014     0.374
+    kappa = -1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.625     1.332     0.977     0.014     0.374
+    kappa = +0: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.547     0.639     0.651     0.651     1.011
+    kappa = +1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.235     0.000     0.000     0.014     0.374
+    kappa = +3: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.147     0.171     0.111     0.065     0.374
+    jumps of F' at t = 0, pi, pi/2, pi/4, pi/8: 4.188789, 4.188789, -2.094396, 1.047197, -0.523600   (TOY Prop 2.1: 4 pi M/3 = 4.188790 at 0 and pi, +-(4 pi M/3) 2^-a at pi j/2^a)
+period doubling: depth 22, P = 4194304, M = 2.0, ||F''||^2 <= 3.0e-12
+    kappa = -3: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.151     0.189     0.299     0.388     1.809
+    kappa = -1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.177     0.586     1.466     0.462     1.496
+    kappa = +0: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.266     0.318     0.315     0.374     1.814
+    kappa = +1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.482     0.583     1.466     1.607     3.480
+    kappa = +3: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.093     0.000     0.001     0.055     1.496
+    jumps of F' at t = 0, pi, pi/2, pi/4, pi/8: 8.377578, 8.377578, -4.188792, 2.094393, -1.047200   (TOY Prop 2.1: 4 pi M/3 = 8.377580 at 0 and pi, +-(4 pi M/3) 2^-a at pi j/2^a)
+bounded q in {2..5}, random symmetric patterns (trial 0): depth 13, P = 1474560, M = 1.0, ||F''||^2 <= 6.1e-12
+    kappa = -1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.585     0.000     0.003     0.112     3.026
+    kappa = +0: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.608     0.615     0.640     0.749     3.663
+    kappa = +1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.234     0.521     5.211     8.793     3.026
+bounded q in {2..5}, random symmetric patterns (trial 1): depth 12, P = 1280000, M = 1.0, ||F''||^2 <= 8.0e-12
+    kappa = -1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.673     0.313     0.629     1.190     5.601
+    kappa = +0: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.385     0.000     0.004     0.149     4.016
+    kappa = +1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.325     0.313     0.004     0.149     4.016
+bounded q in {2..5}, random symmetric patterns (trial 2): depth 12, P = 884736, M = 1.0, ||F''||^2 <= 1.7e-11
+    kappa = -1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.313     0.000     0.008     0.311     8.406
+    kappa = +0: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.739     0.641     0.645     0.948     9.042
+    kappa = +1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.000     0.000     0.008     0.311     8.406
+near-periodic, bounded q (1_{!=0} except (0,1,0,1) at every 5th level): depth 19, P = 4194304, M = 0.5, ||F''||^2 <= 1.9e-13
+    kappa = -1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.000     0.000     0.000     0.003     0.094
+    kappa = +1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.313     0.000     0.000     0.003     0.094
+near-periodic, bounded q (1_{!=0} except (0,1,0,1) at every 5th level): depth 19, P = 4194304, M = 1.7, ||F''||^2 <= 2.2e-12
+    kappa = -1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     2.544     0.603     0.001     0.040     1.081
+    kappa = +1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.054     0.000     0.001     0.040     1.081
+control: periodic 01101 (flat sub-arc at level -1 for this M): depth 20, P = 2621440, M = 1.2455057521, ||F''||^2 <= 3.0e-12
+    kappa = -1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     1.243    10.000   100.001   333.388  1001.485
+    kappa = +1: upper bound of lam{|F-kappa|<eta}/(2 eta) for eta = 1e-01, 1e-02, 1e-03, 3e-04, 1e-04:     0.339     0.383     0.385     0.438     1.869

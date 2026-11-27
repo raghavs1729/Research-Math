@@ -1,0 +1,3 @@
+simulation: f <= 14, max(6,2f+1) <= d <= 100: 1186 sequences, first 12d+40 terms; mismatches: []
+pairs with 2f+1 <= d < 6 where the pattern fails: [(1, 3), (1, 4), (1, 5), (2, 5)]
+mechanical check of (I) and (II) for f <= 8, d <= 40: failures []

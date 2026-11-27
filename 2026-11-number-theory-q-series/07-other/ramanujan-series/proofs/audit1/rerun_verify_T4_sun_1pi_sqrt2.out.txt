@@ -1,0 +1,11 @@
+1. compatibility of the two ratios: OK
+2. WZ equation (n+1) rho - n = Q(n,k+1) sigma - Q(n,k): identically 0: OK
+3a. h(n,0) = C(3n,n)C(6n,3n)^2/2^(15n), Q(n,0)h(n,0) = summand/64, h(0,k) = (1/4)_k(3/4)_k/k!^2: OK
+3b. 1-sigma >= (3/4)(n+1)/(k+3n+1), rho(n,0) <= 27/32, Q <= k+3n+3: OK
+   Q(0,K) h(0,K) at K=1000: 0.224868482011264   (limit 1/(sqrt2 pi) = 0.225079079039277)
+   Q(0,K) h(0,K) at K=1000000: 0.225078868028055   (limit 1/(sqrt2 pi) = 0.225079079039277)
+   Q(0,K) h(0,K) at K=1000000000: 0.225079078828265   (limit 1/(sqrt2 pi) = 0.225079079039277)
+4. Gamma closed form consistent; lim_K Q(0,K) h(0,K) = 1/(Gamma(1/4)Gamma(3/4)) = 1/(sqrt2 pi): OK
+5. |lhs - 32 sqrt2/pi| = 1.549e-120 (4200 terms, rate 27/32)
+ALL CHECKS PASSED
+exit 0

@@ -1,0 +1,96 @@
+OK (textual): the definition block and the 21 statements of NahmStatement.lean occur verbatim in Nahm/Defs.lean and NahmSolution.lean; both import only Mathlib resp. the library; no sorry/axiom/native_decide on the solution side
+OK (elaborated): the 21 statements and the 18 definitions are identical in NahmStatement and NahmSolution:
+andrews_gordon : ∀ (k i : ℕ), 1 ≤ i → i ≤ k → agSum k i = agProduct k i
+@andrews_gordon_field : ∀ {K : Type u_1} [inst : Field K] (k i : ℕ), 1 ≤ i → i ≤ k → agSum k i = agProduct k i
+@coeff_agTerm_eq_zero : ∀ {K : Type u_1} [inst : Field K] (k i : ℕ) (n : Fin (k - 1) → ℕ) (N : ℕ),
+  n ∉ box (k - 1) N → (PowerSeries.coeff N) (PowerSeries.X ^ agExp k i n * ∏ j, (qPoch (n j))⁻¹) = 0
+invCartanE8_eq_explicit : invCartanE8 =
+  !![4, 5, 7, 10, 8, 6, 4, 2;
+    5, 8, 10, 15, 12, 9, 6, 3;
+    7, 10, 14, 20, 16, 12, 8, 4;
+    10, 15, 20, 30, 24, 18, 12, 6;
+    8, 12, 16, 24, 20, 15, 10, 5;
+    6, 9, 12, 18, 15, 12, 8, 4;
+    4, 6, 8, 12, 10, 8, 6, 3;
+    2, 3, 4, 6, 5, 4, 3, 2]
+e8Form_eq_e8Exp : ∀ (B n : Fin 8 → ℕ), ↑(e8Exp B n) = e8Form B n
+@coeff_e8Term_eq_zero : ∀ {K : Type u_1} [inst : Field K] (B n : Fin 8 → ℕ) (N : ℕ),
+  n ∉ box 8 N → (PowerSeries.coeff N) (PowerSeries.X ^ e8Exp B n * ∏ i, (qPoch (n i))⁻¹) = 0
+e8_vacuum : e8Sum 0 = (∏ a ∈ {1, 2, 3, 4, 7, 8, 9, 10}, qPochInf a 11)⁻¹
+@e8_vacuum_field : ∀ {K : Type u_1} [inst : Field K], e8Sum 0 = (∏ a ∈ {1, 2, 3, 4, 7, 8, 9, 10}, qPochInf a 11)⁻¹
+e8_companion_4 : e8Sum ![0, 1, 1, 1, 1, 0, 0, 0] = agProduct 5 4
+e8_companion_3 : e8Sum ![0, 2, 2, 2, 2, 1, 1, 0] = agProduct 5 3
+e8_companion_2 : e8Sum ![1, 3, 3, 4, 4, 2, 2, 0] = agProduct 5 2
+e8_companion_1 : e8Sum ![2, 4, 5, 7, 6, 4, 3, 1] = agProduct 5 1
+invCartanE7_eq_explicit : invCartanE7 =
+  !![2, 2, 3, 4, 3, 2, 1;
+    2, 7 / 2, 4, 6, 9 / 2, 3, 3 / 2;
+    3, 4, 6, 8, 6, 4, 2;
+    4, 6, 8, 12, 9, 6, 3;
+    3, 9 / 2, 6, 9, 15 / 2, 5, 5 / 2;
+    2, 3, 4, 6, 5, 4, 2;
+    1, 3 / 2, 2, 3, 5 / 2, 2, 3 / 2]
+e7Form_eq_e7Exp : ∀ (n : Fin 7 → ℕ), ↑(e7Exp n) = 4 * e7Form n
+@coeff_e7Term_eq_zero : ∀ {K : Type u_1} [inst : Field K] (n : Fin 7 → ℕ) (N : ℕ),
+  n ∉ box 7 N → (PowerSeries.coeff N) (PowerSeries.X ^ e7Exp n * ∏ i, (qPoch4 (n i))⁻¹) = 0
+@coeff_e7ThetaTerm_eq_zero : ∀ {K : Type u_1} [inst : Field K] (k : ℤ) (N : ℕ),
+  k ∉ Finset.Icc (-↑N) ↑N →
+    (PowerSeries.coeff N) (PowerSeries.X ^ (3 * k.natAbs ^ 2) + PowerSeries.X ^ (7 * k.natAbs ^ 2)) = 0
+e7_identity : e7Sum = (qPochInf 4 4)⁻¹ * e7ThetaOneSided
+e7_identity_bilateral : 2 * e7Sum = (qPochInf 4 4)⁻¹ * e7Theta
+@e7_identity_field : ∀ {K : Type u_1} [inst : Field K], e7Sum = (qPochInf 4 4)⁻¹ * e7ThetaOneSided
+@e7_identity_bilateral_field : ∀ {K : Type u_1} [inst : Field K], 2 * e7Sum = (qPochInf 4 4)⁻¹ * e7Theta
+@coeff_qPochInf : ∀ {K : Type u_1} [inst : Field K] (a d : ℕ),
+  1 ≤ a →
+    1 ≤ d →
+      ∀ (N M : ℕ),
+        N ≤ M →
+          (PowerSeries.coeff N) (qPochInf a d) =
+            (PowerSeries.coeff N) (∏ i ∈ Finset.range (M + 1), (1 - PowerSeries.X ^ (a + d * i)))
+def Nahm.qPoch.{u_1} : {K : Type u_1} → [Field K] → ℕ → PowerSeries K :=
+fun {K} [Field K] n => ∏ i ∈ Finset.range n, (1 - PowerSeries.X ^ (i + 1))
+def Nahm.qPochInf.{u_1} : {K : Type u_1} → [Field K] → ℕ → ℕ → PowerSeries K :=
+fun {K} [Field K] a d =>
+  PowerSeries.mk fun N => (PowerSeries.coeff N) (∏ i ∈ Finset.range (N + 1), (1 - PowerSeries.X ^ (a + d * i)))
+def Nahm.box : (k : ℕ) → ℕ → Finset (Fin k → ℕ) :=
+fun k N => Fintype.piFinset fun x => Finset.range (N + 1)
+def Nahm.psum : {r : ℕ} → (Fin r → ℕ) → Fin r → ℕ :=
+fun {r} n j => ∑ l with j ≤ l, n l
+def Nahm.agExp : (k : ℕ) → ℕ → (Fin (k - 1) → ℕ) → ℕ :=
+fun k i n => ∑ j, psum n j ^ 2 + ∑ j with i ≤ ↑j + 1, psum n j
+def Nahm.agSum.{u_1} : {K : Type u_1} → [Field K] → ℕ → ℕ → PowerSeries K :=
+fun {K} [Field K] k i =>
+  PowerSeries.mk fun N =>
+    ∑ n ∈ box (k - 1) N, (PowerSeries.coeff N) (PowerSeries.X ^ agExp k i n * ∏ j, (qPoch (n j))⁻¹)
+def Nahm.agProduct.{u_1} : {K : Type u_1} → [Field K] → ℕ → ℕ → PowerSeries K :=
+fun {K} [Field K] k i => (∏ a ∈ Finset.Icc 1 (2 * k) with a ≠ i ∧ a ≠ 2 * k + 1 - i, qPochInf a (2 * k + 1))⁻¹
+def Nahm.invCartanE8 : Matrix (Fin 8) (Fin 8) ℚ :=
+(CartanMatrix.E₈.map Int.cast)⁻¹
+def Nahm.e8Form : (Fin 8 → ℕ) → (Fin 8 → ℕ) → ℚ :=
+fun B n => (1 / 2 * (fun i => ↑(n i)) ⬝ᵥ invCartanE8.mulVec fun i => ↑(n i)) + (fun i => ↑(B i)) ⬝ᵥ fun i => ↑(n i)
+def Nahm.e8Exp : (Fin 8 → ℕ) → (Fin 8 → ℕ) → ℕ :=
+fun B n => ⌊e8Form B n⌋₊
+def Nahm.e8Sum.{u_1} : {K : Type u_1} → [Field K] → (Fin 8 → ℕ) → PowerSeries K :=
+fun {K} [Field K] B =>
+  PowerSeries.mk fun N => ∑ n ∈ box 8 N, (PowerSeries.coeff N) (PowerSeries.X ^ e8Exp B n * ∏ i, (qPoch (n i))⁻¹)
+def Nahm.qPoch4.{u_1} : {K : Type u_1} → [Field K] → ℕ → PowerSeries K :=
+fun {K} [Field K] n => ∏ i ∈ Finset.range n, (1 - PowerSeries.X ^ (4 * (i + 1)))
+def Nahm.invCartanE7 : Matrix (Fin 7) (Fin 7) ℚ :=
+(CartanMatrix.E₇.map Int.cast)⁻¹
+def Nahm.e7Form : (Fin 7 → ℕ) → ℚ :=
+fun n => 1 / 2 * (fun i => ↑(n i)) ⬝ᵥ invCartanE7.mulVec fun i => ↑(n i)
+def Nahm.e7Exp : (Fin 7 → ℕ) → ℕ :=
+fun n => ⌊4 * e7Form n⌋₊
+def Nahm.e7Sum.{u_1} : {K : Type u_1} → [Field K] → PowerSeries K :=
+fun {K} [Field K] =>
+  PowerSeries.mk fun N => ∑ n ∈ box 7 N, (PowerSeries.coeff N) (PowerSeries.X ^ e7Exp n * ∏ i, (qPoch4 (n i))⁻¹)
+def Nahm.e7Theta.{u_1} : {K : Type u_1} → [Field K] → PowerSeries K :=
+fun {K} [Field K] =>
+  PowerSeries.mk fun N =>
+    ∑ k ∈ Finset.Icc (-↑N) ↑N,
+      (PowerSeries.coeff N) (PowerSeries.X ^ (3 * k.natAbs ^ 2) + PowerSeries.X ^ (7 * k.natAbs ^ 2))
+def Nahm.e7ThetaOneSided.{u_1} : {K : Type u_1} → [Field K] → PowerSeries K :=
+fun {K} [Field K] =>
+  PowerSeries.mk fun N =>
+    ∑ k ∈ Finset.range (N + 1),
+      (PowerSeries.coeff N) (PowerSeries.X ^ (3 * k ^ 2) + if k = 0 then 0 else PowerSeries.X ^ (7 * k ^ 2))

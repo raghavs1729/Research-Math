@@ -1,0 +1,2 @@
+PARI stack size set to 4000000000 bytes, maximum size set to 4000002048
+Gauss2F1 box 5 hits 109

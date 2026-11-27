@@ -1,0 +1,58 @@
+T4
+  ok   1/(Gamma(1/4)Gamma(3/4)) = 1/(sqrt2 pi)
+      K (Q(0,K)h(0,K) - 1/(sqrt2 pi)) for K = 1e2,1e4,1e6,1e8: ['-0.20693796', '-0.2109701', '-0.21101122', '-0.21101163']
+  ok   Q(0,K) h(0,K) -> 1/(sqrt2 pi) with error O(1/K)
+  ok   cross-check of the two ways of computing sum_k h(10,k)/h(10,0) (3F2 at 1 versus direct summation with tail bound)
+      sum_k h(n,k)/h(n,0): {1: '2.94616', 2: '3.06331', 3: '3.17533', 5: '3.3344', 10: '3.54445', 40: '3.83538', 200: '3.96176', 1000: '3.99207'}
+  ok   sum_k h(n,k) <= 7 h(n,0) for the tested n >= 2 (and <= 9 h(1,0)); values tend to 4
+  ok   after K -> oo:  sum_{n<N} t(n)/64 + N sum_k h(N,k) = 1/(sqrt2 pi)  for N = 1..8 (33 digits)
+T10 (real second variable)
+  ok   Phi(-0.1) = sum_n Q(n,b)h(n,b) = 1/(sqrt2 pi)   (difference 1.43e-41)
+  ok   Phi(-0.05) = sum_n Q(n,b)h(n,b) = 1/(sqrt2 pi)   (difference -5.74e-42)
+  ok   Phi(0.05) = sum_n Q(n,b)h(n,b) = 1/(sqrt2 pi)   (difference 8.61e-42)
+  ok   Phi(0.1) = sum_n Q(n,b)h(n,b) = 1/(sqrt2 pi)   (difference -8.61e-42)
+  ok   d/dx log h(n,x)|_0 = 4H_{6n} - 3H_{3n} - H_n - 6 log 2
+  ok   d/dx log Q(n,x)|_0 = f(n)/P(n)
+T8 (parameter s)
+  ok   s = -0.1: sum_n Q_s(n,0)h_s(n,0) = 1/(4 sqrt pi)   (difference -1.43e-41)
+  ok   s = -0.05: sum_n Q_s(n,0)h_s(n,0) = 1/(4 sqrt pi)   (difference 5.45e-41)
+  ok   s = 0.0: sum_n Q_s(n,0)h_s(n,0) = 1/(4 sqrt pi)   (difference 2.87e-41)
+  ok   s = 0.05: sum_n Q_s(n,0)h_s(n,0) = 1/(4 sqrt pi)   (difference 2.87e-42)
+  ok   s = 0.1: sum_n Q_s(n,0)h_s(n,0) = 1/(4 sqrt pi)   (difference -2.58e-41)
+  ok   d/ds log h_s(n,0)|_0 = 3 log 2 - 2(H_{2n}-H_n)
+  ok   d/ds log Q_s(n,0)|_0 = (360n^2-72n-46)/P(n)
+T5
+  ok   sum_k psi(0,k) = sum 4^k/((2k+1)^2 C(2k,k)) = 2G
+  ok   int_0^{pi/2} theta/sin(theta) = 2G
+  ok   after K -> oo:  sum_{n<N} gamma(n,0) = 2G - sum_k psi(N,k),  N = 1..6 (30 digits)
+  ok   sum_k |psi(N,k)| <= 6 * 8^-N for N = 1..6
+      gamma(0,K) sqrt(K), K = 1e2,1e4,1e6: ['0.88586365', '0.88622323', '0.88622689']  (bounded, so gamma(0,K) = O(K^-1/2) -> 0)
+T7
+      6 pi^2 sum_{k<N} Phi(N,k), N = 1,2,5,10,20,40: ['-0.426667', '-0.032751', '-3.58004e-5', '-1.00906e-9', '-1.92902e-18', '-1.82525e-35']
+  ok   equals the partial sum t(1) = -32/75 at N = 1 and tends to 0 geometrically (ratio about 4/27 per step)
+T3
+  ok   WZ equation for real x (n = 0..3, three non-integer x)
+  ok   G'(n,0) = -(3/(4 pi)) t(n+1), n = 0..6
+  ok   D_0 = sum_k F'(0,k) = -3K/(2 pi)   (difference -5.74e-42)
+  ok   I = int_0^1 log(3t/4)/((1-3t/4) sqrt(1-t)) dt = -4K   (difference 1.62e-23)
+  ok   sum_{n<N} G'(n,0) = D_0 - D_N and |D_N| <= c_N (2N)! 4 B(N,1/2)/(3 sqrt(pi)(2N+1)),  N = 1..4
+T2 / T9
+  ok   f(0,k) = 1/((3k+1)(3k+2)) from the Gamma closed form
+  ok   g(n,0) = 2 t(n+1)
+  ok   T9: Phi(-0.1) = sum_n g(n,c) = (psi(c+2/3)-psi(c+1/3))/3   (difference 3.44e-41)
+  ok   T9: Phi(0.05) = sum_n g(n,c) = (psi(c+2/3)-psi(c+1/3))/3   (difference 1.15e-41)
+  ok   T9: Phi(0.1) = sum_n g(n,c) = (psi(c+2/3)-psi(c+1/3))/3   (difference 0.0)
+  ok   Phi'(0) = (psi'(2/3)-psi'(1/3))/3 = -3K
+T6
+  ok   T6: sum_k F(0,k;0.0,0) = 2^(-1/2)
+  ok   T6: sum_n G(n,0;a,b) = sum_k F(0,k;a,b) at (a,b) = (0.0,0.0)   (difference 2.3e-41);  sum_k F(0,k;a,0) - 2^(-1/2) = -2.3e-41
+  ok   T6: sum_n G(n,0;a,b) = sum_k F(0,k;a,b) at (a,b) = (0.05,-0.1)   (difference 0.0)
+  ok   T6: sum_n G(n,0;a,b) = sum_k F(0,k;a,b) at (a,b) = (-0.1,0.1)   (difference -1.15e-41)
+  ok   T6: sum_k F(0,k;0.1,0) = 2^(-1/2)
+  ok   T6: sum_n G(n,0;a,b) = sum_k F(0,k;a,b) at (a,b) = (0.1,0.0)   (difference -6.89e-41);  sum_k F(0,k;a,0) - 2^(-1/2) = 2.3e-41
+  ok   G(n,0;0,0) = (sqrt6/pi) t(n)
+ALL LIMIT-STEP CHECKS OK
+
+real	0m5.838s
+user	0m5.729s
+sys	0m0.012s

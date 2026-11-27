@@ -1,0 +1,15 @@
+Q^vee = C^-1 Q: {'0': ['0', '0', '0', '0', '0', '0', '0', '0'], '5/11': ['0', '-2', '-2', '-4', '-4', '-3', '-1', '-3'], '8/11': ['0', '-1', '-1', '-2', '-2', '-2', '0', '-2'], '10/11': ['0', '0', '0', '-1', '-1', '-1', '0', '-1'], '12/11': ['-1', '-3', '-4', '-6', '-7', '-5', '-2', '-4']}
+h=0      Nahm sum (C(E8), B=-Q_h): q^0 * [1, 120, 1660, 12320, 68210, 310080, 1229020, 4380400, 14359545] ...   printed expansion (Yoshida (2.4)/(2.72)): AGREES (4 coefficients)   [197s]
+h=5/11   Nahm sum (C(E8), B=-Q_h): q^-3 * [8, 245, 2360, 15100, 75600, 321552, 1210000, 4143240, 13140520] ...   printed expansion (Yoshida (2.4)/(2.72)): AGREES (7 coefficients)   [430s]
+h=8/11   Nahm sum (C(E8), B=-Q_h): q^-2 * [35, 680, 5628, 33440, 159020, 652240, 2386140, 7990376, 24877310] ...   printed expansion (Yoshida (2.4)/(2.72)): AGREES (7 coefficients)   [664s]
+h=10/11  Nahm sum (C(E8), B=-Q_h): q^0 * [84, 1240, 9570, 54160, 249880, 1001296, 3599710, 11882160, 36562060] ...   printed expansion (Yoshida (2.4)/(2.72)): AGREES (7 coefficients)   [863s]
+h=12/11  Nahm sum (C(E8), B=-Q_h): q^0 * [50, 560, 4180, 22352, 100695, 393960, 1393820, 4535680, 13801880] ...   printed expansion (Yoshida (2.4)/(2.72)): AGREES (7 coefficients)   [1000s]
+variant 0: ('support/galois mismatch', 2, 1, 2, [5])
+--- Hecke images T_10 M_eff(11,2), signs from sigma_a^{-1} :
+  chi_{0} = q^{-10/33} * Nahm  [M(11,2) label s=5] HOLDS  mod q^848/33   [1 q^-10/33 + 120 q^23/33 + 1660 q^56/33 + 12320 q^89/33]
+  chi_{5/11} = q^{104/33} * Nahm  [M(11,2) label s=2] HOLDS  mod q^26   [8 q^5/33 + 245 q^38/33 + 2360 q^71/33 + 15100 q^104/33]
+  chi_{8/11} = q^{80/33} * Nahm  [M(11,2) label s=3] HOLDS  mod q^26   [35 q^14/33 + 680 q^47/33 + 5628 q^80/33 + 33440 q^113/33]
+  chi_{10/11} = q^{20/33} * Nahm  [M(11,2) label s=4] HOLDS  mod q^26   [84 q^20/33 + 1240 q^53/33 + 9570 q^86/33 + 54160 q^119/33]
+  chi_{12/11} = q^{26/33} * Nahm  [M(11,2) label s=1] HOLDS  mod q^26   [50 q^26/33 + 560 q^59/33 + 4180 q^92/33 + 22352 q^125/33]
+   variant 1: ALL FIVE AGREE
+bilinear: sum_h chi_h(Nahm) chi^vee = E_4/eta^8 HOLDS  mod q^74/3   [1 q^-1/3 + 248 q^2/3 + 4124 q^5/3 + 34752 q^8/3]

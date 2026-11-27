@@ -1,0 +1,3 @@
+r3_periodic_flat_hpcheck.py results (AI-produced, 2026-11-27)
+random sample: 1600 (pattern, sub-arc) pairs, 12 <= Q <= 22: 0 disagreements between flat_roots() and the 60-digit solve
+pairs where the naive classifier disagrees with flat_roots(): 48 (naive total over Q = 2..22: 108212 triples); 60-digit solve vs flat_roots() on these pairs: 0 disagreements

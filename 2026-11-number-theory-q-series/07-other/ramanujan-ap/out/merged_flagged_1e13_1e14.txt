@@ -1,0 +1,5 @@
+# ambiguous comparisons: 0
+CLASS 11 q=8 a=5  failing_primes=0  components_started=0  first=None  last=None
+CLASS 15 q=12 a=7  failing_primes=0  components_started=0  first=None  last=None
+BIN 11 1322 8663871 0 0 0.999999798778886 16879766443333 143435444707 54626227062 0
+BIN 15 1301 8396 0 0 0.999999566768058 10414738932331 89977884890 34287600632 0

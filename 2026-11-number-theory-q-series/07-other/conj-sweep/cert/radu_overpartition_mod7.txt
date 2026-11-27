@@ -1,0 +1,10 @@
+arXiv:2603.08510 Conjecture 1
+
+## pbar(896n+176) = 0 mod 7 (and the other residues of P)
+eta-quotient exponents r = {1: -2, 2: 1} (M = 2); progression 896n + 176; modulus u = 7
+P_(m,r)(t) = [176, 688, 816]
+N = 56: (m, M, N, t, r) in Delta^* verified; [SL2(Z):Gamma_0(N)] = 96; kappa = 3
+a = {1: 1829, 2: -915, 4: 3, 7: -256, 8: -4, 14: 128, 28: -13, 56: 26}; min over 56 cusp representatives of p_mr + p*_a = 0 >= 0 (exact)
+nu = 88009/28 ; floor(nu) = 3143
+checked c_r(896n + t') = 0 mod 7 for t' in P and 0 <= n <= 3143: ALL ZERO -> congruence PROVED for all n
+

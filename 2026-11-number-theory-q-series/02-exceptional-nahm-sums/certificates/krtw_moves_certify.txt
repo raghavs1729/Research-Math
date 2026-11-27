@@ -1,0 +1,69 @@
+====================================================================================================
+k = 2 :   K_2(x)  =  B_3(x) * J_2(x)
+ K side: species ['a1', 'a2', 'b1', 'b2'] bases [1, 1, 2, 2]
+   SPLIT  a1
+   SPLIT  a2
+   FUSE   a1' , b2
+   DEFUSE a2''  = fusion of  a1' , a1''   [precondition verified]
+   DEFUSE [a1'+b2]  = fusion of  (a1'|a2'') , a2'   [precondition verified]
+   -> rank 5, bases [2, 2, 2, 2, 2]
+ B side: species ['n1', 'n2', 'n3'] bases [1, 1, 2]
+   SPLIT  n1
+   SPLIT  n2
+   DEFUSE n2''  = fusion of  n1' , n1''   [precondition verified]
+   DEFUSE n3  = fusion of  (n1'|n2'') , n2'   [precondition verified]
+   species ((n1'|n2'')|n3) is free, = C_1(x): True
+   tensor with C_2 (so that the product is B_3 C_2 / C_1 = B_3 J_2)
+   FUSE   (n2'|n3) , e1
+   -> rank 5, bases [2, 2, 2, 2, 2]
+ final data of the two chains coincide after the permutation [3, 0, 4, 2, 1] : True
+   matching of species:
+      ((a1'|a2'')|[a1'+b2])                         <->  e2
+      (a2'|[a1'+b2])                                <->  (n2'|n3)
+      b1                                            <->  [(n2'|n3)+e1]
+      b2                                            <->  e1
+      (a1''|a2'')                                   <->  (n1''|n2'')
+ series check, x^0..x^16 modulo q^60:  K_k (definition) = F(K datum): True;  = F(end of K chain): True;  = F(end of B chain): True;  B_{k+1} C_k = K_k C_1: True
+====================================================================================================
+k = 3 :   K_3(x)  =  B_4(x) * J_3(x)
+ K side: species ['a1', 'a2', 'a3', 'b1', 'b2', 'b3'] bases [1, 1, 1, 2, 2, 2]
+   SPLIT  a1
+   SPLIT  a2
+   SPLIT  a3
+   FUSE   a1' , b2
+   DEFUSE a2''  = fusion of  a1' , a1''   [precondition verified]
+   FUSE   a2' , b3
+   DEFUSE a3'  = fusion of  (a1'|a2'') , a2'   [precondition verified]
+   FUSE   (a2'|a3') , b2
+   DEFUSE [(a2'|a3')+b2]  = fusion of  b3 , [a2'+b3]   [precondition verified]
+   FUSE   b2 , (a1''|a2'')
+   DEFUSE [a1'+b2]  = fusion of  ((a1'|a2'')|a3') , b2   [precondition verified]
+   DEFUSE [b2+(a1''|a2'')]  = fusion of  (b3|[(a2'|a3')+b2]) , a3''   [precondition verified]
+   -> rank 8, bases [2, 2, 2, 2, 2, 2, 2, 2]
+ B side: species ['n1', 'n2', 'n3', 'n4'] bases [1, 1, 1, 2]
+   SPLIT  n1
+   SPLIT  n2
+   SPLIT  n3
+   DEFUSE n2''  = fusion of  n1' , n1''   [precondition verified]
+   DEFUSE n3'  = fusion of  (n1'|n2'') , n2'   [precondition verified]
+   tensor with AG_1(x^2;q^2) = J_3
+   FUSE   n4 , g1
+   FUSE   (n2'|n3') , g1
+   -> rank 8, bases [2, 2, 2, 2, 2, 2, 2, 2]
+ final data of the two chains coincide after the permutation [0, 1, 6, 7, 5, 3, 4, 2] : True
+   matching of species:
+      (((a1'|a2'')|a3')|[a1'+b2])                   <->  ((n1'|n2'')|n3')
+      (a2'|a3')                                     <->  (n2'|n3')
+      b1                                            <->  [n4+g1]
+      (b2|[a1'+b2])                                 <->  [(n2'|n3')+g1]
+      ((b3|[(a2'|a3')+b2])|[b2+(a1''|a2'')])        <->  g1
+      (a1''|a2'')                                   <->  (n1''|n2'')
+      (a3''|[b2+(a1''|a2'')])                       <->  n3''
+      ([a2'+b3]|[(a2'|a3')+b2])                     <->  n4
+ series check, x^0..x^16 modulo q^60:  K_k (definition) = F(K datum): True;  = F(end of K chain): True;  = F(end of B chain): True;  B_{k+1} C_k = K_k C_1: True
+====================================================================================================
+ALL CHECKS PASSED
+
+real	0m2.782s
+user	0m2.748s
+sys	0m0.008s

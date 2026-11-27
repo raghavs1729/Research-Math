@@ -1,0 +1,24 @@
+'SunSeries16.sun_series_16' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries16.wz' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries16.finite_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+SunSeries16.sun_series_16 : HasSum
+  (fun k => (3 * ↑k + 2) ^ 2 * 16 ^ k / ((2 * ↑k + 1) * (6 * ↑k + 1) * (6 * ↑k + 5) * ↑(3 * k).centralBinom))
+  (Real.pi / (2 * √3))
+'SunSeries1pi2.wz_poly' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries1pi2.wz_rat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries1pi2.wz_boundary' depends on axioms: [propext, Classical.choice, Quot.sound]
+SunSeries1pi2.wz_rat : ∀ (n k : ℝ),
+  SunSeries1pi2.ρD n k ≠ 0 →
+    SunSeries1pi2.σD n k ≠ 0 →
+      SunSeries1pi2.RD n k ≠ 0 →
+        SunSeries1pi2.RD n (k + 1) ≠ 0 →
+          SunSeries1pi2.ρ n k - 1 = SunSeries1pi2.R n (k + 1) * SunSeries1pi2.σ n k - SunSeries1pi2.R n k
+'SunSeries1pi.sun_series_1pi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries1pi.wz' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries1pi.finite_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries1pi.tendsto_v_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+SunSeries1pi.sun_series_1pi : HasSum
+  (fun k =>
+    (360 * ↑k ^ 3 + 612 * ↑k ^ 2 + 230 * ↑k + 15) * ↑((3 * k).choose k) * ↑(3 * k).centralBinom ^ 2 /
+      ((3 * ↑k + 1) * (3 * ↑k + 2) * 2 ^ (15 * k)))
+  (32 * √2 / Real.pi)

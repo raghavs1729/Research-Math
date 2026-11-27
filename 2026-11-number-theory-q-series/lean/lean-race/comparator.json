@@ -1,0 +1,35 @@
+{
+  "challenge_module": "RaceChallenge",
+  "solution_module": "RaceSolution",
+  "theorem_names": [
+    "explicit_formula_zero_sum",
+    "zeroSum_summable_and_archTerm_integrable",
+    "grh_smoothed_prime_power_sum_bound",
+    "grh_smoothed_prime_power_sum_le_zero_sum",
+    "grhFor_of_dirichlet_zeros_on_line",
+    "chi4_isPrimitive",
+    "chi4_archWeight",
+    "grh_chi4_smoothed_prime_power_sum_bound",
+    "prime_number_theorem_theta",
+    "grh_chi4_smoothed_race_two_sided",
+    "grh_chi4_smoothed_race",
+    "chi4_primeSum_eq_chi4RaceSum",
+    "chi4_archTerm_zero_eq_chi4Gamma0",
+    "chi4Gamma0_integrand_integrable",
+    "grh_chi4_smoothed_race_real_two_sided",
+    "grh_chi4_smoothed_race_real",
+    "raceWindow_piecewise",
+    "raceWindow_admissible",
+    "raceWindow_integral",
+    "raceWindowCert_iff",
+    "grh_chi4_race_concrete_window",
+    "grh_chi4_race_concrete_window_two_sided"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

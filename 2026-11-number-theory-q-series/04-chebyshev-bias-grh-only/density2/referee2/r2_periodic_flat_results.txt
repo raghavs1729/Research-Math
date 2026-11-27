@@ -1,0 +1,49 @@
+Referee 2, r2_periodic_flat.py: flat pieces of F_M for periodic 0/1 weights.
+Symmetric patterns: all Q <= 22 (primitive period = Q only); non-symmetric: all Q <= 12.
+symmetric primitive nonzero patterns examined: 11956
+(pattern, M, sub-arc) with a flat piece: 108205
+levels of flat pieces found: [-1, 1]   (prediction: 1 - 2 m_Q in {1, -1})
+max relative residual |g_s(e^-eps)|/sum|c| at the (Newton-refined) roots: 4.36e-06
+smallest M with a flat piece: 0.0004416
+  level -1: 56312 cases; M range [0.3314, 58.15]
+  level +1: 51893 cases; M range [0.0004416, 55.8]
+distinct patterns having a flat piece for some M > 0: 11880 of 11956
+first examples (Q, p(0..Q-1) with p(0)=m_Q, sub-arc s, M, level):
+  Q= 4 p=0111 s= 1 M=0.561100 level=+1
+  Q= 4 p=1101 s= 2 M=0.561100 level=-1
+  Q= 5 p=01001 s= 4 M=0.934525 level=+1
+  Q= 5 p=01111 s= 1 M=1.025361 level=+1
+  Q= 5 p=10110 s= 1 M=1.245506 level=-1
+  Q= 5 p=10110 s= 4 M=0.978406 level=-1
+  Q= 5 p=11001 s= 2 M=1.100215 level=-1
+  Q= 5 p=11001 s= 3 M=0.534007 level=-1
+  Q= 6 p=010001 s= 2 M=0.661907 level=+1
+  Q= 6 p=010001 s= 5 M=0.661907 level=+1
+  Q= 6 p=011111 s= 1 M=1.484419 level=+1
+  Q= 6 p=011111 s= 2 M=0.339784 level=+1
+
+Direct smoothed Fourier sum of F_M at the M found (N = 2^19), on the flat sub-arc and
+on a neighbouring sub-arc (u in [0.2,0.8]):
+  Q=22 p=0001011101010101110100 s= 4 M=0.19581: max|F - (+1)| on flat arc = 2.00e-15;  spread on next arc = 5.818e-03
+  Q=22 p=1100010001111100010001 s=19 M=7.31029: max|F - (-1)| on flat arc = 1.24e-14;  spread on next arc = 8.402e+00
+  Q=22 p=0111010100111001010111 s=20 M=2.02127: max|F - (+1)| on flat arc = 5.77e-15;  spread on next arc = 4.354e-01
+  Q=22 p=1001110010111010011100 s=20 M=1.02677: max|F - (-1)| on flat arc = 7.33e-15;  spread on next arc = 7.170e-02
+  Q=21 p=111000000000000000011 s= 8 M=1.13051: max|F - (-1)| on flat arc = 2.44e-15;  spread on next arc = 5.168e-02
+  Q=20 p=01010010010100100101 s=14 M=1.39111: max|F - (+1)| on flat arc = 7.99e-15;  spread on next arc = 3.695e-01
+  Q=22 p=1110000000111000000011 s=12 M=8.93104: max|F - (-1)| on flat arc = 2.98e-14;  spread on next arc = 1.994e+00
+  Q=16 p=1001000010000100 s= 9 M=1.36381: max|F - (-1)| on flat arc = 3.55e-15;  spread on next arc = 9.029e-01
+  Q=19 p=1010110001100011010 s= 6 M=1.15314: max|F - (-1)| on flat arc = 7.33e-15;  spread on next arc = 1.225e-01
+  Q=22 p=0100001010000010100001 s= 2 M=4.63150: max|F - (+1)| on flat arc = 3.89e-15;  spread on next arc = 4.253e+00
+
+Non-symmetric periodic patterns, Q <= 12: min over patterns and sub-arcs of
+the spread of w over u in [0.05,0.95] (must be > 0 for no flat piece at any M):
+  Q= 3:     4 non-symmetric patterns, min spread = 4.696e+00
+  Q= 4:     8 non-symmetric patterns, min spread = 5.871e+00
+  Q= 5:    24 non-symmetric patterns, min spread = 1.911e+00
+  Q= 6:    48 non-symmetric patterns, min spread = 1.450e-01
+  Q= 7:   112 non-symmetric patterns, min spread = 9.954e-01
+  Q= 8:   224 non-symmetric patterns, min spread = 1.805e-01
+  Q= 9:   480 non-symmetric patterns, min spread = 5.473e-02
+  Q=10:   960 non-symmetric patterns, min spread = 8.770e-02
+  Q=11:  1984 non-symmetric patterns, min spread = 3.729e-02
+  Q=12:  3968 non-symmetric patterns, min spread = 2.922e-02

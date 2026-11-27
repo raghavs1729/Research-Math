@@ -1,0 +1,30 @@
+# rebuild of ../lean (byte-identical copy of the sources) with Lean leanprover/lean4:v4.33.0-rc2, Mathlib 51e6992efd06126df61a496bebf8f49482a4e129
+# packages copied from monotonicity/lean-race/.lake/packages (same toolchain and Mathlib revision); no download, Mathlib not rebuilt
+## tail of 'lake build'
+✔ [8698/8700] Built RamanujanSeries.Sun1pi2 (82s)
+✔ [8699/8700] Built RamanujanSeries (10s)
+Build completed successfully (8700 jobs).
+BUILD EXIT 0
+## lake env lean Axioms.lean
+'SunSeries16.sun_series_16' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries16.wz' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries16.finite_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+SunSeries16.sun_series_16 : HasSum
+  (fun k => (3 * ↑k + 2) ^ 2 * 16 ^ k / ((2 * ↑k + 1) * (6 * ↑k + 1) * (6 * ↑k + 5) * ↑(3 * k).centralBinom))
+  (Real.pi / (2 * √3))
+'SunSeries1pi2.wz_poly' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries1pi2.wz_rat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'SunSeries1pi2.wz_boundary' depends on axioms: [propext, Classical.choice, Quot.sound]
+SunSeries1pi2.wz_rat : ∀ (n k : ℝ),
+  SunSeries1pi2.ρD n k ≠ 0 →
+    SunSeries1pi2.σD n k ≠ 0 →
+      SunSeries1pi2.RD n k ≠ 0 →
+        SunSeries1pi2.RD n (k + 1) ≠ 0 →
+          SunSeries1pi2.ρ n k - 1 = SunSeries1pi2.R n (k + 1) * SunSeries1pi2.σ n k - SunSeries1pi2.R n k
+AXIOMS EXIT 0
+## lake env leanchecker RamanujanSeries.Sun16
+EXIT 0
+## lake env lean c1_lean_statement_check.lean (no errors; restated with Nat.choose (6k) (3k), Summable and tsum corollaries)
+'SunSeries16.sun_series_16' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0
+0

@@ -1,0 +1,37 @@
+(1) exact failure set of H for x <= 2e5:
+   (3,1): F_H ∩ (1, 2e5] = (1, e*7) = (1, 19.0280)
+   (3,2): F_H ∩ (1, 2e5] = (1, e*2) = (1, 5.4366)
+   (4,1): F_H ∩ (1, 2e5] = (1, e*5) = (1, 13.5914)
+   (4,3): F_H ∩ (1, 2e5] = (1, e*3) = (1, 8.1548)
+   (5,1): F_H ∩ (1, 2e5] = (1, e*11) = (1, 29.9011)
+   (5,2): F_H ∩ (1, 2e5] = (1, e*2) = (1, 5.4366)
+   (5,3): F_H ∩ (1, 2e5] = (1, e*3) = (1, 8.1548)
+   (5,4): F_H ∩ (1, 2e5] = (1, e*19) = (1, 51.6474)
+   (8,1): F_H ∩ (1, 2e5] = (1, e*17) = (1, 46.2108)
+   (8,3): F_H ∩ (1, 2e5] = (1, e*3) = (1, 8.1548)
+   (8,5): F_H ∩ (1, 2e5] = (1, e*5) = (1, 13.5914)
+   (8,7): F_H ∩ (1, 2e5] = (1, e*7) = (1, 19.0280)
+   (12,1): F_H ∩ (1, 2e5] = (1, e*13) = (1, 35.3377)
+   (12,5): F_H ∩ (1, 2e5] = (1, e*5) = (1, 13.5914)
+   (12,7): F_H ∩ (1, 2e5] = (1, e*7) = (1, 19.0280)
+   (12,11): F_H ∩ (1, 2e5] = (1, e*11) = (1, 29.9011)
+(2) # coverage (exact scan, all primes >= 7): [[0, 10000000000000]]
+   (3,1): max rho over scanned primes with pi(p/e) >= 1 is 1.3565 (at p = 79) < phi^2 = 4
+   (3,2): max rho over scanned primes with pi(p/e) >= 1 is 1.5378 (at p = 29) < phi^2 = 4
+   (4,1): max rho over scanned primes with pi(p/e) >= 1 is 1.3669 (at p = 29) < phi^2 = 4
+   (4,3): max rho over scanned primes with pi(p/e) >= 1 is 1.8243 (at p = 19) < phi^2 = 4
+   (5,1): max rho over scanned primes with pi(p/e) >= 1 is 2.2087 (at p = 71) < phi^2 = 16
+   (5,2): max rho over scanned primes with pi(p/e) >= 1 is 2.2072 (at p = 17) < phi^2 = 16
+   (5,3): max rho over scanned primes with pi(p/e) >= 1 is 1.8055 (at p = 23) < phi^2 = 16
+   (5,4): max rho over scanned primes with pi(p/e) >= 1 is 1.5814 (at p = 149) < phi^2 = 16
+   (8,1): max rho over scanned primes with pi(p/e) >= 1 is 1.7350 (at p = 97) < phi^2 = 16
+   (8,3): max rho over scanned primes with pi(p/e) >= 1 is 2.0524 (at p = 19) < phi^2 = 16
+   (8,5): max rho over scanned primes with pi(p/e) >= 1 is 1.7850 (at p = 61) < phi^2 = 16
+   (8,7): max rho over scanned primes with pi(p/e) >= 1 is 1.9287 (at p = 47) < phi^2 = 16
+   (12,1): max rho over scanned primes with pi(p/e) >= 1 is 1.7350 (at p = 97) < phi^2 = 16
+   (12,5): max rho over scanned primes with pi(p/e) >= 1 is 2.1325 (at p = 41) < phi^2 = 16
+   (12,7): max rho over scanned primes with pi(p/e) >= 1 is 2.0594 (at p = 43) < phi^2 = 16
+   (12,11): max rho over scanned primes with pi(p/e) >= 1 is 1.6272 (at p = 59) < phi^2 = 16
+(3) tail, L >= 31:
+   phi = 2: lhs = [0.26762447 +/- 2.72e-9] < rhs = [0.99991799 +/- 5.86e-10]
+   phi = 4: lhs = [0.066916052 +/- 1.91e-10] < rhs = [0.99983598 +/- 1.17e-9]

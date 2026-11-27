@@ -1,0 +1,6 @@
+k=1: identity holds mod q^80: True
+k=2: identity holds mod q^80: True
+k=3: identity holds mod q^80: True
+k=4: identity holds mod q^80: True
+k=5: identity holds mod q^80: True
+k=6: identity holds mod q^80: True

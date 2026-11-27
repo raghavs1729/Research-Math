@@ -1,0 +1,10 @@
+(a) WZ equation rho - 1 = R(n,x+1) sigma - R(n,x): identically 0: OK
+    ratios sigma, rho agree with the Gamma closed form; WZ holds numerically at non-integer x: OK
+(b) dG/dx(n,0) = -(3/(4 pi)) t(n+1): n=0 value, exact ratio identity, numeric n<5: OK
+(d) I = -4K and D_0 = (3/(8 pi)) I = -3K/(2 pi): -0.3730444231863023671450199 -0.3730444231863023671450199
+(c),(e) N=1: D_N = -0.0149458012295 = integral formula; |D_N| <= bound 0.0265258; D_N - D_{N-1} = -dG(N-1,0): OK
+(c),(e) N=2: D_N = -0.001019743709 = integral formula; |D_N| <= bound 0.00159155; D_N - D_{N-1} = -dG(N-1,0): OK
+(c),(e) N=3: D_N = -8.18663657769e-5 = integral formula; |D_N| <= bound 0.000121802; D_N - D_{N-1} = -dG(N-1,0): OK
+(e) closed form and bound for Psi_N: OK
+(f) |lhs - 2K| = 0.0
+ALL CHECKS PASSED

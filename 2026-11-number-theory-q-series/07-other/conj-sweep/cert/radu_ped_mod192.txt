@@ -1,0 +1,14 @@
+## ped(225n+43) = 0 mod 192
+eta-quotient exponents r = {1: -1, 4: 1} (M = 4); progression 225n + 43; modulus u = 192
+P_(m,r)(t) = [43, 88]
+N = 60: (m, M, N, t, r) in Delta^* verified; [SL2(Z):Gamma_0(N)] = 144; kappa = 8
+a = {1: 263, 2: -133, 3: -86, 4: 3, 5: -52, 6: 48, 10: 33, 12: -9, 15: 17, 20: -14, 30: -30, 60: 43}; min over 60 cusp representatives of p_mr + p*_a = 1/1800 >= 0 (exact)
+nu = 51457/120 ; floor(nu) = 428
+checked c_r(225n + t') = 0 mod 192 for t' in P and 0 <= n <= 428: ALL ZERO -> congruence PROVED for all n
+## ped(225n+133) = 0 mod 192
+eta-quotient exponents r = {1: -1, 4: 1} (M = 4); progression 225n + 133; modulus u = 192
+P_(m,r)(t) = [133, 223]
+N = 60: (m, M, N, t, r) in Delta^* verified; [SL2(Z):Gamma_0(N)] = 144; kappa = 8
+a = {1: 263, 2: -133, 3: -86, 4: 3, 5: -52, 6: 48, 10: 33, 12: -9, 15: 17, 20: -14, 30: -30, 60: 43}; min over 60 cusp representatives of p_mr + p*_a = 1/1800 >= 0 (exact)
+nu = 51409/120 ; floor(nu) = 428
+checked c_r(225n + t') = 0 mod 192 for t' in P and 0 <= n <= 428: ALL ZERO -> congruence PROVED for all n
