@@ -48,6 +48,19 @@ Everything under `lean/` builds with `lake build` and uses only Lean's three sta
 | `lean/lean-cheb-allx` | Σ_p χ₋₄(p)e^{−p/x} < 0 for every x > 0, from GRH(χ₋₄) |
 | `lean/lean-allx`, `lean/lean-chebyshev`, `lean/lean-race`, `lean/lean-pi-series`, `lean/lean-ramanujan` | supporting and earlier results (see each README) |
 
+## Papers
+
+In `papers/`: PDFs and LaTeX sources (single author, AI disclosure on page one).
+
+| Paper | Folder |
+|---|---|
+| An Andrews–Gordon-type identity of Kanade, Russell, Tsuchioka and Warnaar: a proof for every level, fully formalized in Lean | `papers/krtw-identity/` |
+| Modular Nahm sums for the inverse Cartan matrices of E6, E7 and E8 | `papers/nahm-sums-e6-e7-e8/` |
+| Closed forms for the unidentified ζ(5)-level continued fractions of the Ramanujan Machine | `papers/zeta5-continued-fractions/` |
+| Factorial reduction for the Euler family of polynomial continued fractions | `papers/factorial-reduction/` |
+
+File paths inside the documents refer to the working layout; see [`PATHS.md`](PATHS.md).
+
 ## How to verify
 
 See [`VERIFY.md`](VERIFY.md). Each directory has its own README or RESULTS file with exact

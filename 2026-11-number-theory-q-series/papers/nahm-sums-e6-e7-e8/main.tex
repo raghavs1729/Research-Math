@@ -1,0 +1,880 @@
+\documentclass[11pt]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+\usepackage{microtype}
+\makeatletter\g@addto@macro\UrlBreaks{\do\_\do\-}\makeatother
+\emergencystretch=2em
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\qbin}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}}
+\newcommand{\repo}{\nolinkurl{2026-11-number-theory-q-series/}}
+\newcommand{\fpath}[1]{\nolinkurl{#1}}
+\newcommand{\T}{\mathsf T}
+
+\title[Nahm sums for $E_6$, $E_7$, $E_8$]{Modular Nahm sums for the inverse Cartan matrices of
+$E_6$, $E_7$ and $E_8$}
+\author{Raghav Sharma}
+\email{raghavsharma1729@gmail.com}
+\thanks{\textbf{AI disclosure.} The results, proofs, computer code and Lean formalizations in this
+paper were produced by AI (Anthropic's Claude models) working under the direction of the author.
+Correctness was checked by independent AI referees (separate model instances instructed to find errors,
+using their own code) and, for the formalized statements, by the Lean kernel. No human expert has
+refereed this work yet. Code, certificates and Lean files:
+\url{https://github.com/raghavs1729/Research-Math}, folder \texttt{2026-11-number-theory-q-series/}.}
+\date{27 November 2026}
+
+\subjclass[2020]{Primary 11P84; Secondary 05A30, 33D15, 11F03, 17B22, 81T40, 68V20}
+\keywords{Nahm sums, Rogers--Ramanujan identities, Andrews--Gordon identities, inverse Cartan matrix,
+exceptional root systems, Bailey's lemma, modular functions, Virasoro characters, Lean}
+
+\begin{document}
+
+\begin{abstract}
+Cherednik and Feigin (2013) considered the Nahm sums
+$\sum_{n}q^{n^{\T}An/2}/\prod_i(q)_{n_i}$ with $A$ the inverse Cartan matrix of a
+simply-laced root system: they expected them to be modular (conditionally on Nahm's conjecture) and
+noted that their method does not extend to this case. Sun and Wang (2026) observed
+numerically that for $E_8$ and $E_6$ these sums are characters of the minimal models $M(2,11)$ and
+$M(2,5)\otimes M(6,5)$, and found no formula for $E_7$. We prove both observations and give the $E_7$
+formula: the Nahm sum of $C(E_7)^{-1}$ equals $\frac1{2(q;q)_\infty}\sum_{k\in\Z}(q^{3k^2/4}+q^{7k^2/4})$,
+so it is modular. For $E_8$ we prove five identities modulo 11, including four companions identified by
+Yoshida; for $E_6$ six identities, which rest on a theorem of Cao, Rosengren and Wang. The matrices
+$C(E_8)^{-1}$, $C(E_6)^{-1}$, $C(E_7)^{-1}$ arise from small matrices by iterating a known Durfee-rectangle
+fusion lemma, which reduces the sums to Andrews--Gordon, Rogers--Ramanujan and Zagier sums and, for
+$E_7$, to a rank-four sum evaluated with Bailey's lemma and the $q$-Chu--Vandermonde sum. The same
+argument gives an infinite family of identities. The matrix identities and fusion chains for $E_8$ and $E_6$ are checked in
+Lean. An appendix records three misprints in Sun--Wang. The results, proofs, code and Lean files were
+produced by AI (Anthropic's Claude models) directed by the author and checked by independent AI referees
+and the Lean kernel; no human expert has refereed this work yet.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+Throughout, $(a;q)_n=\prod_{j=0}^{n-1}(1-aq^j)$, $(q)_n=(q;q)_n$,
+$(a_1,\dots,a_s;q)_\infty=\prod_i\prod_{j\ge0}(1-a_iq^j)$. For a symmetric matrix $A\in\Q^{r\times r}$ and
+$B\in\Q^r$ put $Q_{A,B}(n)=\frac12n^{\T}An+B^{\T}n$ and
+\begin{equation}\label{eq:F}
+F_{A,B}(q)=\sum_{n\in\N^r}\frac{q^{Q_{A,B}(n)}}{(q)_{n_1}\cdots(q)_{n_r}} .
+\end{equation}
+Nahm's conjecture~\cite{Nahm,Zagier} relates the modularity of such sums (after multiplication by a
+suitable $q^C$) to torsion in the Bloch group. For two Dynkin diagrams $X,Y$ of types $A,D,E,T$ the matrix
+$C(X)\otimes C(Y)^{-1}$ is expected to give modular Nahm sums (a ``folklore'' conjecture, see Wang and
+Wang~\cite[Conjecture~1.1]{WW-Dr}); Sun and Wang~\cite[Conjecture~1.1]{SW} extend it to all types with
+symmetrizers and tabulate the conformal field theories that should explain them. For $X=T_1$, the tadpole
+with $C(T_1)=(1)$, the matrix is $C(Y)^{-1}$, and Sun and Wang~\cite[§3]{SW} state, as relations found ``by
+checking the $q$-series to very high orders'', identities equivalent to the following two (they write
+the right sides as characters, see below):
+\begin{align}
+\sum_{n\in\N^8}\frac{q^{\frac12n^{\T}C(E_8)^{-1}n}}{\prod_i(q)_{n_i}}&=\frac1{(q,q^2,q^3,q^4,q^7,q^8,q^9,q^{10};q^{11})_\infty},
+\tag{$\sim$SW 3.20}\label{eq:SW320}\\
+\sum_{n\in\N^6}\frac{q^{\frac12n^{\T}C(E_6)^{-1}n}}{\prod_i(q)_{n_i}}&=\frac{J_{7,15}-qJ_{2,15}+2q^{2/3}J_{3,15}}{(q;q)_\infty\,(q,q^4;q^5)_\infty},
+\tag{$\sim$SW 3.19}\label{eq:SW319}
+\end{align}
+with $J_{a,m}=(q^a,q^{m-a},q^m;q^m)_\infty$; i.e.\ the $(T_1,E_8)$ sum is the vacuum character of the
+effective minimal model $M_{\rm eff}(11,2)$ (the Virasoro minimal model $M(2,11)$, with its characters
+labelled by $h-h_{\min}$) and the $(T_1,E_6)$ sum is
+$\chi_0^{M_{\rm eff}(5,2)}(\chi_0+\chi_3+2\chi_{2/3})^{M(6,5)}$. For $(T_1,E_7)$ they list the central charge
+$c=1$ and the conformal field theory as ``?''~\cite[Table~1]{SW}. Much earlier, Cherednik and
+Feigin~\cite[§3.6, ``Theta of level 1/2'']{CF} considered exactly these series: for a simply-laced root
+system their ``flat'' matrix $A^\flat=((\omega_i,\omega_j))$ is $C(R)^{-1}$; they computed the
+dilogarithm values numerically (their Table~1 gives $L^\flat=24/5,\,6,\,80/11$ for $E_6,E_7,E_8$, i.e.\
+effective central charges $\mathrm{rank}-L^\flat=6/5,\,1,\,8/11$ in the usual normalisation of Nahm
+sums; their own $c^\flat_{\rm eff}=L^\flat/h$ is normalised differently), regarded modularity in this case
+as a conditional corollary of Nahm's conjecture, and wrote that their approach ``cannot
+be directly extended to the $\flat$-case''.
+
+We prove \eqref{eq:SW320} and \eqref{eq:SW319}, together with their companions, and find and prove the
+missing $E_7$ formula.
+
+\subsection{Main results}
+Label $E_8$ as the chain $1-2-3-4-5-6-7$ with node $8$ attached to node $5$, $E_7$ as the chain
+$1-2-3-4-5-6$ with node $7$ attached to node $4$, and $E_6$ as the chain $1-2-3-4-5$ with node $6$
+attached to node $3$; $C(\cdot)$ is the Cartan matrix ($2$ on the diagonal, $-1$ for adjacent nodes).
+
+\begin{theorem}[$E_8$]\label{thm:E8}
+For every $b=(b_1,b_2,b_3,b_4)\in\Q^4$ let
+$B(b)=(b_1,\,b_3,\,b_1+b_3,\,b_2+b_4,\,b_1+b_2+b_4,\,b_1+b_4,\,b_2,\,b_4)$. Then
+\begin{equation}\label{eq:E8}
+\sum_{n\in\N^8}\frac{q^{\frac12n^{\T}C(E_8)^{-1}n+B(b)\cdot n}}{\prod_{i=1}^8(q)_{n_i}}
+=\sum_{m\in\N^4}\frac{q^{M_1^2+M_2^2+M_3^2+M_4^2+b\cdot m}}{(q)_{m_1}(q)_{m_2}(q)_{m_3}(q)_{m_4}},
+\qquad M_j=m_j+\dots+m_4 .
+\end{equation}
+\end{theorem}
+
+\begin{corollary}[five identities modulo 11]\label{cor:E8}
+For $i=1,\dots,5$,
+\[
+\sum_{n\in\N^8}\frac{q^{\frac12n^{\T}C(E_8)^{-1}n+B^{(i)}\cdot n}}{\prod_{j=1}^8(q)_{n_j}}
+=\prod_{\substack{m\ge1\\m\not\equiv0,\pm i\ (\mathrm{mod}\ 11)}}\frac1{1-q^m},
+\]
+with $B^{(5)}=0$, $B^{(4)}=(0,0,0,1,1,1,0,1)$, $B^{(3)}=(0,1,1,2,2,2,0,2)$, $B^{(2)}=(0,2,2,4,4,3,1,3)$,
+$B^{(1)}=(1,3,4,6,7,5,2,4)$. The case $i=5$ is \eqref{eq:SW320}.
+\end{corollary}
+
+\begin{theorem}[$E_6$]\label{thm:E6}
+For every $(b_1,b_2,b_3)\in\Q^3$ let $B=(b_1,\,b_2+b_3,\,b_1+b_2+b_3,\,b_1+b_3,\,b_2,\,b_3)$. Then
+\[
+\sum_{n\in\N^6}\frac{q^{\frac12n^{\T}C(E_6)^{-1}n+B\cdot n}}{\prod_{i=1}^6(q)_{n_i}}
+=\Bigl(\sum_{i,j\ge0}\frac{q^{\frac23(i^2+ij+j^2)+b_1i+b_2j}}{(q)_i(q)_j}\Bigr)\Bigl(\sum_{m\ge0}\frac{q^{m^2+b_3m}}{(q)_m}\Bigr).
+\]
+\end{theorem}
+
+\begin{corollary}[six identities for $E_6$]\label{cor:E6}
+Let $G(q)=1/(q,q^4;q^5)_\infty$, $H(q)=1/(q^2,q^3;q^5)_\infty$, $J_m=(q^m;q^m)_\infty$,
+\[
+S_4(q)=\frac{J_{7,15}-qJ_{2,15}+2q^{2/3}J_{3,15}}{J_1},\qquad
+S_3(q)=\frac{2J_{6,15}+q^{1/3}J_{4,15}+q^{4/3}J_{1,15}}{J_1}.
+\]
+Using the identities \eqref{eq:Ex10} for Zagier's rank-two Example~10, which are
+Theorem~1.4 of Cao, Rosengren and Wang~\cite{CRW} (see §\ref{sec:E6}), $F_{C(E_6)^{-1},B}$ equals
+\begin{center}
+\begin{tabular}{ll}
+$G(q)S_4(q)$ for $B=(0,0,0,0,0,0)$, & $H(q)S_4(q)$ for $B=(0,1,1,1,0,1)$,\\
+$G(q)S_3(q)$ for $B=(-\frac23,-\frac13,-1,-\frac23,-\frac13,0)$, & $H(q)S_3(q)$ for $B=(-\frac23,\frac23,0,\frac13,-\frac13,1)$,\\
+$G(q)S_3(q)$ for $B=(-\frac13,-\frac23,-1,-\frac13,-\frac23,0)$, & $H(q)S_3(q)$ for $B=(-\frac13,\frac13,0,\frac23,-\frac23,1)$.
+\end{tabular}
+\end{center}
+The first is \eqref{eq:SW319}.
+\end{corollary}
+
+\begin{theorem}[$E_7$]\label{thm:E7}
+\[
+\sum_{n\in\N^7}\frac{q^{\frac12n^{\T}C(E_7)^{-1}n}}{\prod_{i=1}^7(q)_{n_i}}
+=\frac1{(q;q)_\infty}\Bigl(\sum_{m\ge0}q^{3m^2/4}+\sum_{m\ge1}q^{7m^2/4}\Bigr)
+=\frac1{2(q;q)_\infty}\sum_{m\in\Z}\bigl(q^{3m^2/4}+q^{7m^2/4}\bigr).
+\]
+Consequently $q^{-1/24}$ times the left side is $(\theta(3\tau/4)+\theta(7\tau/4))/(2\eta(\tau))$, where
+$\theta(z)=\sum_{m\in\Z}e^{2\pi im^2z}$ and $q=e^{2\pi i\tau}$, a modular function for a congruence
+subgroup; so Conjecture~1.1 of~\cite{SW} holds for the pair $(T_1,E_7)$.
+\end{theorem}
+
+Separating the exponents in $\Z$ and in $\frac34+\Z$ gives two refinements (§\ref{sec:E7}): the parts
+of the sum with $n_1+n_3+n_7$ even, resp.\ odd, equal
+\[
+\frac1{2(q)_\infty}\sum_{k\in\Z}\bigl(q^{3k^2}+q^{7k^2}\bigr),\qquad\text{resp.}\qquad
+\frac1{2(q)_\infty}\sum_{k\in\Z}\bigl(q^{3(k+1/2)^2}+q^{7(k+1/2)^2}\bigr).
+\] The right side of
+Theorem~\ref{thm:E7} is the average of the $(A_1,D_3)$ and $(A_1,D_7)$ Nahm sums
+$\sum_nq^{n^{\T}C(D_r)^{-1}n}/\prod(q)_{n_i}=(q)_\infty^{-1}\sum_kq^{rk^2/4}$
+(Kedem, Klassen, McCoy and Melzer~\cite{KKMM1}; see~\cite[Theorem~1.2]{WW-Dk} and the references
+there).
+
+The proof of Theorem~\ref{thm:E7} gives an infinite family.
+
+\begin{theorem}\label{thm:family}
+For every integer $k\ge1$, with $N_j=n_j+\dots+n_k$,
+\[
+\sum_{a,n_1,\dots,n_k\ge0}\frac{q^{\frac k4a^2+a(N_2+\dots+N_k)+N_1^2+\dots+N_k^2}}{(q)_a(q)_{n_1}\cdots(q)_{n_k}}
+=\frac1{(q)_\infty}\Bigl(\sum_{m\ge0}q^{km^2/4}+\sum_{m\ge1}q^{(k+4)m^2/4}\Bigr).
+\]
+\end{theorem}
+
+\subsection{What is new, what was known, what is open}\label{ssec:novelty}
+\emph{Known.} The fusion lemma (Lemma~\ref{lem:fusion}), in arbitrary rank and for an arbitrary pair of
+indices, is in print: Cao and Wang~\cite[(1.5)--(1.6)]{CW3} (``lifting''; also~\cite{CW-lift3,CW-lift4}),
+and, as the ``linking'' of symmetric quivers, Ekholm, Kucharski and Longhi~\cite[§4.5,
+(4.31)--(4.36)]{EKL}, iterated systematically by Kucharski, Larragu\'ivel, Noshchenko and
+Su\l kowski~\cite{KLNS}; it is also used by L.~Wang~\cite{Wang22} and by Cao, Rosengren and
+Wang~\cite[(2.4)]{CRW}. Lifts reaching an inverse Cartan matrix occur for $C(D_3)^{-1}=C(A_3)^{-1}$
+(\cite[§4]{WW-Dk}, \cite[§2]{SW}). The Durfee identity, Bailey's lemma and the $q$-Chu--Vandermonde sum
+are classical. The case $k=2$ of Theorem~\ref{thm:family} is the $(T_1,T_4)$ identity, the case of four
+summation variables and no linear term of Melzer's conjecture~\cite[(2.6)]{Melzer}, proved by Bressoud,
+Ismail and Stanton~\cite[Theorem~5.1]{BIS} and by Warnaar~\cite[Theorem~4.1]{Warnaar03} (Theorem~4.4 in
+the numbering quoted in~\cite{SW}); our proof of it is
+new but the identity is not. The rank-two identities used for $E_6$ are theorems of Cao, Rosengren and
+Wang~\cite{CRW}. The case $k=1$ of Theorem~\ref{thm:family} also follows from known identities: the left
+side is $G(q)\sum_aq^{a^2/4}/(q)_a$, and Rogers' identity
+$\sum_aq^{a^2/4}/(q)_a=G(q^{1/4})/(-q^{1/2};q^{1/2})_\infty$ together with Ramanujan's
+$G(p)G(p^4)+pH(p)H(p^4)=\varphi(p)/(p^2;p^2)_\infty$ and $G(p)G(p^4)-pH(p)H(p^4)=\varphi(p^5)/(p^2;p^2)_\infty$
+($p=q^{1/4}$, $\varphi(p)=\sum_{m\in\Z}p^{m^2}$; two of Ramanujan's forty identities, see~\cite{Forty})
+gives the right side. Yoshida~\cite{Yoshida} identified the four companions $i\le4$ of
+Corollary~\ref{cor:E8} (his charges are $-B^{(i)}$) and verified them ``through relative order
+$q^6$''; he treats the vacuum identity \eqref{eq:SW320} as known, citing only~\cite{SW}.
+
+\emph{New.} The observation that $C(E_8)^{-1}$, $C(E_6)^{-1}$ and $C(E_7)^{-1}$ are iterated lifts of
+$2C(T_4)^{-1}$, of $2C(A_2)^{-1}\oplus(2)$ and of a rank-four matrix, and its consequences:
+Theorems~\ref{thm:E8} and~\ref{thm:E6}, Corollary~\ref{cor:E8} (hence \eqref{eq:SW320} and Yoshida's
+companions), Corollary~\ref{cor:E6} given~\cite{CRW} (hence \eqref{eq:SW319}), the formula of
+Theorem~\ref{thm:E7} and the modularity of the $(T_1,E_7)$ sum, and Theorem~\ref{thm:family} for
+$k\ge3$ (and the new proofs for $k=1,2$). As far as our searches go, no proof of \eqref{eq:SW320} or \eqref{eq:SW319} and no formula for
+$(T_1,E_7)$ existed.
+
+\emph{Open.} The dual pairs $(E_n,T_1)$, i.e.\ the Nahm sums of $C(E_n)$ itself (see
+§\ref{sec:open}); the other unidentified rows of~\cite[Table~1]{SW}.
+
+\emph{Searches} (26 November 2026): arXiv metadata searches up to 25 November 2026 (``Nahm sum(s)'' with
+$E_6$, $E_7$, $E_8$, Dynkin, inverse Cartan; Rogers--Ramanujan and Andrews--Gordon with $E_8$; recent
+work of the authors in this area); the papers citing~\cite{SW} (Semantic Scholar, INSPIRE) and
+the papers citing~\cite{CF}; full texts of the most relevant papers, among
+them~\cite{SW,CF,CRW,CW3,WW-Dr,WW-Dk,Yoshida,KKMM1,KKMM2,WP,VZ,Nahm,Melzer,BIS,Warnaar03}. The
+1990s fermionic-character literature concerns $2C(G)^{-1}$ (for $E_8$: the Ising model) rather than
+$C(G)^{-1}$~\cite{KKMM1,KKMM2,WP}. No full-text search engine (MathSciNet, zbMATH, Google Scholar) was
+available; since the proofs are short and use known tools, an unindexed independent proof cannot be
+excluded. An anticipation of Theorem~\ref{thm:family} in the Bailey-lattice literature was not checked.
+
+\subsection{Formalization}
+The finite and algebraic ingredients are checked in Lean~4 with Mathlib~\cite{Lean4,Mathlib}: the printed
+matrices are $C(E_8)^{-1}$ and $C(E_6)^{-1}$; the fusion chains produce exactly these matrices and the
+stated linear terms; the quadratic-form identity behind the fusion lemma; and the Durfee identity
+(§\ref{sec:lean}). The infinite-series identities themselves are not yet formalized; a separate effort
+towards this is in progress.
+
+\subsection{Organisation}
+§\ref{sec:lemmas}: setting and the two lemmas. §§\ref{sec:E8}, \ref{sec:E6}, \ref{sec:E7}: the three
+root systems. §\ref{sec:family}: Theorem~\ref{thm:family}. §\ref{sec:open}: further remarks and open
+problems. §\ref{sec:lean}: Lean. §\ref{sec:num}: numerical checks. Appendix~\ref{app:SW}: remarks on~\cite{SW}.
+
+\section{Setting and two lemmas}\label{sec:lemmas}
+
+Call $(A,B)$ \emph{admissible} if $\{n\in\N^r:Q_{A,B}(n)\le E\}$ is finite for every real $E$. Then, with
+$D$ a common denominator of the entries of $A/2$ and of $B$, \eqref{eq:F} is a summable family in the ring
+$\Z((q^{1/D}))$ of formal Laurent series (each term is $q^{Q(n)}(1+O(q))$ with integer coefficients), and
+$F_{A,B}$ is well defined there. If $A$ is positive definite, $(A,B)$ is admissible for every $B$. All
+identities below are identities in $\Z((q^{1/D}))$; both sides also converge for $|q|<1$.
+
+\begin{lemma}[Durfee rectangle identity]\label{lem:durfee}
+For integers $a,b\ge0$,
+\begin{equation}\label{eq:durfee}
+\frac1{(q)_a(q)_b}=\sum_{c=0}^{\min(a,b)}\frac{q^{(a-c)(b-c)}}{(q)_{a-c}(q)_{b-c}(q)_c}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Work in $\Z[[q]][[x,y]]$. By Euler, $\sum_cz^c/(q)_c=1/(z;q)_\infty$, and by the $q$-binomial theorem
+$\sum_i(y;q)_ix^i/(q)_i=(xy;q)_\infty/(x;q)_\infty$ \cite[Theorem~2.1, (2.2.5)]{AndrewsBook} (both
+sides are power series in the variables whose coefficients are rational functions of $q$, resp.\ $q$ and
+$y$, agreeing on an open set, hence identities of formal power series). Hence
+\[
+\sum_{i,j,c\ge0}\frac{q^{ij}x^{i+c}y^{j+c}}{(q)_i(q)_j(q)_c}
+=\frac1{(xy;q)_\infty}\sum_i\frac{x^i}{(q)_i}\frac1{(yq^i;q)_\infty}
+=\frac1{(xy;q)_\infty(y;q)_\infty}\sum_i\frac{(y;q)_ix^i}{(q)_i}=\frac1{(x;q)_\infty(y;q)_\infty},
+\]
+and comparing the coefficients of $x^ay^b$ ($a=i+c$, $b=j+c$) gives \eqref{eq:durfee}.
+\end{proof}
+
+\begin{lemma}[fusion]\label{lem:fusion}
+Let $(A,B)$ be admissible of rank $r$ and let $a\ne b$ be two indices. Define rank $r+1$ data
+$(A^\circ,B^\circ)$, with an additional index $0$, by
+\begin{gather*}
+A^\circ_{ij}=A_{ij}+[\{i,j\}=\{a,b\}]\ (1\le i,j\le r),\qquad A^\circ_{i0}=A^\circ_{0i}=A_{ia}+A_{ib}\ (1\le i\le r),\\
+A^\circ_{00}=A_{aa}+A_{bb}+2A_{ab},\qquad B^\circ_i=B_i\ (1\le i\le r),\qquad B^\circ_0=B_a+B_b .
+\end{gather*}
+Here $[P]=1$ if $P$ holds and $0$ otherwise. Then $(A^\circ,B^\circ)$ is admissible and
+$F_{A^\circ,B^\circ}=F_{A,B}$.
+\end{lemma}
+\begin{proof}
+Let $v=e_a+e_b$. For $(m,c)\in\N^r\times\N$,
+\begin{equation}\label{eq:Qfuse}
+Q_{A^\circ,B^\circ}(m,c)=\tfrac12m^{\T}Am+m_am_b+c\,(Av)^{\T}m+\tfrac12c^2v^{\T}Av+B^{\T}m+cB^{\T}v=Q_{A,B}(m+cv)+m_am_b .
+\end{equation}
+The map $(m,c)\mapsto n=m+cv$ has finite fibres ($c\le\min(n_a,n_b)$), and $Q_{A^\circ,B^\circ}(m,c)\ge
+Q_{A,B}(n)$, so $(A^\circ,B^\circ)$ is admissible. Grouping the summable family $F_{A^\circ,B^\circ}$
+according to $n$ and using \eqref{eq:Qfuse},
+\[
+F_{A^\circ,B^\circ}=\sum_{n\in\N^r}\frac{q^{Q_{A,B}(n)}}{\prod_{i\ne a,b}(q)_{n_i}}
+\sum_{c=0}^{\min(n_a,n_b)}\frac{q^{(n_a-c)(n_b-c)}}{(q)_{n_a-c}(q)_{n_b-c}(q)_c}=F_{A,B}
+\]
+by Lemma~\ref{lem:durfee}.
+\end{proof}
+
+In words: one may adjoin a species $0=a+b$ whose row of $A$ is the sum of the rows of $a$ and $b$, at the
+cost of raising $A_{ab}$ by $1$. In matrix form $A^\circ=P^{\T}AP+E_{ab}+E_{ba}$, $B^\circ=P^{\T}B$ with
+$P=(I_r\,|\,v)$. Positive definiteness is not needed, although all intermediate matrices below are in fact
+positive definite. As explained in §\ref{ssec:novelty}, Lemma~\ref{lem:fusion} is known; it is
+included to keep the paper self-contained.
+
+\emph{Formal-variable version.} If $A$ is positive definite and $y_1,\dots,y_r$ are indeterminates,
+then
+$\sum_nq^{\frac12n^{\T}An}y^n/\prod(q)_{n_i}=\sum_{(m,c)}q^{\frac12m^{\T}Am+m_am_b+c(Av)^{\T}m+\frac12c^2v^{\T}Av}y^m(y_ay_b)^c/(\prod(q)_{m_i}\cdot(q)_c)$
+in $\Z[[q^{1/D}]][[y_1,\dots,y_r]]$: the coefficient of each monomial $y^n$ is a finite sum ($c\le\min(n_a,n_b)$),
+equal on both sides by Lemma~\ref{lem:durfee}.
+
+\section{\texorpdfstring{$E_8$}{E8}}\label{sec:E8}
+
+\begin{proof}[Proof of Theorem~\ref{thm:E8}]
+Let $A^{(0)}=(2\min(i,j))_{1\le i,j\le4}$; then $\frac12m^{\T}A^{(0)}m=\sum_{i,j}\min(i,j)m_im_j=M_1^2+\dots+M_4^2$,
+so the right side of \eqref{eq:E8} is $F_{A^{(0)},b}$ ($A^{(0)}=2C(T_4)^{-1}$ is positive definite). Name the
+four variables $m_1,m_2,m_3,m_4$ after the $E_8$ nodes $1,7,2,8$, and apply Lemma~\ref{lem:fusion} four
+times, creating the nodes $4,6,5,3$ in this order:
+\[
+\text{node }4:=7+8,\qquad\text{node }6:=1+8,\qquad\text{node }5:=1+4,\qquad\text{node }3:=1+2 .
+\]
+Each step copies ``row $a$ + row $b$'' into the new row, puts $A_{aa}+A_{bb}+2A_{ab}$ on the diagonal, and
+then raises $A_{ab}$ by $1$. With rows and columns in the order of creation, the five stages are
+\[
+\begin{array}{c|cccc}
+&1&7&2&8\\\hline
+1&2&2&2&2\\7&2&4&4&4\\2&2&4&6&6\\8&2&4&6&8
+\end{array}
+\qquad
+\begin{array}{c|ccccc}
+&1&7&2&8&4\\\hline
+1&2&2&2&2&4\\7&2&4&4&5&8\\2&2&4&6&6&10\\8&2&5&6&8&12\\4&4&8&10&12&20
+\end{array}
+\qquad
+\begin{array}{c|cccccc}
+&1&7&2&8&4&6\\\hline
+1&2&2&2&3&4&4\\7&2&4&4&5&8&7\\2&2&4&6&6&10&8\\8&3&5&6&8&12&10\\4&4&8&10&12&20&16\\6&4&7&8&10&16&14
+\end{array}
+\]
+\[
+\begin{array}{c|ccccccc}
+&1&7&2&8&4&6&5\\\hline
+1&2&2&2&3&5&4&6\\7&2&4&4&5&8&7&10\\2&2&4&6&6&10&8&12\\8&3&5&6&8&12&10&15\\
+4&5&8&10&12&20&16&24\\6&4&7&8&10&16&14&20\\5&6&10&12&15&24&20&30
+\end{array}
+\qquad
+\begin{array}{c|cccccccc}
+&1&7&2&8&4&6&5&3\\\hline
+1&2&2&3&3&5&4&6&4\\7&2&4&4&5&8&7&10&6\\2&3&4&6&6&10&8&12&8\\8&3&5&6&8&12&10&15&9\\
+4&5&8&10&12&20&16&24&15\\6&4&7&8&10&16&14&20&12\\5&6&10&12&15&24&20&30&18\\3&4&6&8&9&15&12&18&12
+\end{array}
+\]
+(the raised entries are $A_{78}:4\to5$, $A_{18}:2\to3$, $A_{14}:4\to5$, $A_{12}:2\to3$). Reordered as
+$1,\dots,8$, the last matrix is
+\[
+\begin{pmatrix}
+2&3&4&5&6&4&2&3\\3&6&8&10&12&8&4&6\\4&8&12&15&18&12&6&9\\5&10&15&20&24&16&8&12\\
+6&12&18&24&30&20&10&15\\4&8&12&16&20&14&7&10\\2&4&6&8&10&7&4&5\\3&6&9&12&15&10&5&8
+\end{pmatrix}=C(E_8)^{-1},
+\]
+as one checks by multiplying by $C(E_8)$. Under the four steps the linear term $b$ on the nodes
+$(1,7,2,8)$ acquires the entries $B_4=b_2+b_4$, $B_6=b_1+b_4$, $B_5=b_1+b_2+b_4$, $B_3=b_1+b_3$, which is the
+vector $B(b)$. By Lemma~\ref{lem:fusion}, $F_{C(E_8)^{-1},B(b)}=F_{A^{(0)},b}$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:E8}]
+The Andrews--Gordon identities~\cite[Theorem~1]{Andrews74} (\cite[Theorem~7.8]{AndrewsBook};
+Gordon~\cite{Gordon} for the combinatorial version) state that for $k\ge2$ and $1\le i\le k$,
+\[
+\sum_{m_1,\dots,m_{k-1}\ge0}\frac{q^{M_1^2+\dots+M_{k-1}^2+M_i+\dots+M_{k-1}}}{(q)_{m_1}\cdots(q)_{m_{k-1}}}
+=\prod_{\substack{n\ge1\\n\not\equiv0,\pm i\ (\mathrm{mod}\ 2k+1)}}\frac1{1-q^n},\qquad M_j=m_j+\dots+m_{k-1}.
+\]
+Take $k=5$. Since $M_i+\dots+M_4=\sum_j\max(0,j-i+1)m_j$, the left side is $F_{A^{(0)},b^{(i)}}$ with
+$b^{(5)}=0$, $b^{(4)}=(0,0,0,1)$, $b^{(3)}=(0,0,1,2)$, $b^{(2)}=(0,1,2,3)$, $b^{(1)}=(1,2,3,4)$, and
+Theorem~\ref{thm:E8} gives the corollary with $B^{(i)}=B(b^{(i)})$.
+\end{proof}
+
+\emph{Modularity and the CFT reading.} The characters of the Virasoro minimal model $M(2,11)$ are
+$q^{h_i-c/24}\prod_{n\not\equiv0,\pm i\ (11)}(1-q^n)^{-1}$, $i=1,\dots,5$, with $c=-232/11$ and
+$h_i=-(i-1)(10-i)/22$ (Rocha-Caridi's formula~\cite{RC} and the Jacobi triple product); the lowest weight
+is $h_5$, and $h_5-c/24=-1/33$. With $C=-c_{\rm eff}/24=-1/33$, $c_{\rm eff}=8/11$, the case $i=5$ reads
+$q^{-1/33}F_{C(E_8)^{-1},0}=\eta(\tau)^{-1}\sum_{n\in\Z}(-1)^nq^{11(n+1/22)^2/2}$ (Jacobi triple product;
+$-\frac1{33}-\frac1{88}+\frac1{24}=0$), a weight-$\frac12$ unary theta function divided by $\eta$, hence a
+modular function for a congruence subgroup; this establishes Conjecture~1.1 of~\cite{SW} (and the
+folklore conjecture~\cite[Conjecture~1.1]{WW-Dr}) for $(T_1,E_8)$. Of the five products only $i=5$
+agrees with the sum for $B=0$ (the products $i=1,2,3,4$ first differ from it at $q^1,q^2,q^3,q^4$). The
+effective weights $h_i-h_5$ are $10/11,6/11,3/11,1/11$ for $i=1,2,3,4$, in agreement with Yoshida's
+identifications~\cite[(3.77)--(3.80)]{Yoshida}.
+
+\begin{remark}[refined form]
+The same computation with indeterminates gives, in $\Z[[q]][[y_1,\dots,y_4]]$,
+\[
+\sum_{n\in\N^8}\frac{q^{\frac12n^{\T}C(E_8)^{-1}n}y_1^{n_1+n_3+n_5+n_6}y_2^{n_4+n_5+n_7}y_3^{n_2+n_3}y_4^{n_4+n_5+n_6+n_8}}{\prod(q)_{n_i}}
+=\sum_{m\in\N^4}\frac{q^{M_1^2+\dots+M_4^2}y_1^{m_1}y_2^{m_2}y_3^{m_3}y_4^{m_4}}{\prod(q)_{m_j}} .
+\]
+So the eight $E_8$ ``quasi-particles'' are the four Andrews--Gordon ones (nodes $1,7,2,8$) and the bound
+states $1+2$, $1+8$, $7+8$, $1+7+8$ (nodes $3,6,4,5$). With $y_j=x^j$ the weight is $x^{w\cdot n}$,
+$w=C(E_8)^{-1}\varepsilon=(1,3,4,6,7,5,2,4)$, $\varepsilon=(-1,1,-1,1,-1,1,-1,1)$ the bipartition sign vector,
+and the right side is the function $J_{5,5}(0;x;q)$ of~\cite[Ch.~7]{AndrewsBook}.
+\end{remark}
+
+\section{\texorpdfstring{$E_6$}{E6}}\label{sec:E6}
+
+\begin{proof}[Proof of Theorem~\ref{thm:E6}]
+Start with the rank-three data
+$A^{(0)}=\left(\begin{smallmatrix}4/3&2/3&0\\2/3&4/3&0\\0&0&2\end{smallmatrix}\right)=2C(A_2)^{-1}\oplus(2)$, $b=(b_1,b_2,b_3)$,
+whose Nahm sum is the right side of the theorem (it factors because $A^{(0)}$ is block diagonal). Name
+the variables $(i,j,m)$ after the $E_6$ nodes $1,5,6$ and apply Lemma~\ref{lem:fusion} three times:
+node $2:=5+6$, node $4:=1+6$, node $3:=1+2$. In the order $(1,5,6\,|\,2\,|\,4\,|\,3)$ the stages are
+\[
+\begin{pmatrix}\frac43&\frac23&0\\\frac23&\frac43&0\\0&0&2\end{pmatrix}\!,
+\begin{pmatrix}\frac43&\frac23&0&\frac23\\\frac23&\frac43&1&\frac43\\0&1&2&2\\\frac23&\frac43&2&\frac{10}3\end{pmatrix}\!,
+\begin{pmatrix}\frac43&\frac23&1&\frac23&\frac43\\\frac23&\frac43&1&\frac43&\frac53\\1&1&2&2&2\\\frac23&\frac43&2&\frac{10}3&\frac83\\\frac43&\frac53&2&\frac83&\frac{10}3\end{pmatrix}\!,
+\begin{pmatrix}\frac43&\frac23&1&\frac53&\frac43&2\\\frac23&\frac43&1&\frac43&\frac53&2\\1&1&2&2&2&3\\\frac53&\frac43&2&\frac{10}3&\frac83&4\\\frac43&\frac53&2&\frac83&\frac{10}3&4\\2&2&3&4&4&6\end{pmatrix}\!,
+\]
+and the last matrix, reordered as $1,\dots,6$, is
+\[
+\begin{pmatrix}
+4/3&5/3&2&4/3&2/3&1\\5/3&10/3&4&8/3&4/3&2\\2&4&6&4&2&3\\4/3&8/3&4&10/3&5/3&2\\2/3&4/3&2&5/3&4/3&1\\1&2&3&2&1&2
+\end{pmatrix}=C(E_6)^{-1}.
+\]
+The linear terms become $B_2=b_2+b_3$, $B_4=b_1+b_3$, $B_3=b_1+b_2+b_3$. Lemma~\ref{lem:fusion} gives the
+theorem.
+\end{proof}
+
+For Corollary~\ref{cor:E6} we need the Rogers--Ramanujan identities
+$\sum_mq^{m^2}/(q)_m=G(q)$, $\sum_mq^{m^2+m}/(q)_m=H(q)$~\cite{Rogers,AndrewsBook} and
+\begin{equation}\label{eq:Ex10}
+\sum_{i,j\ge0}\frac{q^{\frac23(i^2+ij+j^2)}}{(q)_i(q)_j}=S_4(q),\qquad
+\sum_{i,j\ge0}\frac{q^{\frac23(i^2+ij+j^2)-\frac{2i+j}3}}{(q)_i(q)_j}=S_3(q)
+\end{equation}
+(and the same with $i,j$ exchanged). These are the identities for Zagier's rank-two Example~10,
+$A=\left(\begin{smallmatrix}4/3&2/3\\2/3&4/3\end{smallmatrix}\right)$, conjectured by Vlasenko and
+Zwegers~\cite[Table~1]{VZ}; under $q\mapsto q^3$ they are equations (1.6b) and (1.6a) of Cao, Rosengren and
+Wang~\cite{CRW}. Their status, precisely: Cherednik and Feigin~\cite[around (2.20)]{CF} prove modularity of
+the sum side for $B=0$ and report a computer comparison of coefficients (no bound stated); L.~Wang~\cite[§3.10]{Wang22}
+still lists both as conjectures; Cao, Rosengren and Wang prove $S_1=(-q^3;q^3)_\infty S_3$,
+$S_2=(-q^3;q^3)_\infty S_4$ (in their normalisation) and product formulas for $S_1,S_2$, and deduce
+\eqref{eq:Ex10} from these by an identity between modular theta quotients verified with a Maple
+package~\cite[Theorem~1.4]{CRW}. \emph{Corollary~\ref{cor:E6} and \eqref{eq:SW319} are therefore exactly as
+rigorous as~\cite[Theorem~1.4]{CRW}; Theorem~\ref{thm:E6} itself is unconditional.}
+
+\begin{proof}[Proof of Corollary~\ref{cor:E6}]
+Insert the Rogers--Ramanujan identities and \eqref{eq:Ex10} in Theorem~\ref{thm:E6} with
+$(b_1,b_2)\in\{(0,0),(-\frac23,-\frac13),(-\frac13,-\frac23)\}$ and $b_3\in\{0,1\}$.
+\end{proof}
+
+\emph{The CFT form of \eqref{eq:SW319}.} We have $\chi_0^{M_{\rm eff}(5,2)}=q^{-1/60}G(q)$, and
+$q^{-1/30}S_4=(\chi_0+\chi_3+2\chi_{2/3})^{M(6,5)}$. For the latter, by the Jacobi triple product
+$J_{a,15}=\sum_n(-1)^nq^{(15n^2-(15-2a)n)/2}$; splitting $n=2k,2k+1$ gives
+\begin{align*}
+J_{7,15}&=\textstyle\sum_k(q^{30k^2-k}-q^{30k^2+29k+7}),\qquad
+-qJ_{2,15}=\sum_k(-q^{30k^2-11k+1}+q^{30k^2+19k+3}),\\
+J_{3,15}&=\textstyle\sum_k(q^{30k^2-9k}-q^{30k^2+21k+3}).
+\end{align*}
+The Rocha-Caridi numerators of $M(6,5)$ (with $p=5$, $p'=6$) are $N_{r,s}=\sum_k(q^{k(30k+6r-5s)}-q^{(5k+r)(6k+s)})$, so
+$N_{1,1}=\sum_k(q^{30k^2+k}-q^{30k^2+11k+1})$, $q^3N_{4,1}=\sum_k(q^{30k^2+19k+3}-q^{30k^2+29k+7})$ and
+$N_{1,3}=\sum_k(q^{30k^2-9k}-q^{30k^2+21k+3})$. Hence $J_{3,15}=N_{1,3}$, and
+$J_{7,15}-qJ_{2,15}=N_{1,1}+q^3N_{4,1}$: the four half-series of the left side coincide with the four
+half-series of the right side, paired crosswise (with $k\mapsto-k$ in $q^{30k^2-k}$ and $q^{30k^2-11k+1}$);
+individually $J_{7,15}\ne N_{1,1}$. With $h=0,3,2/3$ for $(r,s)=(1,1),(4,1),(1,3)$ this is the claimed
+identification. Each of $q^{-1/60}G$ and $q^{-1/30}S_4$ is a combination of weight-$\frac12$ unary theta
+functions divided by $\eta$, so $q^{-1/20}F_{C(E_6)^{-1},0}$ (with $-\frac1{20}=-\frac1{60}-\frac1{30}=-c_{\rm eff}/24$,
+$c_{\rm eff}=6/5$) is modular and Conjecture~1.1 of~\cite{SW} holds for $(T_1,E_6)$,
+given~\cite[Theorem~1.4]{CRW}.
+
+\section{\texorpdfstring{$E_7$}{E7}}\label{sec:E7}
+
+\subsection{Reduction to rank four}
+Let $A^{(0)}$ be the matrix on the variables $(a,n_1,n_2,n_3)$, named after the $E_7$ nodes $1,6,2,5$:
+\[
+A^{(0)}=\begin{pmatrix}3/2&0&1&2\\0&2&2&2\\1&2&4&4\\2&2&4&6\end{pmatrix},\qquad
+\tfrac12(a,n)A^{(0)}(a,n)^{\T}=\tfrac34a^2+a(N_2+N_3)+N_1^2+N_2^2+N_3^2,
+\]
+$N_j=n_j+\dots+n_3$ ($A^{(0)}$ is positive definite, $\det A^{(0)}=4$). Apply Lemma~\ref{lem:fusion} three
+times: node $7:=1+6$, node $4:=5+6$, node $3:=1+2$. In the order $(1,6,2,5\,|\,7\,|\,4\,|\,3)$ the stages are
+\[
+\begin{pmatrix}\frac32&1&1&2&\frac32\\1&2&2&2&2\\1&2&4&4&3\\2&2&4&6&4\\\frac32&2&3&4&\frac72\end{pmatrix}\!,\
+\begin{pmatrix}\frac32&1&1&2&\frac32&3\\1&2&2&3&2&4\\1&2&4&4&3&6\\2&3&4&6&4&8\\\frac32&2&3&4&\frac72&6\\3&4&6&8&6&12\end{pmatrix}\!,\
+\begin{pmatrix}\frac32&1&2&2&\frac32&3&\frac52\\1&2&2&3&2&4&3\\2&2&4&4&3&6&5\\2&3&4&6&4&8&6\\\frac32&2&3&4&\frac72&6&\frac92\\3&4&6&8&6&12&9\\\frac52&3&5&6&\frac92&9&\frac{15}2\end{pmatrix}
+\]
+(raised entries $A_{16}:0\to1$, $A_{56}:2\to3$, $A_{12}:1\to2$), and the last matrix reordered as
+$1,\dots,7$ is
+\[
+\begin{pmatrix}
+3/2&2&5/2&3&2&1&3/2\\2&4&5&6&4&2&3\\5/2&5&15/2&9&6&3&9/2\\3&6&9&12&8&4&6\\2&4&6&8&6&3&4\\1&2&3&4&3&2&2\\3/2&3&9/2&6&4&2&7/2
+\end{pmatrix}=C(E_7)^{-1}.
+\]
+Hence, by Lemma~\ref{lem:fusion},
+\begin{equation}\label{eq:E7red}
+F(q):=\sum_{n\in\N^7}\frac{q^{\frac12n^{\T}C(E_7)^{-1}n}}{\prod(q)_{n_i}}
+=\sum_{a\ge0}\frac{q^{3a^2/4}}{(q)_a}\,T_3(a),\qquad
+T_k(a):=\sum_{n_1,\dots,n_k\ge0}\frac{q^{N_1^2+\dots+N_k^2+a(N_2+\dots+N_k)}}{(q)_{n_1}\cdots(q)_{n_k}} .
+\end{equation}
+Thus Theorem~\ref{thm:E7} is the case $k=3$ of Theorem~\ref{thm:family}, which we now prove.
+
+\section{Proof of Theorem~\ref{thm:family}}\label{sec:family}
+
+\begin{lemma}[Bailey chain]\label{lem:bailey}
+Let $x$ be a parameter with $x\ne q^{-m}$ $(m\ge1)$ and put, for $r\ge0$,
+\[
+\alpha_r=\frac{(-1)^rq^{r(r-1)/2}(1-xq^{2r})(x;q)_r}{(1-x)(q)_r}
+\]
+($\alpha_0=1$; for $x=1$ read $(x;q)_r/(1-x)$ as $(q;q)_{r-1}$, so $\alpha_r=(-1)^rq^{r(r-1)/2}(1+q^r)$ for $r\ge1$).
+Then for every $k\ge1$ and $N\ge0$
+\begin{equation}\label{eq:bailey}
+\sum_{N\ge N_2\ge\dots\ge N_k\ge0}\frac{x^{N_2+\dots+N_k}q^{N_2^2+\dots+N_k^2}}{(q)_{N-N_2}(q)_{N_2-N_3}\cdots(q)_{N_{k-1}-N_k}(q)_{N_k}}
+=\sum_{r=0}^{N}\frac{x^{kr}q^{kr^2}\alpha_r}{(q)_{N-r}(xq;q)_{N+r}},
+\end{equation}
+where for $k=1$ the left side is $1/(q)_N$.
+\end{lemma}
+\begin{proof}
+A pair $(\alpha_n,\beta_n)$ is a Bailey pair relative to $x$ if
+$\beta_n=\sum_{r=0}^n\alpha_r/((q)_{n-r}(xq)_{n+r})$. (i) The unit Bailey pair is $\alpha_r$ as above,
+$\beta_n=\delta_{n,0}$. (ii) Bailey's lemma in the limit $\rho_1,\rho_2\to\infty$: if $(\alpha,\beta)$ is a
+Bailey pair relative to $x$, then so is $\alpha'_r=x^rq^{r^2}\alpha_r$,
+$\beta'_n=\sum_{r=0}^nx^rq^{r^2}\beta_r/(q)_{n-r}$. Both are classical: Andrews~\cite[(2.3)--(2.6), Theorem~1
+(2.7), and (2.12)--(2.13) for the unit pair]{Andrews84}; Warnaar~\cite[(1.3), Theorem~2.1, (2.2), (2.3)]{Warnaar50}.
+Apply (ii) $k$ times to (i). By induction on $k$, $\alpha^{(k)}_r=x^{kr}q^{kr^2}\alpha_r$;
+$\beta^{(1)}_n=1/(q)_n$; and if $\beta^{(k)}_n$ is the left side of \eqref{eq:bailey} with $N=n$, then
+$\beta^{(k+1)}_N=\sum_{N_2\le N}x^{N_2}q^{N_2^2}\beta^{(k)}_{N_2}/(q)_{N-N_2}$ is the left side for $k+1$ (rename the
+summation variables of $\beta^{(k)}$ as $N_3,\dots,N_{k+1}$). Identity \eqref{eq:bailey} is the statement that
+$(\alpha^{(k)},\beta^{(k)})$ is a Bailey pair. Both sides are rational functions of $x$ and $q$, regular at
+$x=q^a$, $a\ge0$.
+\end{proof}
+
+\begin{lemma}\label{lem:cauchy}
+For integers $a,R\ge0$,
+\[
+\sum_{m\ge0}\frac{q^{m^2+Rm}}{(q)_m(q)_{m+R+a}}=\frac1{(q)_\infty}\sum_{j=0}^{a}\qbin aj q^{j^2+Rj},
+\qquad\qbin aj=\frac{(q)_a}{(q)_j(q)_{a-j}} .
+\]
+\end{lemma}
+\begin{proof}
+Cauchy's identity $\sum_{m\ge0}q^{m(m+c)}/((q)_m(q)_{m+c})=1/(q)_\infty$ holds for every integer $c\ge0$: Lemma~\ref{lem:durfee}
+with $(a,b)\to(A,A+c)$ reads $1/((q)_A(q)_{A+c})=\sum_{m=0}^{A}q^{m(m+c)}/((q)_m(q)_{m+c}(q)_{A-m})$, and as $A\to\infty$
+(coefficientwise in $\Z[[q]]$) the left side tends to $(q)_\infty^{-2}$ and the right side to
+$(q)_\infty^{-1}\sum_mq^{m(m+c)}/((q)_m(q)_{m+c})$. Use it with $c=R+a+j$ for each $j$ and substitute $m\to m-j$:
+\[
+\frac1{(q)_\infty}\sum_j\qbin ajq^{j^2+Rj}=\sum_{m\ge0}\frac{q^{m^2+Rm}}{(q)_{m+R+a}}\sum_{j=0}^{\min(a,m)}\qbin aj\frac{q^{(m-j)(a-j)}}{(q)_{m-j}},
+\]
+because $j^2+Rj+(m-j)(m+R+a)=m^2+Rm+(m-j)(a-j)$. By Lemma~\ref{lem:durfee},
+$\sum_jq^{(m-j)(a-j)}/((q)_j(q)_{a-j}(q)_{m-j})=1/((q)_a(q)_m)$, so the inner sum is $1/(q)_m$.
+\end{proof}
+
+\begin{proposition}\label{prop:T}
+For integers $k\ge1$ and $a\ge0$,
+\[
+T_k(a)=\frac1{(q)_\infty}\sum_{r\ge0}(-1)^rq^{kar+(k+1)r^2+r(r-1)/2}\,\frac{(1-q^{a+2r})(q)_{a+r-1}}{(q)_r}\sum_{j=0}^{a}\qbin ajq^{j^2+2rj},
+\]
+where for $a=r=0$ the factor $(1-q^{a+2r})(q)_{a+r-1}/(q)_r$ is read as $1$.
+\end{proposition}
+\begin{proof}
+With $x=q^a$ and $N=N_1$, the left side of \eqref{eq:bailey} multiplied by $q^{N^2}$ and summed over $N$ is
+$T_k(a)$ (for $k=1$, $T_1(a)=\sum_Nq^{N^2}/(q)_N$). Interchanging the summable sums and writing $N=m+r$,
+\[
+T_k(a)=\sum_{r\ge0}q^{kar+kr^2}\alpha_r\sum_{m\ge0}\frac{q^{(m+r)^2}}{(q)_m(q^{a+1};q)_{m+2r}} .
+\]
+Since $(q^{a+1})_{m+2r}=(q)_{m+2r+a}/(q)_a$, Lemma~\ref{lem:cauchy} with $R=2r$ gives for the inner sum
+$q^{r^2}(q)_a(q)_\infty^{-1}\sum_j\qbin ajq^{j^2+2rj}$. Finally
+$\alpha_r(q)_a=(-1)^rq^{r(r-1)/2}(1-q^{a+2r})(q)_{a+r-1}/(q)_r$, because $(q^a)_r/(1-q^a)=(q)_{a+r-1}/(q)_a$ for
+$a\ge1$, and by the convention above for $a=0$.
+\end{proof}
+
+Insert Proposition~\ref{prop:T} in the left side of Theorem~\ref{thm:family}, which is
+$\sum_aq^{ka^2/4}T_k(a)/(q)_a$. The triple series over $(a,r,j)$ is summable (the exponent is
+$\ge\frac k4(a+2r)^2$), so we may collect the terms with $n:=a+2r$ fixed. Since
+$\frac k4a^2+kar+(k+1)r^2+\frac{r(r-1)}2+j^2+2rj=\frac k4n^2+\frac{r(r-1)}2+(r+j)^2$ and
+$\qbin aj/(q)_a=1/((q)_j(q)_{a-j})$, we get
+\begin{equation}\label{eq:cn}
+(q)_\infty\cdot(\text{left side})=\sum_{n\ge0}q^{kn^2/4}c_n,\qquad c_0=1,\end{equation}
+\begin{equation}\label{eq:cn2}
+c_n=(1-q^n)\!\!\sum_{\substack{r,j\ge0\\2r+j\le n}}\!\!\frac{(-1)^rq^{r(r-1)/2+(r+j)^2}(q)_{n-r-1}}{(q)_r(q)_j(q)_{n-2r-j}}\quad(n\ge1).
+\end{equation}
+The polynomials $c_n$ do not depend on $k$.
+
+\begin{proposition}\label{prop:cn}
+$c_n=1+q^{n^2}$ for all $n\ge1$.
+\end{proposition}
+\begin{proof}
+Put $u=r+j$. Then
+\[
+\frac{c_n}{1-q^n}=\sum_{u=0}^nq^{u^2}\Sigma_u,\qquad
+\Sigma_u:=\sum_{r=0}^{\min(u,n-u)}\frac{(-1)^rq^{r(r-1)/2}(q)_{n-r-1}}{(q)_r(q)_{u-r}(q)_{n-u-r}} .
+\]
+For $u=0$ and $u=n$ only $r=0$ occurs, and $\Sigma_0=\Sigma_n=(q)_{n-1}/(q)_n=1/(1-q^n)$. For $1\le u\le n-1$ use
+$(q)_{n-r-1}=(q)_{n-1}/(q^{n-r};q)_r$ with $(q^{n-r};q)_r=(-1)^rq^{nr-r(r+1)/2}(q^{1-n};q)_r$,
+$1/(q)_{u-r}=(-1)^rq^{ur-r(r-1)/2}(q^{-u};q)_r/(q)_u$ and $1/(q)_{n-u-r}=(-1)^rq^{(n-u)r-r(r-1)/2}(q^{u-n};q)_r/(q)_{n-u}$;
+the powers of $q$ combine to $q^r$ and the signs to $+1$:
+\[
+\Sigma_u=\frac{(q)_{n-1}}{(q)_u(q)_{n-u}}\sum_{r\ge0}\frac{(q^{-u};q)_r(q^{u-n};q)_r}{(q;q)_r(q^{1-n};q)_r}q^r
+=\frac{(q)_{n-1}}{(q)_u(q)_{n-u}}\,{}_2\phi_1(q^{-u},q^{u-n};q^{1-n};q,q)
+\]
+(the denominators $(q^{1-n};q)_r$, $r\le u\le n-1$, do not vanish). By the $q$-Chu--Vandermonde sum
+${}_2\phi_1(q^{-u},b;c;q,q)=(c/b;q)_ub^u/(c;q)_u$~\cite[(1.5.3)]{GR} (an identity of rational functions of
+$b,c$, valid when $(c;q)_u\ne0$) with $b=q^{u-n}$, $c=q^{1-n}$ we have $c/b=q^{1-u}$ and
+$(q^{1-u};q)_u=0$ for $u\ge1$. Hence $\Sigma_u=0$ for $1\le u\le n-1$ and $c_n=(1-q^n)(1+q^{n^2})/(1-q^n)$.
+\end{proof}
+
+\begin{proof}[Proof of Theorems~\ref{thm:family} and~\ref{thm:E7}]
+By \eqref{eq:cn} and Proposition~\ref{prop:cn},
+$(q)_\infty\cdot(\text{left side})=1+\sum_{n\ge1}(q^{kn^2/4}+q^{kn^2/4+n^2})$, which is
+Theorem~\ref{thm:family}. (The coefficient $k/4$ of $a^2$ is exactly what makes the cross term in $nr$
+cancel.) For $k=3$, \eqref{eq:E7red} gives the first formula of Theorem~\ref{thm:E7}; the second follows
+since $\sum_{\Z}q^{3k^2/4}+\sum_\Z q^{7k^2/4}=2+2\sum_{k\ge1}(\cdots)$.
+
+\emph{Modularity.} Put $\theta(z)=\sum_{k\in\Z}e^{2\pi ik^2z}$, a modular form of weight $\frac12$ on
+$\Gamma_0(4)$ (with the theta multiplier), and $\eta(z)=e^{2\pi iz/24}\prod(1-e^{2\pi inz})$. With
+$q=e^{2\pi i\tau}$ and $c_{\rm eff}=1$, $q^{-1/24}F(q)=(\theta(3\tau/4)+\theta(7\tau/4))/(2\eta(\tau))$; in the
+variable $z=\tau/24$ this is $(\theta(18z)+\theta(42z))/(2\eta(24z))$. Here $\theta(Nz)$ is a modular form of
+weight $\frac12$ on $\Gamma_0(4N)$ with the theta multiplier times the quadratic character $(N/\cdot)$, and
+$\eta(24z)=\sum_{n\ge1}\chi_{12}(n)q^{n^2}$ (Euler's pentagonal theorem, $q=e^{2\pi iz}$) is a modular form of
+weight $\frac12$ on $\Gamma_0(576)$ with the theta multiplier times $\chi_{12}$ (see~\cite{Shimura}
+and~\cite[Ch.~1]{Ono}). The three characters are trivial on $\Gamma_1(4032)$,
+$4032=\mathrm{lcm}(72,168,576)$, so $\theta(18z)+\theta(42z)$ and $\eta(24z)$ are weight-$\frac12$ forms on
+$\Gamma_1(4032)$ with the same (theta) multiplier, and their quotient is a weakly holomorphic modular function
+on $\Gamma_1(4032)$; in the variable $\tau=24z$ it is invariant under $\Gamma(4032)$.
+\end{proof}
+
+\emph{The parity refinement.} The diagonal of $C(E_7)^{-1}$ is $(3/2,4,15/2,12,6,2,7/2)$ and its
+off-diagonal half-integers are exactly between two of the nodes $1,3,7$; so
+$\frac12n^{\T}C(E_7)^{-1}n\equiv\frac34(n_1+n_3+n_7)^2\pmod1$, and the exponents lie in $\Z$ or in
+$\frac34+\Z$ according to the parity of $n_1+n_3+n_7$. Since $3k^2/4,7k^2/4\in\Z$ iff $k$ is even, separating
+the two classes on both sides gives the refinements stated after Theorem~\ref{thm:E7}.
+
+\begin{remark}[the cases $k=1,2$ of Theorem~\ref{thm:family}]
+For $k=1$, $T_1(a)$ does not depend on $a$, and the theorem reads
+$(\sum_aq^{a^2/4}/(q)_a)\,G(q)=(q)_\infty^{-1}(\sum_{m\ge0}q^{m^2/4}+\sum_{m\ge1}q^{5m^2/4})$. For $k=2$
+the matrix $\left(\begin{smallmatrix}1&0&1\\0&2&2\\1&2&4\end{smallmatrix}\right)$ is one fusion away from
+$C(T_4)^{-1}=(\min(i,j))_{i,j\le4}$, so the left side is the $(T_1,T_4)$ sum
+$\sum q^{\frac12(M_1^2+\dots+M_4^2)}/\prod(q)_{m_i}$: this is Melzer's identity, proved
+in~\cite{BIS,Warnaar03} as recalled in §\ref{ssec:novelty}. For $k\ge3$ these sums differ from Melzer's: the
+terminal form of $C(T_{2k})^{-1}$ under defusion has $A_{aa}=1$ and $a$ coupled to $N_k$ only, whereas here
+$A_{aa}=k/2$ and $a$ is coupled to $N_2+\dots+N_k$; the two families meet only at $k=2$.
+\end{remark}
+
+\section{Further remarks and open problems}\label{sec:open}
+
+\begin{enumerate}[leftmargin=2em]
+\item \emph{Known results by the same method} (sketches, not used above). For $r\ge3$, every chain node of
+$2C(D_r)^{-1}$ is successively the fusion of the two spinor nodes; removing them leaves the rank-two matrix
+$\left(\begin{smallmatrix}r/2&1-r/2\\1-r/2&r/2\end{smallmatrix}\right)$, and Cauchy's identity gives
+$\sum_nq^{n^{\T}C(D_r)^{-1}n}/\prod(q)_{n_i}=(q)_\infty^{-1}\sum_{k\in\Z}q^{rk^2/4}$ (the
+Kedem--Klassen--McCoy--Melzer identity~\cite{KKMM1}; see~\cite[Theorem~1.2]{WW-Dk} and the references
+there; checked for $r\le8$).
+Similarly $C(T_{2r+1})^{-1}$ defuses to $(1)\oplus2C(T_r)^{-1}$ (checked for $r\le3$), which gives the
+$(T_1,T_{2r+1})$ identity of Warnaar~\cite[Theorem~4.2]{Warnaar03} (Theorem~4.5 in the numbering quoted
+in~\cite{SW}) from Andrews--Gordon.
+\item \emph{The dual pairs $(E_n,T_1)$.} For the Nahm sums of $C(E_n)$ itself fusion does not apply: reading
+Lemma~\ref{lem:fusion} backwards would need three nodes $a,b,c$ of a Cartan matrix with
+$A_{ac}=A_{aa}+A_{ab}-1$ and $A_{cc}=A_{aa}+A_{bb}+2(A_{ab}-1)$, i.e.\ $A_{ac}=1>0$ if $A_{ab}=0$ and
+$A_{cc}=0\ne2$ if $A_{ab}=-1$. Sun and Wang~\cite[(3.21)]{SW} identify the $(E_8,T_1)$ sum numerically with the vacuum
+character of the Hecke image $T_{10}M_{\rm eff}(11,2)$; Yoshida~\cite{Yoshida} gives four companions. We
+checked all five against the Hecke images computed from the formula of Harvey and Wu~\cite{HW} modulo
+$q^{26}$; they remain unproved. For $(E_7,T_1)$ we found, by analogy with Theorem~\ref{thm:E7},
+\begin{equation}\label{eq:E7T1}
+\sum_{n\in\N^7}\frac{q^{\frac12n^{\T}C(E_7)n}}{\prod(q)_{n_i}}\overset{?}{=}\frac{\Theta_{E_6}(q)+\Theta_{A_6}(q)}{2(q;q)_\infty^6},
+\qquad\Theta_L(q)=\sum_{x\in L}q^{|x|^2/2},
+\end{equation}
+which holds modulo $q^{40}$ (the analogy: the even part of Theorem~\ref{thm:E7} is
+$(\Theta_{\langle6\rangle}+\Theta_{\langle14\rangle})/(2(q)_\infty)$, and Theorem~\ref{thm:E7} itself is
+$(\Theta_{\langle6\rangle}+\Theta_{\langle14\rangle})(q^{1/4})/(2(q)_\infty)$, where $\langle6\rangle$ and $\langle14\rangle$
+are the rank-one lattices orthogonal to $E_6$ and to $A_6$ in $E_7$). We state \eqref{eq:E7T1} as a conjecture. For $(E_6,T_1)$ we found no formula.
+\item \emph{Rank of the reduced forms.} The reductions are to ranks $4$ ($E_8$), $3$ ($E_6$) and $4$ ($E_7$),
+and Theorem~\ref{thm:family} is a one-parameter family containing the $E_7$ case. It would be interesting
+to know which other Nahm sums $C(X)\otimes C(Y)^{-1}$ reduce by fusion to sums of known type.
+\end{enumerate}
+
+\section{The Lean formalization}\label{sec:lean}
+
+The Lean~4 project \fpath{RRFusion}, in the public repository at
+\repo\fpath{02-exceptional-nahm-sums/lean/} (pins: Lean \texttt{leanprover/lean4:v4.33.0-rc2}, Mathlib
+commit \texttt{51e6992efd06\allowbreak126df61a496bebf8\allowbreak f49482a4e129}), machine-checks the finite and algebraic
+ingredients of §§\ref{sec:lemmas}--\ref{sec:E6}. It uses no \texttt{sorry}, no additional axiom and no
+\texttt{native\_decide}; \verb|#print axioms| gives \texttt{[propext, Classical.choice, Quot.sound]} for
+the sixteen main theorems below (the auxiliary ones were not included in that run). Matrices of Nahm data are functions $\iota\to\iota\to\Q$ on a finite index type
+$\iota$; fusing two species enlarges the index type to \texttt{Option}~$\iota$, the new species being
+\texttt{none}.
+Theorems (namespace \texttt{RRFusion}):
+\begin{itemize}[leftmargin=1.5em]
+\item \texttt{C8\_mul\_A8}, \texttt{A8\_mul\_C8} (by \texttt{decide}, i.e.\ kernel evaluation over $\Z$): the
+printed $8\times8$ matrix is a two-sided inverse of the $E_8$ Cartan matrix; \texttt{C6\_mul\_A6},
+\texttt{A6\_mul\_C6} (entrywise, by \texttt{fin\_cases}, \texttt{simp}, \texttt{norm\_num} over $\Q$): the same for
+$E_6$. Auxiliary: \texttt{C8\_eq\_diagram}, \texttt{C6\_eq\_diagram} (the matrices are those of the diagrams
+of §\ref{sec:intro}), \texttt{C8\_eq\_mathlib}, \texttt{C6\_eq\_mathlib} (they are Mathlib's
+\texttt{CartanMatrix.E}$_8$, \texttt{CartanMatrix.E}$_6$ after an explicit relabelling), \texttt{A8\_symm},
+\texttt{A6\_symm}.
+\item \texttt{Q\_fuse}: identity \eqref{eq:Qfuse}, for an arbitrary finite index type, symmetric $A$, any
+$B$, $a\ne b$, $m\in\Q^\iota$, $c\in\Q$ (a general proof); \texttt{fuse\_symm}: fusion preserves symmetry.
+\item \texttt{E8\_chain}, \texttt{E8\_chain\_linear}, \texttt{nodeE8\_bijective}: the four fusions of
+§\ref{sec:E8} applied to $(2\min(i,j))$ give, under a bijective relabelling of the nodes, exactly the printed
+$C(E_8)^{-1}$ and the vector $B(b)$ of Theorem~\ref{thm:E8} for every $b\in\Q^4$; \texttt{E6\_chain},
+\texttt{E6\_chain\_linear}, \texttt{nodeE6\_bijective}: the same for $E_6$.
+\item \texttt{durfee\_gauss}: in any commutative ring,
+$\sum_{c=0}^{\min(a,b)}q^{(a-c)(b-c)}\qbin ac\qbin bc(q)_c=1$; \texttt{durfee\_inv}, \texttt{durfee\_field},
+\texttt{durfee\_ratFunc}: identity \eqref{eq:durfee} in a field with $q^n\ne1$ ($n>0$), in particular in
+$\Q(q)$. (Proved by induction on the $q$-Pascal recurrence, not by the generating-function proof of
+Lemma~\ref{lem:durfee}.)
+\end{itemize}
+\emph{Not formalized} (as of this version): Lemma~\ref{lem:fusion} for infinite sums (summability,
+admissibility, the regrouping); the Andrews--Gordon, Rogers--Ramanujan and Cao--Rosengren--Wang identities;
+the power-series identities of Theorems~\ref{thm:E8}--\ref{thm:family}; the $E_7$ chain and
+§§\ref{sec:E7}--\ref{sec:family}; modularity. A separate effort is formalizing the full identities. To
+rebuild: install \texttt{elan}, then in the project folder run \texttt{lake exe cache get} and
+\texttt{lake build}.
+
+\section{Numerical verification}\label{sec:num}
+None of the following is used in the proofs. Paths are relative to
+\repo\fpath{02-exceptional-nahm-sums/}.
+\begin{itemize}[leftmargin=1.5em]
+\item \fpath{code/certify_E8_E6.py} (log \fpath{certificates/certify_E8_E6.txt}): the fusion chains and
+inverse matrices exactly; Corollary~\ref{cor:E8} for $i=1,\dots,5$ modulo $q^{300}$; Corollary~\ref{cor:E6}
+(all six), \eqref{eq:Ex10} and the character form of \eqref{eq:SW319} modulo $q^{150}$.
+\fpath{code/verify_E8_E6.py} (log \fpath{certificates/verify_E8_E6_q500.txt}): \eqref{eq:SW320} modulo
+$q^{500}$ (72\,395 lattice points) and \eqref{eq:SW319} modulo $q^{300}$. \fpath{code/testE8y.gp}
+(PARI/GP, log \fpath{certificates/testE8y.txt}): Theorem~\ref{thm:E8} for ten integer vectors $b$,
+including negative entries, modulo $q^{70}$.
+\item \fpath{code/certify_E7.py} (log \fpath{certificates/certify_E7.txt}): the $E_7$ chain exactly;
+Proposition~\ref{prop:cn} exactly for $n\le30$; Proposition~\ref{prop:T} ($k=3$) for $a\le5$ modulo
+$q^{120}$; Theorem~\ref{thm:E7} as a series in $q^{1/4}$ modulo $q^{300}$. \fpath{code/test_family_k.py}
+(log \fpath{certificates/test_family_k.txt}): Theorem~\ref{thm:family} for $k\le6$ modulo $q^{80}$.
+\item \fpath{code/sw_E7T1.py} (log \fpath{certificates/sw_E7T1.txt}): \eqref{eq:E7T1} modulo $q^{40}$;
+\fpath{code/sw_yoshida.py} (log \fpath{certificates/sw_yoshida.txt}): the $(E_8,T_1)$ comparison modulo $q^{26}$; \fpath{code/sw_audit.py}
+(log \fpath{certificates/sw_audit.txt}): Appendix~\ref{app:SW}.
+\item Independent referee computations (reports \fpath{REFEREE-E8-E6.md}, \fpath{REFEREE-2-E8-E6.md},
+\fpath{REFEREE-E7-KRTW.md}, \fpath{REFEREE-2-E7.md}; code written from the statements, not archived in
+the repository; the reports describe the methods):
+Corollary~\ref{cor:E8} modulo $q^{400}$; Theorem~\ref{thm:E8} for thirteen rational vectors $b$ modulo
+$q^{50}$; Corollary~\ref{cor:E6} to $q^{147}$; Theorem~\ref{thm:E7} by direct enumeration of $\N^7$ through
+$q^{200}$; Theorem~\ref{thm:family} for $k\le8$ through $q^{150}$; positive definiteness of all
+intermediate matrices.
+\end{itemize}
+
+\section*{Acknowledgements}
+The results, proofs, computer code and Lean formalization in this paper were produced by AI (Anthropic's
+Claude models) directed by the author. Their correctness was checked by independent AI referees
+(separate instances instructed to find errors, each writing its own code; four reports, included in the
+repository) and, for the formalized statements, by the Lean kernel. No human expert has refereed this
+work yet; corrections are welcome. We thank Kaiwen Sun and Haowu Wang for their extensive and carefully
+tested tables, which made this work possible.
+
+\appendix
+\section{Remarks on the tables of Sun and Wang}\label{app:SW}
+
+While testing the identities of~\cite{SW} we compared all displayed formulas (1.8)--(1.12), (2.1)--(2.8),
+(3.2), (3.5)--(3.41) and the central charges of Table~1 numerically with the Nahm sums (137 series
+comparisons, to orders between about $q^{50}$ and $q^{500}$; \fpath{certificates/sw_audit.txt}). All of them
+agree except for three small misprints, which we record for the convenience of readers; none affects the
+claims of~\cite{SW}.
+\begin{enumerate}[leftmargin=2em]
+\item In (3.27) and (3.28) (the pair $(T_2,T_1)$) the Ramond weights $1/32$ and $5/32$ appear to be
+interchanged, and the first identity needs a factor $2$: the Nahm sums satisfy
+$f_3=2\chi_{R,5/32}\chi^F_{R,1/16}$ and $f_4=\chi_{R,1/32}\chi^F_{R,1/16}$ (checked modulo $q^{300}$); as printed,
+the leading terms do not match ($f_3=2q^{1/6}+\cdots$).
+\item In the sentence before (3.30), ``the Nahm sum associated with $(T_1,A_3)$ is identical to $f_1$''
+should read $f_2$; formula (3.30) itself is correct.
+\item In (3.6) the same line is printed for $r=2n$ and $r=2n+1$. This is harmless: the formula
+$\chi^{\rm NS}_0-\chi^{\rm NS}_{\lfloor r/2\rfloor+1}$ holds for both parities (checked for $r=2,\dots,9$); the Kac
+labels differ between the two cases, the conformal weights do not.
+\end{enumerate}
+The formulas with a coefficient $2$ in front of a Ramond character ((1.8)--(1.11), (3.30)) hold when
+$\chi_R$ is normalised with leading coefficient $1$; we mention this convention because it is not stated
+explicitly. One further failure in our comparison is the value $C=19/24$ in Zagier's original list, which
+Sun and Wang themselves correct to $19/96$.
+
+\begin{thebibliography}{99}
+
+\bibitem{Andrews74} G.~E. Andrews, \emph{An analytic generalization of the Rogers--Ramanujan identities
+for odd moduli}, Proc. Nat. Acad. Sci. USA \textbf{71} (1974), 4082--4085.
+
+\bibitem{Andrews84} G.~E. Andrews, \emph{Multiple series Rogers--Ramanujan type identities}, Pacific J.
+Math. \textbf{114} (1984), 267--283.
+
+\bibitem{AndrewsBook} G.~E. Andrews, \emph{The Theory of Partitions}, Encyclopedia of Mathematics and its
+Applications~2, Addison-Wesley, 1976; reprinted Cambridge University Press, 1998.
+
+\bibitem{BIS} D.~Bressoud, M.~Ismail and D.~Stanton, \emph{Change of base in Bailey pairs}, Ramanujan J.
+\textbf{4} (2000), 435--453; arXiv:math/9909053.
+
+\bibitem{CRW} Z.~Cao, H.~Rosengren and L.~Wang, \emph{On some double Nahm sums of Zagier}, J. Combin.
+Theory Ser. A \textbf{202} (2024), Paper No.~105819; arXiv:2303.01333.
+
+\bibitem{CW-lift3} Z.~Cao and L.~Wang, \emph{Some new modular rank three Nahm sums from a lift-dual
+operation}, arXiv:2412.15767 (2024).
+
+\bibitem{CW-lift4} Z.~Cao and L.~Wang, \emph{Some new modular rank four Nahm sums as lift-dual of rank
+three examples}, arXiv:2508.12468 (2025).
+
+\bibitem{CW3} Z.~Cao and L.~Wang, \emph{Some new modular Nahm sums of ranks 3 and 4}, arXiv:2606.13590
+(2026).
+
+\bibitem{CF} I.~Cherednik and B.~Feigin, \emph{Rogers--Ramanujan type identities and Nil-DAHA}, Adv.
+Math. \textbf{248} (2013); arXiv:1209.1978.
+
+\bibitem{Lean4} L.~de~Moura and S.~Ullrich, \emph{The Lean~4 theorem prover and programming language},
+in: Automated Deduction -- CADE 28, Lecture Notes in Comput. Sci. \textbf{12699}, Springer, 2021,
+625--635.
+
+\bibitem{EKL} T.~Ekholm, P.~Kucharski and P.~Longhi, \emph{Multi-cover skeins, quivers, and 3d
+$\mathcal N=2$ dualities}, J. High Energy Phys. 2020, no.~2, 018; arXiv:1910.06193.
+
+\bibitem{GR} G.~Gasper and M.~Rahman, \emph{Basic Hypergeometric Series}, 2nd ed., Encyclopedia of
+Mathematics and its Applications~96, Cambridge University Press, 2004.
+
+\bibitem{Forty} B.~C. Berndt, G.~Choi, Y.-S. Choi, H.~Hahn, B.~P. Yeap, A.~J. Yee, H.~Yesilyurt and
+J.~Yi, \emph{Ramanujan's forty identities for the Rogers--Ramanujan functions}, Mem. Amer. Math. Soc.
+\textbf{188} (2007), no.~880.
+
+\bibitem{Gordon} B.~Gordon, \emph{A combinatorial generalization of the Rogers--Ramanujan identities},
+Amer. J. Math. \textbf{83} (1961), 393--399.
+
+\bibitem{HW} J.~A. Harvey and Y.~Wu, \emph{Hecke relations in rational conformal field theory},
+arXiv:1804.06860 (2018).
+
+\bibitem{KKMM1} R.~Kedem, T.~R. Klassen, B.~M. McCoy and E.~Melzer, \emph{Fermionic quasi-particle
+representations for characters of $(G^{(1)})_1\times(G^{(1)})_1/(G^{(1)})_2$}, Phys. Lett. B \textbf{304}
+(1993), 263--270; arXiv:hep-th/9211102.
+
+\bibitem{KKMM2} R.~Kedem, T.~R. Klassen, B.~M. McCoy and E.~Melzer, \emph{Fermionic sum representations for
+conformal field theory characters}, Phys. Lett. B \textbf{307} (1993), 68--76; arXiv:hep-th/9301046.
+
+\bibitem{KLNS} P.~Kucharski, H.~Larragu\'ivel, D.~Noshchenko and P.~Su\l kowski, \emph{Unlinking symmetric
+quivers}, arXiv:2312.14905 (2023).
+
+\bibitem{Mathlib} The mathlib Community, \emph{The Lean mathematical library}, in: Proceedings of the 9th
+ACM SIGPLAN International Conference on Certified Programs and Proofs (CPP 2020), ACM, 2020, 367--381.
+
+\bibitem{Melzer} E.~Melzer, \emph{Supersymmetric analogs of the Gordon--Andrews identities, and related
+TBA systems}, arXiv:hep-th/9412154 (1994).
+
+\bibitem{Nahm} W.~Nahm, \emph{Conformal field theory and torsion elements of the Bloch group}, in:
+Frontiers in Number Theory, Physics, and Geometry~II, Springer, Berlin, 2007, 67--132;
+arXiv:hep-th/0404120.
+
+\bibitem{Ono} K.~Ono, \emph{The Web of Modularity: Arithmetic of the Coefficients of Modular Forms and
+$q$-series}, CBMS Regional Conference Series in Mathematics~102, Amer. Math. Soc., 2004.
+
+\bibitem{RC} A.~Rocha-Caridi, \emph{Vacuum vector representations of the Virasoro algebra}, in: Vertex
+Operators in Mathematics and Physics, Math. Sci. Res. Inst. Publ.~3, Springer, New York, 1985, 451--473.
+
+\bibitem{Rogers} L.~J. Rogers, \emph{Second memoir on the expansion of certain infinite products}, Proc.
+London Math. Soc. \textbf{25} (1894), 318--343.
+
+\bibitem{Shimura} G.~Shimura, \emph{On modular forms of half integral weight}, Ann. of Math. (2)
+\textbf{97} (1973), 440--481.
+
+\bibitem{SW} K.~Sun and H.~Wang, \emph{Dynkin diagrams, generalized Nahm sums and 2d CFTs},
+arXiv:2604.00847 (2026).
+
+\bibitem{VZ} M.~Vlasenko and S.~Zwegers, \emph{Nahm's conjecture: asymptotic computations and
+counterexamples}, Commun. Number Theory Phys. \textbf{5} (2011), no.~3, 617--642; arXiv:1104.4008.
+
+\bibitem{Wang22} L.~Wang, \emph{Identities on Zagier's rank two examples for Nahm's problem},
+arXiv:2210.10748 (2022).
+
+\bibitem{WW-Dk} L.~Wang and S.~Wang, \emph{Nahm sum identities for Cartan matrices of type $D_k$},
+arXiv:2512.07790 (2025).
+
+\bibitem{WW-Dr} L.~Wang and S.~Wang, \emph{Modular Nahm sums for the inverse Cartan matrix of type $D_r$},
+arXiv:2607.08606 (2026).
+
+\bibitem{Warnaar50} S.~O. Warnaar, \emph{50 years of Bailey's lemma}, in: Algebraic Combinatorics and
+Applications (A.~Betten et al., eds.), Springer, Berlin, 2001, 333--347; arXiv:0910.2062.
+
+\bibitem{Warnaar03} S.~O. Warnaar, \emph{The generalized Borwein conjecture. II. Refined $q$-trinomial
+coefficients}, Discrete Math. \textbf{272} (2003), 215--258; arXiv:math/0110307 (theorem numbers refer to
+the arXiv version).
+
+\bibitem{WP} S.~O. Warnaar and P.~A. Pearce, \emph{Exceptional structure of the dilute $A_3$ model: $E_8$
+and $E_7$ Rogers--Ramanujan identities}, J. Phys. A \textbf{27} (1994), L891--L898; arXiv:hep-th/9408136.
+
+\bibitem{Yoshida} Y.~Yoshida, \emph{3d $\mathcal N=4$ rank-zero mirror symmetry, TQFT interfaces, and
+Zagier duality of Nahm sums}, arXiv:2608.08780 (2026).
+
+\bibitem{Zagier} D.~Zagier, \emph{The dilogarithm function}, in: Frontiers in Number Theory, Physics, and
+Geometry~II, Springer, Berlin, 2007, 3--65.
+
+\end{thebibliography}
+\end{document}
