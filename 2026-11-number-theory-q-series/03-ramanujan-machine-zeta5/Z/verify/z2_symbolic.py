@@ -54,7 +54,11 @@ ser = sp.series(sp.cot(x0 + u), u, 0, 4).removeO()
 C = sp.cot(x0); S = 1 + C**2
 assert sp.simplify(ser.coeff(u, 1) + S) == 0 and sp.simplify(ser.coeff(u, 3) + S * (3 * S - 2) / 3) == 0
 print("(S4) cot(x0+u) = C - S u + C S u^2 - (S(3S-2)/3) u^3 + ...,  S = csc^2 x0: PASS")
-# ---- (S5) Ligozat: orders of the eta quotients at all cusps of Gamma_0(N) are >= 0 (holomorphy), and > 0 for cusp forms
+# ---- (S5) eta quotients prod eta(d tau)^r_d on Gamma_0(N): Gordon-Hughes-Newman conditions
+# (sum d r_d = 0 mod 24, sum (N/d) r_d = 0 mod 24, trivial character: weight even and prod d^r_d a square),
+# and Ligozat: orders at all cusps of Gamma_0(N) are >= 0 (holomorphy).  All quotients are tested at a level N
+# with d | N for every d; g = eta2^6 eta6^2 + 9 eta2^3 eta6^2 eta18^3 is tested termwise at level 36
+# (an earlier version tested eta2^6 eta6^2 at level 12, which is not a valid input: sum (12/d) r_d = 40).
 from math import gcd
 def cusp_orders(expo, N):
     out = {}
@@ -64,8 +68,13 @@ def cusp_orders(expo, N):
     return out
 for name, expo, N in (("eta4^16/(eta2^4 eta8^4)", {4: 16, 2: -4, 8: -4}, 16), ("eta2^4 eta4^4", {2: 4, 4: 4}, 8),
                       ("eta6^14/(eta2^3 eta18^3)", {6: 14, 2: -3, 18: -3}, 36), ("eta2^3 eta6^2 eta18^3", {2: 3, 6: 2, 18: 3}, 36),
-                      ("eta2^6 eta6^2", {2: 6, 6: 2}, 12), ("eta2^3 eta6^3", {2: 3, 6: 3}, 12)):
+                      ("eta2^6 eta6^2", {2: 6, 6: 2}, 36)):
+    assert all(N % d == 0 for d in expo)
+    assert sum(d * r for d, r in expo.items()) % 24 == 0
+    assert sum((N // d) * r for d, r in expo.items()) % 24 == 0
+    k = sp.Rational(sum(expo.values()), 2); assert k == 4
+    s = sp.prod([sp.Integer(d)**r for d, r in expo.items()]); assert sp.sqrt(s).is_rational
     o = cusp_orders(expo, N)
-    print("(S5) %-28s level %-3d orders at cusps 1/c: %s" % (name, N, {c: str(v) for c, v in o.items()}))
+    print("(S5) %-28s level %-3d weight 4, trivial character, orders at cusps 1/c: %s" % (name, N, {c: str(v) for c, v in o.items()}))
     assert all(v >= 0 for v in o.values())
 print("PASS (S4, S5)")

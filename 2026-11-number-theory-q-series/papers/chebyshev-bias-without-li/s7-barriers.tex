@@ -1,0 +1,108 @@
+\section{Barriers}\label{sec:barriers}
+
+Everything GRH gives about the hull function is its Fourier series: frequencies $\pm\Gamma$ and coefficients $m_\gamma\frac{2M}{M\pm i\gamma}$, i.e.\ $(D+M)F_M=2Mw$ with $D$ the derivative along the flow and $w=\frac12+\sum_{g\in\pm\Gamma}m_ge_g$, a formal series with \emph{positive integer} coefficients and constant term $\frac12$. The arguments of Sections~\ref{sec:jump} and \ref{sec:reversal} use only the positivity of the weights and the sizes of $\sigma_M^2$ and $V_M$ (Theorems~\ref{thm:nr}, \ref{thm:cert} use in addition finite non-resonance and certified zeros), and those of Section~\ref{sec:sufficient} use hypothetical arithmetic information on $\Gamma$. This section shows what the available structure cannot decide. All statements here are about model functions and use no hypothesis. The \emph{cyclic model} with real weights $m_n$ ($n\ge1$, $\sum m_n^2/n^2<\infty$) is
+\[
+F=1+\re\sum_{n\ge1}m_n\frac{4M}{M+in}e^{int}\quad\text{on }\TT=\RR/2\pi\ZZ ,
+\]
+the analogue of $F_M$ with the ordinates replaced by the positive integers. Rescaling $t\mapsto t/\Omega$, $\Omega=1/(2M)$, turns the model at weight $M$ on the frequencies $n$ into the model at the classical weight $\frac12$ on the frequencies $\Omega n$, with the same weights, the same $\sigma^2=\sum m_n8M^2/(M^2+n^2)$ and the same law.
+
+\subsection{Real weights}
+
+\begin{proposition}[\rd{1 read}]\label{prop:model71}
+Let $M>0$, $0<a<\pi$ with $a/\pi\notin\QQ$, $\kappa^2=2\pi^2/(M^2a^2)$, and $m_n=\kappa^2(M^2+n^2)\sin^2(na/2)/(\pi^2n^2)>0$. Then $F(t)=\frac{M\kappa^2}\pi[M(a-|t|)+\operatorname{sgn}t]\mathbf 1_{|t|<a}$ on $(-\pi,\pi]$; so $F=0$ on the arc $a<|t|\le\pi$, the law of $F$ has an atom at $0$ of mass $1-a/\pi$, and $\sigma^2=4\pi/a-2>2$.
+\end{proposition}
+
+\begin{proof}
+With $v=\kappa\mathbf 1_{[0,a]}$ and $\Phi(t)=\frac1{2\pi}\int v(t+s)v(s)ds=\kappa^2(a-|t|)^+/(2\pi)$, $\hat\Phi(n)=|\hat v(n)|^2$; the function $2M(M\Phi-\Phi')$ equals the displayed closed form, its coefficients are $2M(M-in)|\hat v(n)|^2=m_n\cdot2M/(M+in)$ for $n\ne0$ and $1$ for $n=0$.
+\end{proof}
+
+\begin{proposition}[\rd{1 read}]\label{prop:model72}
+For every closed arc $J\subset(0,\pi)$ at positive distance from $0$ there is $M_1>0$ such that for every $0<M\le M_1$ there are positive weights $m_n>0$ ($n\ge1$) with $\sigma^2\le C'M$ and $F=0$ on $J$. Rescaled, the same weights on the frequencies $\Omega\NN$ give models at the classical weight $\frac12$ with positive weights and $\sigma^2$ arbitrarily small, with an atom at $0$.
+\end{proposition}
+
+(The proof, by solving $\Psi'=M\Psi$ on $J$ for $\Psi=1+\sum c_n\cos nt$ with a positive-definite dominating bump, is in \file{density/DENSITY.md}, Proposition~7.2. \emph{Remark, not re-read:} the version there also gives $1\le m_n\le C/M$ for every $n$; these extra inequalities were added after the read.)
+
+\begin{proposition}[the classical weight; computer-assisted; \rd{1 read}]\label{prop:model73}
+For $M=\frac12$ there are $c_n\ge0$ ($n\ge1$) with $\sum c_n<0.2717$ such that $F(t)=1+\sum_nc_n(\cos nt+2n\sin nt)$ vanishes on the arc $J=[2,2.3]$. Equivalently: with the bounded weights $m_n=c_n(\frac14+n^2)\ge0$, the cyclic model at $M=\frac12$ has $\sigma^2=2\sum c_n<0.5434<2$ and an atom at $0$ of mass $\ge0.3/2\pi>0.047$.
+\end{proposition}
+
+\begin{proof}[Proof (outline; \file{density/DENSITY.md}, Proposition~7.3)]
+Start from the trigonometric polynomial $\Psi_N=1+\sum_{n\le100}c^{(N)}_n\cos nt$, with $33$ fitted positive rational coefficients and $F_N=\Psi_N-2\Psi_N'$; certified Taylor bounds give $\sup_J|F_N|\le2.16\cdot10^{-15}$ and $\sup_J|F_N'|\le4.91\cdot10^{-10}$. Solve $\Psi_c-\Psi_c'/M=-F_N$ exactly on $J$, extend $\Psi_c$ to a $C^1$ even function supported near $J$ with explicit bounds on its cosine coefficients, and add $\eps P$ with $P(t)=((1-|t|/r)^+)^2$, $r=1.9$, $\eps=1.4\cdot10^{-10}$, whose cosine coefficients dominate the correction's; after normalisation all coefficients are $\ge0$ and $\Psi-\Psi'/M=0$ on $J$. All comparisons are in Arb (\file{density/model_certified.py}); the read re-ran it with byte-identical output and checked the construction independently at $50$ digits.
+\end{proof}
+
+\begin{remark}[the model test]
+Fix the weights of Proposition~\ref{prop:model73} and consider the whole family $F^{\rm mod}_M=1+\re\sum m_n\frac{4M}{M+in}e^{int}$, $M>0$. It has a compact connected hull with dense flow, positive bounded weights, the identities between weights of Section~\ref{sec:jump} (since $\sigma^2<2$ near $M=\frac12$), real-analyticity in $M$, a critical weight, time reversal and everything in Theorems~\ref{thm:reversal}, \ref{thm:cheb52}; and its law at $M=\frac12$ has an atom at $0$. So no argument using only these features can prove $\nu_{1/2}(\{0\})=0$. The model lacks: ($\alpha$) integer weights; ($\beta$) the explicit formula on a dense orbit (Proposition~\ref{prop:interior}; here the level set is open); ($\gamma$) weights $\ge1$ on every frequency (the unrefereed strengthening of Proposition~\ref{prop:model72} has them, on a sparse spectrum); ($\delta$) a non-cyclic group $G$ (the true $G$ is not cyclic, by the explicit formula); ($\epsilon$) the growth of $N(T)$, hence unbounded $F_M$. A proof must use at least one of these.
+\end{remark}
+
+\subsection{What integrality gives}\label{sec:integrality}
+\emph{Nested combs.} Let $1=N_0\mid N_1\mid\cdots$ with $N_{k+1}\ge2N_k$, $b_k\in\RR$ with $\sum|b_k|/N_k<\infty$, $m_n=\sum_{k:N_k\mid n}b_k$ and $B(J)=\sum_{k\le J}b_k$. With $h_k=2\pi/N_k$ and the exponential sawtooth $\rho_k(t)=h_ke^{-Ms}/(1-e^{-Mh_k})-1/M$, $s=t\bmod h_k$, one has $(D+M)\rho_k=h_k\sum_j\delta_{jh_k}-1$ and $F=1+2M\sum_kb_k\rho_k$, uniformly convergent.
+
+\begin{theorem}[parity rigidity; no hypothesis; \rd{1 read}]\label{thm:nested}
+If all $b_k\in\ZZ$, then $\lambda\{F=c\}=0$ for every $c\notin1+2\ZZ$; in particular the law of $F$ has no atom at $0$. If moreover infinitely many $b_k\ne0$, the law of $F$ has no atoms at all.
+\end{theorem}
+
+\begin{proof}
+Suppose $S=\{F=c\}$ has positive measure. By the martingale convergence theorem, for a.e.\ $t_*\in S$ the level-$J$ cell $I\ni t_*$ ($I=[ah_J,(a+1)h_J)$) satisfies $|S\cap I|\ge\frac78|I|$ for all large $J$. On the interior of $I$ no comb with $k\le J$ has an atom, so $F(t)=1-2B(J)+2M\alpha e^{-Mt}+2M\Phi(t)$ with $\alpha=\sum_{k\le J}b_kA_k$ a constant and $\Phi=\sum_{k>J}b_k\rho_k$, which is $h_{J+1}$-periodic with $|\Phi|\le\eps_J=\sum_{k>J}|b_k|h_k\to0$. As $I$ consists of $r\ge2$ sub-cells of length $h'=h_{J+1}$, there is $t$ with $t,t+h'\in S\cap I$; then $F(t)=F(t+h')$ and $\Phi(t)=\Phi(t+h')$ force $\alpha=0$. So $|c-1+2B(J)|\le2M\eps_J$ with $B(J)\in\ZZ$, for all large $J$; letting $J\to\infty$, $c\in1+2\ZZ$, and $B(J)$ is eventually constant, so $b_k=0$ for large $k$.
+\end{proof}
+
+\begin{example}[real weights; \rd{1 read}]\label{ex:real}
+Take $N=(1,3)$, any $M>0$, $\mathfrak a_0=2\pi/(1-e^{-2\pi M})$, $\mathfrak a_1=\frac{2\pi}3e^{4\pi M/3}/(1-e^{-2\pi M/3})$, $b_0=\mathfrak a_1/(2(\mathfrak a_1-\mathfrak a_0))$, $b_1=\frac12-b_0$. Then $F=0$ on $(4\pi/3,2\pi)$, so the law has an atom $\ge\frac13$ at $0$; the weights $m_n\in\{b_0,\frac12\}$ are positive ($\mathfrak a_1/\mathfrak a_0=(1+e^v+e^{2v})/3>1$, $v=2\pi M/3$). At $M=\frac12$, $\sigma^2\approx1.842<2$.
+\end{example}
+
+So in one and the same class real nonnegative weights give an atom at $0$ and integer weights do not. The mechanism is the half-integer constant $\frac12$ of $w$ (which comes from the prime squares, i.e.\ from Chebyshev's bias itself) against the integrality of the partial sums $B(J)$.
+
+\begin{theorem}[integrality excludes flat arcs; cyclic model; no hypothesis; \rd{1 read}]\label{thm:arcs}
+Let $m_n\in\ZZ$ with $|m_n|\le C(1+n)^A$, let $F$ be the distribution with $\hat F(0)=1$, $\hat F(\pm n)=2Mm_n/(M\pm in)$, and suppose $F=c$ on a nonempty open arc $I$, as distributions. Then $g(z)=\sum_{n\ge1}m_nz^n$ is rational with poles at roots of unity in $\TT\setminus I$, and $c\in1+2\ZZ$. For rank-one hulls ($G\subset\QQ\gamma_0$) with integer $m_\gamma$ of polynomial growth and $\sum m_\gamma^2/\gamma^2<\infty$: if $F=c$ a.e.\ on a nonempty open set, then $c\in1+2\ZZ$.
+\end{theorem}
+
+\begin{proof}[Proof (outline; \file{density/DENSITY.md}, Theorem~9.16 and Corollary~9.16$'$)]
+$w=(D+M)F/2M$ equals $c/2$ on $I$, so $\mathcal T=w-c/2$ is supported in $K=\TT\setminus I$. Its Herglotz transform $H(z)=\langle\mathcal T,\phi k_z\rangle$ ($k_z(t)=\frac{e^{it}+z}{e^{it}-z}$, $\phi$ a smooth cutoff equal to $1$ near $K$) is analytic on $\hat\CC\setminus K$, equals $2g(z)-\kappa$ for $|z|<1$ and $\kappa-2g(1/z)$ for $|z|>1$, $\kappa=(c-1)/2$. So $g$ continues across $I$, and by the P\'olya--Carlson theorem \cite{Carlson,Polya} it is rational; by Fatou's lemma on rational power series with integer coefficients $g=R/Q$ with $R,Q\in\ZZ[z]$, $Q(0)=1$, poles on $K\subset\TT$, so the leading coefficient of $Q$ is $\pm1$ and $\kappa=g(\infty)\in\ZZ$. The rank-one statement of the theorem follows by conditional expectation onto a circle factor.
+\end{proof}
+
+This is a folklore-level consequence of P\'olya--Carlson once $g$ is continued across the arc; we did not find the parity conclusion stated. For bounded real weights, continuation across an arc makes every right limit of the coefficients reflectionless there (Breuer--Simon \cite[Theorem~1.3]{BS}); no positive-measure version of these rigidity theorems is known, and the positive-measure version of the Duffin--Schaeffer theorem is stated as open by Borwein, Erd\'elyi and Littmann \cite{BEL}. With Theorem~\ref{thm:intatom} below it gives a sharp dichotomy for integer multiplicities: on arcs integrality alone forces parity, at any polynomial growth; on sets of positive measure with empty interior it does not. Related rigidity results, all proved:
+\begin{itemize}
+\item eventually periodic integer $m_n$ allow positive-measure level sets only at odd integers (\file{density/DENSITY.md}, Proposition~9.10; elementary, via Kronecker's theorem), so an atom at $0$ forces $g$ to have the circle as natural boundary; \rd{1 read}
+\item the same for bounded integer $m_n$ that are ``Toeplitz-symmetric'' along infinitely many moduli $N$ (i.e.\ $n\mapsto m_n\mathbf 1[N\nmid n]$ is $N$-periodic on $\ZZ$) (\file{density/DENSITY.md}, Theorem~9.15), and for lacunary comb supports (Proposition~9.12 there); \rd{1 read each}
+\item for one-sided Toeplitz $0/1$ (or integer) sequences with one hole per period at $0$, of any periods and patterns, a positive-measure level set forces symmetric patterns and an odd integer level; with bounded or eventually prime period ratios an atom forces $m$ periodic and level $\pm1$ (\file{density2/TOY.md}, Theorem~2.3, Corollary~2.4); \rd{2 reads, resp.\ 1}
+\item if the driving distribution $w$ is a finite measure on any hull, integer weights allow positive-measure level sets only at odd integers (\file{density2/TOY.md}, Theorem~1.2, via Cohen's idempotent theorem \cite{Cohen}; cf.\ Helson \cite{Helson}); this never applies to the true race, whose $w$ is not a measure. \rd{2 reads}
+\end{itemize}
+
+\subsection{Integer multiplicities do not exclude atoms}\label{sec:intmodels}
+
+\begin{theorem}[no hypothesis; \rd{1 read}]\label{thm:intatom}
+For every $M>0$ there are integers $m_n\ge1$ with $m_n\ll_M(\log(n+2))^{5/2}$ such that the cyclic model $F$ vanishes a.e.\ on a set of measure $>0.1\cdot2\pi$.
+\end{theorem}
+
+\begin{proof}[Construction (outline; \file{density/DENSITY.md}, Theorem~9.6 and Lemma~9.7)]
+Work in the class $F=(1-D/M)\Psi$, $\Psi$ even, in which $m_n=(M^2+n^2)\hat\Psi(n)/(2M^2)$ is real. Start from Example~\ref{ex:real} ($F_0=0$ on $J=(4\pi/3,2\pi)$). At scale $j$ ($N_j=4^j$, band $B_j=[N_j,N_{j+1})$) round the current multiplicities in $B_j$ \emph{up} to integers and cancel the rounding error $e^\Psi_j$ exactly by $\varphi_j=(1-D/M)(e^\Psi_j\beta_j/\hat\beta_j(0))$, where $\beta_j$ is a comb of bumps $b=c*\tilde c$ ($\hat b\ge0$) of period $2\pi/N'_j$, $N'_j=3N_{j+1}$, supported on a set $E_j$ of measure $2\pi\rho_j$, $\rho_j=0.05(j+1)^{-5/4}$. The comb has no Fourier coefficients in $(0,N'_j)$, so the multiplicities below $N_{j+1}$ become exactly integral and are never changed again; the corrections have nonnegative coefficients, so positivity is free; $\|\varphi_j\|_2\ll N_j^{-1/2}\rho_j^{-3/2}$ is summable; $F_\infty$ vanishes on $J\setminus\bigcup E_j$, of measure $>2\pi(\frac13-0.05\zeta(\frac54))>0.1\cdot2\pi$; and the decay of $\hat b$ gives $m_n\ll(\log n)^{5/2}$.
+\end{proof}
+
+The correction technique is of Menshov type (cf.\ Olevskii's survey \cite{Olevskii}); we know of no published statement of Theorem~\ref{thm:intatom} itself. The model violates the local zero-counting law $\sum_{\gamma\in[T,T+1]}m_\gamma\ll\log T$ (its local mass is $\asymp(\log T)^{5/2}$). Noise shaping removes this obstruction, at the price of an astronomical constant.
+
+\begin{theorem}[noise-shaped integer atoms; no hypothesis; \rd{1 read}]\label{thm:noise}
+For every $M>0$ and $u>0$ there are integers $m_n\ge1$ and a constant $C(M,u)$ with $m_n\le C(M,u)(\log(n+2))^u$ for all $n$, such that the cyclic model $F$ vanishes a.e.\ on a set $S$ of measure $\ge3\pi/(4q)$, $q=q(u)=\max(60,\lceil\frac{15\pi}{16}2^{4/u}\rceil)$. $S$ has empty interior (as it must, by Theorem~\ref{thm:arcs}).
+\end{theorem}
+
+\begin{corollary}[\rd{1 read}]\label{cor:noise}
+Let $0<u\le1$ and $m_n$, $F$ as in Theorem~\ref{thm:noise}. \textup{(i)} $\sum_{n\in[T,T+1]}m_n\le A_c\log(T+3)$ for all $T\ge0$, $A_c=2C(M,u)$. \textup{(ii)} If $0<M\le M_0(u)=\min(\frac1{10},(1000\kappa_bq(u))^{-1/2})$, with $\kappa_b\approx2.7005$ a bump constant computed by quadrature, the construction can be run so that also $\sigma^2<\frac12$. \textup{(iii)} Then, rescaled, the model at the classical weight $\frac12$ on the frequencies $\Omega\NN$, $\Omega=1/(2M)$, has positive integer multiplicities on every frequency, obeys the local counting law with constant $A_c$, has $\sigma^2<\frac12$, and its law has an atom at $0$. \textup{(iv)} The constant is astronomical: $A_c\gtrsim10^{14}$ already at $q=60$, $M=\frac12$, and larger for $M\le M_0$; rescaling cannot bring it down to the constant $A_0$ of the true zeros.
+\end{corollary}
+
+\begin{proof}[Design (outline; complete proof in \file{density/DENSITY.md}, \S9.22)]
+As in Theorem~\ref{thm:intatom}, but the rounding errors are shaped by a sigma--delta filter $(1-z)^{k_j}$ of slowly growing order (cf.\ \cite{DD,Gunturk}) and multiplied by a smooth cutoff $\varphi$ on $\TT$ equal to $1$ on the target arc and $0$ near the point $0$. A discrete Leibniz rule (Lemma~B there) bounds the shaped error on the arc by the $\ell^1$ norms of the Fourier coefficients of $(e^{it}-1)^r\varphi(t)$, which are $\le\tau^r\Lambda_r$ for explicit $\Lambda_r$ of polynomial growth, with $\tau<\frac1{10}$ ($|e^{it}-1|\le\tau$ on the support of $\varphi$); meanwhile multiplicities grow only like $2^{k_j}\ll(j+1)^{u'}$, $u'\le u$. A smooth slowly varying offset $\asymp(\log n)^{u'}$ keeps all multiplicities positive; its leak is removed with the same comb; the measure budget $\sum\lambda(E_j)$ is half of the arc.
+\end{proof}
+
+So integrality, positivity, the local counting law with a free constant, and $\sigma^2<2$ (in particular the refined question asked in \file{density/DENSITY.md} after Remark~9.9) do not exclude an atom at $0$. What is left on this line is the fixed-constant form (Conjecture~\ref{conj:U}) and bounded multiplicities, which GRH does not supply. The read of Theorem~\ref{thm:noise} re-derived all its lemmas, tested the key Lemma~B against worst-case errors (ratio $\le0.076$ of the bound), and ran a toy cascade with multiplicities integral to $3.6\cdot10^{-12}$, $\min m_n=1$, and vanishing on $S$ to $3.6\cdot10^{-17}$; it found gaps, all fixed, and nothing fatal.
+
+\begin{proposition}[LI spectra are dense; no hypothesis; \rd{1 read}]\label{prop:LIdense}
+Let $\Gamma\subset(0,\infty)$ be countable and discrete, $m:\Gamma\to\ZZ_{\ge1}$ and $\delta:\Gamma\to(0,\frac12)$. There is an injection $\gamma\mapsto\gamma'$ with $|\gamma'-\gamma|<\delta(\gamma)\min(1,\gamma/2)$ such that $\{\gamma'\}$ is $\QQ$-linearly independent. If $\sum m_\gamma^2/\gamma^2<\infty$, the model $1+\re\sum m_\gamma r_{\gamma'}(M)e_{\gamma'}$ (at least three terms) has an absolutely continuous law; the counting law $\sum_{(t,t+1]}m\le A\log(t+3)$ persists with $2A$ in place of $A$ (after adjusting the additive constant inside the logarithm), and $\sigma_M^2$ changes by a factor in $[(1+\delta_\infty)^{-2},(1-\delta_\infty)^{-2}]$, $\delta_\infty=\sup\delta$.
+\end{proposition}
+
+\begin{proof}
+Choose $\gamma'_j$ successively outside the countable set $\spanQ{\gamma'_1,\dots,\gamma'_{j-1}}$. By Kronecker's theorem the hull is the full torus with product Haar measure; the characteristic function is $\prod J_0(\xi m_\gamma|r_{\gamma'}|)$, integrable as soon as three factors are kept.
+\end{proof}
+
+\begin{corollary}[barrier; \rd{1 read}]\label{cor:barrier}
+The data ``positive integer multiplicities, the local counting law (with a free constant), $\sigma^2<2$'' do not decide whether the law has an atom at $0$: Corollary~\ref{cor:noise} gives a model with an atom, and Proposition~\ref{prop:LIdense} gives arbitrarily close spectra with the same data (constant $2A_c$) and absolutely continuous laws. So no property shared by the models of Theorem~\ref{thm:noise} and stable under small perturbations of the ordinates can imply ``no atom''.
+\end{corollary}
+
+This does not show that a proof must use unstable information (such as the explicit formula as an exact identity, which excludes cyclic spectra): a stable property of the true zeros that these lattice spectra violate, such as $N(t)=\frac t{2\pi}\log\frac{qt}{2\pi e}+O(\log t)$ with the true constant, might suffice.

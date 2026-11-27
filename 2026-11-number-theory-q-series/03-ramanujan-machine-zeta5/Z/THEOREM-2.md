@@ -29,7 +29,7 @@ proved"); quoted in `THEOREM.md` §0. For `r = 1/2` and `t ∈ (0, 1/2)` put, fo
 In both cases `F_0` is *not* an L-value but an incomplete period:
 `F_0^{(1/2,1/4)} = 64 ∫_{1/√8}^∞ f_2(it) dt`, `F_0^{(1/2,1/3)} = 12√3 ∫_{1/√3}^∞ g(it/2) dt` (cf. Zudilin's Remark 2).
 
-**Status.** Proof written below and checked by the author's own scripts only. **The adversarial audit by a fresh
+**Status (updated 2026-11-27).** Refereed: `REFEREE-2-Z2Z3.md` (independent adversarial referee) reports "PROOF COMPLETE" for both theorems, with ratios reproduced from Zudilin's definition to 52–54 digits; its minor findings (levels in Lemma 4 to be taken termwise at level 36 — `verify/z2_symbolic.py` (S5) now checks the Gordon–Hughes–Newman and Ligozat conditions at level 36; the Wronskian sentence in Prop. B(i); the Stirling estimate in Lemma 3; closing arcs in Prop. C; "F_0 is not an L-value" is a heuristic) are addressed in the write-up R. Sharma, "Closed forms for the unidentified ζ(5)-level continued fractions of the Ramanujan Machine" (2026). Original status note:  Proof written below and checked by the author's own scripts only. **The adversarial audit by a fresh
 reader was started and then stopped unfinished on the parent session's instruction (2026-11-26); no independent
 referee has read this proof.** What the unfinished audit left: an independent evaluation of `F_0..F_3` for both cases
 (`audit2/a1_frobenius.py`, 38 digits, agreeing with the values used here and with `F_3 = (csc^2 πt + 1/3)π^2F_1`); it

@@ -1,0 +1,72 @@
+\section{The atom at \texorpdfstring{$0$}{0} is the jump of the bias in the weight}\label{sec:jump}
+
+Throughout this section assume GRH$(\chi)$ and NCZ$(\chi)$, and let $I$ be an interval of weights $M$ on which $\lambda_\chi(M,M')>0$ for all $M<M'$ in $I$; by (I4) one may take $I=(0,M_\sigma(\chi)]$, i.e.\ $-\frac12<m\le M_\sigma(\chi)-\frac12$ ($M_\sigma-\frac12=1.323914\ldots$ for $q=4$ and $1.627750\ldots$ for $q=3$), which contains the classical weight $m=0$ in its interior. For $0<M<M'$ put $\kappa=M'-M$ and
+\[
+G_{M,M'}(\theta)=1+\re\sum_{\gamma\in\Gamma}m_\gamma\frac{4MM'\theta_\gamma}{(M+i\gamma)(M'+i\gamma)},
+\]
+a continuous function on $\cA$. By the triangle inequality and (I4),
+\begin{equation}\label{eq:Gbounds}
+MM'\lambda_\chi(M,M')\le G_{M,M'}(\theta)\le2-MM'\lambda_\chi(M,M')\qquad(\theta\in\cA),
+\end{equation}
+and comparing Fourier coefficients ($\frac4{M+i\gamma}-\frac4{M'+i\gamma}=\frac{4\kappa}{(M+i\gamma)(M'+i\gamma)}$, constant terms $\frac1M-\frac1{M'}=\frac\kappa{MM'}$),
+\begin{equation}\label{eq:transversal}
+\frac{F_M}M-\frac{F_{M'}}{M'}=\frac\kappa{MM'}\,G_{M,M'}\qquad\hA\text{-a.e.}
+\end{equation}
+This is the hull form of the lead-inheritance theorem of \cite{MC}: for $m<m'$ in the range, $D_{m'}(x)\ge0$ implies $D_m(x)>0$ for large $x$.
+
+\begin{theorem}[GRH, NCZ; \rd{2 reads}]\label{thm:jump}
+\textup{(a)} For $M<M'$ in $I$: $\bar d(M')\le d(M)$. Hence $d$ and $\bar d$ are nonincreasing on $I$.
+
+\textup{(b)} For every interior point $M_0$ of $I$: $d(M_0)=d(M_0^+)=\bar d(M_0^+)$, $\bar d(M_0)=\bar d(M_0^-)=d(M_0^-)$, and
+\[
+\nu_{M_0}(\{0\})=d(M_0^-)-d(M_0^+)=\delta_*(m_0^-)-\delta_*(m_0^+),
+\]
+where $\delta_*$ is any of the four functions $m\mapsto\dlow\{D_m>0\}$, $\dup\{D_m>0\}$, $\dlow\{D_m\ge0\}$, $\dup\{D_m\ge0\}$; all four are nonincreasing on $I-\frac12$ and have the same one-sided limits at interior points.
+
+\textup{(c)} The set $\mathbb E=\{M\in I:\nu_M(\{0\})>0\}$ is countable, and $\sum_{M\in\mathbb E\cap[M_1,M_2]}\nu_M(\{0\})\le\bar d(M_1)-d(M_2)$ for $M_1<M_2$ in $I$.
+
+\textup{(d)} For every $M=m+\frac12\in I\setminus\mathbb E$, the logarithmic densities of $\{D_m>0\}$, $\{D_m\ge0\}$ and $\{\sum_{p\le x}\chi^*(p)p^m\log p>0\}$ exist and equal $d(M)$, and for every function $\eps(x)\to0$ the near-ties $\{x:|D_m(x)|\le\eps(x)x^M/\log x\}$ have logarithmic density $0$.
+\end{theorem}
+
+\begin{proof}
+(a) By \eqref{eq:transversal} and \eqref{eq:Gbounds}, $F_M/M\ge F_{M'}/M'+\kappa\lambda_\chi(M,M')$ a.e., so $\{F_{M'}\ge0\}\subset\{F_M>0\}$ up to a null set, and $d(M')\le\bar d(M')\le d(M)\le\bar d(M)$.
+
+(b) $M\mapsto F_M\in L^2(\cA)$ is continuous (dominated convergence in the coefficients), so $M\mapsto\nu_M$ is weakly continuous, and by (I3) $d$ is lower and $\bar d$ upper semicontinuous. For $M\downarrow M_0$: $d(M)\le\bar d(M)\le d(M_0)$ by (a) and $\liminf d(M)\ge d(M_0)$, so $d(M_0^+)=\bar d(M_0^+)=d(M_0)$. For $M\uparrow M_0$: $\bar d(M)\ge d(M)\ge\bar d(M_0)$ and $\limsup\bar d(M)\le\bar d(M_0)$, so $\bar d(M_0^-)=d(M_0^-)=\bar d(M_0)$. Subtracting, $\nu_{M_0}(\{0\})=\bar d(M_0)-d(M_0)=d(M_0^-)-d(M_0^+)$. By \eqref{eq:sandwich} each $\delta_*$ lies between $d$ and $\bar d$, hence has the same one-sided limits, and is nonincreasing by (a).
+
+(c) By (a), for $M_1\le M\le M_2$ the sets $S_M=\{F_M=0\}$ are pairwise disjoint mod null sets and contained in $\{F_{M_1}\ge0\}\setminus\{F_{M_2}>0\}$, of measure $\bar d(M_1)-d(M_2)$.
+
+(d) If $\nu_M(\{0\})=0$ then $d(M)=\bar d(M)$ and \eqref{eq:sandwich} gives the densities; the $\theta$-form has the same limiting distribution (I1). Near-ties: $|D_m(x)|\le\eps(x)x^M/\log x$ iff $|E_M(x)|\le2M\eps(x)$; for fixed $\eps_0>0$ this set is eventually inside $\{|E_M|\le\eps_0\}$, of upper density $\le\nu_M([-\eps_0,\eps_0])$ by \eqref{eq:portmanteau}, which tends to $\nu_M(\{0\})=0$.
+\end{proof}
+
+\begin{corollary}[the classical race; GRH; \rd{2 reads}]\label{cor:classical}
+Assume GRH for $L(s,\chi_{-4})$. Then $\nu_{1/2}(\{0\})=\delta(0^-)-\delta(0^+)$, where $\delta(m)$ is the lower (or upper) logarithmic density of $\{x:\sum_{p\le x}\chi^*(p)p^m>0\}$. If $m\mapsto\delta(m)$ is continuous at $m=0$, the logarithmic density of $\{x:\pi(x;4,3)>\pi(x;4,1)\}$ exists and near-ties have density $0$. For all but countably many $m\in(-\frac12,1.3239]$ the logarithmic density of $\{x:\sum_{p\le x}\chi^*(p)p^m>0\}$ exists. The same holds for $\chi_{-3}$ with $(-\frac12,1.6277]$.
+\end{corollary}
+
+The converse ``density exists $\Rightarrow$ no atom'' is not claimed: an atom at $0$ could in principle be carried by times at which $E_M$ is small and positive. The total mass of the atoms over $I=(0,M_\sigma]$ is $\le1-d(M_\sigma)<1$, since $\nu_M$ has mean $1$.
+
+\begin{remark}[what Theorem~\ref{thm:jump} does not give]
+The proof shows that $\mathbb E$ is countable, not that a given $m$ (in particular $m=0$) lies outside it. The family is real-analytic in $M$ ($M\mapsto F_M\in L^2(\cA)$ is), but analyticity of the family does not transfer to the distribution function without information on the law. The same countability holds along every one-parameter family $F+sH$ with $H$ continuous and positive on $\cA$, and for the same reason it never decides a prescribed parameter.
+\end{remark}
+
+\begin{theorem}[two-sided quantitative form; GRH, NCZ; \rd{2 reads}]\label{thm:twosided}
+Let $M_1<M_0<M_2$ in $I$ and
+\[
+a_1=(M_0-M_1)M_0\lambda_\chi(M_1,M_0),\quad b_1=(M_0-M_1)\Bigl(\frac2{M_1}-M_0\lambda_\chi(M_1,M_0)\Bigr),
+\]
+\[
+a_2=(M_2-M_0)M_0\lambda_\chi(M_0,M_2),\quad b_2=(M_2-M_0)\Bigl(\frac2{M_2}-M_0\lambda_\chi(M_0,M_2)\Bigr).
+\]
+Then $\nu_{M_0}((-a_1,a_2))\le d(M_1)-\bar d(M_2)\le\bar d(M_1)-d(M_2)\le\nu_{M_0}([-b_1,b_2])$. So $\nu_{M_0}((-t,t))=O(t)$ as $t\to0$ iff $d$ is Lipschitz at $M_0$, and $\nu_{M_0}((-t,t))\to0$ iff $d$ is continuous at $M_0$. Since a monotone function is differentiable almost everywhere, $\limsup_{t\to0}\nu_M((-t,t))/t<\infty$ for Lebesgue-almost every $M\in I$.
+\end{theorem}
+
+\begin{proof}
+By \eqref{eq:transversal} and \eqref{eq:Gbounds}, a.e., $F_{M_1}/M_1-F_{M_0}/M_0\in[(M_0-M_1)\lambda_\chi(M_1,M_0),(M_0-M_1)(\frac2{M_1M_0}-\lambda_\chi(M_1,M_0))]$, and likewise for $(M_0,M_2)$. Hence a.e.: $F_{M_0}>-a_1\Rightarrow F_{M_1}>0$, and $F_{M_0}<a_2\Rightarrow F_{M_2}<0$; so $\{-a_1<F_{M_0}<a_2\}\subset\{F_{M_1}>0\}\setminus\{F_{M_2}\ge0\}$, a set of measure $d(M_1)-\bar d(M_2)$. Conversely $F_{M_1}\ge0\Rightarrow F_{M_0}\ge-b_1$ and $F_{M_2}\le0\Rightarrow F_{M_0}\le b_2$, so $\{F_{M_1}\ge0\}\setminus\{F_{M_2}>0\}\subset\{-b_1\le F_{M_0}\le b_2\}$. The rest follows with $M_{1,2}=M_0\mp t$ and continuity of $\lambda_\chi$.
+\end{proof}
+
+\begin{proposition}[the critical weight; GRH, NCZ; \rd{2 reads}]\label{prop:critical}
+There is a version of the family such that for every $\theta$ outside a null set the map $M\mapsto\Phi_\theta(M):=F_M(\theta)/M$ is continuous and strictly decreasing on $I$, with $(M'-M)\lambda_\chi(M,M')\le\Phi_\theta(M)-\Phi_\theta(M')\le(M'-M)(\frac2{MM'}-\lambda_\chi(M,M'))$. Let $M^*(\theta)$ be its zero in $I$ (with the obvious conventions if it has none). Then for interior $M$: $d(M)=\hA(M^*>M)$, $\bar d(M)=\hA(M^*\ge M)$ and $\nu_M(\{0\})=\hA(M^*=M)$. So the exceptional weights are exactly the atoms of the law of the critical weight $M^*$.
+\end{proposition}
+
+\begin{proof}
+Fix $M_1\in I$ and a Borel version of $F_{M_1}$; put $\Phi_\theta(M):=F_{M_1}(\theta)/M_1+\frac{M_1-M}{MM_1}G_{M,M_1}(\theta)$, with $G_{M,M'}:=G_{M',M}$ for $M>M'$ and $G_{M,M}:=1+\re\sum m_\gamma4M^2\theta_\gamma/(M+i\gamma)^2$. This is continuous in $M$ for every $\theta$, equals $F_M/M$ a.e.\ for each $M$ by \eqref{eq:transversal}, and the cocycle identity $\frac{M_1-M}{MM_1}G_{M,M_1}+\frac{M_2-M_1}{M_1M_2}G_{M_1,M_2}=\frac{M_2-M}{MM_2}G_{M,M_2}$ (an identity between absolutely convergent series) gives the two-sided bound for every $\theta$ from \eqref{eq:Gbounds}.
+\end{proof}

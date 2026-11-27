@@ -1,0 +1,157 @@
+\section{The equations}\label{sec:equations}
+
+For a prime $p$ put $t=\tau(p)$. The Hecke relation $\tau(p^{j+1})=t\tau(p^j)-p^{11}\tau(p^{j-1})$ gives
+\[
+\tau(p^2)=t^2-p^{11},\qquad\tau(p^4)=t^4-3p^{11}t^2+p^{22}.
+\]
+So $\tau(p^4)=\alpha$ means that $(U,V)=(p^{11},t^2)$ is an integer solution of
+\begin{equation}\label{eq:quad}
+U^2-3UV+V^2=\alpha
+\end{equation}
+in which $U$ is an eleventh power and $V$ is a square, and $\tau(p^2)=c$ means $t^2-p^{11}=c$. Theorem~\ref{thm:p4} is the statement that \eqref{eq:quad} with $\alpha\in\{461,-599\}$ has no integer solution with $U=x^{11}$ and $V=y^2$.
+
+\section{\texorpdfstring{$\tau(p^4)\ne461,-599$}{tau(p\^{}4) is not 461, -599}}\label{sec:p4}
+
+\subsection{All solutions lie on finitely many recurrence sequences}
+Fix $\alpha\ne0$ and let $S$ be the set of integer solutions of \eqref{eq:quad}. The map $\mathsf T(U,V)=(V,3V-U)$ is a bijection of $S$, with inverse $(U,V)\mapsto(3U-V,U)$, because $V^2-3V(3V-U)+(3V-U)^2=U^2-3UV+V^2$. For $(U,V)\in S$ put $Z_0=U$, $Z_1=V$ and $Z_{n+1}=3Z_n-Z_{n-1}$ for all $n\in\ZZ$; then $\mathsf T^n(U,V)=(Z_n,Z_{n+1})$.
+
+\begin{lemma}[seed bound]\label{lem:seed}
+Every $\mathsf T$-orbit in $S$ contains a pair $(U,V)$ with $U^2\le\alpha/2$ if $\alpha>0$, and with $U^2\le|\alpha|$ if $\alpha<0$.
+\end{lemma}
+
+\begin{proof}
+Let $(Z_n)$ be the sequence of an orbit and choose $m$ with $|Z_m|$ minimal (the values are integers). Since $Z_{m+1}+Z_{m-1}=3Z_m$ and $(Z_m,Z_{m+1})\in S$, we get $Z_{m+1}Z_{m-1}=Z_{m+1}(3Z_m-Z_{m+1})=Z_m^2-\alpha$, and by minimality $|Z_{m+1}Z_{m-1}|\ge Z_m^2$. If $\alpha>0$: $Z_m^2\ge\alpha$ would give $0\le Z_m^2-\alpha<Z_m^2$, a contradiction; so $Z_m^2<\alpha$, and then $\alpha-Z_m^2\ge Z_m^2$ (this includes $Z_m=0$). If $\alpha<0$: $Z_{m+1}Z_{m-1}=Z_m^2+|\alpha|>0$, so $Z_m\ne0$ (otherwise the two neighbours would have sum $0$ and positive product), and both neighbours have the sign of $Z_m$. After changing the sign of the whole sequence, $a=Z_{m-1}$ and $b=Z_{m+1}$ satisfy $a,b\ge z:=Z_m>0$ and $a+b=3z$, hence $a,b\in[z,2z]$ and $ab=a(3z-a)\ge2z^2$. So $z^2+|\alpha|\ge2z^2$.
+\end{proof}
+
+So $S$ is the union of the orbits of the finitely many seeds $(U,V)\in S$ with $|U|\le B_0$, $B_0=\lfloor\sqrt{\alpha/2}\rfloor$ resp.\ $\lfloor\sqrt{|\alpha|}\rfloor$. For such $U$, $V=(3U\pm s)/2$ with $s^2=5U^2+4\alpha$.
+\begin{itemize}
+\item $\alpha=461$: $B_0=15$, and $5U^2+1844$ is a square only for $U=\pm1$ ($43^2$). Seeds: $(1,23)$, $(1,-20)$, $(-1,20)$, $(-1,-23)$.
+\item $\alpha=-599$: $B_0=24$, and $5U^2-2396$ is a square only for $U=\pm24$ ($22^2$). Seeds: $(24,47)$, $(24,25)$, $(-24,-25)$, $(-24,-47)$.
+\end{itemize}
+Hence, if $x^{22}-3x^{11}y^2+y^4=\alpha$, then for one of the four seeds and some $n\in\ZZ$,
+\begin{equation}\label{eq:target}
+Z_n=x^{11}\quad\text{and}\quad Z_{n+1}=y^2.
+\end{equation}
+
+\subsection{Periodicity and the sieve}
+Let $A=\begin{pmatrix}0&1\\-1&3\end{pmatrix}$, so that $(Z_n,Z_{n+1})^{\mathsf t}=A^n(Z_0,Z_1)^{\mathsf t}$ for all $n\in\ZZ$ ($\det A=1$). If $A^M\equiv I\pmod q$ for a prime $q$, then $n\mapsto(Z_n,Z_{n+1})\bmod q$ has period dividing $M$, for every seed and in both directions. The orders $T_q$ of $A$ modulo $q$ used are
+\[
+\begin{array}{c|cccccc}
+q&3&7&43&89&199&967\\\hline T_q&4&8&44&22&11&88
+\end{array}
+\]
+all dividing $88$. If \eqref{eq:target} holds then, for every prime $q$, $Z_n\bmod q\in P_q:=\{x^{11}\bmod q\}$ and $Z_{n+1}\bmod q\in Q_q:=\{y^2\bmod q\}$ ($0$ included in both). A class $n\bmod M$ is \emph{killed} by $q$ (with $T_q\mid M$) if $Z_n\bmod q\notin P_q$ or $Z_{n+1}\bmod q\notin Q_q$; this depends only on $n\bmod M$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:p4}]
+For $\alpha=-599$, take $M=22$ and $q=89$ alone ($89=8\cdot11+1$, so $P_{89}$ has $9$ elements): for each of the four seeds all $22$ classes are killed. For $\alpha=461$, take $M=88$ and $q\in\{3,7,43,89,199,967\}$: for each of the four seeds all $88$ classes are killed. So \eqref{eq:target} is impossible. The certificate \file{tau-p4/certificate_tau_p4.txt} lists, for every seed and every class, a witness $(q,\text{code},Z_n\bmod q,Z_{n+1}\bmod q)$.
+\end{proof}
+
+\begin{remark}[which condition does the work]\label{rem:which}
+For $\alpha=-599$ the eleventh-power condition alone suffices: with $M=22$ and $q\in\{89,199\}$ no class has $Z_n\in P_{89}\cap P_{199}$ simultaneously. So $u^2=5x^{22}-2396$ has no integer point, and this case falls to the method of \cite[Lemma~2.15]{Goto} (due to Dembner and Jain \cite{DJ}); we do not know why arXiv:2405.16723v1 lists $-599$ as open. For $\alpha=461$ the square condition is essential: the sequence contains $Z_0=\pm1$, an eleventh power, so no congruence on $Z_n$ alone can work, and with the eleventh-power condition only the classes $n\equiv0,11\pmod{22}$ survive on every seed. The neighbours of $\pm1$ are $23,-20$ (resp.\ $-23,20$), none a square, and the square condition kills those classes. The six witness primes for $461$ are not minimal ($43$ or $89$ can be dropped).
+\end{remark}
+
+\emph{Verification.} Three implementations agree: a Python/numpy sieve with modulus $55440$ and all primes up to $10^5$ whose period divides $55440$ (zero survivors; planted solutions $(U,V)=(2^{11},9)$ and $(3^{11},25)$ survive in exactly one class, as they must); a separately written PARI/GP generator using Euler's criterion and Kronecker symbols, which regenerates seeds, periods and the full witness table; and an independent Python checker with exact integers and brute-force residue sets and seeds, which re-verifies all $1376$ class lines of the certificate. The referee confirmed that every solution of \eqref{eq:quad} with $|U|\le2\cdot10^6$ lies on the listed orbits.
+
+\section{\texorpdfstring{$\tau(p^2)\ne601$}{tau(p\^{}2) is not 601}, and the status of 463}\label{sec:p2}
+
+Let $c\in\{463,601\}$ and suppose $t^2-p^{11}=c$ with $t=\tau(p)$. Then:
+\begin{itemize}
+\item $p$ is odd, since $\tau(4)=-1472$; and $p\ne c$, since $c^{11}+c$ is divisible by $c$ exactly once and so is not a square;
+\item $p\ne23$ ($23^{11}+c$ is not a square) and $t\equiv2\pmod{23}$. Indeed $c\equiv3\pmod{23}$ for both values, and by Wilton's congruence \cite{SwD} $\tau(p)\equiv0\pmod{23}$ if $(\frac p{23})=-1$, and $\tau(p)\in\{2,-1\}\pmod{23}$ if $(\frac p{23})=1$, while $p^{11}\equiv(\frac p{23})$. In the first case $t^2-p^{11}\equiv1$; in the second $t^2\equiv4$, so $t\equiv\pm2$, and $-2\notin\{2,-1\}$.
+\end{itemize}
+Let $K=\QQ(\sqrt c)$. Its class number is $1$ in both cases (PARI \texttt{bnfinit} with \texttt{bnfcertify}; for $c=601$ also by the analytic class number formula, computed by the referee). Fundamental units:
+\begin{align*}
+c=463:&\quad\varepsilon_0=247512720456368+11502891625161\sqrt{463}\quad(\text{norm }+1),\\
+c=601:&\quad\varepsilon_0=139468303679532+5689030769845\sqrt{601}\quad(\text{norm }-1),
+\end{align*}
+recomputed from continued fractions. A prime ideal dividing both $t\pm\sqrt c$ divides $2\sqrt c$ and $p$, which is impossible as $p$ is odd and $p\ne c$. So $(t+\sqrt c)$ is the eleventh power of an ideal, which is principal; absorbing $-1=(-1)^{11}$ and $\varepsilon_0^{11}$,
+\begin{equation}\label{eq:descent}
+t+\sqrt c=\varepsilon_0^kg^{11},\qquad g\in\cO_K,\ k\in\{0,1,\dots,10\},\ N(g)=\pm p .
+\end{equation}
+
+\emph{Local test.} Let $q\ne p$ be a prime. Then $g$ is a unit modulo $q$, so $(t+\sqrt c)\varepsilon_0^{-k}$ is an eleventh power in $(\cO_K/q)^\times$. Let $A(q,k)$ be the set of residues $t\bmod q$ for which this holds (at $q=23$ only $t\equiv2$ is admitted). If $A(q,k)=\emptyset$ then \eqref{eq:descent} is impossible for that $k$. For every $q$ used, $q^{11}+c$ is not a square, so $q\ne p$. For odd $q$, $\cO_K/q\cong\FF_q[y]/(y^2-c)$, so half-integral $g$ are covered.
+
+\begin{proof}[Proof of Theorem~\ref{thm:p2} for $601$]
+Both $23$ and $67$ split in $\QQ(\sqrt{601})$ ($601\equiv3\equiv7^2\pmod{23}$, $601\equiv-2\pmod{67}$, a square), the eleventh powers in $\FF_{23}^\times$ are $\pm1$, and $67\equiv1\pmod{11}$. With $\varepsilon_0$ as orientation, $A(23,k)=\emptyset$ for every $k$ except $k=7$, and $A(67,k)=\emptyset$ exactly for $k\in\{0,1,4,7,10\}$. So every $k\in\ZZ/11$ is excluded, and there is no prime $p$ with $\tau(p^2)=601$.
+\end{proof}
+
+This uses only the Hecke relation, Wilton's congruence, $11\nmid h(\QQ(\sqrt{601}))$, the fundamental unit, and finite computations modulo $23$ and $67$: no Thue equation and no GRH. Wilton's congruence is load-bearing: without the restriction $t\equiv2$, the classes $k=3,8$ survive every prime $q<700$. (The class $k=7$ is also killed by $q=89$.)
+
+\subsection{The case 463}\label{sec:463}
+For $c=463$, $A(23,k)=\emptyset$ for every $k$ except $k=9$, and the class $k=9$ survives every local test tried (all $q<700$ with $11\mid q^2-1$, all split $q\equiv1\pmod{11}$ up to $20000$, and the $11$-adic test), so a global argument is needed. Here $\cO_K=\ZZ[\sqrt{463}]$. Write $g=aw_1+bw_2$ with the $\ZZ$-basis $w_1=624+29\sqrt{463}$, $w_2=1829+85\sqrt{463}$ (determinant $-1$, chosen by LLL to make the coefficients small). Comparing coefficients of $\sqrt{463}$ in $t+\sqrt{463}=\varepsilon_0^{-2}g^{11}$ gives the Thue equation
+\begin{multline*}
+Q(a,b):=2069a^{11}+143a^{10}b+1072720a^9b^2-899250a^8b^3+61199160a^7b^4\\-48219864a^6b^5+821606016a^5b^6-492420720a^4b^7+2836978320a^3b^8\\-1043992400a^2b^9+1842900224ab^{10}-226837664b^{11}=1 .
+\end{multline*}
+$Q(x,1)$ is irreducible with one real root; its field has signature $(1,5)$ and discriminant $-2^{10}11^{11}463^5$. (The referee verified the form exactly; since $N(\varepsilon_0)=+1$ the classes $k$ and $-k$ are conjugate, so the orientation does not matter.)
+
+\emph{The computation.} PARI/GP 2.15.4 \cite{PARI}, \texttt{thue} with an uncertified \texttt{thueinit} (flag $0$), finds no solution of $Q(a,b)=\pm1$, for three different inputs ($Q(x,1)$, $Q(1,x)$, and $Q(a+b,b)$), a few seconds each; a brute-force search finds none with $|a|,|b|\le500$; the tentative class number of the degree-$11$ field is $1$, with tentative regulator $7.6\cdot10^9$. PARI's documentation states that an uncertified result ``is conditional on the GRH if $a\ne\pm1$ and~[\dots]'', and that results computed with such a \texttt{tnf} are likewise conditional ``except for a right-hand side of $\pm1$''; here the right-hand side is $\pm1$. We have not proved this exemption. For right-hand side $\pm1$ the class group is irrelevant, but the answer depends on having a full system of fundamental units, which an uncertified \texttt{bnfinit} does not prove. A certified run (\texttt{thueinit}$(P,1)$, which calls \texttt{bnfcertify} on the degree-$11$ field) did not finish in two attempts totalling about $2$\,h\,$47$\,min (\file{tau-p2/thue463_certified_run.txt} records the first; the second is recorded in \file{tau-p2/TAU2.md}, \S5); the Minkowski bound is about $3.7\cdot10^{10}$, and a certification of the units alone may be cheaper. \emph{Thus the exclusion of $\tau(p^2)=463$ rests on this uncertified PARI computation.} A positive control ($c=94$, where $421^2-94=3^{11}$) recovers the known solution in the expected unit class; it tests the set-up, not the completeness of \texttt{thue}. A direct search found no odd $x<10^7$ with $x^{11}+463$ or $x^{11}+601$ a square.
+
+\section{Consequences for odd primes below 1000}\label{sec:goto}
+
+\subsection{The reduction}
+Let $\ell$ be an odd prime with $\ell\nmid\tau(\ell)$ (for $\ell<1000$ this excludes only $3,5,7$) and suppose $\tau(n)=\pm\ell$. By \cite[Theorem~1.1]{BCOT} (proved in its Section~3, using Proposition~3.1 there and $|\tau(m)|\ne1$ for $m>1$), $n=p^{d-1}$ with $p$ and $d$ odd primes and $d\mid\ell(\ell^2-1)$. If $p\mid\tau(p)$ then $p\mid\tau(p^j)$ for all $j\ge1$ by the Hecke recursion, so $p=\ell$, contradicting $\ell\nmid\tau(\ell)$. For primes $p\nmid\tau(p)$ the sequence $u_m=\tau(p^{m-1})$ is a Lucas sequence, and \cite[Section~5]{BCOT} shows (from the classification of defective Lucas numbers, \cite[Lemma~2.1]{BCOT}, \cite{BHV}) that it has no defective term equal to $\pm1$ or $\pm\ell$; so $\ell$ is a primitive prime divisor of $u_d$, $\ell\nmid(\alpha-\beta)^2p^{11}$, and $d\mid\ell-(\frac{(\alpha-\beta)^2}\ell)$, in particular $d\mid\ell^2-1$ and $d\ne\ell$ (this step is written out in \cite[\S3.1]{Goto}). We rely on these published statements and did not re-derive the analysis of defective Lucas numbers.
+
+\subsection{Congruences}
+For $n=p^{d-1}$ with $p$ an odd prime not in $\{3,5,7,23,691\}$ (so $n\equiv1\pmod8$ and $n\equiv1\pmod3$) we use the classical congruences \cite{SwD}: $\tau(n)\equiv\sigma_{11}(n)$ modulo $691$ and modulo $2^{11}$; $\tau(n)\equiv n^{-610}\sigma_{1231}(n)\pmod{3^6}$; $\tau(n)\equiv n^{-30}\sigma_{71}(n)\pmod{5^3}$; $\tau(n)\equiv n\sigma_3(n)\pmod7$; and Wilton's congruence modulo $23$ followed by the Hecke recurrence. Each was re-checked numerically for all $n\le3000$ in the stated class (and by the referee for $n\le4000$), and the resulting residue sets against exact values $\tau(p^{d-1})$ for $p\le113$, $d\in\{3,5,7,11,13,23\}$; for $p\in\{3,5,7,23,691\}$ the values $\tau(p^{d-1})\ne\pm\ell$ were checked directly. Among all pairs $(\pm\ell,d)$ with $11\le\ell<1000$ prime and $d$ an odd prime dividing $\ell^2-1$, the congruences exclude all but seventeen:
+\[
+\begin{array}{ll}
+d=3:&-137,\ -227,\ 463,\ 601,\ 691,\ -827\\
+d=5:&-139,\ -179,\ 281,\ 461,\ -599,\ -919\\
+d=23:&-139,\ -367;\qquad d=59:\ 827;\qquad d=83:\ -829;\qquad d=107:\ -643.
+\end{array}
+\]
+(The same list was obtained by two further independent computations.) Table~\ref{tab:pairs} shows which moduli exclude each pair for $\pm461$ and $\pm599$.
+
+\begin{table}[ht]\small
+\caption{Pairs $(\varepsilon\ell,d)$, $d\mid\ell^2-1$, for $\ell=461,599$ ($461^2-1=2^3\cdot3\cdot5\cdot7\cdot11\cdot23$, $599^2-1=2^4\cdot3\cdot5^2\cdot13\cdot23$).}\label{tab:pairs}
+\begin{tabular}{rr|l}\toprule
+value&$d$&excluded modulo\\\midrule
+$461$&$3$&$3^6$\\
+$461$&$5$&\textbf{none} (Theorem~\ref{thm:p4})\\
+$461$&$7$&$691,\ 3^6,\ 7$\\
+$461$&$11,23$&$7$\\
+$-461$&$3$&$691,\ 5^3,\ 23$\\
+$-461$&$5$&$691,\ 2^{11},\ 5^3$\\
+$-461$&$7$&$3^6,\ 5^3,\ 23$\\
+$-461$&$11,23$&$5^3$\\
+$599$&$3$&$3^6,\ 5^3$\\
+$599$&$5$&$2^{11},\ 5^3$\\
+$599$&$13$&$691,\ 2^{11},\ 3^6,\ 5^3,\ 7$\\
+$599$&$23$&$5^3$\\
+$-599$&$3$&$691,\ 23$\\
+$-599$&$5$&\textbf{none} (Theorem~\ref{thm:p4})\\
+$-599$&$13$&$3^6,\ 7,\ 23$\\
+$-599$&$23$&$7$\\\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{proof}[Proof of Corollary~\ref{cor:values}]
+For $\ell\in\{461,599\}$: both are ordinary ($\tau(461)\equiv101\pmod{461}$, $\tau(599)\equiv280\pmod{599}$), so the reduction applies, and Table~\ref{tab:pairs} with Theorem~\ref{thm:p4} excludes every pair. For $601$ ($601^2-1=2^4\cdot3\cdot5^2\cdot7\cdot43$, and $601$ is ordinary): the only surviving pair is $(601,3)$, i.e.\ $\tau(p^2)=601$, excluded by Theorem~\ref{thm:p2}; $-601$ does not occur in the list. For $\pm463$: $-463$ does not occur in the list, and $(463,3)$ is the case of Section~\ref{sec:463}.
+\end{proof}
+
+\subsection{The remaining pairs, and Goto's arXiv version}
+\begin{proposition}\label{prop:minusD}
+$\tau(p^2)\ne-137,-227,-827$ for every prime $p$.
+\end{proposition}
+
+\begin{proof}
+For $D=827$: $t^2+827=p^{11}$ with $p$ odd and $p\ne827$ ($827^{11}-827$ is divisible by $827$ exactly once). The class number of $\QQ(\sqrt{-827})$ is $7$, prime to $11$, and the units are $\pm1$, so $t+\sqrt{-827}=((a+b\sqrt{-827})/2)^{11}$; comparing coefficients of $\sqrt{-827}$ gives $b\,F(a,b)=2^{11}$ for an explicit binary form $F$, so $b=\pm2^j$, and a finite check shows there is no solution. $D=227$ is identical (class number $5$). For $D=137$ the ring is $\ZZ[\sqrt{-137}]$ (discriminant $-548$, class number $8$), $t+\sqrt{-137}=\pm(a+b\sqrt{-137})^{11}$, and $b\,F(a,b)=\pm1$ has no solution. The class numbers were certified with \texttt{bnfcertify} and confirmed by the referee by enumerating reduced forms.
+\end{proof}
+
+The remaining pairs: $(281,5)$ and $(-919,5)$ are excluded by \cite[Lemma~2.15]{Goto} (and again by our sieve with $M=22$); $(-139,5)$, $(-179,5)$ likewise by the sieve; $(691,3)$ by \cite[Theorem~1.2(1)]{BCOT}; $(-139,23)$, $(-367,23)$ by the Thue equations $F_{22}(X,Y)=-139,-367$ over $\QQ(\zeta_{23})^+$, solved by PARI with a certified \texttt{thueinit}; and $(827,59)$, $(-829,83)$, $(-643,107)$ by the Thue equations of degrees $29$, $41$, $53$ of \cite[Lemma~2.14]{Goto}, which we re-ran with an uncertified \texttt{thueinit} (tentative class number $1$ in all three fields; by PARI's documented criterion such results are unconditional, a criterion we have not proved). For $\ell=3,5,7$ the result $\tau(n)\notin\{\pm1,\pm3,\pm5,\pm7\}$ is \cite[Theorem~1.1]{BCO}. In sum:
+
+\begin{corollary}\label{cor:all}
+For every odd prime $\ell<1000$ and every $n\ge1$, $\tau(n)\ne\pm\ell$, subject to: the cited results of \cite{BCO,BCOT}; the classical congruences; the uncertified (possibly GRH-dependent, since PARI's criterion refers to a tentative class number computed assuming GRH) PARI computations for $+827$, $-829$, $-643$ described above; and, for $\tau(n)=463$, the PARI computation of Section~\ref{sec:463}.
+\end{corollary}
+
+\emph{Goto's arXiv version.} In arXiv:2405.16723v1 the proof of Theorem~0.3 lists the pairs not excluded by Lemma~A.1 there, and the list contains no pair with $d=3$. The pair $(601,3)$ passes every congruence of Lemma~A.1 as printed ($601\equiv1\pmod{12}$, $\equiv1\pmod5$, $\equiv6\pmod7$, $\equiv3\pmod{23}$), so its omission is an error in that list. Separately, the mod-$12$ line ``$\tau(p^{d-1})\equiv0,1,d\pmod{12}$'' is false for $d=3$: $\tau(5^2)=-25499225\equiv7\pmod{12}$, the true set for $d=3$ being $\{1,3,7,9\}$ (one of our referees found it false for $d=11$ too); it wrongly excludes $463\equiv7\pmod{12}$. The pair $(-827,3)$ is not excluded by any of our congruences either. So v1 does not exclude $\tau(p^2)=463,601$, nor $-827$. Goto's paper is the source of the problem and of the methods for $281$, $-919$ and the large-$d$ Thue equations; the published version \cite{Goto} may differ from v1, and we have not seen it.
+
+\begin{proposition}[two cases of Hanada--Madhukara]\label{prop:HM}
+Let $\tau_{2k}$ denote the coefficients of the normalised level-$1$ eigenform of weight $2k\in\{16,26\}$, and $e=2k-1$. Then $\tau_{2k}(p^4)\notin\{33,55\}$ for every prime $p$.
+\end{proposition}
+
+\begin{proof}
+As in Section~\ref{sec:equations}, $\tau_{2k}(p^4)=U^2-3UV+V^2$ with $(U,V)=(p^e,\tau_{2k}(p)^2)$. For $33$: $U^2-3UV+V^2=33$ has no integer solution, since modulo $3$ it forces $3\mid U$, $3\mid V$, and then $9\mid33$. For $55$: with $e=15$ ($M=40$) and $e=25$ ($M=84$) the sieve of Section~\ref{sec:p4} kills every class (for instance with $q\in\{3,5,7,11,41\}$, resp.\ $q\in\{3,13,29,83,211,281,421,1427\}$, as found by a referee) except $n\equiv0\pmod M$ for the seed $(Z_0,Z_1)=(1,9)$, which is the genuine solution $1-27+81=55$ with $U=1$. Suppose $Z_n=x^e$ and $Z_{n+1}=y^2$ with $n\ne0$, $n\equiv0\pmod4$, and write $n=2Kk$ with $K=2^a$, $a\ge1$, $k$ odd. With $V_K=\lambda^K+\lambda^{-K}$, $\lambda=(3+\sqrt5)/2$ ($V_1=3$, $V_{2K}=V_K^2-2$), one has $Z_{m+2K}=V_KZ_{m+K}-Z_m$, hence $Z_{1+2Kk}\equiv-Z_1=-9\pmod{V_K}$. From $V_2=7$ and the recursion, $V_K\equiv7\pmod8$ and $V_K\equiv1$ or $2\pmod3$ for all $K=2^a$, $a\ge1$; so the Jacobi symbol $(\frac{-9}{V_K})=(\frac{-1}{V_K})=-1$, while $y^2\equiv-9\pmod{V_K}$ with $\gcd(y,V_K)=1$ would make it $+1$ (the argument of Cohn \cite{Cohn}). So the only solutions have $x^e=1$, and $x$ is not a prime.
+\end{proof}
+
+In \cite[Remark~6.2]{HM} the integer points of these four curves are left undetermined; by the proof in \cite{HM}, the values $33$ and $55$ were left out of its lists for weights $16$ and $26$ only because of the hyperelliptic curves $Y^2=5X^{2e}+4c$, $c\in\{33,55\}$; so they can now be included there, \emph{provided} the other steps of \cite{HM} for these $c$ are as stated (we did not re-verify them). Proposition~\ref{prop:HM} determines only the solutions with $V$ a square; it does not list all integer points of those curves.

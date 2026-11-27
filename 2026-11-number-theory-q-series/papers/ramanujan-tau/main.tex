@@ -1,0 +1,220 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\raggedbottom
+\emergencystretch=3em
+
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\Sym}{\operatorname{Sym}^2}
+\newcommand{\LS}{L_S}
+\newcommand{\GR}{\Gamma_{\mathbb R}}
+\newcommand{\GC}{\Gamma_{\mathbb C}}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\cO}{\mathcal O}
+\newcommand{\repo}{\texttt{2026-11-number-theory-q-series/06-ramanujan-tau}}
+\usepackage{url}\newcommand{\file}[1]{\path{#1}}
+\newcommand{\GRHD}{\mathrm{GRH}(\Delta)}
+\newcommand{\GRHS}{\mathrm{GRH}(\mathrm{Sym}^2\Delta)}
+
+\begin{document}
+
+\title[Ramanujan's tau function: signs at every $x$, excluded values]{Ramanujan's tau function: a sign theorem at every $x$\\ and excluded values}
+
+\author{Raghav Sharma}
+\email{raghavsharma1729@gmail.com}
+\date{27 November 2026}
+\subjclass[2020]{Primary 11F30; Secondary 11F66, 11M26, 11N05, 11D59, 11Y35, 11Y50}
+\keywords{Ramanujan's tau function, Chebyshev's bias, Hecke eigenvalues, symmetric square $L$-function, explicit formula, verification of the Riemann hypothesis, Lehmer's conjecture, Thue equations, Lucas sequences}
+
+\begin{abstract}
+Let $\lambda(p)=\tau(p)p^{-11/2}$. Assuming only the Riemann hypothesis for $L(s,\Delta)$ (nothing about $\zeta$ or other $L$-functions, no linear independence), we prove that the Ces\`aro mean $\sum_{p\le x}\lambda(p)(1-p/x)$ is positive for every $x>5.5180546\ldots$ and nonpositive below, and that $\sum_{p\le t}\lambda(p)\log p\,(t-p)>0$ for every $t>4.2667919\ldots$, with an explicit lower bound of order $t^{3/2}$. Conversely, eventual nonnegativity of either sum implies the Riemann hypothesis for $L(s,\Delta)$. The positive sign comes from the prime squares, through $L(s,\mathrm{Sym}^2\Delta)$; to avoid assuming the Riemann hypothesis for it we prove, with a computer-assisted argument in ball arithmetic, that all its zeros in the critical strip with $|\mathrm{Im}\,s|\le 60$ are simple and lie on the critical line. Second, we prove that $x^{22}-3x^{11}y^2+y^4$ takes neither of the values $461$, $-599$ at integers, and that $\tau(p^2)\ne601$ for every prime $p$. With the reduction of Balakrishnan, Craig, Ono and Tsai this gives $\tau(n)\notin\{\pm461,\pm599,\pm601\}$ for all $n$; the cases $461$, $-599$ and $601$ are not settled in arXiv:2405.16723v1. The value $\tau(p^2)=463$ is excluded subject to one uncertified PARI/GP Thue computation.
+\end{abstract}
+
+\maketitle
+
+\noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\small
+\textbf{Disclosure.} This paper was produced by AI (Anthropic's Claude models), directed by the author. The proofs and computations were checked by independent AI referees, each instructed to find errors and working with its own code (Section~\ref{sec:review}). The paper has \emph{not yet been refereed by a human expert}. The author takes responsibility for the content and welcomes corrections at raghavsharma1729@gmail.com. Code, certificates and referee reports: \url{https://github.com/raghavs1729/Research-Math}, directory \repo.}}
+
+\medskip
+\tableofcontents
+
+\section{Introduction}\label{sec:intro}
+
+Let $\Delta(z)=q\prod_{n\ge1}(1-q^n)^{24}=\sum_{n\ge1}\tau(n)q^n$ ($q=e^{2\pi i z}$) and $\lambda(n)=\tau(n)n^{-11/2}$. By Deligne, $\lambda(p)=\alpha_p+\beta_p$ with $|\alpha_p|=|\beta_p|=1$, $\alpha_p\beta_p=1$. This paper has two independent parts: an analytic one on the sign of sums of $\lambda(p)$ over primes, valid at \emph{every} $x$ beyond an explicit threshold, and a Diophantine one on values that $\tau(n)$ does not take.
+
+\subsection{Part I: the sign of prime sums of \texorpdfstring{$\lambda(p)$}{lambda(p)}}
+Sarnak, in a letter to Mazur \cite{Sarnak}, observed that under the Riemann hypothesis for $L(s,\Delta)$ the normalised sum $(\log x/\sqrt x)\sum_{p\le x}\lambda(p)$ has a limiting logarithmic distribution with mean $1$: the sum is biased towards positive values. The source of the bias is the contribution of the prime squares, governed by the symmetric square $L$-function, which has no pole at $s=1$. Koyama and Kurokawa \cite{KK} showed, under the Deep Riemann Hypothesis, that $\sum_{p\le x}\tau(p)p^{-6}\sim\frac12\log\log x$ (in the restatement of Aoki--Koyama \cite{AK}, $=\frac12\log\log x+c+o(1)$); Sheth \cite[Corollary~B]{Sheth} proved $\sum_{p\le x}\tau(p)p^{-6}=\frac12\log\log x+c+o(1)$ under the Riemann hypothesis for $L(s,\Delta)$ alone, for $x$ outside a set of finite logarithmic measure, and Koyama--Sheth \cite{KS} note the analogue for all newforms. In particular positivity of $\sum_{p\le x}\tau(p)p^{-6}$ on a set of natural density $1$ under the Riemann hypothesis for $L(s,\Delta)$ follows from Sheth's theorem (with the elementary remark in Hayani \cite[(1.5)]{Hayani}); we do \emph{not} claim that statement. Here we prove sign statements valid at every $x$ beyond an explicit threshold, for natural smoothings of the unweighted sum. The method is that of the author's earlier work on the races modulo $4$ and $3$ \cite{WR}, adapted to $\tau$; the new ingredients are listed after Theorem~\ref{thm:4}.
+
+Write $\GRHD$ for the statement that every zero of $L(s,\Delta)=\sum\lambda(n)n^{-s}$ with $0<\re s<1$ has real part $\frac12$, and $\GRHS$ for the same statement for $L(s,\Sym\Delta)$. Put
+\[
+\Theta_1(t)=\sum_{p\le t}\lambda(p)\log p\,(t-p),\qquad R(x)=\sum_{p\le x}\lambda(p)\Bigl(1-\frac px\Bigr)=\frac1x\int_0^x\sum_{p\le u}\lambda(p)\,du .
+\]
+Let $t^*=4.2667919563\ldots$ be the zero of $\Theta_1$ in $(3,5)$ and $x^*=5.5180546318\ldots$ the zero of $R$ in $(5,7)$ (closed forms in \eqref{eq:tstar}). The explicit functions $L_A\ge L_B$ are defined in \eqref{eq:LA}; $L_B(10^6)\ge0.0274$ and $\lim_{t\to\infty}L_B(t)\ge0.3692$.
+
+\begin{theorem}[integrated $\theta$-sum]\label{thm:1}
+\textup{(a)} Assume $\GRHD$. Then $\Theta_1(t)\ge L_B(t)\,t^{3/2}$ for every $t\ge1$, and $\Theta_1(t)>0$ for every $t>t^*$; also $\Theta_1(t)\le0$ for $t\le t^*$.
+\textup{(b)} Assume $\GRHD$ and $\GRHS$. Then moreover $\Theta_1(t)\ge L_A(t)\,t^{3/2}$ for every $t\ge1$, and $\lim L_A\ge0.5539$.
+\end{theorem}
+
+\begin{theorem}[Ces\`aro mean]\label{thm:2}
+Assume $\GRHD$. Then $R(x)>0$ for every $x>x^*$, and $R(x)\le0$ for $x\le x^*$. More precisely, $R(x)\ge \Theta_1(x)/(x\log x)+0.6719\ge L_B(x)\sqrt x/\log x+0.6719$ for every $x\ge97$, and $R(x)>0.15\sqrt x/\log x$ for every $x\ge11$. If $\GRHS$ holds as well, then $R(x)>\sqrt x/(3\log x)$ for every $x\ge100$.
+\end{theorem}
+
+\begin{theorem}[equivalence; unconditional]\label{thm:3}
+The following are equivalent: \textup{(a)} $\GRHD$; \textup{(b)} $R(x)>0$ for every $x>x^*$; \textup{(c)} $R(x)\ge0$ for all sufficiently large $x$; \textup{(d)} $\Theta_1(t)>0$ for every $t>t^*$; \textup{(e)} $\Theta_1(t)\ge0$ for all sufficiently large $t$.
+\end{theorem}
+
+\begin{theorem}[computer-assisted; no hypothesis]\label{thm:4}
+$L(s,\Sym\Delta)$ has exactly $41$ zeros with $0<\im s\le60$ and $0<\re s<1$; they are simple and have real part $\frac12$ (the first is $\frac12+i\,7.0702241402\ldots$), and $L(s,\Sym\Delta)$ has no zero on the real segment $(0,1)$.
+\end{theorem}
+
+Theorem~\ref{thm:4} is what removes $\GRHS$ from Theorems~\ref{thm:1}(a), \ref{thm:2} and from the implications (a)$\Rightarrow$(b), (a)$\Rightarrow$(d) of Theorem~\ref{thm:3}: without it these hold under ``$\GRHD$ and the Riemann hypothesis for $L(s,\Sym\Delta)$ up to height $60$''. The implications (b),(c),(d),(e)$\Rightarrow$(a) and Theorem~\ref{thm:1}(b) do not use Theorem~\ref{thm:4}.
+
+Deligne's bound alone does not suffice for the prime-square term: it gives only $|\cdot|\le\frac43t^{3/2}$, against a bias of $\frac23t^{3/2}$. The new ingredients relative to \cite{WR} are: Lemma~\ref{lem:decomp}, the treatment of the symmetric square without assuming its Riemann hypothesis (Lemmas~\ref{lem:lowzeros}, \ref{lem:highzeros} and Theorem~\ref{thm:4}), the closed form for $\sigma_0^2$ certified from a theta integral, and the handling of the initial negative patch in Section~\ref{sec:proof2}. The point of Lemma~\ref{lem:decomp} is that all even prime powers are carried by $\psi_S-\psi$, so that the main term comes from $\psi$, and the symmetric square needs only a partial Riemann hypothesis. The sizes involved are: bias $\frac23$; zeros of $L(s,\Delta)$ at most $\sigma_0^2:=2(\Lambda'/\Lambda)(1)=0.1122521\ldots$ (which equals $\sum_\rho|\rho|^{-2}$ under $\GRHD$), a closed form certified without a list of zeros; zeros of $L(s,\Sym\Delta)$ above height $60$ at most $0.1846$ (an unconditional bound, Lemma~\ref{lem:highzeros}).
+
+The completeness test in the proof of Theorem~\ref{thm:4} (Lemma~\ref{lem:V3}) is a variant of the method of Hiary, Ireland and Kyi \cite{HIK}, who evaluate the positive Hadamard sum at a real point from the Euler product and compare it with the contribution of the zeros found on the line; their examples include $L(s,\Delta)$ but no symmetric square. Lemma~\ref{lem:V3} was written before that paper was read, and we do not claim it as a new method; what we claim is Theorem~\ref{thm:4} for $L(s,\Sym\Delta)$. Yoshida \cite{Yoshida88} computed zeros of $L(s,\Sym\Delta)$ (as reported in \cite{Yoshida95}, where he describes his method as lacking rigorous error control; \cite{Yoshida88} was not seen by us). We found no rigorous verification of the Riemann hypothesis for $L(s,\Sym\Delta)$ to any height in the literature we searched; but the LMFDB could not be queried (access was blocked), and Booker's work on rigorous computation of general $L$-functions \cite{Booker} and the announced work of Bober, Booker, Costa, Lee, Platt and Sutherland on motivic $L$-functions were not read.
+
+\emph{Relation to the literature.} We found no statement for $\tau$ valid for every $x$ beyond an explicit $x_0$, and no equivalence of the kind in Theorem~\ref{thm:3} for a sum over primes of the coefficients of a cusp form. The nearest results are: Johnston's all-$x$ equivalence for $\zeta$, RH $\iff\int_2^x(\pi(t)-\mathrm{li}(t))\,dt<0$ for all $x>2$ \cite{Johnston} (quoted from Suzuki's introduction and the arXiv abstract); Hayani's Theorem~1.4 \cite{Hayani}, a Ces\`aro mean at every $x$ under GRH for Dirichlet characters, with a non-explicit constant; Suzuki's equivalences \cite{Suzuki1} for $\zeta$ and Dirichlet $L$-functions; and Suzuki's equivalence for the extended Selberg class \cite{Suzuki2}, which covers $L(s,\Delta)$ in principle but concerns a screw function (a prime-power sum plus archimedean terms) and does not treat $\tau$ explicitly. Devin \cite{Devin} gives the general framework for the limiting distribution. ``Not found'' refers to the searches recorded in \file{tau-race/LITERATURE.md} of the repository.
+
+\subsection{Part II: values not taken by \texorpdfstring{$\tau$}{tau}}
+Lehmer asked whether $\tau(n)\ne0$ for all $n$. Balakrishnan, Craig and Ono \cite{BCO}, and with Tsai \cite{BCOT}, studied which odd values $\pm\ell$ can occur. By \cite{BCO}, $\tau(n)\notin\{\pm1,\pm3,\pm5,\pm7,\pm691\}$ for $n>1$ (as stated in its abstract); \cite{BCOT} reduced the equation $\tau(n)=\pm\ell$, for an odd prime $\ell\nmid\tau(\ell)$, to $n=p^{d-1}$ with $p$ and $d$ odd primes, $d\mid\ell(\ell^2-1)$. Goto \cite[Theorem~0.3]{Goto} states: for an odd prime $\ell<1000$ and $\varepsilon=\pm1$, if $\tau(n)=\varepsilon\ell$ then $n=p^4$ with $\varepsilon\ell\in\{461,-599\}$. His Section~2.3 says: ``When $d=5$, the equation (2.1) for $a=281,461,-599,-919$ cannot be ruled out by the congruences''; he then rules out $281$ and $-919$ (by a method of Dembner and Jain \cite{DJ}) and leaves $461$ and $-599$ open. Odd values of $\tau$ were also studied by Bennett, Gherga, Patel and Siksek \cite{BGPS}, Dembner and Jain \cite{DJ}, and Hanada and Madhukara \cite{HM}.
+
+\begin{theorem}\label{thm:p4}
+Neither $x^{22}-3x^{11}y^2+y^4=461$ nor $x^{22}-3x^{11}y^2+y^4=-599$ has a solution in integers. Consequently $\tau(p^4)\notin\{461,-599\}$ for every prime $p$.
+\end{theorem}
+
+\begin{theorem}\label{thm:p2}
+$\tau(p^2)\ne601$ for every prime $p$. Moreover $\tau(p^2)\ne463$ for every prime $p$, \emph{provided} the PARI/GP computation described in Section~\ref{sec:463} (one Thue equation of degree $11$ with right-hand side $\pm1$, solved with an uncertified class group and unit computation) is correct.
+\end{theorem}
+
+\begin{corollary}\label{cor:values}
+$\tau(n)\notin\{\pm461,\pm599,\pm601\}$ for every $n\ge1$, and $\tau(n)\ne-463$. If the computation of Section~\ref{sec:463} is correct, also $\tau(n)\ne463$.
+\end{corollary}
+
+Corollary~\ref{cor:values} uses the literature (the reduction of \cite{BCOT} and classical congruences); it uses Goto's paper only as an exposition of a standard step (\cite[\S3.1]{Goto}). The values $463$ and $601$ appear because of the case $d=3$ in the arXiv version of Goto's argument: there the proof of Theorem~0.3 lists no pair with $d=3$; the pair $(601,3)$ passes every congruence of his Lemma~A.1 as printed, so its omission is an error in that list; separately, the mod-$12$ line ``$\tau(p^{d-1})\equiv0,1,d\pmod{12}$'' of Lemma~A.1 is false for $d=3$ ($\tau(5^2)=-25499225\equiv7\pmod{12}$; the true set of residues is $\{1,3,7,9\}$) and, according to one of our referees, also for $d=11$, and it wrongly excludes $463\equiv7\pmod{12}$; the pair $(-827,3)$ is not excluded by any of our congruences either (Section~\ref{sec:goto}). The published version of Goto's paper \cite{Goto} (Arch.\ Math.\ 125 (2025)) was not accessible to us; its abstract refers to an explicit finite set of odd primes below $1000$, which we have not seen. We therefore claim only that the cases treated here are not settled by arXiv:2405.16723v1.
+
+For $461$ the condition that $V=\tau(p)^2$ is a square is essential, and it is what is new in the argument relative to the treatments we have read: these (\cite{BCOT,DJ,Goto}, \cite{Angdinata}) pass from $\tau(p^4)=U^2-3UV+V^2$, $(U,V)=(p^{11},\tau(p)^2)$, to the hyperelliptic equation $u^2=5x^{22}+4\alpha$, which forgets that $V$ is a square. For $-599$ the eleventh-power condition already suffices, by the method Goto uses for $281$ and $-919$ (Remark~\ref{rem:which}). As a by-product we settle four cases left open by Hanada and Madhukara for weights $16$ and $26$ (Proposition~\ref{prop:HM}).
+
+\subsection{Hypotheses and conventions}
+Results conditional on a Riemann hypothesis say so in their statements; no statement of this paper uses a hypothesis on $\zeta$, a linear-independence hypothesis or the Deep Riemann Hypothesis. A Lean proof of GRH for Dirichlet $L$-functions was announced on 2026-11-20; it is unrefereed, does not concern $L(s,\Delta)$, and is not used here. ``Certified'' means decided in ball arithmetic (Arb \cite{Arb}, through python-flint 0.9.0) or with exact integers, every comparison rigorous, correct given FLINT/Arb and the named program; in Part~II it also covers results proved by PARI's \texttt{bnfcertify} or by \texttt{thueinit} with certification flag, correct given PARI \cite{PARI}. ``Numerical'' means floating point. File names refer to the directory \repo{} of the repository \cite{Repo}.
+
+\part*{Part I. A sign theorem at every \texorpdfstring{$x$}{x}}
+\input{partI}
+
+\part*{Part II. Excluded values}
+\input{partII}
+
+\section{Review, status and reproducibility}\label{sec:review}
+
+\emph{Part I.} The working note \file{tau-race/TAU-RACE.md} was read by three independent AI agents. (1) A referee instructed to find the error re-derived Lemmas~\ref{lem:decomp}--\ref{lem:partial}, the assembly of Section~\ref{sec:proof1}, Lemmas~\ref{lem:V0}--\ref{lem:V3} and Section~\ref{sec:proof3}, reproduced all certificates byte for byte, and re-checked the identity \eqref{eq:decomp}, the explicit formula for $J_S$, $T(60,51.45)$, the completeness test and the zero counts with independent PARI computations; verdict ``repairable gaps; no fatal error'' (\file{tau-race/REFEREE-REPORT.md}); all repairs were applied. (2) An independent numerical audit, in floating point, with its own PARI and mpmath code (\file{tau-race/AUDIT-NUMERICS.md}), including a floating-point argument-principle zero count giving $41$ zeros up to height $60$ and $55$ up to $72$: six items, all pass. (3) A second referee with its own code (\file{tau-race/REFEREE-2-TAU.md}), which recomputed $\tau(n)$ for $n\le10^7$ from $(E_4^3-E_6^2)/1728$: no fatal error and no wrong step in Theorems~\ref{thm:1}--\ref{thm:4}, each ``complete modulo listed gaps''. Its three gaps were citation and presentation gaps and are repaired here: the functional equation of $\Lambda_S$ is quoted from sources actually read (Zagier \cite{Zagier}, Balkanova--Frolenkov \cite{BF}; (F3)); the contour shift of Lemma~\ref{lem:V0}(c) is proved; and (F6) is quoted from the texts of \cite{BKLNW,Dusart}, with Remark~\ref{rem:robust} stating exactly which constants change under the Rosser--Schoenfeld fallback. These repairs were made after that report and were not refereed again. Not consulted by anyone: the originals of Shimura, Gelbart--Jacquet, Rankin, Rosser--Schoenfeld, Deligne, Hecke and Swinnerton-Dyer, the finite order of $L_S$ (which is cited), and the books \cite{IK,MV}, whose numbered statements are quoted from memory. All reads concern the working notes, not this manuscript. No second rigorous implementation of the $\Phi$-table or of the completeness test was written; Theorem~\ref{thm:4} rests on Arb, the two programs and (F3), (F4).
+
+\emph{Part II.} \file{tau-p4/PROOF.md} was read by two independent agents with their own scripts (the first read is summarised in \file{tau-p4/PROOF.md}, \S7; the second report is \file{tau-p4/REFEREE-2-TAU4.md}): Theorem~\ref{thm:p4} ``proof complete''; the deduction of Corollary~\ref{cor:values} for $\pm461,\pm599$ ``complete, modulo the cited literature''. The first read confirmed the seed bound (also by a stress test over all $0<|\alpha|\le700$), the seeds, the periods, zero survivors with its own sieve, the congruences, the seventeen surviving pairs, the class-number arguments of Proposition~\ref{prop:minusD}, Proposition~\ref{prop:HM}, and the quotations from \cite{Goto,BCO,BCOT,BGPS,HM}. \file{tau-p2/TAU2.md} was read by an independent referee (\file{tau-p2/REFEREE-2-TAU2.md}): the case $601$ ``proof complete''; the labelling of the case $463$ honest. Applied corrections: the reduction is cited to \cite{BCOT} directly (Theorem~1.1, Proposition~3.1, Section~5); the per-pair table (Table~\ref{tab:pairs}) was added; the cases resting on uncertified PARI computations are labelled as such.
+
+\emph{Programs.} Part I: \file{tau-race/code/} (\file{tau_table.py}, \file{cert_constants.py}, \file{cert_small.py}, \file{bounds.py}, \file{sym2_phi.py}, \file{sym2_verify.py}, \file{selftest.py}, \file{independent_check.gp}), outputs in \file{tau-race/data/} with SHA-256 hashes in \file{tau-race/TAU-RACE.md}, \S7. Total running time a few minutes on four cores. Part II: \file{tau-p4/tau_p4.gp} (generator, $12$\,s), \file{tau-p4/certificate_tau_p4.txt}, \file{tau-p4/check_certificate.py} (independent checker), \file{tau-p4/sieve_tau_p4.py}, \file{tau-p4/thue_check.gp}; \file{tau-p2/local_k.gp}, \file{tau-p2/local_k_check.py}, \file{tau-p2/thue463.gp}, \file{tau-p2/thue463_runs.gp}, \file{tau-p2/control94.gp}.
+
+\section*{Acknowledgements}
+This paper was produced by AI (Anthropic's Claude models), directed by the author: the statements, proofs, programs, computations and literature searches were generated by AI. It was checked by independent AI referees, as described in Section~\ref{sec:review}, and has not yet been refereed by a human expert. The author thanks the developers of FLINT/Arb, python-flint and PARI/GP.
+
+\begin{thebibliography}{99}\small
+
+\bibitem{AK} M. Aoki, S. Koyama, \emph{Chebyshev's bias against splitting and principal primes in global fields}, J. Number Theory \textbf{245} (2023), 233--262. arXiv:2203.12266.
+
+\bibitem{Booker} A. R. Booker, \emph{Artin's conjecture, Turing's method, and the Riemann hypothesis}, Experiment. Math. \textbf{15} (2006) (not read).
+
+\bibitem{Cohn} J. H. E. Cohn, \emph{On square Fibonacci numbers}, J. London Math. Soc. \textbf{39} (1964), 537--540.
+
+\bibitem{DJ} S. Dembner, V. Jain, \emph{Hyperelliptic curves and newform coefficients}, J. Number Theory (2021). arXiv:2007.08358.
+
+\bibitem{Johnston} D. R. Johnston, arXiv:2201.06184 (2022); statement as quoted in \cite{Suzuki1} and in the arXiv abstract; paper not read.
+
+\bibitem{Rankin} R. A. Rankin, \emph{Contributions to the theory of Ramanujan's function $\tau(n)$ and similar arithmetical functions. I}, Proc. Cambridge Philos. Soc. \textbf{35} (1939) (not consulted).
+
+\bibitem{WR} R. Sharma, \emph{Rubinstein--Sarnak densities for weighted prime number races}, preprint, 2026, doi:10.5281/zenodo.21947101; and the working note \file{05-weighted-races-grh/explicit/} in \cite{Repo}.
+
+\bibitem{Yoshida88} H. Yoshida, \emph{On calculations of zeros of $L$-functions related with Ramanujan's discriminant function on the critical line}, J. Ramanujan Math. Soc. \textbf{3} (1988), 87--95.
+
+\bibitem{Angdinata} D. K. Angdinata et al.\ (24 authors), \emph{ABC implies that Ramanujan's tau function misses almost all primes}, arXiv:2603.29970 (v3, 2026).
+
+\bibitem{BCO} J. S. Balakrishnan, W. Craig, K. Ono, \emph{Variations of Lehmer's conjecture for Ramanujan's tau-function}, J. Number Theory \textbf{237} (2022). arXiv:2005.10345.
+
+\bibitem{BCOT} J. S. Balakrishnan, W. Craig, K. Ono, W.-L. Tsai, \emph{Variants of Lehmer's speculation for newforms}, Adv. Math. \textbf{428} (2023), Paper No.~109141; Corrigendum, Adv. Math. \textbf{435} (2023), 109347. arXiv:2005.10354 (v4 used).
+
+\bibitem{BF} O. Balkanova, D. Frolenkov, \emph{The mean value of symmetric square $L$-functions}, Algebra Number Theory \textbf{12} (2018), 35--59.
+
+\bibitem{BGPS} M. A. Bennett, A. Gherga, V. Patel, S. Siksek, \emph{Odd values of the Ramanujan tau function}, Math. Ann. \textbf{382} (2022). arXiv:2101.02933.
+
+\bibitem{BHV} Yu. Bilu, G. Hanrot, P. M. Voutier, \emph{Existence of primitive divisors of Lucas and Lehmer numbers}, J. Reine Angew. Math. \textbf{539} (2001), 75--122.
+
+\bibitem{BKLNW} S. Broadbent, H. Kadiri, A. Lumley, N. Ng, K. Wilk, \emph{Sharper bounds for the Chebyshev function $\theta(x)$}, Math. Comp. \textbf{90} (2021), 2281--2315. arXiv:2002.11068.
+
+\bibitem{Deligne} P. Deligne, \emph{La conjecture de Weil. I}, Publ. Math. IH\'ES \textbf{43} (1974), 273--307.
+
+\bibitem{Devin} L. Devin, \emph{Chebyshev's bias for analytic $L$-functions}, Math. Proc. Cambridge Philos. Soc. \textbf{169} (2020), 103--140. arXiv:1706.06394.
+
+\bibitem{Dusart} P. Dusart, \emph{Estimates of some functions over primes without R.H.}, arXiv:1002.0442 (2010).
+
+\bibitem{FKS} A. Fiori, H. Kadiri, J. Swidinsky, \emph{Sharper bounds for the Chebyshev function $\psi(x)$}, arXiv:2204.02588 (v3 read).
+
+\bibitem{GJ} S. Gelbart, H. Jacquet, \emph{A relation between automorphic representations of $\mathrm{GL}(2)$ and $\mathrm{GL}(3)$}, Ann. Sci. \'Ec. Norm. Sup\'er. (4) \textbf{11} (1978), 471--542.
+
+\bibitem{Goto} A. Goto, \emph{On some values which do not belong to the image of Ramanujan's tau-function}, arXiv:2405.16723v1 (2024); published in Arch. Math. \textbf{125} (2025), 157--172, doi:10.1007/s00013-025-02139-5 (published version not seen).
+
+\bibitem{HM} K. Hanada, R. Madhukara, \emph{Fourier coefficients of level 1 Hecke eigenforms}, Acta Arith. \textbf{200} (2021). arXiv:2007.08683.
+
+\bibitem{Hayani} M. Hayani, \emph{Chebyshev's bias without linear independence}, arXiv:2512.23302 (v3, 2026).
+
+\bibitem{HIK} G. Hiary, S. Ireland, M. Kyi, \emph{A method for verifying the generalized Riemann hypothesis}, arXiv:2408.00187 (2024).
+
+\bibitem{IK} H. Iwaniec, E. Kowalski, \emph{Analytic Number Theory}, Amer. Math. Soc. Colloq. Publ. \textbf{53}, AMS, Providence, 2004.
+
+\bibitem{Arb} F. Johansson, \emph{Arb: efficient arbitrary-precision midpoint-radius interval arithmetic}, IEEE Trans. Comput. \textbf{66} (2017), 1281--1292.
+
+\bibitem{KK} S. Koyama, N. Kurokawa, \emph{Chebyshev's bias for Ramanujan's $\tau$-function via the Deep Riemann Hypothesis}, Proc. Japan Acad. Ser. A Math. Sci. \textbf{98} (2022), no.~6, 35--39. arXiv:2203.12791.
+
+\bibitem{KS} S. Koyama, A. Sheth, \emph{Chebyshev's bias for modular forms}, arXiv:2509.04187 (2025).
+
+\bibitem{MV} H. L. Montgomery, R. C. Vaughan, \emph{Multiplicative Number Theory I. Classical Theory}, Cambridge Univ. Press, 2007.
+
+\bibitem{PARI} The PARI Group, \emph{PARI/GP version 2.15.4}, Univ. Bordeaux, 2023, \url{http://pari.math.u-bordeaux.fr/}.
+
+\bibitem{RS62} J. B. Rosser, L. Schoenfeld, \emph{Approximate formulas for some functions of prime numbers}, Illinois J. Math. \textbf{6} (1962), 64--94.
+
+\bibitem{Sarnak} P. Sarnak, \emph{Letter to Barry Mazur on ``Chebyshev's bias'' for $\tau(p)$}, November 2007 (with an addendum of January 2008), \url{https://web.math.princeton.edu/sarnak/MazurLtrMay08.PDF}.
+
+\bibitem{Sheth} A. Sheth, \emph{Euler products at the centre and applications to Chebyshev's bias}, Math. Proc. Cambridge Philos. Soc. \textbf{179} (2025), 331--349. arXiv:2405.01512.
+
+\bibitem{Shimura} G. Shimura, \emph{On the holomorphy of certain Dirichlet series}, Proc. London Math. Soc. (3) \textbf{31} (1975), 79--98.
+
+\bibitem{Suzuki1} M. Suzuki, \emph{On variants of Chebyshev's conjecture}, Ramanujan J. \textbf{68} (2025), Paper No.~95. arXiv:2411.07436.
+
+\bibitem{Suzuki2} M. Suzuki, \emph{Screw functions of Dirichlet series in the extended Selberg class}, Int. J. Number Theory \textbf{21} (2025), 1815--1823. arXiv:2209.12832.
+
+\bibitem{SwD} H. P. F. Swinnerton-Dyer, \emph{On $\ell$-adic representations and congruences for coefficients of modular forms}, in: Modular Functions of One Variable III, Lecture Notes in Math. \textbf{350}, Springer, 1973, 1--55.
+
+\bibitem{Yoshida95} H. Yoshida, \emph{On calculations of zeros of various $L$-functions}, J. Math. Kyoto Univ. \textbf{35} (1995), no.~4. arXiv:math/9411213.
+
+\bibitem{Zagier} D. Zagier, \emph{Modular forms whose Fourier coefficients involve zeta-functions of quadratic fields}, in: Modular Functions of One Variable VI, Lecture Notes in Math. \textbf{627}, Springer, 1977, 105--169.
+
+\bibitem{Repo} R. Sharma, \emph{Research-Math} (code, certificates and working notes), \url{https://github.com/raghavs1729/Research-Math}, directory \repo.
+
+\end{thebibliography}
+\end{document}

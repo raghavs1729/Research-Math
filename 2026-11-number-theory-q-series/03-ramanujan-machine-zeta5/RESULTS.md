@@ -13,8 +13,8 @@
    `L(f,1)/F_1(1) = −1/16`, `L(f,2)/F_2(1) = 1/32`, `L(f,3)/F_3(1) = −3/256` (i.e. `L(f,1) = −S_1/2`,
    `L(f,2) = π^2 S_0/16`). Every ingredient is published (Borwein–Straub–Wan 2013; Rogers–Wan–Zucker 2015; Zudilin's
    own Remarks 2, 5); only the assembly with the constants was not found stated. `Z/THEOREM.md`, `Z/AUDIT.md`.
-   **Z2, Z3 — Zudilin's relations (6) for `(1/2,1/4)` and `(1/2,1/3)`: proof written (2026-11-26), NOT independently
-   audited** (the adversarial audit was stopped unfinished on instruction; treat as "proved by the author, unrefereed").
+   **Z2, Z3 — Zudilin's relations (6) for `(1/2,1/4)` and `(1/2,1/3)`: PROVED (2026-11-26), refereed** (`Z/REFEREE-2-Z2Z3.md`: "proof complete" for both cases, minor fixes; ratios
+   reproduced independently to 52–54 digits; an earlier audit had been stopped unfinished).
    `(1/2,1/4)`, `f = η_4^16/(η_2^4η_8^4)` (16.4.a.a): `L(f,k)/F_k(1) = −1/8, 1/32, −3/448`. `(1/2,1/3)`,
    `f = η_6^14/(η_2^3η_18^3) − 3η_2^3η_6^2η_18^3` (36.4.a.a): `−1/3, 1/18, −1/90`. Method: for `r = 1/2` the first three
    Frobenius coefficients are `(1/π)∫_0^1 U_j(x) dx/√(x(1−x))` with `U_j` the Frobenius solutions of the symmetric-square
@@ -64,8 +64,8 @@
 | U2 | `1/PCF[8σ5 − 12σ3 + 7(2n+1), −64n^10] = (93/4)ζ(5) + (π^6/64)S_0/S_1` | proved; audit `U2/AUDIT.md` | `U2/` |
 | U2' | `= (93/4)ζ(5) − (π^4/8)L(f,2)/L(f,1)` | proved (via Z); 299 digits | `U2/`, `Z/` |
 | Z | `L(f,1) = −S_1/2`, `L(f,2) = π^2S_0/16`; Zudilin's (6) for `(1/2,1/2)` with constants `−1/16, 1/32, −3/256` | proved, audited `Z/AUDIT.md`; ingredients all published (assembly only) | `Z/` |
-| Z2 | Zudilin's (6) for `(1/2,1/4)`: `F_1 = −8L(f,1)`, `F_2 = 32L(f,2)`, `F_3 = −(448/3)L(f,3)`, `f` = 16.4.a.a | proof written, self-checked (symbolic + 15–30 digit numerics); **adversarial audit not completed**; relation not found in the literature (L-values known: RWZ) | `Z/THEOREM-2.md` |
-| Z3 | Zudilin's (6) for `(1/2,1/3)`: `F_1 = −3L(f,1)`, `F_2 = 18L(f,2)`, `F_3 = −90L(f,3)`, `f` = 36.4.a.a | proof written, self-checked (symbolic + 15–30 digit numerics); **adversarial audit not completed**; not found in the literature (numerical only before) | `Z/THEOREM-2.md` |
+| Z2 | Zudilin's (6) for `(1/2,1/4)`: `F_1 = −8L(f,1)`, `F_2 = 32L(f,2)`, `F_3 = −(448/3)L(f,3)`, `f` = 16.4.a.a | proof written, self-checked (symbolic + 15–30 digit numerics); refereed (`Z/REFEREE-2-Z2Z3.md`: proof complete); relation not found in the literature (L-values known: RWZ) | `Z/THEOREM-2.md` |
+| Z3 | Zudilin's (6) for `(1/2,1/3)`: `F_1 = −3L(f,1)`, `F_2 = 18L(f,2)`, `F_3 = −90L(f,3)`, `f` = 36.4.a.a | proof written, self-checked (symbolic + 15–30 digit numerics); refereed (`Z/REFEREE-2-Z2Z3.md`: proof complete); not found in the literature (numerical only before) | `Z/THEOREM-2.md` |
 | U3 | `1/PCF[8σ5 + 20σ3 − 5(2n+1), −64n^10] = (93/4)ζ(5) − 4 + (π^6/64)S_0K/(1+S_1K)`, `K = 4 + π^2(Z_0 − 2S_0)` | proved; audit `U3/AUDIT.md` | `U3/` |
 | FR-A | Conj. 1.3 of arXiv:2111.04468 for `x_1..x_d ∉ Z_{≥1}`, `B,m ≠ 0`; counterexample outside | proved | `FR/` |
 | FR-B | "if" half of Conj. 1.4 | proved | `FR/` |
@@ -114,8 +114,8 @@ equation). "trivial" = `L(f,2) = 0` (root number −1).
 | (r,t) | newform | k=1, k=2, k=3 constants | status |
 |---|---|---|---|
 | (1/2,1/2) | 8.4.a.a | −1/16, 1/32, −3/256 | proved, audited (`Z/THEOREM.md`; assembly of published ingredients) |
-| (1/2,1/4) | 16.4.a.a | −1/8, 1/32, −3/448 | proof written, unrefereed (`Z/THEOREM-2.md`); L-values known (RWZ), relation was numerical |
-| (1/2,1/3) | 36.4.a.a | −1/3, 1/18, −1/90 | proof written, unrefereed (`Z/THEOREM-2.md`); was numerical only |
+| (1/2,1/4) | 16.4.a.a | −1/8, 1/32, −3/448 | proved, refereed (`Z/THEOREM-2.md`, `Z/REFEREE-2-Z2Z3.md`); L-values known (RWZ), relation was numerical |
+| (1/2,1/3) | 36.4.a.a | −1/3, 1/18, −1/90 | proved, refereed (`Z/THEOREM-2.md`, `Z/REFEREE-2-Z2Z3.md`); was numerical only |
 | (1/2,1/6) | 72.4.a.b | 1/3, 0, −1/468 | numerical only; k=2 trivial |
 | (1/3,1/3) | 27.4.a.a | 1/9, 0, −1/243 | numerical only; k=2 trivial |
 | (1/3,1/4) | 9.4.a.a (CM) | −1/18, 1/54, −1/216 | L-values known as Γ-products; relations numerical only |
@@ -128,7 +128,7 @@ equation). "trivial" = `L(f,2) = 0` (root number −1).
 | (1/10,3/10) | 200.4.a.f | 7/10, 0, −21/34000 | numerical only; k=2 trivial |
 | (1/12,5/12) | 864.4.a.a | −13/6, 0, −13/39744 | numerical only; k=2 trivial |
 
-**Stopped here (2026-11-26) on instruction of the parent session** (afterwards one more target was added: Z2, Z3 above, written but not refereed; then stopped again on instruction). Not done: Zudilin's relations (6) for the remaining 11 cases (`Z/LITERATURE-13.md`; `(1/2,1/6)` and all cases without `r = 1/2` are outside the method of `Z/THEOREM-2.md`); a uniform proof of the 26 "new and
+**Stopped here (2026-11-26) on instruction of the parent session** (afterwards one more target was added: Z2, Z3 above, later refereed in `Z/REFEREE-2-Z2Z3.md`; then stopped again on instruction). Not done: Zudilin's relations (6) for the remaining 11 cases (`Z/LITERATURE-13.md`; `(1/2,1/6)` and all cases without `r = 1/2` are outside the method of `Z/THEOREM-2.md`); a uniform proof of the 26 "new and
 unproven" rows of arXiv:2212.09470 (24 agree numerically with their printed values; `ESMA/NOTES.md`); the γ
 conjecture of arXiv:2610.13919; the CMF conjectures of arXiv:2507.08138; Conjecture 2 of arXiv:2111.04468; the
 "only if" halves of Conjectures 1.1/1.4 there for `GCD_n` (= its Conjecture 3 in degree (1,2)).

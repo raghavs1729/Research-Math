@@ -1,0 +1,32 @@
+zeros: 511, max ordinate 639.916; min gap 0.1336
+prime powers up to 1623345
+
+(X1) identity (1.1) with v(u) = C exp(-1/(2(1/4-u^2)))
+  int w = 1.00000000; what(0) = 1.00000000
+  T=3.0: what(gamma_max/T) = 4.60e-14; c_0 = min_[0,1] what = 0.9716
+    y=  8.0: Pi_T = +0.768695; Omega_T - zero sum = +0.768695; diff = -2.09e-08; Omega_T = -6.2e-06
+    y= 10.0: Pi_T = +0.515779; Omega_T - zero sum = +0.515779; diff = +8.90e-10; Omega_T = -3.1e-07
+    y= 12.0: Pi_T = +1.678550; Omega_T - zero sum = +1.678550; diff = +1.80e-08; Omega_T = -3.0e-08
+    y= 14.0: Pi_T = +0.219304; Omega_T - zero sum = +0.219304; diff = -4.13e-09; Omega_T = +4.8e-09
+  T=6.0: what(gamma_max/T) = 2.12e-10; c_0 = min_[0,1] what = 0.9716
+    y=  8.0: Pi_T = +1.198328; Omega_T - zero sum = +1.198328; diff = -2.05e-08; Omega_T = -6.1e-06
+    y= 10.0: Pi_T = -3.238510; Omega_T - zero sum = -3.238510; diff = +8.36e-09; Omega_T = -3.1e-07
+    y= 12.0: Pi_T = -0.589030; Omega_T - zero sum = -0.589030; diff = +1.26e-08; Omega_T = -2.1e-08
+    y= 14.0: Pi_T = -0.466595; Omega_T - zero sum = -0.466595; diff = -1.00e-08; Omega_T = +1.0e-08
+
+(X2) P7-type window: s1=9.0, s2=20.0, g=0.8; zeros in margins: []; band zeros: [10.244, 12.988, 16.343, 18.292]
+  beta at band zeros: [1.0, 1.0, 1.0, 1.0]
+  |b(v)| at v = 0, 2, 5, 10, 20, 30: 3.25e+00, 1.61e-01, 3.55e-02, 1.38e-02, 1.68e-03, 2.97e-05
+  y = 7.0
+    eps=0.5: prime side = -0.0839519; Omega side - zero side = -0.0839522; diff = +3.06e-07 (prime truncation weight e^(u/2 - eps^2 u^2/2) at u_max: 1.0e-08)
+    eps=0.45: prime side = -0.0627189; Omega side - zero side = -0.0627190; diff = +1.43e-07 (prime truncation weight e^(u/2 - eps^2 u^2/2) at u_max: 1.3e-06)
+    eps=0.4: prime side = -0.0004035; Omega side - zero side = -0.0004032; diff = -2.78e-07 (prime truncation weight e^(u/2 - eps^2 u^2/2) at u_max: 1.0e-04)
+  y = 8.5
+    eps=0.5: prime side = +0.0039453; Omega side - zero side = +0.0039451; diff = +1.82e-07 (prime truncation weight e^(u/2 - eps^2 u^2/2) at u_max: 1.0e-08)
+    eps=0.45: prime side = +0.0116660; Omega side - zero side = +0.0116658; diff = +2.23e-07 (prime truncation weight e^(u/2 - eps^2 u^2/2) at u_max: 1.3e-06)
+    eps=0.4: prime side = +0.0176063; Omega side - zero side = +0.0176060; diff = +3.26e-07 (prime truncation weight e^(u/2 - eps^2 u^2/2) at u_max: 1.0e-04)
+
+(X3) eps -> 0: partial sums over log n <= y + V vs Omega_beta - G_beta - Pi^-_beta
+  y=6.0: target = +4.749904 (G_beta = -4.76836, Omega = -8.6e-02, Pi^- = -6.7e-02); V=2.0: +4.895356 (diff +1.5e-01); V=4.0: +4.789700 (diff +4.0e-02); V=5.0: +4.643003 (diff -1.1e-01); V=6.0: +4.738309 (diff -1.2e-02); V=8.3: +4.741624 (diff -8.3e-03)
+  y=7.0: target = +4.517164 (G_beta = -4.58358, Omega = -7.1e-02, Pi^- = -4.2e-03); V=2.0: +4.626189 (diff +1.1e-01); V=4.0: +4.537627 (diff +2.0e-02); V=5.0: +4.542330 (diff +2.5e-02); V=6.0: +4.612488 (diff +9.5e-02); V=7.3: +4.481450 (diff -3.6e-02)
+  y=8.0: target = -0.173313 (G_beta = +0.19688, Omega = -7.9e-03, Pi^- = -3.1e-02); V=2.0: -0.070519 (diff +1.0e-01); V=4.0: -0.226231 (diff -5.3e-02); V=5.0: -0.226691 (diff -5.3e-02); V=6.0: -0.138604 (diff +3.5e-02); V=6.3: -0.156718 (diff +1.7e-02)

@@ -1,0 +1,25 @@
+(A1)-(A5) needle polynomial, exact / multiprecision
+  N=   1: g(0)-(N+1)=0.0000 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1592;  (N+1)*int q^2 = 4.0000; min q on |s|<=2/(N+1) = 1.0000 (>= 0.2702); q range on [-1,1] = [1.00e+00, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 2.500e-01
+  N=   2: g(0)-(N+1)=0.3333 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1420;  (N+1)*int q^2 = 3.5680; min q on |s|<=2/(N+1) = 0.6444 (>= 0.2702); q range on [-1,1] = [2.00e-01, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 1.000e-01
+  N=   3: g(0)-(N+1)=0.0000 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1698;  (N+1)*int q^2 = 4.2667; min q on |s|<=2/(N+1) = 0.7500 (>= 0.2702); q range on [-1,1] = [3.75e-33, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 2.403e-02
+  N=   4: g(0)-(N+1)=0.2000 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1572;  (N+1)*int q^2 = 3.9513; min q on |s|<=2/(N+1) = 0.6869 (>= 0.2702); q range on [-1,1] = [5.77e-02, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 3.846e-02
+  N=   5: g(0)-(N+1)=0.0000 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1682;  (N+1)*int q^2 = 4.2267; min q on |s|<=2/(N+1) = 0.7257 (>= 0.2702); q range on [-1,1] = [3.66e-11, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 9.171e-03
+  N=   7: g(0)-(N+1)=0.0000 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1677;  (N+1)*int q^2 = 4.2141; min q on |s|<=2/(N+1) = 0.7178 (>= 0.2702); q range on [-1,1] = [3.75e-33, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 4.528e-03
+  N=  10: g(0)-(N+1)=0.0909 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1646;  (N+1)*int q^2 = 4.1374; min q on |s|<=2/(N+1) = 0.7038 (>= 0.2702); q range on [-1,1] = [8.90e-03, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 8.197e-03
+  N=  20: g(0)-(N+1)=0.0476 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1661;  (N+1)*int q^2 = 4.1746; min q on |s|<=2/(N+1) = 0.7069 (>= 0.2702); q range on [-1,1] = [2.31e-03, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 2.262e-03
+  N=  50: g(0)-(N+1)=0.0196 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1666;  (N+1)*int q^2 = 4.1864; min q on |s|<=2/(N+1) = 0.7079 (>= 0.2702); q range on [-1,1] = [3.86e-04, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 3.843e-04
+  N= 100: g(0)-(N+1)=0.0099 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1666;  (N+1)*int q^2 = 4.1882; min q on |s|<=2/(N+1) = 0.7080 (>= 0.2702); q range on [-1,1] = [9.81e-05, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 9.802e-05
+  N= 200: g(0)-(N+1)=0.0050 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1667;  (N+1)*int q^2 = 4.1886; min q on |s|<=2/(N+1) = 0.7081 (>= 0.2702); q range on [-1,1] = [2.48e-05, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 2.475e-05
+  N= 300: g(0)-(N+1)=0.0033 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1667;  (N+1)*int q^2 = 4.1887; min q on |s|<=2/(N+1) = 0.7081 (>= 0.2702); q range on [-1,1] = [1.10e-05, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 1.104e-05
+  N= 400: g(0)-(N+1)=0.0025 in [0,1]: True; int q^2 / (8pi/(N+1)) = 0.1667;  (N+1)*int q^2 = 4.1888; min q on |s|<=2/(N+1) = 0.7081 (>= 0.2702); q range on [-1,1] = [6.22e-06, 1.0000]; max |q|/(2(2|s|)^N) on 1<=|s|<=1e3 = 6.218e-06
+  overall worst ratio in (A4): 2.500e-01 (must be <= 1)
+
+(A6) Gauss-Hermite sharpness: (N+1)-point rule for N(0,1), central weight
+  N=  10: max weight = 0.36941; max weight*sqrt(N) = 1.1682; *sqrt(N+1) = 1.2252  (limit sqrt(pi/2) = 1.2533)
+  N=  40: max weight = 0.19455; max weight*sqrt(N) = 1.2304; *sqrt(N+1) = 1.2457  (limit sqrt(pi/2) = 1.2533)
+  N= 160: max weight = 0.09862; max weight*sqrt(N) = 1.2475; *sqrt(N+1) = 1.2514  (limit sqrt(pi/2) = 1.2533)
+  N= 640: max weight = 0.04948; max weight*sqrt(N) = 1.2518; *sqrt(N+1) = 1.2528  (limit sqrt(pi/2) = 1.2533)
+  N=1280: max weight = 0.03501; max weight*sqrt(N) = 1.2526; *sqrt(N+1) = 1.2531  (limit sqrt(pi/2) = 1.2533)
+
+(A7) Lemma A bound for a standard Gaussian W at x = mu (b = 0, sigma = 1):
+  bound(N) = 1 at N = 2.0193e+07; bound(1e7) = 1.421, bound(2.1e7) = 0.9806

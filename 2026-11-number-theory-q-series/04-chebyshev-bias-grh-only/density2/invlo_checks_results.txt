@@ -21,7 +21,7 @@
   second example ['1', '2', '3', '5/2', '1000033/11'], L=2: S = []
     moments j<=4 (Haar): ['1', '0', '2293369/10672200', '9/80', '10698169195561/75930568560000']
     moments j<=4 (mixed, S from L=2): ['1', '0', '2293369/10672200', '0', '8328567268561/75930568560000']
-    equal up to j=2: True;  equal up to j=4: False (expected False: the length-3 relation 2*(5/2) - 2 - 3 = 0 involves 5/2, outside S for L=2)
+    equal up to j=2: True;  equal up to j=4: False (expected False: the length-3 relations 1 + 2 - 3 = 0 and 2*1 - 2 = 0 have length > 2, so S_2 is empty, but they change the order-3 moment)
 
 (4) Lemma A on an example: Z = Gauss-quadrature discretisation of W = N(0,1)
   N=  2: max atom of Z = 0.6667 (~ c/sqrt(N): 0.943/sqrt(N));  P(|Z|<=2R/(N+1)) = 1.0000 <= bound 2118.56: True

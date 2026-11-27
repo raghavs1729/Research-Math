@@ -4,20 +4,23 @@ AI-produced (Anthropic's Claude), 2026-11-27. Labels as in `monotonicity/density
 **Theorem / Proposition / Lemma** means a complete proof is given here. The main statement
 (`ν_{1/2}({0}) = 0` under GRH alone) is **not** proved here. Nothing here concerns Problem 12 of
 arXiv:2407.03530. No novelty is claimed: the literature was not searched beyond
-`monotonicity/density/LITERATURE.md`. Status: **not yet refereed**.
+`monotonicity/density/LITERATURE.md`. Status: read by referee 4 (`REFEREE-4.md`, `REFEREE-4b.md`)
+and, independently, by referee 5 (`REFEREE-5.md`). Their fixes are applied.
 
 This note answers the request to attack Conjecture U (predecessor branch, `DENSITY.md` §9,
 after Lemma 9.13) by inverse Littlewood–Offord methods. The inverse principle — concentration
 forces additive structure in the frequencies — takes a precise form for Haar measure on a
 subtorus: **near-atoms force short integer relations.**
-- Lemma A: if two laws share their first `2N` moments, and one of them has a density and
-  sub-Gaussian tails, the other has small-ball probability `O(N^{−1/2})` at scale `N^{−1/2}`.
+- Lemma A: suppose two laws share their first `2N` moments, and one of them has a density and
+  sub-Gaussian tails, with proxy `σ`, around a point `μ`. Then the other has small-ball
+  probability `O(N^{−1/2})` at scale `N^{−1/2}`, near points `x` with `|x−μ| + b ≪ √Nσ`.
 - Lemma D: density bounds for sums of cosines with independent phases.
 - Proposition B′ (no hypothesis): the moments of a hull function of order `≤ L` see only the
   integer relations of length `≤ L`.
 - Proposition B (GRH + NCZ): if all relations of length `≤ L` among the ordinates involve
-  only finitely many ordinates, every atom of `ν_M` has mass `O(L^{−1/2})`, with an explicit
-  dependence on those ordinates.
+  only finitely many ordinates, every atom of `ν_M` at `c` has mass `≪ D(1 + |c−1| + B)L^{−1/2}`.
+  Here `B` is the `ℓ¹`-mass of those ordinates and `D` a density bound for the rest, both
+  explicit.
 - Theorem C (GRH + NCZ + GLI(ψ) with `ψ(t)·log t/t → ∞`): a "graded LI" hypothesis gives no
   atoms, hence the densities. GLI(ψ) says every integer relation among the ordinates has
   length `≥ ψ(largest ordinate involved)`. It is incomparable with TS, FD and TS_ℤ (§3).
@@ -75,7 +78,9 @@ Put `q := g/g(0)`. Then:
 - `|q(s)| ≤ 2|T_N(s)| ≤ 2(2|s|)^N` for `|s| ≥ 1`. This is Chebyshev's inequality for a
   polynomial of degree `≤ N` bounded by `2` on `[−1,1]`, with `T_N` the Chebyshev polynomial.
 
-`invlo_checks.py` (1) confirms these properties numerically for `N ≤ 300`.
+`invlo_checks.py` (1) confirms these properties numerically for `N ≤ 100`. At `N = 300` its
+double-precision check of the bound outside `[−1,1]` overflows. Referee 5 confirmed that bound
+in 60-digit arithmetic for `N ≤ 400` and `1 ≤ |s| ≤ 10³` (`referee5/r5_lemmaA.py` (A4)).
 
 **The bound.** `p(t) := q((t−x)/R)²` is a polynomial of degree `≤ 2N` with `p ≥ 0` on `ℝ`, and
 `p ≥ 0.27² > 1/14` on `|t−x| ≤ 2R/(N+1)`. So
@@ -181,7 +186,8 @@ D(a).
   - `Γ_T∖S_L(Γ_T) ⊃ J_0`, so the free sum has density `≤ D`.
 - Apply Proposition B′ to the truncation `F_{M,T}` on `A_T`, with `B' := B` and
   `σ' := (2V_M)^{1/2}`, so that `R` does not depend on `T`. The law of `F_{M,T}` equals that
-  of `F_{M,T}∘π_T` under `λ_A` (`DENSITY.md` Lemma 9.13, predecessor branch).
+  of `F_{M,T}∘π_T` under `λ_A`, since `π_T : A → A_T` is a continuous surjective homomorphism.
+  (See `DENSITY.md` §3.2, around (3.1), and the predecessor's Lemma 9.13.)
 - Put `ρ := 2R/(N+1)`. Then
   `{|F_M − c| < ρ/2} ⊂ {|F_{M,T}∘π_T − c| ≤ ρ} ∪ {|F_M − F_{M,T}∘π_T| ≥ ρ/2}`. Under GRH + NCZ,
   `ν_M` is the law of `F_M` (`DENSITY.md` §1), so by Chebyshev's inequality
@@ -233,7 +239,7 @@ For `χ_{−4}`, under GRH + GLI(ψ) the logarithmic density of `{x : π(x;4,3) 
   For smaller `T_L`, use Lemma D(a) with three ordinates in `(t_χ', t_χ' + H_χ]`, where
   `t_χ' := max(t_χ, M)` and `H_χ` is such that every interval of length `H_χ` contains three
   ordinates. On any bounded range of `T_L`, either bound is `O_{M,χ}(1)`.
-- *Proposition B*, with `N = ⌊L/2⌋ ≥ L/3`, gives
+- *Proposition B*, with `N = ⌊L/2⌋ ≥ L/4`, gives
 
       ν_M({c}) ≤ C(c,M,χ)·(1 + (T_L/log(T_L+3))^{1/2})·[(1 + log²(T_L+3))/L + L^{−1/2}] + 56·16^{−⌊L/2⌋}.
 
@@ -406,8 +412,8 @@ consists of finite `Γ'` with integer multiplicities, the counting law, and
   (Proposition B′). Together with `LINE1.md` Proposition 4.1 (free sets of large-coefficient
   zeros are bounded), it gives the structure an atom needs: **many short relations among the
   large-coefficient ordinates, and few free directions.** For the true race this is
-  Proposition E: for every `δ`, all but a proportion `O(δ)` of every dyadic block up to height
-  `C_2^{−1}α²δ·L log L` is covered by relations of length `≤ L`.
+  Proposition E: for every `δ`, all but a proportion `O(δ)` of every dyadic block from height
+  `log³L` up to `C_2^{−1}α²δ·L log L` is covered by relations of length `≤ L`.
   - Saturation alone is not contradictory. A spectrum made of independent triples
     `{a, b, a+b}` is saturated at `L = 3`. It has no atom, but for a different reason: TS
     holds there, and Jessen–Wintner applies to the independent blocks.
@@ -415,4 +421,4 @@ consists of finite `Γ'` with integer multiplicities, the counting law, and
 
   The route cannot by itself prove U, because the saturated half contains the open cyclic
   toy question. For the true race the structure statement yields a sufficient hypothesis
-  new here (Theorem C). The missing step is unchanged: excluding saturated integer spectra.
+  not considered earlier in this repository (Theorem C). The missing step is unchanged: excluding saturated integer spectra.

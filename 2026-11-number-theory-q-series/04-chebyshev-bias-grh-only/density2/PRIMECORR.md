@@ -4,7 +4,8 @@ AI-produced (Anthropic's Claude), 2026-11-27. Labels as in `monotonicity/density
 **Theorem / Proposition / Lemma / Corollary** means a complete proof is given here, modulo
 the quoted standard inputs. **Remark (heuristic)** means not proved. The main statement
 (`ν_{1/2}({0}) = 0` under GRH alone) is **not** proved here. Nothing here concerns Problem 12 of
-arXiv:2407.03530. Status: **not yet refereed**.
+arXiv:2407.03530. Status: read by referee 4 (`REFEREE-4.md`, `REFEREE-4b.md`) and,
+independently, by referee 5 (`REFEREE-5.md`). Their fixes are applied.
 
 This answers the parent session's request (2026-11-27): find a conditional theorem whose extra
 input is a **prime-side** correlation hypothesis instead of LI, and state the barrier.
@@ -18,7 +19,8 @@ input is a **prime-side** correlation hypothesis instead of LI, and state the ba
    integer relations of length `≤ k` among the zeros. The prediction is computable from finite
    prime sums (one-level data).
    - In particular the odd log-averaged moments are `≤ 0`, and vanish iff there is no relation
-     of odd length `≤ k`.
+     of odd length `≤ k` among the zeros with `a_ρ > 0`. For `T` outside a countable set, those
+     are all the zeros.
    - The moments up to order `L` match the prediction iff there is no relation of length `≤ L`.
 
    So at this level a prime-side correlation hypothesis is a zero-side relation hypothesis,
@@ -30,9 +32,13 @@ input is a **prime-side** correlation hypothesis instead of LI, and state the ba
      equivalent to LI with simple zeros, so it gives no atoms but is not weaker than LI.
    - **Theorem P7 (GRH + NCZ + band decoupling), §3.** Take mixed moments of two windowed prime
      sums with disjoint frequency bands. Their excess over the "decoupled" prediction counts
-     only the relations that involve the band. Suppose that for infinitely many `L` some
-     **nonempty** band at height `s`, with `s/log s = o(L)`, is free in this sense. Then
-     `ν_M` has no atoms. (For bounded `s` the hypothesis already implies TS.)
+     only the relations that involve the band. Suppose that for infinitely many `L` there is a
+     nonempty band `(s_1, s_2)` with:
+     - `2s_1 ≤ s_2 ≤ 3s_1` and `s_1/log s_1 = o(L)`;
+     - zero-free margins (condition (Z));
+     - freedom from relations of length `≤ L` among the zeros up to `T* = ⌊L/2⌋⁴`.
+
+     Then `ν_M` has no atoms. (For bounded `s_1` the hypothesis already implies TS.)
    - This prime-side hypothesis is strictly weaker than LI with simple zeros. For spectra
      with simple zeros, it contains the graded LI of `INVLO.md` (Theorem C) as a special
      case. Without simplicity it does not: (D) forbids multiple zeros in the band, while GLI
@@ -168,7 +174,8 @@ Consequently:
     (*padding*); the net vector is still `κ`. This gives a term of `Σ'` of positive weight, so
     `Δ_k > 0`.
   - Padding really occurs. For the ordinates `{1, 2, √2}`, the only odd relations of length
-    `≤ 5` have length `3`, yet `Δ_5 = 161/90 > 0` (referee 4, `referee4/r4_moments_exact.py`).
+    `≤ 5` are `±(2,−1,0)`, of length `3`. Yet with unit weights `Δ_5 = 220 > 0` (referee 5,
+    `referee5/r5_exact_moments.py` (E2)).
 - *(c)* A relation `κ` of length `ℓ ≤ L` is realised by a sequence of length `ℓ`: list each `ρ`
   `|κ_ρ|` times, with sign `sgn κ_ρ`. Its weight is `Π a_ρ^{|κ_ρ|} > 0`. Conversely, without such
   relations every term of `Σ'` vanishes.
@@ -238,8 +245,13 @@ asymptotic statement about primes at all heights.
 - By Theorem P1, H_corr implies two facts: the zeros below `T` are simple, and they satisfy no
   relation of length `≤ L`.
 - It also constrains zeros well above `T`, because of padding. A double zero `γ_0 > T`
-  contributes `Δ_ℓ ≥ ŵ(γ_0/T)²(2s_2)^{(ℓ−2)/2}` for even `ℓ`. Already at `ℓ = 2`, a double
-  zero anywhere in `(T, πT]` violates H_corr(2,T) (referee 4, `referee4/r4_P5_P4.py`).
+  contributes `Δ_ℓ ≥ ŵ(γ_0/T)²(2s_2)^{(ℓ−2)/2}` for even `ℓ`.
+  - For windows with `2ŵ ≥ c_0` on `(1, π]`, such as the standard bump `exp(−1/(1−4u²))`,
+    already at `ℓ = 2` a double zero anywhere in `(T, πT]` violates H_corr(2,T) (referee 4,
+    `referee4/r4_P5_P4.py`).
+  - For other admissible windows this can fail. With two bumps at `±0.45`, `2ŵ < c_0` on
+    `[1.956, π]` (referee 5, `referee5/r5_examples.py` (C1)).
+  - For even `ℓ ≥ 4`, padding makes the bound exceed `c_0^ℓ` unless `ŵ(γ_0/T)` is very small.
 - So the effective tolerance is much smaller than `c_0^ℓ`.
 
 Proposition B of `INVLO.md` already gives the bound `atom ≤ C/√L` from LI up to length `L`.
@@ -257,7 +269,9 @@ band; condition (N) below fixes that.
 
 *Numerical checks.*
 - `p7_checks.py` uses a plateau-free bump window on `[9, 21]`, which contains four zeros, and
-  omits the term `Π^−` (negligible for `y ≥ 6`). The truncated prime sums match the band's zero
+  omits the term `Π^−`. That term is negligible for `y ≥ 6` for this fast-decaying window, but
+  not in general: for a plateau window of Theorem P7 type, `Π^−(6) ≈ −0.06` (referee 5,
+  `referee5/r5_piminus.py`). The truncated prime sums match the band's zero
   sum to `≤ 7·10^{−3}` at truncation `V = 2` and `≤ 4·10^{−4}` at `V = 4`. The agreement is not
   monotone in `V` at `y = 9`.
 - Referee 4 checked the regularised identity of the proof to `≤ 1.4·10^{−7}`
@@ -287,9 +301,8 @@ The boundary term tends to `0`. In the variable `u = log t`, the integrand is
 standard deviation `ε ≤ 1`.
 - `h_ε` is entire, with Gaussian decay in every horizontal strip. So it belongs to the
   standard admissible class of the explicit formula: `h` holomorphic in `|Im r| ≤ ½ + δ`, with
-  `|h(r)| ≪ (1+|r|)^{−1−δ}` (e.g. Iwaniec–Kowalski Thm 5.12, quoted from memory).
-  Alternatively, reduce to `C_c^∞` by a smooth cutoff at `|u| ≤ U`: the cutoff error on the prime
-  side is `≪ ∫_U^∞ e^{u/2−ε²u²/2}du → 0`.
+  `|h(r)| ≪ (1+|r|)^{−1−δ}` (e.g. Iwaniec–Kowalski Thm 5.12, quoted from memory; the exact
+  hypotheses there were not re-checked).
 - Its inverse transform is `g_ε(u) = b(u − y)e^{−ε²u²/2}`.
 
 Let `ε → 0` in the explicit formula for `h_ε`, using three dominations, all uniform in `ε ≤ 1`.
@@ -406,7 +419,10 @@ lies in no relation at all: it is simple, and `γ_0 ∉ ⟨Γ∖{γ_0}⟩_ℚ`. 
 So the content of Theorem P7 lies in bands with `s_1 → ∞`. For bounded `s_1` the hypothesis
 already implies TS.
 
-*Comparison* (abstract spectra; the examples are from referee 4, `REFEREE-4b.md` A11–A13).
+*Comparison.* These concern abstract spectra. The examples are from referee 4 (`REFEREE-4b.md`
+A11–A13), as repaired by referee 5 (`REFEREE-5.md` §2.1).
+- **Admissible bands contain zeros.** The first two items use this. For the true zeros it is
+  Riemann–von Mangoldt; for abstract spectra it is a density assumption.
 - **LI with simple zeros implies H_dec.** Then `E ≡ 0`. For large `s_1`, bands with zero-free
   margins (choose the `s_i` in gaps between ordinates) contain zeros. So H_dec holds for every
   `L`, with bands at any large height.
@@ -419,34 +435,47 @@ already implies TS.
   - Without simplicity it is not. GLI concerns distinct ordinates, whereas a double zero in the
     band gives `E_{0,2} = 4`. Example: a `ℚ`-independent spectrum with all multiplicities `2`
     satisfies GLI(ψ) for every ψ, but fails (D) for every nonempty band.
-- **For simple spectra, H_dec is strictly weaker than GLI.** Take the spectrum of `REFEREE-4b.md`
-  A13:
-  - `Γ = {nα} ∪ ⋃_jB_j ∪ {z_x, x+z_x : x ∈ ⋃_jB_j}`;
-  - `B_j` is a band of simple elements in `(s_{1,j}+g, s_{2,j}−g)`, and `z_x ∈ (T*_j+1, T*_j+2)`;
-  - the elements of `⋃B_j ∪ {z_x} ∪ {α}` are `ℚ`-independent;
-  - the scales are sparse (`s_{1,j+1} > T*_j + 3 + s_{2,j}`) and `L_j ≥ j·s_{1,j}`.
+- **For simple spectra, H_dec is strictly weaker than GLI.**
+  - *Construction.* Take `0 < α < (s_{1,1}−1)/2` and sparse scales,
+    `s_{1,j+1} > T*_j + 3 + s_{2,j}`, with `L_j ≥ j·s_{1,j}`. Put
 
-  Every relation through `x ∈ B_j` uses `z_x` and `x + z_x`, which lie outside `supp β_R`. So
-  `E_{a,b} = 0` and H_dec holds along `L_j`. But GLI(ψ) fails for every `ψ > 3`: the set contains
-  `(n+1)α − nα − α = 0`.
-- **Devin's Theorem 5.4(1) and H_dec are incomparable.**
-  - *5.4(1) does not imply H_dec.* Double every element of a set satisfying 5.4(1). That
-    condition concerns `ℚ`-spans, so it survives, while (D) fails at `(0,2)` for every nonempty
-    band.
-    - With simple elements: start from `DENSITY.md` Example 3.3a, in which every element lies
-      in a relation. Add `ℚ`-independent triples `{u_k, v_k, u_k+v_k}` with some `u_k+v_k` in
-      every interval of length `½` above height `1`.
+        Γ := R′ ∪ ⋃_j B_j ∪ {z_x, x+z_x : x ∈ ⋃_j B_j},   R′ := {nα : n ≥ 1} ∖ ⋃_j[s_{1,j}−1, s_{2,j}+1],
+
+    where:
+    - `B_j` is a band of simple elements in `(s_{1,j}+g_j, s_{2,j}−g_j)`, with `g_j < ½`;
+    - `z_x ∈ (T*_j+1, T*_j+2)` for `x ∈ B_j`;
+    - the elements of `⋃B_j ∪ {z_x} ∪ {α}` are `ℚ`-independent.
+
+    Removing the multiples of `α` near the bands matters. Otherwise the band contains
+    consecutive multiples, and `(n+1)α − nα − α = 0` gives `E_{1,2} ≥ 4`. An exact truncation
+    gives `E_{1,2} = 240` (`referee5/r5_exact_moments.py` (E4)).
+  - *The bands are free.* Then `I_j = B_j`, and (Z) holds. Every relation through `x ∈ B_j`
+    uses `z_x`, and `β_R(z_x) = 0` since `z_x > T*_j + 1`. So `E_{a,b} = 0`, and H_dec holds
+    along `L_j`. Referee 5's exact check on a truncation gives `E ≡ 0` (E5).
+  - *GLI fails.* Each gap `(s_{2,j}+1, s_{1,j+1}−1)` has length `> T*_j → ∞`. It therefore
+    contains consecutive multiples of `α`, and `(n+1)α − nα − α = 0` occurs at arbitrarily large
+    height. So GLI(ψ) fails for every `ψ > 3`.
+- **Devin's Theorem 5.4(1) and H_dec are incomparable.** Here 5.4(1) is read, as in
+  `DENSITY.md` §3.3, as a condition on the set of distinct ordinates.
+  - *5.4(1) does not imply H_dec.*
+    - Double every element of a set satisfying 5.4(1). That condition concerns `ℚ`-spans, so it
+      survives, while (D) fails at `(0,2)` for every nonempty band.
+    - With simple elements: start from `DENSITY.md` Example 3.3a, in which every element lies in
+      a relation. Add triples `{u_k, v_k, u_k+v_k}`, `ℚ`-independent of each other and of the
+      elements of Example 3.3a, with `u_k, v_k ≥ (u_k+v_k)/3` (so that the set stays discrete)
+      and some `u_k+v_k` in every interval of length `½` above height `1`.
     - Then every admissible band with `s_1 > 2.5` either violates (Z) or contains some
       `u_k+v_k`, which lies in a relation of length `3`, so that `E ≥ 1`. Every band with bounded
       `s_1` fails (D) for large `L_j`.
   - *H_dec does not imply 5.4(1).* The spectrum of the previous item satisfies H_dec. At
     `T = T*_j + 3 + s_{2,j}`, every element `≤ T^{1/2}` lies in the `ℚ`-span of the other elements
     of `Γ_T`:
-    - `nα` via `2nα`;
+    - `nα` via any other multiple of `α` in `Γ_T` (`α` and `2α` are kept);
     - `x` via `(x+z_x) − z_x`;
     - `z_x` via `(x+z_x) − x`.
 
-    So 5.4(1) fails. That spectrum satisfies TS, so it is not a new case of "no atoms".
+    So 5.4(1) fails. That spectrum satisfies TS, since `x ∈ B_j` is not in the `ℚ`-span of the
+    tail, so it is not a new case of "no atoms".
 
 *Remark (why plain moments do not suffice).* With one positive window, a relation `κ` of
 length `ℓ` among low zeros is allowed by H_dec. It contributes to the excess of every moment of
@@ -496,7 +525,7 @@ classical second-moment duality (Goldston–Montgomery: pair correlation versus 
 intervals) is also of that kind. At our scale the second moment is trivial (P1(a)).
 
 (b) *Fixed-order Gaussianity cannot see what an atom needs.* Unlike (a), this part is not
-heuristic, except its last sentence. It is a rigorous consequence of Theorem P1 and
+heuristic, except its last paragraph. It is a rigorous consequence of Theorem P1 and
 `INVLO.md` Proposition E. By Theorem P1, a relation `κ` of length `ℓ'` contributes:
 - `0` to `Δ_ℓ` if `ℓ < ℓ'` or `ℓ ≢ ℓ' (mod 2)`;
 - `(ℓ'!/Π_ρ|κ_ρ|!)·Π_ρa_ρ^{|κ_ρ|}` at `ℓ = ℓ'`, which lies between `c_0^{ℓ'}` and `ℓ'!` for zeros
@@ -504,16 +533,21 @@ heuristic, except its last sentence. It is a rigorous consequence of Theorem P1 
 - by padding, a multiple `≍ (T log T)^{(ℓ−ℓ')/2}` of its weight for `ℓ > ℓ'`, `ℓ ≡ ℓ'`.
 
 An atom of mass `α` forces saturation (Proposition E): for every `δ`, all but a proportion
-`O(δ)` of the zeros in the dyadic blocks up to height `C_2^{−1}α²δ·L log L` lie in relations of
-length `≤ L`. At height `T` this concerns lengths `L ≳ C_2T/(α²δ log T)`. For example,
-`α = 0.0891`, `δ = 0.1`, `T = 10³` and `C_2 = 1` give `L ≥ 1.1·10⁵` (referee 4,
+`O(δ)` of the zeros in the dyadic blocks from height `log³L` up to `C_2^{−1}α²δ·L log L` lie in
+relations of length `≤ L`. At height `T` this concerns lengths `L ≳ C_2T/(α²δ log T)`. For example,
+`α = 0.0891`, `δ = 0.1`, `T = 10³` and the illustrative value `C_2 = 1` (Proposition E gives no
+value) give `L ≥ 1.1·10⁵` (referee 4,
 `referee4/r4_P5_P4.py`).
 
 So the saturating relations may all be far longer than any fixed moment order `K`. Then they
-change **no** moment of order `≤ K` at all. A hypothesis "the moments of order `≤ K` are
-Gaussian up to a relative error `η`", with `K` fixed or `K = o(T/log T)`, cannot exclude the
-structure an atom needs, however small `η` is. *(Heuristic:)* it would take moments of order
-`≍ T/log T` at scale `T`, at the precision of single relations. That is the precise sense in
+change **no** moment of order `≤ K` at all.
+
+*(Heuristic from here on.)* A hypothesis "the moments of order `≤ K` are Gaussian up to a
+relative error `η`", with `K` fixed or `K = o(T/log T)`, therefore looks unable to exclude the
+structure an atom needs, however small `η` is. Proving this would need a model: an abstract
+spectrum with no relation of length `≤ K` that has that structure (saturation in the range of
+Proposition E, and failure of TS, TS_ℤ and FD). No such model is given here. It would take
+moments of order `≍ T/log T` at scale `T`, at the precision of single relations. That is the precise sense in
 which the density question lies at the level of **exact** prime correlations of very high
 order.
 
@@ -544,7 +578,7 @@ law with a bounded continuous density. Moreover:
 - *`σ²`.* `|γ'−γ| < δ_∞γ/2` gives `(M²+γ²)/(M²+γ'²) ∈ [(1+δ_∞)^{−2}, (1−δ_∞)^{−2}]`. ∎
 
 **Corollary P6 (barrier; conditional on the predecessor's Theorem 9.22).** Assume Theorem 9.22
-and Corollary 9.23(iii) of `THM922_DRAFT.md` (predecessor branch, **draft, not refereed**).
+and Corollary 9.23(i)–(iii) of `THM922_DRAFT.md` (predecessor branch, **draft, not refereed**).
 These give, for `0 < θ ≤ 1` and a small `M ≤ M_0(θ)`, a model at the classical weight `½`. Put
 `Ω := 1/(2M)`. The frequencies are `Ωℕ`, with positive integer multiplicities
 `m_n ≤ C(M,θ)(log(n+2))^θ`, and:
@@ -562,8 +596,9 @@ decide whether the model's law has an atom at `0`.
 
 *What this shows, and what it does not* (corrected after referee 4).
 - **It shows:** no property of spectra that is shared by the models of Theorem 9.22 and stable
-  under small perturbations of the ordinates can imply "no atom", or characterise atoms on a
-  class containing those models.
+  under small perturbations of the ordinates can characterise atoms on a class containing those
+  models. (That no property shared by the models can imply "no atom" needs no perturbation:
+  the models themselves are counterexamples.)
 - **It does not show** that a proof must use unstable information. A proof uses some property
   `Q` of the true zeros with "`Q` + data ⇒ no atom". The models of Theorem 9.22 only have to
   fail `Q`. So `Q` may be stable:

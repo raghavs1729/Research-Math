@@ -128,7 +128,7 @@ mM = moments_haar(freqs, coeffs, L, Smask)
 P(f"  moments j<=L (Haar on closure torus): {[str(m) for m in mH]}")
 P(f"  moments j<=L (mixed model):           {[str(m) for m in mM]}")
 P(f"  equal: {mH == mM}")
-# Order L+1..: the relation 7*(1000003/7) - 1000003*1 = 0 is long; within j <= 6 the
+# Order L+1..: relations involving 1000003/7 need coefficients divisible by 7, so they are long; within j <= 6 the
 # mixed and true moments still agree here.  To see a difference, use a model where a
 # length-(L+1) relation involves a free frequency.
 freqs2 = [Fraction(1), Fraction(2), Fraction(3), Fraction(5, 2), Fraction(1000033, 11)]
@@ -140,7 +140,8 @@ P(f"  second example {[str(f) for f in freqs2]}, L=2: S = {[str(freqs2[i]) for i
 P(f"    moments j<=4 (Haar): {[str(m) for m in mH2]}")
 P(f"    moments j<=4 (mixed, S from L=2): {[str(m) for m in mM2]}")
 P(f"    equal up to j=2: {mH2[:3] == mM2[:3]};  equal up to j=4: {mH2 == mM2} (expected False:"
-  f" the length-3 relation 2*(5/2) - 2 - 3 = 0 involves 5/2, outside S for L=2)")
+  f" the length-3 relations 1 + 2 - 3 = 0 and 2*1 - 2 = 0 have length > 2, so S_2 is empty,"
+  f" but they change the order-3 moment)")
 
 P("")
 P("(4) Lemma A on an example: Z = Gauss-quadrature discretisation of W = N(0,1)")

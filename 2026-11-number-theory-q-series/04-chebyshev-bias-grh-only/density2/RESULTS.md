@@ -17,8 +17,12 @@ relevant item is Problem 13 (ties). No result is verified in Lean.
    - `INVLO.md` Theorem C: GRH + NCZ + **graded LI** GLI(ψ) (every integer relation among the
      ordinates has length `≥ ψ(largest ordinate involved)`, with `ψ(t) log t/t → ∞`).
 
+   - `PRIMECORR.md` Theorem P7: GRH + NCZ + **band decoupling** H_dec, a prime-side hypothesis.
+     For simple spectra it contains GLI, and it is strictly weaker than LI with simple zeros.
+
    TS_ℤ is strictly weaker than TS and incomparable with FD. GLI is incomparable with TS, FD
-   and TS_ℤ. Together with `DENSITY.md` (TS, FD), the disjunction "TS_ℤ or FD or GLI" suffices.
+   and TS_ℤ. Together with `DENSITY.md` (TS, FD), the disjunction "TS_ℤ or FD or GLI or H_dec"
+   suffices.
 3. **What an atom forces** (structure, all GRH + NCZ):
    - `HYP.md` Corollary 1.4: an atom of mass `α` makes `⟨Γ_{>T}⟩` eventually constant, of
      index `≤ 1/α`. Each ordinate has a multiple `nγ`, `n ≤ 1/α`, that is an integer
@@ -78,9 +82,9 @@ relevant item is Problem 13 (ties). No result is verified in Lean.
 | Corollary 2.4 | `TOY.md` §2.2 | suggested by referee 2 (O1), re-derived; read by referee 3 (correct; Remark (1) corrected) |
 | Proposition 1.1, Lemma 1.2, Theorem 1.3, Corollary 1.4 | `HYP.md` | **two reads**: referees 2 and 3 (no mathematical error; fixes applied) |
 | Proposition 4.1; Lemma 4.2 (proof sketched only) | `LINE1.md` §4 | referee 4 (Prop. 4.1 correct; Lemma 4.2 sketch honest; fixes applied) |
-| Lemmas A, D; Propositions B′, B, E; Theorem C; Corollary C′ | `INVLO.md` | referee 4 (all labelled proofs correct; summaries and §4 fixed) |
-| Lemma P0; Theorems P1, P2; Corollary P3; Proposition P5; Corollary P6 (conditional) | `PRIMECORR.md` | referee 4 (correct; two small gaps filled; barrier conclusion narrowed) |
-| Lemmas P0′, P1′; Theorem P7 (band decoupling) | `PRIMECORR.md` §3 | referee 4b (P7 wrong as stated for empty bands; corrected with condition (N); GLI comparison restricted to simple zeros; P0′/P1′ correct with gaps filled) |
+| Lemmas A, D; Propositions B′, B, E; Theorem C; Corollary C′ | `INVLO.md` | **two reads**: referees 4 and 5 (all labelled results correct; summaries and §4 fixed) |
+| Lemma P0; Theorems P1, P2; Corollary P3; Proposition P5; Corollary P6 (conditional) | `PRIMECORR.md` | **two reads**: referees 4 and 5 (correct; two small gaps filled; barrier conclusion narrowed) |
+| Lemmas P0′, P1′; Theorem P7 (band decoupling) | `PRIMECORR.md` §3 | first version read by referee 4b (P7 wrong for empty bands; corrected with condition (N)); corrected version read independently by referee 5: correct, with one comparison example repaired |
 
 ## Disclosure
 

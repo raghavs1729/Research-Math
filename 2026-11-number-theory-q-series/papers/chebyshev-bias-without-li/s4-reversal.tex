@@ -1,0 +1,97 @@
+\section{Time reversal and certified bounds}\label{sec:reversal}
+
+Write $\theta_\gamma=e^{i\varphi_\gamma}$ and
+\[
+R:=\sum_{\gamma\in\Gamma}m_\gamma w_\gamma\cos\varphi_\gamma,\qquad Y:=\sum_{\gamma\in\Gamma}m_\gamma s_\gamma\sin\varphi_\gamma\in L^2(\cA).
+\]
+$R$ converges absolutely and uniformly (as $\sum m_\gamma/\gamma^2<\infty$), so it is continuous on $\cA$ and $|R|\le\sum m_\gamma w_\gamma=\sigma_M^2$ everywhere; note that $m_\gamma$ enters $R$ to the first power. Let $\mathrm{inv}(\theta)=\theta^{-1}$; it preserves $\hA$, since $\cA$ is a compact abelian group.
+
+\begin{theorem}[time reversal; GRH, NCZ, no LI; \rd{2 reads}]\label{thm:reversal}
+For every $M>0$:
+
+\textup{(a)} $F_M=1+R/2+Y$ a.e., $R\circ\mathrm{inv}=R$ and $Y\circ\mathrm{inv}=-Y$. Hence
+\[
+F_M(\theta)+F_M(\theta^{-1})=2+R(\theta)\in[2-\sigma_M^2,\,2+\sigma_M^2]\qquad\text{for a.e. }\theta,
+\]
+and the law of $Y$ is symmetric about $0$.
+
+\textup{(b)} For every real $t$: $\nu_M((-\infty,t])\le\nu_M([2-\sigma_M^2-t,\infty))$ and $\nu_M([t,\infty))\le\nu_M((-\infty,2+\sigma_M^2-t])$. Equivalently, there is a coupling $(X,X')$ of $\nu_M$ with itself such that $|X+X'-2|\le\sigma_M^2$ almost surely: $\nu_M$ is symmetric about its mean $1$ up to $\sigma_M^2$ in the $L^\infty$-Wasserstein distance.
+
+\textup{(c)} If $\sigma_M^2<2$ (i.e.\ $M<M_\sigma(\chi)$), the sets $\{F_M\le0\}$ and $\mathrm{inv}\{F_M\le0\}$ are disjoint mod null sets, $2\nu_M((-\infty,0])=\hA\{|Y|\ge1+R/2\}$, and $\nu_M((-\infty,0])\le\frac12$. In particular the lower logarithmic density of $\{D_m>0\}$ is $\ge\frac12$ for every $-\frac12<m<M_\sigma(\chi)-\frac12$.
+\end{theorem}
+
+\begin{proof}
+(a) $\re(r_\gamma\theta_\gamma)=\re r_\gamma\cos\varphi_\gamma-\im r_\gamma\sin\varphi_\gamma$, and under $\mathrm{inv}$, $\varphi_\gamma\mapsto-\varphi_\gamma$; the identities hold in $L^2(\cA)$ by comparing coefficients, hence a.e. (b) $X:=F_M$ and $X':=F_M\circ\mathrm{inv}$ have the same law, and $X'\le t$ implies $X\ge2-\sigma_M^2-t$. (c) $F_M\le0\iff Y\le-(1+R/2)$ and $F_M\circ\mathrm{inv}\le0\iff Y\ge1+R/2$, with $1+R/2\ge1-\sigma_M^2/2>0$; the two sets have equal measure. The density statement follows from \eqref{eq:sandwich}.
+\end{proof}
+
+Under LI the law of $F_M$ is exactly symmetric about $1$, by the independent rotations $\varphi_\gamma\mapsto\varphi_\gamma+\pi$; that symmetry is not available without LI. Devin \cite[Theorem~2.3]{Devin} obtains exact symmetry under the hypothesis that every integer relation $\sum k_\gamma\gamma=0$ has $\sum k_\gamma$ even, which puts the simultaneous half-turn in the hull. The involution used here, $y\mapsto-y$ on the orbit, is always available.
+
+\begin{theorem}[GRH, NCZ, no LI, no non-resonance; \rd{2 reads}]\label{thm:cheb52}
+If $\sigma_M^2<2$, then for every $0<c<2-\sigma_M^2$,
+\[
+\nu_M((-\infty,0])\le\frac{V_M+(1-c)^2}{c^2+(2-\sigma_M^2-c)^2}.
+\]
+In particular $\nu_M((-\infty,0])\le V_M/(1+(1-\sigma_M^2)^2)$ when $\sigma_M^2<1$ (take $c=1$); for $1\le\sigma_M^2<2$ the same bound holds because it is then weaker than Cantelli's $V_M/(1+V_M)$.
+\end{theorem}
+
+\begin{proof}
+Let $N=\{F_M\le0\}$, $N'=\{F_M\ge2-\sigma_M^2\}$. By Theorem~\ref{thm:reversal}(a), $\mathrm{inv}N\subset N'$ mod null sets, so $\hA(N')\ge\hA(N)$, and $N\cap N'=\emptyset$. As $(F_M-c)^2\ge c^2$ on $N$ and $\ge(2-\sigma_M^2-c)^2$ on $N'$, $V_M+(1-c)^2=\int(F_M-c)^2\ge(c^2+(2-\sigma_M^2-c)^2)\hA(N)$. For $1\le\sigma_M^2<2$: $(1-\sigma_M^2)^2<1\le\sigma_M^2\le V_M$, so $V_M/(1+(1-\sigma_M^2)^2)>V_M/(1+V_M)$, and Cantelli's inequality (mean $1$, variance $V_M$) gives $\nu_M((-\infty,0])\le V_M/(1+V_M)$.
+\end{proof}
+
+For small $V_M$ this is about half of Cantelli's bound, as for a symmetric law. The next theorem adds finite arithmetic information about the lowest zeros. Let $\gamma_1<\dots<\gamma_N$ be the $N$ smallest ordinates and $T\ge3\gamma_N$ a height up to which the list of zeros is complete and all of them are simple; put $T'=T-2\gamma_N$ and $\mathcal K=\Gamma\cap(\gamma_N,T']$. For integer vectors $n$ indexed by $\{1,\dots,N\}$ write $n\cdot\gamma=\sum n_i\gamma_i$, $|n|_1=\sum|n_i|$. The \emph{non-resonance conditions} of \cite[\S6]{GO} are:
+\begin{itemize}
+\item[(NR1)] $n\cdot\gamma\ne0$ for all $n\ne0$ with $|n|_1\le4$;
+\item[(NR2)] for $|n|_1\le3$, $|n\cdot\gamma|$ is not an ordinate outside $\{\gamma_1,\dots,\gamma_N\}$;
+\item[(NR3)] for $1\le|n|_1\le2$, $n\cdot\gamma\ne\pm\gamma'\pm\gamma''$ for all ordinates $\gamma',\gamma''\in(\gamma_N,T]$.
+\end{itemize}
+These are finite statements, verified for the certified zero lists in exact integer arithmetic \cite{GO}.
+
+\begin{theorem}[GRH, NCZ, finite non-resonance; \rd{2 reads}]\label{thm:nr}
+Assume (NR1)--(NR3). Write $w_n,s_n$ for $w_{\gamma_n},s_{\gamma_n}$ and put
+\[
+\rho=\tfrac12\Bigl(\sigma_M^2-\sum_{n\le N}w_n\Bigr),\quad x_{\max}=\frac{\sum_{n\le N}w_n}{2(1-\rho)},\quad e=\frac{x_{\max}^2}{1-x_{\max}},\quad a_0=\frac{1+e}{1-\rho},\quad k_n=\frac{w_n}{2(1-\rho)^2},
+\]
+\[
+V^o_{\mathcal K}=\tfrac12\sum_{\gamma\in\mathcal K}s_\gamma^2,\quad V^e=\tfrac18\sum_{\gamma\in\Gamma}m_\gamma^2w_\gamma^2,\quad V^o_t=V_M-V^e-\tfrac12\sum_{n\le N}s_n^2-V^o_{\mathcal K}.
+\]
+If $\rho<1$ and $x_{\max}<1$, then $2\nu_M((-\infty,0])\le J_R$, where
+\[
+J_R=\tfrac12a_0^2\sum s_n^2+\tfrac14\Bigl(\sum s_n^2\Bigr)\Bigl(\sum k_n^2\Bigr)-\tfrac18\sum s_n^2k_n^2+\Bigl(a_0^2+\tfrac12\sum k_n^2\Bigr)V^o_{\mathcal K}+\Bigl(a_0+\sum k_n\Bigr)^2V^o_t.
+\]
+$J_R$ is increasing in $V_M$ and decreasing in $V^e$, so a certified upper bound for $V_M$ and the lower bound $V^e\ge\frac18\sum_{\gamma\le T}w_\gamma^2$ may be used.
+\end{theorem}
+
+\begin{proof}
+By the closed form of $\sigma_M^2$ and simplicity of the head zeros, $\rho=\frac12\sum_{\gamma\notin\text{head}}m_\gamma w_\gamma$, so with $R_h=\sum_{n\le N}w_n\cos\varphi_n$ we get $1+R/2\ge(1-\rho)+R_h/2=(1-\rho)(1+x)$, $x=R_h/(2(1-\rho))$, $|x|\le x_{\max}<1$. Since $1/(1+x)=1-x+x^2/(1+x)\le1-x+e$,
+\[
+\kappa:=\frac{1+e-x}{1-\rho}=a_0-\sum_{n\le N}k_n\cos\varphi_n\ge\frac1{(1-\rho)(1+x)}\ge\frac1{1+R/2}>0 .
+\]
+So $1+R/2>0$ everywhere, which is all that Theorem~\ref{thm:reversal}(c) uses, and $2\nu_M((-\infty,0])=\hA\{|Y|\ge1+R/2\}\le\hA\{\kappa|Y|\ge1\}\le\int\kappa^2Y^2$. Split $Y=Y_h+Y_{\mathcal K}+Y_t$ (head; $\mathcal K$; ordinates $>T'$ with multiplicities). $\kappa^2$ and $Y_h$ are trigonometric polynomials of degrees $2$ and $1$ in $e_{\gamma_1},\dots,e_{\gamma_N}$, and the integral of a monomial in the characters is $1$ if its total frequency is $0$ and $0$ otherwise. (1) $\int\kappa^2Y_h^2$ has degree $4$ in the head, so by (NR1) it equals its value for independent uniform phases; with $E\sin^2=E\cos^2=\frac12$, $E\sin^2\cos^2=\frac18$ this gives the first three terms. (2) $\int\kappa^2Y_hY_{\mathcal K}=\int\kappa^2Y_hY_t=0$: a head frequency $n\cdot\gamma$ with $|n|_1\le3$ would equal $\pm\gamma'$ for an ordinate outside the head, excluded by (NR2). (3) $\int\kappa^2Y_{\mathcal K}^2=(a_0^2+\frac12\sum k_n^2)V^o_{\mathcal K}$ by (NR3) and (NR1). (4) $\int\kappa^2Y_{\mathcal K}Y_t=0$ by (NR3) and the buffer $T'=T-2\gamma_N$: a relation $n\cdot\gamma\pm\gamma'\pm\gamma''=0$ with $\gamma''>T$ would force $\gamma''\le2\gamma_N+T'=T$. (5) $\int\kappa^2Y_t^2\le\|\kappa\|_\infty^2\int Y_t^2\le(a_0+\sum k_n)^2V^o_t$, since $\int Y_t^2=\frac12\sum_{\gamma>T'}m_\gamma^2s_\gamma^2=V_M-V^e-\frac12\sum_{n\le N}s_n^2-V^o_{\mathcal K}$.
+\end{proof}
+
+\begin{theorem}[Chebyshev's race, certified; GRH only; \rd{2 reads}]\label{thm:cert}
+Assume GRH for $L(s,\chi_{-4})$. Then the lower logarithmic density of $\{x:\pi(x;4,3)>\pi(x;4,1)\}$ is
+\[
+>0.901150240\quad\text{(Theorem~\ref{thm:cheb52}, $c=1.019$)},\qquad>0.910924861\quad\text{(Theorem~\ref{thm:nr}, $N=20$)},
+\]
+and $\nu_{1/2}(\{0\})\le\nu_{1/2}((-\infty,0])<0.0890752$; so the upper and lower logarithmic densities of this set differ by less than $0.0891$. Assume GRH for $L(s,\chi_{-3})$. Then the lower logarithmic density of $\{x:\pi(x;3,2)>\pi(x;3,1)\}$ is $>0.929813746$ (Theorem~\ref{thm:cheb52}) and $>0.934761398$ (Theorem~\ref{thm:nr}, $N=20$), and $\nu_{1/2}(\{0\})<0.0652387$.
+\end{theorem}
+
+\begin{proof}
+NCZ holds for $q=3,4$. Apply Theorems~\ref{thm:cheb52} and \ref{thm:nr} with the inputs certified in \cite{GO}: the zeros of $L(s,\chi_{-4})$ (resp.\ $L(s,\chi_{-3})$) are certified complete and simple up to $T=640.1657$ (resp.\ $700.0247$), as balls of radius $10^{-20}$ (sign changes of Hardy's function together with a winding-number count); $\sigma_{1/2}^2$ from the closed form ($0.155567979923586\ldots$, resp.\ $0.113229969857472\ldots$); the certified variance bound $V_{1/2}\le V^+=0.1696308345$ (resp.\ $0.1254514113$), from an explicit bound for the multiplicities of the zeros above $T$ \cite[Proposition~4.4]{GO}; and (NR1)--(NR3) for $N=20$, checked in exact integer arithmetic on the ordinates multiplied by $10^{24}$ (smallest margin $1.47\cdot10^{-6}$ for $q=4$, $7.94\cdot10^{-7}$ for $q=3$, against a tolerance of $4\cdot10^{-20}$). The evaluation is in Arb \cite{Arb} at $200$ bits (\file{density/reflection_certified.py}, output \file{density/reflection_certified_results.txt}); the set $\mathcal K$ is decided by certified comparisons. By \eqref{eq:sandwich} the lower density of $\{D_0>0\}$ is $\ge1-\nu_{1/2}((-\infty,0])$.
+\end{proof}
+
+Both reads re-ran \file{reflection_certified.py} with byte-identical output, and the second recomputed every number independently in mpmath at $40$ digits ($\nu\le0.08907513807014$, resp.\ $0.06523860156028$). Under GRH and LI the densities are $0.9959\ldots$ and $0.9990\ldots$ \cite{RS}. If one assumes in addition that all zeros up to height $10^8/q$ are simple (``tier B'', a by-product of Platt's verification of GRH \cite{Platt} that we have not seen stated as a theorem, \cite[Remark~4.6]{GO}), the non-resonance bound of \cite[Theorem~6.2]{GO} gives $0.922718033$ and $0.944555790$, which the present method does not improve ($0.919189115$, $0.941625186$). The two methods are complementary: the reflection bound wins when the unknown tail variance is the bottleneck (tier A near $m=0$), the one-sided multiplier of \cite{GO} when the head is well certified or the variance is tiny. Table~\ref{tab:weights} gives certified lower bounds for the lower logarithmic density of $\{D_m>0\}$ at other weights (tier A, values rounded down; ``prev.'' is the best previous value from \cite{GO}).
+
+\begin{table}[ht]\small
+\caption{Certified lower bounds for $\dlow\{D_m>0\}$, tier A (zeros certified up to $640$, resp.\ $700$).}\label{tab:weights}
+\begin{tabular}{lccccc}\toprule
+$m$&$-0.4$&$-0.25$&$0$&$0.25$&$0.5$\\\midrule
+$\chi_{-4}$, Thm~\ref{thm:cheb52}&$0.99657$&$0.97790$&$0.90115$&$0.74212$&$0.47052$\\
+$\chi_{-4}$, Thm~\ref{thm:nr}&$0.99659$&$\mathbf{0.97853}$&$\mathbf{0.91092}$&$\mathbf{0.78057}$&$0.52070$\\
+$\chi_{-4}$, prev.&$\mathbf{0.9976}$&$0.9784$&$0.8842$&$0.7378$&$\mathbf{0.5983}$\\
+$\chi_{-3}$, Thm~\ref{thm:nr}&&$\mathbf{0.98416}$&$\mathbf{0.93476}$&&$\mathbf{0.68600}$\\
+$\chi_{-3}$, prev.&&$0.9830$&$0.9112$&&$0.6695$\\\bottomrule
+\end{tabular}
+\end{table}
+

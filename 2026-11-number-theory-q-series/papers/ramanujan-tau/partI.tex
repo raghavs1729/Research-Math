@@ -1,0 +1,306 @@
+\section{Notation and quoted inputs}\label{sec:notation}
+
+Throughout, $p$ runs over primes, $\lambda(p)=\alpha_p+\beta_p$ and $c_k(p)=\alpha_p^k+\beta_p^k\in[-2,2]$, so that $c_1=\lambda(p)$, $c_2=\lambda(p)^2-2$, $c_{k+1}=\lambda(p)c_k-c_{k-1}$. Let
+\begin{align*}
+L(s,\Delta)&=\sum_{n\ge1}\lambda(n)n^{-s}=\prod_p(1-\alpha_pp^{-s})^{-1}(1-\beta_pp^{-s})^{-1},\qquad \Lambda(s)=(2\pi)^{-s}\Gamma(s+\tfrac{11}2)L(s,\Delta),\\
+L_S(s)&=L(s,\Sym\Delta)=\prod_p\bigl[(1-\alpha_p^2p^{-s})(1-p^{-s})(1-\beta_p^2p^{-s})\bigr]^{-1}=\sum_{n\ge1}a_S(n)n^{-s},\\
+\gamma_S(s)&=\GR(s+1)\GC(s+11)=\pi^{-(s+1)/2}\Gamma\bigl(\tfrac{s+1}2\bigr)\cdot2(2\pi)^{-(s+11)}\Gamma(s+11),\qquad \Lambda_S=\gamma_SL_S .
+\end{align*}
+We write $\Lambda_\Delta(p^k)=c_k(p)\log p$, $\Lambda_{\rm sym}(p^k)=(c_{2k}(p)+1)\log p$, $\Lambda$ for von Mangoldt's function, $\psi_\Delta,\psi_S,\psi$ for the corresponding summatory functions and $\theta(y)=\sum_{p\le y}\log p$. Further
+\[
+\begin{gathered}\Theta(t)=\sum_{p\le t}\lambda(p)\log p,\qquad \Theta_1(t)=\int_0^t\Theta=\sum_{p\le t}\lambda(p)\log p\,(t-p),\\ D_0(x)=\sum_{p\le x}\lambda(p),\qquad D_1(x)=\sum_{p\le x}\lambda(p)p,\end{gathered}
+\]
+so that $R(x)=D_0(x)-D_1(x)/x$. $\mathrm{RH}_S(H)$ is the statement that every zero $\rho$ of $L_S$ with $0<\re\rho<1$ and $|\im\rho|\le H$ has real part $\frac12$.
+
+\medskip\noindent\textbf{Quoted inputs.}
+\begin{itemize}
+\item[(F1)] (Deligne \cite{Deligne}.) $|\alpha_p|=1$.
+\item[(F2)] (Hecke.) $\Lambda$ is entire, $\Lambda(s)=\Lambda(1-s)$, bounded in vertical strips.
+\item[(F3)] (Rankin \cite{Rankin}, Shimura \cite{Shimura}, Gelbart--Jacquet \cite{GJ}.) $\Lambda_S$ is entire, $\Lambda_S(s)=\Lambda_S(1-s)$, and $L_S$ has finite order. We read this in two sources. Zagier \cite[eq.~(4), p.~109 and Corollary~1, p.~111]{Zagier}: for a normalised eigenform $f$ of weight $k$ on $\mathrm{SL}_2(\ZZ)$ and $D_f(s)=\prod_p(1-\alpha_p^2p^{-s})^{-1}(1-\alpha_p\bar\alpha_pp^{-s})^{-1}(1-\bar\alpha_p^2p^{-s})^{-1}$ (here $\alpha_p\bar\alpha_p=p^{k-1}$), $D_f^*(s)=2^{-s}\pi^{-3s/2}\Gamma(s)\Gamma(\frac{s-k+2}2)D_f(s)=D_f^*(2k-1-s)$ and $D_f$ is entire. With $s=s'+k-1$ one has $D_f(s)=L_S(s')$ and $D_f^*(s'+k-1)=\frac12\pi^{-(k-2)/2}\GR(s'+1)\GC(s'+k-1)L_S(s')$, a constant multiple of $\Lambda_S(s')$. Balkanova--Frolenkov \cite[(2-4)--(2-5)]{BF} state the same with $L_\infty(s)=\pi^{-3s/2}\Gamma(\frac{s+1}2)\Gamma(\frac{s-1}2+k)\Gamma(\frac s2+k)$ (weight $2k$), a constant multiple of $\gamma_S$ by the duplication formula. The originals of Rankin, Shimura and Gelbart--Jacquet were not consulted; the finite order of $L_S$ is cited, not checked. Numerical confirmation: PARI's \texttt{lfuncheckfeq} gives $-67$ bits (and $-111$ bits in an independent set-up; $-2$ bits with a wrong gamma shift), and the identity $\Phi(1/y)=y\Phi(y)$ of Lemma~\ref{lem:V0} was checked directly to $10^{-83}$ at three points in ball arithmetic.
+\item[(F4)] (Hadamard; \cite[Theorem~5.6, Proposition~5.7]{IK}.) For $\mathcal L\in\{L(\cdot,\Delta),L_S\}$ with completed function $\Lambda_{\mathcal L}$: $\re(\Lambda_{\mathcal L}'/\Lambda_{\mathcal L})(s)=\sum_\rho\re\frac1{s-\rho}$, absolutely convergent, and $N(T+1)-N(T)\ll\log(|T|+2)$. Neither function vanishes at $s=0,1$ ($L(1,\Delta)=0.8393\ldots$ and $L_S(1)=0.6317\ldots$ are certified).
+\item[(F5)] \cite[Proposition~5.7(2)]{IK}: for $-\frac12\le\sigma\le2$, $(\mathcal L'/\mathcal L)(s)=\sum_{|s-\rho|<1}(s-\rho)^{-1}+O(\log(|s|+2))$; to the left of the strip, at distance $\ge\frac14$ from the trivial zeros, $(\mathcal L'/\mathcal L)(s)\ll\log(|s|+2)$ by the functional equation.
+\item[(F6)] $|\theta(y)-y|<0.2\,y/\log^2y$ for $y\ge3\,594\,641$: Broadbent--Kadiri--Lumley--Ng--Wilk \cite[arXiv:2002.11068v2, Corollary~11.2, eq.~(3.39), row $M_2=0.2$]{BKLNW} (the journal numbering may differ); the same inequality is \cite[Theorem~5.2]{Dusart}, an unrefereed preprint relying on unpublished zero verifications. BKLNW note that the proof of the corresponding theorem in Dusart's published paper is incorrect and re-prove it. For very large $y$ BKLNW use explicit zero-density inputs which Fiori, Kadiri and Swidinsky \cite{FKS} call unreliable; we found no erratum. This input is not needed for the sign statements: see Remark~\ref{rem:robust}, which uses only $\theta(y)\le1.01624\,y$ and $\theta(y)\ge y(1-1/\log y)$ for $y\ge10^7$, consequences of Rosser--Schoenfeld \cite{RS62} (as quoted in \cite[Tables~1--2]{BKLNW}; original not seen).
+\end{itemize}
+
+\medskip\noindent\textbf{Certified constants} (\file{tau-race/data/constants.json}, \file{tau-race/data/bounds.txt}):
+\begin{align*}
+\sigma_0^2&=2(\Lambda'/\Lambda)(1)=0.112252140471908526745583426253\ldots\\&\qquad(=\textstyle\sum_\rho|\rho|^{-2}\text{ under }\GRHD),\\
+a_0&=(L'/L)(0,\Delta)=0.170657847591640\ldots,\\ a_{-1}&=(L'/L)(-1,\Delta)\in[0.281796,0.281803],\\
+(\Lambda_S'/\Lambda_S)(2)&\in[0.2941460,0.2941565],\\ C_S&:=\tfrac{12}5(\Lambda_S'/\Lambda_S)(2)\le0.70598,\\ K_S&\le0.34176,\qquad T_{60}\le0.184605,\\
+\varepsilon_1&=0.2/\log^2(10^7)=7.69844\ldots\cdot10^{-4},\qquad c_\theta=1+\varepsilon_1,
+\end{align*}
+where $K_S$ is an upper bound for $(L_S'/L_S)(-2)$ and $T_{60}$ is the bound of Lemma~\ref{lem:highzeros}. The thresholds are
+\begin{gather}\label{eq:tstar}
+t^*=\frac{2\lambda(2)\log2+3\lambda(3)\log3}{\lambda(2)\log2+\lambda(3)\log3}=4.266791956347541\ldots,\\ x^*=\frac{D_1(5)}{D_0(5)}=5.518054631888274\ldots .
+\end{gather}
+For $t\ge1$ define
+\begin{equation}\label{eq:LA}
+\begin{aligned}
+E_{\rm odd}(t)&=\tfrac34t^{-1/6}+\tfrac56t^{-3/10}+t^{-5/14}\max\bigl(0,\tfrac12(\log t/\log2-5)\bigr),\\
+L_A(t)&=\tfrac23\bigl(1-\varepsilon_1\mathbf 1_{t>10^{14}}\bigr)-\sigma_0^2-a_0t^{-1/2}-\bigl(\tfrac45\sqrt2+C_S\bigr)t^{-1/4}\\&\qquad-2t^{-1}-K_St^{-3/2}-2c_\theta E_{\rm odd}(t),\\
+L_B(t)&=L_A(t)-T_{60}.
+\end{aligned}
+\end{equation}
+$L_A,L_B$ are nondecreasing on $[527,10^{14}]$ and on $(10^{14},\infty)$, and (certified) $L_A(10^6)\ge0.2120$, $L_A(10^7)\ge0.3483$, $L_A(10^{14}+)\ge0.5458$ (here $f(10^{14}+)$ denotes the right limit), $\lim L_A\ge0.5539$; $L_B(10^6)\ge0.0274$, $L_B(10^7)\ge0.1637$, $L_B(10^{14}+)\ge0.3612$, $\lim L_B\ge0.3692$.
+
+\section{The decomposition and the explicit formulas}\label{sec:explicit}
+
+\begin{lemma}[decomposition; uses only (F1)]\label{lem:decomp}
+For $u>0$,
+\[
+\Theta(u)=\psi_\Delta(u)-\bigl[\psi_S(\sqrt u)-\psi(\sqrt u)\bigr]-\sum_{k\ge3\ \mathrm{odd}}\Theta^{(k)}(u^{1/k}),\qquad \Theta^{(k)}(y):=\sum_{p\le y}c_k(p)\log p,
+\]
+and $|\Theta^{(k)}(y)|\le2\theta(y)$. Consequently, for $t>0$,
+\begin{equation}\label{eq:decomp}
+\Theta_1(t)=\psi_{1,\Delta}(t)-J_S(t)+J_\zeta(t)-\sum_{k\ge3\ \mathrm{odd}}\int_0^t\Theta^{(k)}(u^{1/k})\,du,
+\end{equation}
+where $\psi_{1,\Delta}(t)=\sum_n\Lambda_\Delta(n)(t-n)_+$, $J_S(t)=\sum_n\Lambda_{\rm sym}(n)(t-n^2)_+$ and $J_\zeta(t)=\sum_n\Lambda(n)(t-n^2)_+=\int_0^{\sqrt t}\psi(y)\,2y\,dy$.
+\end{lemma}
+
+\begin{proof}
+$\psi_\Delta(u)=\sum_{k\ge1}\sum_{p^k\le u}c_k(p)\log p$. The terms with $k=2j$ sum to $\sum_{p^j\le\sqrt u}c_{2j}(p)\log p=\sum_{p^j\le\sqrt u}(\Lambda_{\rm sym}(p^j)-\log p)=\psi_S(\sqrt u)-\psi(\sqrt u)$, because the local factor of $L_S$ at $p$ has roots $\alpha_p^2,1,\beta_p^2$. The term $k=1$ is $\Theta(u)$, and $|c_k|\le2$ by (F1). Integrate over $[0,t]$; $\int_0^t\psi_S(\sqrt u)\,du=\sum_n\Lambda_{\rm sym}(n)(t-n^2)_+$, and similarly for $\psi$.
+\end{proof}
+
+Thus all even prime powers are carried by $\psi_S$ and $\psi$: no sign-indefinite even power has to be bounded trivially, and the main term $+\frac23t^{3/2}$ comes from $J_\zeta$, i.e.\ from $\psi$.
+
+\begin{lemma}[moving the contour]\label{lem:contour}
+Let $\mathcal L$ be $L(\cdot,\Delta)$ or $L_S$, $m\in\{1,2\}$, $t>1$ and $c>1/m$. Then $\frac1{2\pi i}\int_{(c)}(-\mathcal L'/\mathcal L)(ms)\,\frac{t^{s+1}}{s(s+1)}\,ds$ equals the sum of the residues of the integrand in $\re s<c$: at $s=\rho/m$ ($\rho$ a nontrivial zero), at $s=w_0/m$ ($w_0$ a trivial zero), at $s=0$ and at $s=-1$. The sum over $\rho$ converges absolutely.
+\end{lemma}
+
+\begin{proof}
+(i) By (F4), (F5) there are $T_k\in[k,k+1]$ with $(\mathcal L'/\mathcal L)(\sigma\pm iT_k)\ll\log^2T_k$ uniformly for $-\frac12\le\sigma\le2$: there are $\ll\log k$ ordinates in $[k,k+1]$, so some $T_k$ has distance $\gg1/\log k$ from all of them. (ii) For $\re w\le-\frac12$ at distance $\ge\frac14$ from the trivial zeros, $(\mathcal L'/\mathcal L)(w)=-(\mathcal L'/\mathcal L)(1-w)-(\gamma'/\gamma)(w)-(\gamma'/\gamma)(1-w)\ll\log(|w|+2)$, since the first term is bounded and $\gamma'/\gamma$ is a constant plus digamma functions, $\digamma(z)\ll\log(|z|+2)$ at distance $\ge\frac18$ from its poles. Integrate over the rectangle with vertices $c\pm iT_k/m$, $-U'\pm iT_k/m$, where $mU'\in\mathbb N$ for $L(\cdot,\Delta)$ (trivial zeros at half-integers) and $mU'\in\mathbb N+\frac12$ for $L_S$ (trivial zeros at integers). On the horizontal sides $|s(s+1)|\ge T_k^2/m^2$, so these integrals are $\ll_t\log^2T_k/T_k^2$ uniformly in $U'$ (as $t>1$). On the left side, by (ii), the integral is $\ll t^{1-U'}\log(U'+2)/U'$. Let $U'\to\infty$, then $k\to\infty$. The residue at $s=\rho/m$ has modulus $\le m\,\mu_\rho t^2/|\rho|^2$ ($\mu_\rho$ the multiplicity), and $\sum_\rho|\rho|^{-2}<\infty$.
+\end{proof}
+
+\begin{lemma}[explicit formula for $\psi_{1,\Delta}$]\label{lem:psi1}
+For $t\ge1$,
+\[
+\psi_{1,\Delta}(t)=-\sum_\rho\frac{t^{\rho+1}}{\rho(\rho+1)}-a_0t+a_{-1}-\sum_{n\ge0}\frac{t^{-9/2-n}}{(n+\frac{11}2)(n+\frac92)},
+\]
+the sum over the nontrivial zeros of $L(s,\Delta)$ (with multiplicity) being absolutely convergent. Under $\GRHD$, $\sum_\rho|\rho(\rho+1)|^{-1}<\sum_\rho|\rho|^{-2}=\sigma_0^2$, and
+\begin{equation}\label{eq:psi1bound}
+\psi_{1,\Delta}(t)\ge-\sigma_0^2t^{3/2}-a_0t\qquad(t\ge1).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For $t>1$, $\psi_{1,\Delta}(t)=\frac1{2\pi i}\int_{(2)}(-L'/L)(s,\Delta)\frac{t^{s+1}}{s(s+1)}ds$. Apply Lemma~\ref{lem:contour} with $m=1$; the trivial zeros are the simple poles of $\Gamma(s+\frac{11}2)$ at $s=-\frac{11}2-n$. The residues are: $-t^{\rho+1}/(\rho(\rho+1))$ at $\rho$; $-a_0t$ at $s=0$ ($L(0,\Delta)=\Lambda(1)/\Gamma(\frac{11}2)\ne0$); $a_{-1}$ at $s=-1$ ($L(-1,\Delta)\ne0$); and $-t^{-9/2-n}/((n+\frac{11}2)(n+\frac92))$ at $-\frac{11}2-n$. Both sides are continuous at $t=1$. By (F4) at $s=1$, $(\Lambda'/\Lambda)(1)=\sum_\rho\re(1-\rho)^{-1}$, and under GRH $\re(1-\rho)^{-1}=\frac12|\rho|^{-2}$; also $|\rho+1|>|\rho|$. Finally $\sum_{n\ge0}((n+\frac{11}2)(n+\frac92))^{-1}=\frac29$ (telescoping), so for $t\ge1$ the last two terms are $\ge a_{-1}-\frac29>0.059$.
+\end{proof}
+
+(As checks, with PARI at 38 digits: the formula at $t=1$ holds to $4\cdot10^{-38}$, but by the functional equation this identity reduces to $\digamma(\frac{11}2)-\digamma(\frac92)=\frac29$ and only tests the bookkeeping of trivial zeros; the meaningful test is a direct comparison with $277$ pairs of zeros at $t=2.5,5.5,10$, with differences $\le6.6\cdot10^{-4}$, inside the tail bound $0.0103\,t^{3/2}$.)
+
+\begin{lemma}[explicit formula for $J_S$]\label{lem:JS}
+For $t\ge1$,
+\[
+J_S(t)=-\sum_\rho\frac{2t^{1+\rho/2}}{\rho(\rho+2)}-a_{S,0}t+2t^{1/2}+(L_S'/L_S)(-2)-\sum_{w}\frac{m_w}2\,\frac{t^{1-w/2}}{(w/2)(w/2-1)},
+\]
+where $\rho$ runs over the nontrivial zeros of $L_S$, $a_{S,0}=(L_S'/L_S)(0)$, and $w$ runs over the integers $w\ge3$ such that $-w$ is a trivial zero of $L_S$, with multiplicity $m_w$ ($m_w=1$ for $w\in\{3,5,7,9\}$ and for even $w\ge12$; $m_w=2$ for odd $w\ge11$). All terms of the last sum are positive. Consequently, with $Z_S(t):=\bigl|\sum_\rho2t^{1+\rho/2}/(\rho(\rho+2))\bigr|$,
+\begin{equation}\label{eq:JSbound}
+J_S(t)\le Z_S(t)+2t^{1/2}+K_S\qquad(t\ge1),\ \text{provided }\mathrm{RH}_S(2)\text{ holds}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+For $t>1$ and $c>\frac12$,
+\[
+J_S(t)=\frac1{2\pi i}\int_{(c)}(-L_S'/L_S)(2s)\frac{t^{s+1}}{s(s+1)}\,ds
+\]
+(termwise, $\frac1{2\pi i}\int(t/n^2)^s\frac{t\,ds}{s(s+1)}=t(1-n^2/t)_+$). Apply Lemma~\ref{lem:contour} with $m=2$. The trivial zeros of $L_S$ are the poles of $\gamma_S$: $\Gamma(\frac{s+1}2)$ gives $-1,-3,-5,\dots$ and $\Gamma(s+11)$ gives $-11,-12,-13,\dots$. Residues: $-2t^{1+\rho/2}/(\rho(\rho+2))$ at $s=\rho/2$; $-a_{S,0}t$ at $s=0$; $2t^{1/2}$ at $s=-\frac12$ (the simple trivial zero $-1$); $(L_S'/L_S)(-2)$ at $s=-1$ (regular: $L_S(-2)\ne0$); and $-\frac{m_w}2t^{1-w/2}/((w/2)(w/2-1))$ at $s=-w/2$, $w\ge3$. For \eqref{eq:JSbound}: the trivial-zero sum is subtracted and positive, and $(L_S'/L_S)(-2)=-(\gamma_S'/\gamma_S)(-2)-(\gamma_S'/\gamma_S)(3)-(L_S'/L_S)(3)$ with $|(L_S'/L_S)(3)|\le-3(\zeta'/\zeta)(3)$, which gives $K_S\le0.34176$. It remains to see $a_{S,0}\ge0$. By the functional equation $a_{S,0}=-(\gamma_S'/\gamma_S)(0)-(\Lambda_S'/\Lambda_S)(1)$ with $-(\gamma_S'/\gamma_S)(0)=1.04024\ldots$, and $(\Lambda_S'/\Lambda_S)(1)=\sum_\rho\re(1-\rho)^{-1}\le3\sum_\rho\re(2-\rho)^{-1}=3(\Lambda_S'/\Lambda_S)(2)\le0.88247$: for a zero on the line the ratio of the two terms is $(\frac94+\gamma^2)/(3(\frac14+\gamma^2))\le3$, and for a zero $\beta+i\gamma$ with $|\gamma|>2$ the function $a\mapsto a/(a^2+\gamma^2)$ increases on $(0,|\gamma|)$, so $\re(1-\rho)^{-1}\le\re(2-\rho)^{-1}$; $\mathrm{RH}_S(2)$ covers the remaining zeros. Hence $a_{S,0}\ge0.1577>0$ (certified).
+\end{proof}
+
+(The identity at $t=1$ again reduces to a digamma identity and tests only the list of trivial zeros; the true values are $a_{S,0}=0.94103$ and $(L_S'/L_S)(-2)=-0.22825$. Direct comparisons with truncated zero sums are recorded in \file{tau-race/AUDIT-NUMERICS.md}, item~6.)
+
+\section{Zeros of the symmetric square, and inputs on primes}\label{sec:sym2zeros}
+
+\begin{lemma}[low zeros]\label{lem:lowzeros}
+If $\mathrm{RH}_S(H)$ holds for some $H\ge2$, then $\sum_{|\im\rho|\le H}2/|\rho(\rho+2)|\le C_S$; under $\GRHS$ the same bound holds for the sum over all zeros.
+\end{lemma}
+
+\begin{proof}
+For $\rho=\frac12+i\gamma$, with $g=\gamma^2$: $2/|\rho(\rho+2)|=2((\frac14+g)(\frac{25}4+g))^{-1/2}$ and $\re(2-\rho)^{-1}=\frac32(\frac94+g)^{-1}$. The quotient $\frac43(\frac94+g)((\frac14+g)(\frac{25}4+g))^{-1/2}$ is at most $\frac{12}5$, its value at $g=0$, since $25(g+\frac94)^2\le81(g+\frac14)(g+\frac{25}4)\iff0\le56g^2+414g$. All terms of $\sum_\rho\re(2-\rho)^{-1}=(\Lambda_S'/\Lambda_S)(2)$ are positive.
+\end{proof}
+
+$(\Lambda_S'/\Lambda_S)(2)=(\gamma_S'/\gamma_S)(2)+(L_S'/L_S)(2)$ is computed from the Euler product $-(L_S'/L_S)(s)=\sum_p\log p\,[(c_2x-2x^2)/(1-c_2x+x^2)+x/(1-x)]$, $x=p^{-s}$, $c_2=\tau(p)^2/p^{11}-2$ (exact rationals for $p\le10^7$), with tail $\le3\sum_{n>P}\log n/(n^2-1)\le3.03(\log P+1)/P$ at $\re s=2$: the bracket is $\sum_{k\ge1}(\alpha_p^{2k}+1+\beta_p^{2k})x^k$, of modulus $\le3/(p^2-1)$; $1/(n^2-1)\le1.01/n^2$ for $n\ge11$; and $\sum_{n>P}\log n/n^2\le\int_P^\infty\log u\,u^{-2}du=(\log P+1)/P$.
+
+\begin{lemma}[high zeros; unconditional]\label{lem:highzeros}
+Let $H>H'>0$, $c=\sqrt2/\arctan((H-H')/\sqrt2)$ and $(x_1,x_2,x_3)=(\frac32,\frac{13}2,7)$. For the zeros $\rho=\beta+i\gamma$ of $L_S$ in the critical strip,
+\[
+\sum_{|\gamma|>H}\frac2{\gamma^2}\le T(H,H'):=2c\Bigl[\frac32\,\frac{\log(H'/2\pi)+1}{H'}+\frac{\sum_jx_j^2}{3H'^3}+\frac{\sum_j(24x_j)^{-1}}{2H'^2}+\frac{6\log\zeta(2)}{H'^2}\Bigr].
+\]
+In particular $T_{60}:=T(60,51.45)\le0.184605$, and $\bigl|\sum_{|\gamma|>60}2t^{1+\rho/2}/(\rho(\rho+2))\bigr|\le T_{60}t^{3/2}$ for $t\ge1$.
+\end{lemma}
+
+\begin{proof}
+Put $F(T)=\re(\Lambda_S'/\Lambda_S)(2+iT)=\sum_\rho a/(a^2+(T-\gamma)^2)$, $a=2-\beta\in[1,2]$ (F4). For $a\in[1,2]$, $a/(a^2+u^2)\ge1/(2+u^2)$, so $F(T)\ge\sum_\rho(2+(T-\gamma)^2)^{-1}$ with positive terms. For $\gamma>H$ let $d=\gamma-H'\ge H-H'$; by convexity of $T\mapsto T^{-2}$ and evenness of the kernel,
+\[
+\int_{H'}^\infty\frac{T^{-2}\,dT}{2+(T-\gamma)^2}\ge\int_{-d}^d\frac{(\gamma+u)^{-2}du}{2+u^2}\ge\gamma^{-2}\sqrt2\arctan(d/\sqrt2)\ge\frac{2}{c\gamma^2}.
+\]
+The zeros are symmetric under $\gamma\mapsto-\gamma$ and $F$ is even, so $\sum_{|\gamma|>H}2/\gamma^2\le2c\int_{H'}^\infty F(T)T^{-2}dT$. Now $F(T)$ is the sum of $\re(\gamma_S'/\gamma_S)(2+iT)$ and $\re(L_S'/L_S)(2+iT)$. (i) We have $\re(L_S'/L_S)(2+iT)=-\sum_n\Lambda_{\rm sym}(n)n^{-2}\cos(T\log n)$ and
+\[
+\Bigl|\int_{H'}^\infty\cos(aT)\,T^{-2}\,dT\Bigr|\le\frac2{aH'^2},
+\]
+so this part contributes at most $(2/H'^2)\sum_n|\Lambda_{\rm sym}(n)|/(n^2\log n)\le(6/H'^2)\sum_n\Lambda(n)/(n^2\log n)=6\log\zeta(2)/H'^2$. (ii) $(\gamma_S'/\gamma_S)(s)=-\frac32\log\pi+\frac12[\digamma(\frac{s+1}2)+\digamma(\frac{s+11}2)+\digamma(\frac{s+12}2)]$. For $z=x+iy$, $x,y>0$, Binet's formula for the digamma function $\digamma=\Gamma'/\Gamma$, $\digamma(z)=\log z-\frac1{2z}-2\int_0^\infty\frac{u\,du}{(u^2+z^2)(e^{2\pi u}-1)}$, $|u^2+z^2|\ge2xy$ and $\int_0^\infty u/(e^{2\pi u}-1)du=\frac1{24}$ give $\re\digamma(z)\le\log|z|+1/(24xy)$. With $z_j=x_j+iT/2$, $\log|z_j|\le\log(T/2)+2x_j^2/T^2$, so $\re(\gamma_S'/\gamma_S)(2+iT)\le\frac32\log(T/2\pi)+\sum_j[x_j^2/T^2+1/(24x_jT)]$; and $\int_{H'}^\infty\log(T/2\pi)T^{-2}dT=(\log(H'/2\pi)+1)/H'$. Finally $|\rho(\rho+2)|\ge\gamma^2$ and $|t^{1+\rho/2}|\le t^{3/2}$. The number $T(60,51.45)$ is evaluated in Arb (\file{tau-race/code/bounds.py}).
+\end{proof}
+
+(For orientation: $\sum_\rho|\rho|^{-2}=2(\Lambda_S'/\Lambda_S)(1)=0.198422$ and the $41$ zeros of Theorem~\ref{thm:4} give a true value of about $0.104$ for $\sum_{|\gamma|>60}2/\gamma^2$, if those zeros are on the line.)
+
+\begin{lemma}[inputs on $\psi$ and $\theta$; unconditional]\label{lem:psi}
+\textup{(a)} (Certified.) $\psi(y)\ge y-\sqrt2\sqrt y$ and $\theta(y)<y$ for $0<y\le Y_1:=10^7$. \textup{(b)} (F6.) For $y\ge10^7$: $(1-\varepsilon_1)y\le\theta(y)\le\psi(y)$ and $\theta(y)\le(1+\varepsilon_1)y$. Hence $\theta(y)\le c_\theta y$ for all $y>0$, and
+\[
+J_\zeta(t)\ge\tfrac23\bigl(1-\varepsilon_1\mathbf 1_{t>Y_1^2}\bigr)t^{3/2}-\tfrac45\sqrt2\,t^{5/4}\qquad(t>0).
+\]
+\end{lemma}
+
+\begin{proof}
+In (a), the supremum of $(y-\psi(y))/\sqrt y$ over $(0,10^7]$ is $\sqrt2$, approached as $y\to2^-$; between consecutive prime powers the quotient increases, so its supremum on each interval is its limit at the right end, which the program evaluates. For $\sqrt t\le Y_1$ integrate (a) in $J_\zeta(t)=\int_0^{\sqrt t}\psi(y)2y\,dy$; for $\sqrt t>Y_1$, $J_\zeta\ge\frac23Y_1^3-\frac45\sqrt2Y_1^{5/2}+\frac23(1-\varepsilon_1)(t^{3/2}-Y_1^3)\ge\frac23(1-\varepsilon_1)t^{3/2}-\frac45\sqrt2t^{5/4}$.
+\end{proof}
+
+\section{Proof of Theorem~\ref{thm:1}}\label{sec:proof1}
+
+Let $t\ge1$ and use \eqref{eq:decomp}.
+\begin{itemize}
+\item $\psi_{1,\Delta}(t)\ge-\sigma_0^2t^{3/2}-a_0t$ by \eqref{eq:psi1bound} (this is where $\GRHD$ is used).
+\item $J_\zeta(t)\ge\frac23(1-\varepsilon_1\mathbf 1_{t>10^{14}})t^{3/2}-\frac45\sqrt2t^{5/4}$ by Lemma~\ref{lem:psi}.
+\item $J_S(t)\le Z_S(t)+2t^{1/2}+K_S$ by \eqref{eq:JSbound}. Under $\GRHS$, $|t^{1+\rho/2}|=t^{5/4}$ and $Z_S(t)\le C_St^{5/4}$ (Lemma~\ref{lem:lowzeros}). Under $\mathrm{RH}_S(60)$ only, the zeros with $|\gamma|\le60$ contribute at most $C_St^{5/4}$ and the others at most $T_{60}t^{3/2}$ (Lemma~\ref{lem:highzeros}).
+\item Odd $k\ge3$: $|\int_0^t\Theta^{(k)}(u^{1/k})du|\le2c_\theta\frac k{k+1}t^{1+1/k}$, and the term vanishes unless $2^k\le t$. Keep $\frac34,\frac56$ for $k=3,5$; for odd $k\ge7$ use $\frac k{k+1}t^{1+1/k}\le t^{8/7}$; there are at most $\max(0,\frac12(\log t/\log2-5))$ such $k$. The total is $\le2c_\theta E_{\rm odd}(t)t^{3/2}$.
+\end{itemize}
+Adding up gives $\Theta_1(t)\ge L_A(t)t^{3/2}$ under $\GRHD$ and $\GRHS$, and $\Theta_1(t)\ge L_B(t)t^{3/2}$ under $\GRHD$ and $\mathrm{RH}_S(60)$, i.e.\ under $\GRHD$ by Theorem~\ref{thm:4}.
+
+\emph{Monotonicity.} All of $t^{-1/2},t^{-1/4},t^{-1},t^{-3/2},t^{-1/6},t^{-3/10}$ decrease, and $t^{-5/14}(\log t/\log2-5)$ decreases for $\log t>5\log2+\frac{14}5$, i.e.\ $t>526.2$. So $L_A,L_B$ are nondecreasing on $[527,10^{14}]$ and on $(10^{14},\infty)$; since $L_B(10^6)\ge0.0274$ and $L_B(10^{14}+)\ge0.3612$ (Arb), $\Theta_1(t)>0$ for $t\ge10^6$.
+
+\emph{Small $t$.} $\Theta_1$ is continuous and piecewise linear with nodes at the primes; $\Theta_1=0$ on $[0,2]$, $\Theta_1(t)=\lambda(2)\log2\,(t-2)<0$ on $(2,3]$ ($\lambda(2)=-24\cdot2^{-11/2}$), and on $[3,5]$, $\Theta_1(t)=\Theta(3)t-(2\lambda(2)\log2+3\lambda(3)\log3)$ with $\Theta(3)=0.2901\ldots>0$, which vanishes exactly at $t^*$ (certified enclosure $[4.266791956347541,4.266791956347542]$) and is positive on $(t^*,5]$. At every prime $5\le p\le9\,999\,991$ the inequality $\Theta_1(p)>0$ is certified (\file{tau-race/code/cert_small.py}: $664\,577$ primes, exact integers $\tau(p)$, $128$-bit balls). By linearity between nodes, $\Theta_1>0$ on $(t^*,9\,999\,991]$. \qed
+
+(The ranges overlap from $10^6$ to $10^7$; $L_B$ is positive from $t\approx7.05\cdot10^5$, and $L_A$ from $t\approx1.112\cdot10^5$.)
+
+\section{Proof of Theorem~\ref{thm:2}}\label{sec:proof2}
+
+\begin{lemma}[second-order partial summation; standard, cf.\ Ingham]\label{lem:partial}
+Let $x>2$, $2\le T\le x$ and $F\in C^2[2,x]$. Then $\sum_{p\le T}\lambda(p)\log p\,F(p)=F(T)\Theta(T)-F'(T)\Theta_1(T)+\int_2^T\Theta_1(t)F''(t)\,dt$.
+\end{lemma}
+
+\begin{proof}
+Stieltjes integration by parts twice, with $\Theta_1(2)=0$.
+\end{proof}
+
+Take $F=h$, $h(t)=(x-t)/\log t$. Then $h(x)=0$, $h'(x)=-1/\log x$, and
+\[
+h''(t)=\frac{x+t}{t^2\log^2t}+\frac{2(x-t)}{t^2\log^3t}>0\qquad(1<t\le x).
+\]
+With $T=x$ this gives $xR(x)=\Theta_1(x)/\log x+\int_2^x\Theta_1h''$. For general $T\le x$, $\int_2^T\Theta_1h''=xA_1(T)+A_2(T)$ with
+\[
+A_1(T)=D_0(T)-\frac{\Theta(T)}{\log T}-\frac{\Theta_1(T)}{T\log^2T},\qquad A_2(T)=-D_1(T)+\frac{T\Theta(T)-\Theta_1(T)}{\log T}+\frac{\Theta_1(T)}{\log^2T}.
+\]
+Since $\Theta_1<0$ on $(2,t^*)$, the kernel term cannot simply be dropped; but its part up to $97$ is positive: certified, $A_1(97)\in[0.671972273685,0.671972273686]$ and $A_2(97)\in[10.326446649,10.326446650]$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:2}]
+\emph{$x\ge97$.} By Theorem~\ref{thm:1}, $\Theta_1\ge0$ on $[97,x]$, and $h''>0$, so $xR(x)=\Theta_1(x)/\log x+xA_1(97)+A_2(97)+\int_{97}^x\Theta_1h''\ge\Theta_1(x)/\log x+0.6719x$. Hence $R(x)\ge\Theta_1(x)/(x\log x)+0.6719\ge L_B(x)\sqrt x/\log x+0.6719$, which is $>0$ (the middle term is $>0$ by Theorem~\ref{thm:1} even where $L_B<0$).
+
+\emph{$x<97$.} On $[p,p')$ (consecutive primes), $R(x)=D_0(p)-D_1(p)/x$ is monotone, and $R$ is continuous. $R(p)>0$ is certified at every prime $7\le p\le9\,999\,991$, so $R>0$ on $[7,9\,999\,991]$. On $[5,7]$, $R(x)=D_0(5)-D_1(5)/x$ with $D_0(5)=0.7596\ldots$, $D_1(5)=4.1916\ldots$: increasing, with zero $x^*$. On $[3,5]$, $R$ is monotone with $R(3)=-0.1767\ldots$, $R(5)=-0.0787\ldots$; on $(2,3]$, $R(x)=\lambda(2)(1-2/x)<0$. Hence $R(x)>0\iff x>x^*$.
+
+\emph{Constants.} For real $x\in[q,p]$ between consecutive primes $11\le q<p\le9\,999\,991$, $R(x)\log x/\sqrt x\ge\min(R(q),R(p))\log p/\sqrt p$ ($\log x/\sqrt x$ decreases for $x>e^2$). The program certifies that the minimum of these bounds is $\ge0.1718$ over all gaps with $q\ge11$, and $\ge0.7951$ over all gaps with $p>100$. For $x\ge9\cdot10^6$, $R(x)\log x/\sqrt x\ge L_B(9\cdot10^6)\ge0.1589$, resp.\ $\ge L_A(9\cdot10^6)\ge0.3435>\frac13$ under $\GRHS$.
+\end{proof}
+
+\begin{remark}[lead inheritance]
+$D_0(x)=D_1(x)/x+R(x)$. So under $\GRHD$, for every $x>x^*$: $\sum_{p\le x}\tau(p)p^{-9/2}\ge0\Rightarrow\sum_{p\le x}\tau(p)p^{-11/2}>0$.
+\end{remark}
+
+\begin{remark}[what is not claimed]
+The unsmoothed sum $D_0(x)=\sum_{p\le x}\lambda(p)$ is not one-signed ($D_0(17)<0$), and nothing pointwise is proved for the Koyama--Kurokawa weight $\tau(p)p^{-6}$. For other smoothings ($e^{-p/x}$, higher Riesz means) we expect that, under $\GRHD$, positivity for large $x$ follows from $\Theta_1>0$ on $(t^*,\infty)$ by Lemma~\ref{lem:partial}; this is not proved here, and the initial negative patch $(2,t^*)$ makes ``every $x$'' a separate finite computation for each weight, which we have not done.
+\end{remark}
+
+\begin{remark}[robustness of (F6)]\label{rem:robust}
+Replace (F6) by the Rosser--Schoenfeld consequences quoted there, i.e.\ use $\varepsilon_1=1/\log10^7=0.062042\ldots$ and $c_\theta=1.01624$ in \eqref{eq:LA}. Then the explicit function of Theorem~\ref{thm:1} changes: $L_B(10^6)\ge0.0230$, $L_B(9\cdot10^6)\ge0.1562$, $L_B(10^{14}+)\ge0.3202$, $\lim L_B\ge0.3284$; $L_A(10^6)\ge0.2076$, $L_A(9\cdot10^6)\ge0.3408$, $\lim L_A\ge0.5130$. Everything else survives as stated: the sign statements of Theorems~\ref{thm:1} and \ref{thm:2}, Theorem~\ref{thm:3}, and the two constants of Theorem~\ref{thm:2} (as $0.1562>0.15$ and $0.3408>\frac13$; the finite range does not use (F6)).
+\end{remark}
+
+\section{Proof of Theorem~\ref{thm:4}}\label{sec:proof4}
+
+\subsection{Evaluating \texorpdfstring{$\Lambda_S$}{Lambda\_S} rigorously}
+$a_S(n)$ is multiplicative and rational, $a_S(p^k)=c\,a_S(p^{k-1})-c\,a_S(p^{k-2})+a_S(p^{k-3})$ with $c=\tau(p)^2/p^{11}-1$, and $|a_S(n)|\le d_3(n)\le n^2$ by (F1), where $d_3(n)$ is the number of ordered factorisations $n=abc$. Let
+\[
+K(z)=4z\int_0^\infty u^9\exp(-\pi z^2/u^2-2\pi u)\,du\quad(|\arg z|<\tfrac\pi4),\qquad\Phi(z)=\sum_{n\ge1}a_S(n)K(nz).
+\]
+
+\begin{lemma}\label{lem:V0}
+\textup{(a)} $\int_0^\infty K(x)x^{s-1}dx=\gamma_S(s)$ for $\re s>-1$. \textup{(b)} For $|\arg z|=\vartheta<\frac\pi4$ and $0<\eta<1$: $|K(z)|\le C_\eta|z|\exp(-b_{\eta,\vartheta}|z|^{2/3})$ with $C_\eta=4\cdot9!/(2\pi\eta)^{10}$ and $b_{\eta,\vartheta}=3\pi(\cos2\vartheta\,(1-\eta)^2)^{1/3}$. \textup{(c)} $\Phi$ is analytic in the sector, $\Lambda_S(s)=\int_0^\infty\Phi(y)y^{s-1}dy$ for all $s\in\CC$, and $\Phi(1/z)=z\Phi(z)$.
+\end{lemma}
+
+\begin{proof}
+(a) Integrate in $x$ first, then in $u$:
+\[
+\int_0^\infty x^se^{-\pi x^2/u^2}dx=\tfrac12\pi^{-(s+1)/2}u^{s+1}\Gamma\bigl(\tfrac{s+1}2\bigr),\qquad\int_0^\infty u^{s+10}e^{-2\pi u}du=(2\pi)^{-(s+11)}\Gamma(s+11).
+\] (b) $|\exp(-\pi z^2/u^2)|=\exp(-\pi|z|^2\cos2\vartheta/u^2)$; by AM--GM, $\pi|z|^2\cos2\vartheta/u^2+2\pi(1-\eta)u\ge3\pi(\cos2\vartheta(1-\eta)^2|z|^2)^{1/3}$; and $\int_0^\infty u^9e^{-2\pi\eta u}du=9!/(2\pi\eta)^{10}$. (c) By (a), (b) and absolute convergence, $\int_0^\infty\Phi(y)y^{s-1}dy=\gamma_S(s)L_S(s)$ for $\re s>1$, and by Mellin inversion $\Phi(y)=\frac1{2\pi i}\int_{(2)}\Lambda_S(s)y^{-s}ds$. We move the line to $\re s=-1$. On $\re s=2$, $|L_S|\le\zeta(2)^3$; on $\re s=-1$, $|L_S(-1+iT)|=|\gamma_S(2-iT)/\gamma_S(-1+iT)|\,|L_S(2-iT)|\ll(|T|+2)^{9/2}$ by (F3) and Stirling. Since $L_S$ is entire of finite order (F3), Phragm\'en--Lindel\"of gives $L_S(\sigma+iT)\ll(|T|+2)^{9/2}$ uniformly for $-1\le\sigma\le2$, and Stirling gives $\gamma_S(\sigma+iT)\ll(|T|+2)^Ae^{-3\pi|T|/4}$ there for $|T|\ge1$. So $\Lambda_S(\sigma+iT)\to0$ exponentially, uniformly in the strip, the horizontal segments vanish, and $\Phi(y)=\frac1{2\pi i}\int_{(-1)}\Lambda_S(s)y^{-s}ds$ (on $\re s=-1$ the pole of $\gamma_S$ at $-1$ is cancelled by the zero of $L_S$). Substituting $s\mapsto1-s$ and using (F3) gives $\Phi(y)=y^{-1}\Phi(1/y)$ for $y>0$, hence in the sector by analytic continuation. Then $\Phi(y)$ decays faster than any power as $y\to0$ as well, and the Mellin integral converges for all $s$ and represents the entire function $\Lambda_S$.
+\end{proof}
+
+\begin{lemma}[trapezoidal rule and Poisson summation]\label{lem:V1}
+For $h>0$ and $s\in\CC$,
+\[
+h\sum_{k\in\ZZ}\Phi(e^{kh})e^{skh}=\sum_{m\in\ZZ}\Lambda_S(s+2\pi im/h),
+\]
+and the left side equals $h[\Phi(1)+\sum_{k\ge1}\Phi(e^{kh})(e^{skh}+e^{(1-s)kh})]$.
+\end{lemma}
+
+\begin{proof}
+$f(v)=\Phi(e^v)e^{sv}$ extends analytically to $|\im v|<\frac\pi4$ with decay faster than any exponential, uniformly in $|\im v|\le\frac\pi8$ (Lemma~\ref{lem:V0}); so Poisson summation applies, with $\hat f(\xi)=\Lambda_S(s-2\pi i\xi)$. The second form uses $\Phi(e^{-kh})=e^{kh}\Phi(e^{kh})$.
+\end{proof}
+
+\begin{lemma}[decay in the strip]\label{lem:V2}
+For $0<\vartheta<\frac\pi4$, $-1\le\sigma\le2$ and $T\in\RR$: $|\Lambda_S(\sigma+iT)|\le M_\vartheta e^{-\vartheta|T|}$, $M_\vartheta:=2\int_1^\infty y\sup_\pm|\Phi(ye^{\pm i\vartheta})|dy$.
+\end{lemma}
+
+\begin{proof}
+For $T>0$ rotate the ray in $\Lambda_S(s)=\int_0^\infty\Phi(z)z^{s-1}dz$ to $\arg z=\vartheta$, split at $|z|=1$ and apply $\Phi(z)=z^{-1}\Phi(1/z)$ on the inner part: $\Lambda_S(s)=e^{i\vartheta s}\int_1^\infty\Phi(ye^{i\vartheta})y^{s-1}dy+e^{i\vartheta(s-1)}\int_1^\infty\Phi(ye^{-i\vartheta})y^{-s}dy$. Here $|e^{i\vartheta s}|=|e^{i\vartheta(s-1)}|=e^{-\vartheta T}$, and $y^{\sigma-1},y^{-\sigma}\le y$ for $y\ge1$. For $T<0$ use $-\vartheta$.
+\end{proof}
+
+With $\vartheta=\pi/8$, $\eta=\frac15$ one has $b'=b_{\eta,\vartheta}=7.236>\frac92$, so $n\mapsto n^3e^{-b'(ny)^{2/3}}$ decreases for $n,y\ge1$, and summing gives $M_{\pi/8}\le109.74$.
+
+\emph{Evaluation.} Take $h=2\pi/640$ and $k\le517$ ($e^{517h}>160$). For $-1\le\re s\le2$, $|\im s|\le73$,
+\[
+\Lambda_S(s)=h\Bigl[\Phi_0+\sum_{k=1}^{517}\Phi_k\bigl(e^{skh}+e^{(1-s)kh}\bigr)\Bigr]+E,\qquad|E|\le E_{\rm tail}+E_{\rm alias}\le3.2\cdot10^{-100}+4.4\cdot10^{-95},
+\]
+where the $\Phi_k$ are balls containing $\Phi(e^{kh})$, of radius $\le2.91\cdot10^{-84}$ (\file{tau-race/code/sym2_phi.py}). For $n\le\max(1,\lfloor160/y\rfloor)$, $K(ny)$ is computed by Arb's rigorous integrator on an exact interval $[u_{\rm lo},u_{\rm hi}]$, plus $\int_0^{u_{\rm lo}}\le u_{\rm lo}^{10}e^{-\pi x^2/u_{\rm lo}^2}$ and $\int_{u_{\rm hi}}^\infty\le\Gamma(10,2\pi u_{\rm hi})/(2\pi)^{10}$; the terms $n>N$ are bounded by $C_\eta y[(N+1)^3e^{-\beta(N+1)^{2/3}}+\frac32\Gamma(6,\beta(N+1)^{2/3})/\beta^6]$ ($\eta=\frac1{10}$, $\vartheta=0$, $\beta=b_\eta y^{2/3}$; first term plus integral, the summand being decreasing). $E_{\rm tail}=\sum_{k>517}h|\Phi(e^{kh})|\,2e^{2kh}$ is bounded by summing the bound $|\Phi(y)|\le C_\eta y(1+\frac32c_0)e^{-b_\eta y^{2/3}}$ ($y\ge1$, $c_0=\Gamma(6,b_\eta)e^{b_\eta}/b_\eta^6$; from Lemma~\ref{lem:V0}(b) and the monotonicity of $n^3e^{-b(ny)^{2/3}}$) beyond $y_0=e^{517h}$, and $E_{\rm alias}=\sum_{m\ne0}|\Lambda_S(s+640im)|\le2M_\vartheta e^{73\vartheta}e^{-640\vartheta}/(1-e^{-640\vartheta})$ by Lemmas~\ref{lem:V1}, \ref{lem:V2}. On the critical line $Z(t):=\Lambda_S(\frac12+it)=h[\Phi_0+\sum_k2\Phi_ke^{kh/2}\cos(tkh)]+E$ is real, and its computed enclosure has radius about $10^{-83}$ for $0\le t\le72$, against $|Z(60)|\approx9\cdot10^{-50}$ and $|Z(72)|\approx2\cdot10^{-61}$. Consistency: $L_S(2)$ from this formula is $0.80587520944866875961\ldots$, inside the Euler-product enclosure; $L_S(\frac12)=0.505549375222713515\ldots$ and $L_S(1)=0.631792945727883203\ldots$ agree with PARI to all digits printed.
+
+\subsection{Zeros on the line}
+\file{tau-race/code/sym2_verify.py} decides the sign of $Z$ on the grid $t=j/16$, $0\le j\le1152$: there are $55$ sign changes in $(0,72]$, $41$ of them in $(0,60]$. Each is bisected to an interval $[l_j,r_j]$ of length $2^{-38}$ with certified opposite signs at the ends, so there are zeros $\frac12+i\gamma_j$, $\gamma_j\in[l_j,r_j]$, $j=1,\dots,55$ (they agree with PARI's \texttt{lfunzeros} to all digits compared).
+
+\subsection{Completeness}
+
+\begin{lemma}\label{lem:V3}
+Let $\gamma_1<\dots<\gamma_J$ be ordinates of zeros of $L_S$ on the critical line (one zero counted for each $j$), $w(u)=\frac32/(\frac94+u^2)$, and
+\[
+\mathrm{Rem}(T):=\re(\Lambda_S'/\Lambda_S)(2+iT)-\sum_{j}[w(T-\gamma_j)+w(T+\gamma_j)]\qquad(T\in\RR).
+\]
+Then \textup{(i)} $\mathrm{Rem}(T)\ge0$ and $|\mathrm{Rem}'(T)|\le\mathrm{Rem}(T)$; \textup{(ii)} if some zero $\rho_0=\beta_0+i\gamma_0$ of $L_S$ in the critical strip is not among the $\frac12\pm i\gamma_j$ (as a multiset), then $\mathrm{Rem}(\gamma_0)\ge\frac23$. Hence, if $\mathrm{Rem}(T)<\frac23$ for all $T\in[0,H]$, the zeros of $L_S$ with $0\le\im\rho\le H$ are exactly the $\frac12+i\gamma_j$ with $\gamma_j\le H$, each simple, and there is no zero with $\im\rho=0$.
+\end{lemma}
+
+\begin{proof}
+By (F4), $\re(\Lambda_S'/\Lambda_S)(2+iT)=\sum_\rho f_\rho(T)$, $f_\rho(T)=a/(a^2+(T-\gamma)^2)$, $a=2-\beta\in[1,2]$, and $f_\rho=w(T\mp\gamma_j)$ for $\rho=\frac12\pm i\gamma_j$. So $\mathrm{Rem}$ is the sum of $f_\rho$ over the remaining zeros: (i) $\mathrm{Rem}\ge0$ and $|f_\rho'|=f_\rho\cdot2|u|/(a^2+u^2)\le f_\rho/a\le f_\rho$. (ii) If $\beta_0=\frac12$, $f_{\rho_0}(\gamma_0)=\frac23$. If $\beta_0\ne\frac12$, then $1-\beta_0+i\gamma_0$ is another remaining zero, and $\frac1{2-\beta_0}+\frac1{1+\beta_0}\ge\frac43$.
+\end{proof}
+
+\emph{Application.} The program computes, for $T=j/8$, $0\le j\le480$, an upper bound for $\mathrm{Rem}(T)$: the Euler product over $p\le2\cdot10^5$ with tail $\le3.03(\log P+1)/P$, $\gamma_S'/\gamma_S$ in Arb, and a lower bound for the found zeros' terms (all $55$, with $\gamma_j$ replaced by $[l_j,r_j]$). The result is $\max_j\mathrm{Rem}(j/8)\le0.185062$, attained at $T=60$; by (i), $\mathrm{Rem}(T)\le0.185062\,e^{1/16}\le0.196998<\frac23$ on $[0,60]$. Lemma~\ref{lem:V3} and the symmetry $\rho\mapsto\bar\rho$ give Theorem~\ref{thm:4}. \qed
+
+($\mathrm{Rem}$ is small because the zeros up to $72$ are known; $\mathrm{Rem}(0)\approx0.0686$ is the contribution of all zeros above $72$. Mutation test: deleting any one of the zeros \#1, \#8, \#21, \#41 raises $\max\mathrm{Rem}$ to $0.743$, $0.741$, $0.758$, $0.842>\frac23$ (upper bounds computed by \file{tau-race/code/selftest.py} with $P=2\cdot10^4$ on a grid of step $\frac14$), so the test rejects.)
+
+Lemma~\ref{lem:V3} is a variant of the method of Hiary--Ireland--Kyi \cite{HIK}: they use the positive sum $\sum_\rho(\rho-\delta)^{-1}$ at one real point $\delta\le0$, evaluated from $L'/L$ in the region of absolute convergence; here the positive partial-fraction sum is used at the points $2+iT$, $0\le T\le H$, with a Lipschitz bound.
+
+\section{Proof of Theorem~\ref{thm:3}}\label{sec:proof3}
+
+(a)$\Rightarrow$(b), (a)$\Rightarrow$(d) are Theorems~\ref{thm:2}, \ref{thm:1}; (b)$\Rightarrow$(c) and (d)$\Rightarrow$(e) are trivial.
+
+\emph{(c)$\Rightarrow$(a)} (Landau). Let $A(x)=xR(x)=\sum_{p\le x}\lambda(p)(x-p)$; $|A(x)|\le2x^2$. For $\re s>1$, $\int_1^\infty A(x)x^{-s-2}dx=P(s)/(s(s+1))$ with $P(s)=\sum_p\lambda(p)p^{-s}$. From the Euler products, $\log L(s,\Delta)=\sum_p\sum_kc_k(p)/(kp^{ks})$ and $\log L_S(w)-\log\zeta(w)=\sum_p\sum_jc_{2j}(p)/(jp^{jw})$, so
+\[
+P(s)=\log L(s,\Delta)-\tfrac12\log L_S(2s)+\tfrac12\log\zeta(2s)+H(s),
+\]
+with $H(s)=\frac12\sum_p\sum_{j\ge2}c_{2j}(p)/(jp^{2js})-\sum_p\sum_{k\ge3}c_k(p)/(kp^{ks})$ absolutely convergent and analytic in $\re s>\frac13$. On the real segment $\sigma>\frac12$: $\zeta(2\sigma)>0$ is finite, $L_S(2\sigma)>0$ (Euler product), and $L(\sigma,\Delta)\ne0$, because for real $w$
+\[
+(2\pi)^{-w}\Gamma(w)L(w-\tfrac{11}2,\Delta)=\int_0^\infty\Delta(iy)y^{w-1}dy=\int_1^\infty\Delta(iy)(y^{w-1}+y^{11-w})dy>0,
+\]
+as $\Delta(iy)=e^{-2\pi y}\prod(1-e^{-2\pi ny})^{24}>0$. Hence $P(s)/(s(s+1))$ continues analytically to a neighbourhood of every real $\sigma>\frac12$. If $A(x)\ge0$ for $x\ge x_0$, Landau's theorem (the Mellin transform of an eventually one-signed function has a singularity at the real point of its abscissa of convergence; e.g.\ \cite[\S15.1]{MV}) shows that the integral converges and is analytic in $\re s>\frac12$. So $P$, and then $\log L(s,\Delta)=P+\frac12\log L_S(2s)-\frac12\log\zeta(2s)-H$, is analytic in $\re s>\frac12$, where $L_S(2s)\ne0$ and $\zeta(2s)\ne0,\infty$. So $L(s,\Delta)\ne0$ for $\re s>\frac12$, which is $\GRHD$ by the functional equation.
+
+\emph{(e)$\Rightarrow$(a).} The same with $A$ replaced by $\Theta_1$: $\int_1^\infty\Theta_1(t)t^{-s-2}dt=P_1(s)/(s(s+1))$ with $P_1(s)=\sum_p\lambda(p)\log p\,p^{-s}=-(L'/L)(s,\Delta)+(L_S'/L_S)(2s)-(\zeta'/\zeta)(2s)+H_1(s)$ (Lemma~\ref{lem:decomp}), which is meromorphic in $\re s>\frac13$ with poles in $\re s>\frac12$ exactly at the zeros of $L(s,\Delta)$ there (simple, with residue $-\mu_\rho\ne0$), and no pole on the real segment $\sigma>\frac12$. Landau's theorem gives analyticity in $\re s>\frac12$, so there are no such zeros. \qed
+
+\section{Computations}\label{sec:computations}
+
+All programs are in \file{tau-race/code/}, outputs in \file{tau-race/data/}; Python 3.13 with python-flint 0.9.0 (Arb), PARI/GP for the independent checks. Exact $\tau(n)$ for $n\le10^7$ comes from $\Delta=q\prod(1-q^n)^{24}=q\,(\sum_{k\ge0}(-1)^k(2k+1)q^{k(k+1)/2})^8$ (Jacobi) with FLINT polynomial arithmetic (checked against $\tau\equiv\sigma_{11}\pmod{691}$, multiplicativity, the Hecke relation at $p^2$, PARI's \texttt{mfcoefs} and \texttt{ramanujantau}, and, by the second referee, against $(E_4^3-E_6^2)/1728$ at all $10^7$ values).
+
+\emph{How $\sigma_0^2$ is certified.} With $w=s+\frac{11}2$, $\Lambda^*(w):=(2\pi)^{-w}\Gamma(w)L(w-\frac{11}2,\Delta)=\sum_n\tau(n)[E(w,n)+E(12-w,n)]$ with $E(w,n)=\int_1^\infty e^{-2\pi ny}y^{w-1}dy=(2\pi n)^{-w}\Gamma(w,2\pi n)$ (from $\Delta(i/y)=y^{12}\Delta(iy)$), and $\Lambda^{*\prime}(w)=\sum_n\tau(n)\int_1^\infty e^{-2\pi ny}\log y\,(y^{w-1}-y^{11-w})dy$. At $w=\frac{13}2$ we use $40$ terms, incomplete gamma functions in Arb, the derivative integrals by Arb's rigorous integrator on $[1,Y_n]$ plus an explicit tail, and a geometric bound for $n>40$ from $|\tau(n)|\le n^{6.5}$; then $\sigma_0^2=2\Lambda^{*\prime}/\Lambda^*(\frac{13}2)$. PARI's \texttt{lfun} (a different algorithm) gives $0.11225214047190852674558342625\ldots$, inside the enclosure. An independent audit summed over $3035$ zeros to height $2000$ plus a tail and matched $\sigma_0^2$ to $8\cdot10^{-11}$.
+
+\emph{Mutation tests} (\file{tau-race/code/selftest.py}; each mutant must be rejected, and all are): sign-flipped $\lambda$, and $\tau(3),\tau(5),\tau(11)$ negated (the small-range checks fail); $\sigma_0^2:=0.7$ (no positivity threshold) and $H=12$ ($L_B$ never positive); one zero deleted ($\mathrm{Rem}\ge\frac23$); $\tau(2):=\tau(2)+1$ ($\sigma_0^2$ leaves its enclosure).

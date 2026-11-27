@@ -58,6 +58,8 @@ In `papers/`: PDFs and LaTeX sources (single author, AI disclosure on page one).
 | Modular Nahm sums for the inverse Cartan matrices of E6, E7 and E8 | `papers/nahm-sums-e6-e7-e8/` |
 | Closed forms for the unidentified ζ(5)-level continued fractions of the Ramanujan Machine | `papers/zeta5-continued-fractions/` |
 | Factorial reduction for the Euler family of polynomial continued fractions | `papers/factorial-reduction/` |
+| Ramanujan's tau function: a sign theorem at every x and excluded values | `papers/ramanujan-tau/` |
+| Chebyshev's bias without linear independence: certified bounds, the possible atom at zero, and barriers | `papers/chebyshev-bias-without-li/` |
 
 File paths inside the documents refer to the working layout; see [`PATHS.md`](PATHS.md).
 

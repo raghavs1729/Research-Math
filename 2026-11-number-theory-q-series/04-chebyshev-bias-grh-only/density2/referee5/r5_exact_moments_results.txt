@@ -1,0 +1,35 @@
+(E1) INVLO Proposition B' moment identity (exact)
+  L=3: S_L = ['1', '2', '3', 'r2', '1+r2']; free = ['r3', '5r3']
+    E(Z-1)^j == E(W-1)^j for j=1..6: [True, True, True, True, True, False]  (claimed: equal for j <= L)
+    order 6: Haar 26287731889162409/17564901580800000 vs mixed 5249009835664213/3512980316160000 (length-6 relation 5*r3 - (5r3) = 0 in the free part)
+  L=5: S_L = ['1', '2', '3', 'r2', '1+r2']; free = ['r3', '5r3']
+    E(Z-1)^j == E(W-1)^j for j=1..6: [True, True, True, True, True, False]  (claimed: equal for j <= L)
+    order 6: Haar 26287731889162409/17564901580800000 vs mixed 5249009835664213/3512980316160000 (length-6 relation 5*r3 - (5r3) = 0 in the free part)
+
+(E2) PRIMECORR Theorem P1(b): padding, ordinates {1, 2, sqrt2}, weights 1
+  Delta_1 = 0
+  Delta_2 = 0
+  Delta_3 = 6
+  Delta_4 = 0
+  Delta_5 = 220
+  Delta_6 = 30
+  Delta_7 = 6930
+  odd relations of length <= 5 among {1,2,sqrt2}: lengths [3]
+  hand count: Delta_5 = 2*(20 + 30 + 60) = 220 (pads by rho = 1, 2, sqrt2)
+
+(E3) PRIMECORR Lemma P1' (decoupled prediction), R = {1,2}, I = {x,y,z}, weights 1
+  max_(a+b<=6, b>=1) |E_ab| = 0  (claimed 0: relations among R-zeros only)
+  sequence enumeration agrees with the definition for a+b <= 3: True
+  plain-moment excess Delta_k of G_R + G_I (one window), k = 3, 4, 5: 6, 0, 460  (file: 6, 0, 460)
+  band with a double zero: E_02 = 4 (formula sum 2m(m-1) = 4); by enumeration: 4
+  R={1}, I={x, 1+x} (relation (1+x) - x - 1, height <= T*): E_12 = 4 (>= 1, weight 1 per sequence; 4 sequences)
+
+(E4) PRIMECORR Sec. 3 comparison spectrum AS WRITTEN: Gamma = {n alpha} u B u {z_x, x+z_x}
+  (Z): zeros in the open margins: [] (none, so (Z) holds)
+  band I contains: ['11*alpha', '12*alpha', '13*alpha', '14*alpha', '15*alpha', '16*alpha', '17*alpha', '18*alpha', '19*alpha', '20*alpha', '21*alpha', 'x1', 'x2']
+  E_12 = 240, E_04 = 3960  -> (D) requires E < 1: FAILS (truncated model; the full spectrum has E at least as large, all weights being >= 0)
+
+(E5) the same spectrum with the multiples of alpha in [s1-1, s2+1] removed
+  band I contains: ['x1', 'x2']
+  max |E_ab| over a+b <= 4 and (a,b) in {(0,5),(1,4)}: 0 (H_dec's (D) holds in this truncation)
+  GLI(psi), psi > 3 eventually, still fails: 24*alpha - 23*alpha - alpha = 0 (length 3, height 24), and in the infinite spectrum such relations occur in every gap between the sparse bands

@@ -1,0 +1,145 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array,longtable}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+\raggedbottom
+\emergencystretch=3em
+
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\TT}{\mathbb T}
+\newcommand{\cA}{\mathcal A}
+\newcommand{\cC}{\mathcal C}
+\newcommand{\hA}{\lambda_{\cA}}
+\newcommand{\dlow}{\underline d}
+\newcommand{\dup}{\overline d}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\spanQ}[1]{\langle#1\rangle_{\QQ}}
+\newcommand{\file}[1]{\path{#1}}
+\newcommand{\repo}{\texttt{2026-11-number-theory-q-series/04-chebyshev-bias-grh-only}}
+\newcommand{\rd}[1]{\textup{[#1]}}
+
+\begin{document}
+
+\title[Chebyshev's bias without linear independence: the atom at zero]{Chebyshev's bias without linear independence:\\ certified bounds, the possible atom at zero, and barriers}
+
+\author{Raghav Sharma}
+\email{raghavsharma1729@gmail.com}
+\date{27 November 2026}
+\subjclass[2020]{Primary 11N13; Secondary 11M26, 42A75, 11Y35, 60E10}
+\keywords{Chebyshev's bias, prime number races, logarithmic density, generalized Riemann hypothesis, linear independence hypothesis, almost periodic functions, limiting distribution, atoms, integer multiplicities, ball arithmetic}
+
+\begin{abstract}
+For $\chi=\chi_{-4}$ it is not known whether, under the generalized Riemann hypothesis (GRH) for $L(s,\chi)$ alone, the set $\{x:\pi(x;4,3)>\pi(x;4,1)\}$ has a logarithmic density: without a linear-independence hypothesis on the zeros, the limiting distribution might have an atom at $0$. We do not prove that the density exists. Assuming only GRH for the character concerned, we prove: the lower logarithmic density of this set exceeds $0.910924861$, and that of $\{x:\pi(x;3,2)>\pi(x;3,1)\}$ exceeds $0.934761398$ (certified in ball arithmetic); a time-reversal identity on the closure torus, which makes the limiting law symmetric about its mean up to an explicit error; that the mass of the possible atom at $0$ equals the jump of the bias as a function of a weight $p^m$, so that the density exists for all but countably many weights; and a reduction of the problem to a uniform small-ball bound for finite trigonometric models with integer multiplicities. We prove existence of the density under several hypotheses on the zeros that are weaker than linear independence, and under a prime-side band-decoupling hypothesis. Finally we construct models that share the structure used by these arguments, including positive integer multiplicities obeying a zero-counting law with a large constant, whose laws do have an atom at $0$; there the counting constant is astronomically large ($\gtrsim10^{14}$), and the true constant and the case of bounded multiplicities remain open.
+\end{abstract}
+
+\maketitle
+
+\noindent\fbox{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule}{\small
+\textbf{Disclosure.} This paper was produced by AI (Anthropic's Claude models), directed by the author. Its proofs and computations were checked by independent AI referees, each instructed to find errors (Section~\ref{sec:review}); every result stated here passed at least one such read, and the number of reads is recorded for each. The paper has \emph{not yet been refereed by a human expert}. The author takes responsibility for the content and welcomes corrections at raghavsharma1729@gmail.com. Code, certificates and referee reports: \url{https://github.com/raghavs1729/Research-Math}, directories \repo{} and \texttt{2026-11-number-theory-q-series/05-weighted-races-grh} (certified zero lists and variance and non-resonance certificates).}}
+
+\medskip
+\tableofcontents
+
+\input{s1-intro}
+\input{s2-setting}
+\input{s3-jump}
+\input{s4-reversal}
+\input{s5-sufficient}
+\input{s6-reduction}
+\input{s7-barriers}
+\input{s8-end}
+
+\begin{thebibliography}{99}\small
+
+\bibitem{ANS} A. Akbary, N. Ng, M. Shahabi, \emph{Limiting distributions of the classical error terms of prime number theory}, Q. J. Math. \textbf{65} (2014), 743--780. arXiv:1306.1657.
+
+\bibitem{AK} M. Aoki, S. Koyama, \emph{Chebyshev's bias against splitting and principal primes in global fields}, J. Number Theory \textbf{245} (2023), 233--262. arXiv:2203.12266.
+
+\bibitem{Bailleul} A. Bailleul, \emph{Explicit Kronecker--Weyl theorems and applications to prime number races}, arXiv:2007.05763 (v3, 2022).
+
+\bibitem{BEL} P. Borwein, T. Erd\'elyi, F. Littmann, \emph{Polynomials with coefficients from a finite set}, Trans. Amer. Math. Soc. \textbf{360} (2008), 5145--5154.
+
+\bibitem{BS} J. Breuer, B. Simon, \emph{Natural boundaries and spectral theory}, Adv. Math. \textbf{226} (2011), 4902--4920. arXiv:1002.0823.
+
+\bibitem{Cohen} P. J. Cohen, \emph{On a conjecture of Littlewood and idempotent measures}, Amer. J. Math. \textbf{82} (1960), 191--212.
+
+\bibitem{Carlson} F. Carlson, \emph{\"Uber Potenzreihen mit ganzzahligen Koeffizienten}, Math. Z. \textbf{9} (1921), 1--13.
+
+\bibitem{DD} I. Daubechies, R. DeVore, \emph{Approximating a bandlimited function using very coarsely quantized data: a family of stable sigma-delta modulators of arbitrary order}, Ann. of Math. (2) \textbf{158} (2003), 679--710.
+
+\bibitem{Davenport} H. Davenport, \emph{Multiplicative Number Theory}, 3rd ed., Grad. Texts in Math. \textbf{74}, Springer, 2000.
+
+\bibitem{Devin} L. Devin, \emph{Chebyshev's bias for analytic $L$-functions}, Math. Proc. Cambridge Philos. Soc. \textbf{169} (2020), 103--140. arXiv:1706.06394.
+
+\bibitem{Devin2} L. Devin, \emph{Limiting properties of the distribution of primes in an arbitrarily large number of residue classes}, arXiv:1909.03975 (2019; journal version not checked).
+
+\bibitem{Fiorilli} D. Fiorilli, \emph{Highly biased prime number races}, Algebra Number Theory \textbf{8} (2014), 1733--1767. arXiv:1210.6946.
+
+\bibitem{Gunturk} C. S. G\"unt\"urk, \emph{One-bit sigma-delta quantization with exponential accuracy}, Comm. Pure Appl. Math. \textbf{56} (2003), 1608--1630.
+
+\bibitem{HKMN} A. Hamieh, H. Kadiri, G. Martin, N. Ng, \emph{Comparative prime number theory problem list}, arXiv:2407.03530 (2024).
+
+\bibitem{Hayani} M. Hayani, \emph{Chebyshev's bias without linear independence}, arXiv:2512.23302 (v3, 2026).
+
+\bibitem{Helson} H. Helson, \emph{Note on harmonic functions}, Proc. Amer. Math. Soc. \textbf{4} (1953), 686--691.
+
+\bibitem{HL} H. Helson, D. Lowdenslager, \emph{Prediction theory and Fourier series in several variables}, Acta Math. \textbf{99} (1958), 165--202.
+
+\bibitem{IK} H. Iwaniec, E. Kowalski, \emph{Analytic Number Theory}, Amer. Math. Soc. Colloq. Publ. \textbf{53}, AMS, Providence, 2004.
+
+\bibitem{Arb} F. Johansson, \emph{Arb: efficient arbitrary-precision midpoint-radius interval arithmetic}, IEEE Trans. Comput. \textbf{66} (2017), 1281--1292.
+
+\bibitem{KR} J. Kaczorowski, O. Ramar\'e, \emph{Almost periodicity of some error terms in prime number theory}, Acta Arith. \textbf{106} (2003), 277--297.
+
+\bibitem{MN} G. Martin, N. Ng, \emph{Inclusive prime number races}, Trans. Amer. Math. Soc. \textbf{373} (2020), 3561--3607. arXiv:1710.00088.
+
+\bibitem{MS} H. L. Montgomery, K. Soundararajan, \emph{Primes in short intervals}, Comm. Math. Phys. \textbf{252} (2004), 589--617. arXiv:math/0409258.
+
+\bibitem{Nazarov} F. L. Nazarov, \emph{Local estimates for exponential polynomials and their applications to inequalities of the uncertainty principle type}, Algebra i Analiz \textbf{5} (1993), no.~4, 3--66; English transl. St. Petersburg Math. J. \textbf{5} (1994), 663--717.
+
+\bibitem{NV} H. Nguyen, V. Vu, \emph{Optimal inverse Littlewood--Offord theorems}, Adv. Math. \textbf{226} (2011), 5298--5319.
+
+\bibitem{Olevskii} A. M. Olevskii, survey of modifications of functions and Fourier series (Menshov-type correction), Russian Math. Surveys (1985); title and data not re-checked.
+
+\bibitem{Platt} D. Platt, \emph{Numerical computations concerning the GRH}, Math. Comp. \textbf{85} (2016). arXiv:1305.3087.
+
+\bibitem{Polya} G. P\'olya, \emph{\"Uber gewisse notwendige Determinantenkriterien f\"ur die Fortsetzbarkeit einer Potenzreihe}, Math. Ann. \textbf{99} (1928), 687--706.
+
+\bibitem{RS} M. Rubinstein, P. Sarnak, \emph{Chebyshev's bias}, Experiment. Math. \textbf{3} (1994), 173--197.
+
+\bibitem{Rudin} W. Rudin, \emph{Fourier Analysis on Groups}, Interscience, New York, 1962.
+
+\bibitem{Sheth} A. Sheth, \emph{Euler products at the centre and applications to Chebyshev's bias}, Math. Proc. Cambridge Philos. Soc. \textbf{179} (2025), 331--349. arXiv:2405.01512.
+
+\bibitem{WR} R. Sharma, \emph{Rubinstein--Sarnak densities for weighted prime number races}, preprint, 2026, doi:10.5281/zenodo.21947101.
+
+\bibitem{GO} R. Sharma, working note \file{05-weighted-races-grh/GRH-ONLY.md} in \cite{Repo} (all numbers cited as [GO, \dots] refer to this note); written up as \emph{Weighted prime races under GRH alone: lead inheritance, convex order and explicit bias bounds}, preprint, November 2026, \file{05-weighted-races-grh/grh-only-races.tex}, whose numbering differs.
+
+\bibitem{MC} R. Sharma, \emph{Monotonicity and non-monotonicity of Chebyshev's bias in the weight}, preprint, November 2026; \file{05-weighted-races-grh/monotone-coupling.tex} in \cite{Repo}.
+
+\bibitem{Repo} R. Sharma, \emph{Research-Math} (code, certificates, working notes and referee reports), \url{https://github.com/raghavs1729/Research-Math}, directory \texttt{2026-11-number-theory-q-series}.
+
+\end{thebibliography}
+\end{document}

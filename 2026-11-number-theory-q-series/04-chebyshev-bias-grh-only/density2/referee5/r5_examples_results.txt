@@ -1,0 +1,24 @@
+(C1) window dependence of 'a double zero anywhere in (T, pi T] violates H_corr(2,T)'
+  standard bump exp(-1/(1-4u^2)): c_0 = 0.9612; what(pi) = 0.6690; min_(1,pi] 2*what = 1.3379; xi in (1,pi] where a double zero at xi*T does NOT violate H_corr(2,T): none
+  two bumps at +-0.45, half-width 0.04: c_0 = 0.8109; what(pi) = 0.0244; min_(1,pi] 2*what = 0.0488; xi in (1,pi] where a double zero at xi*T does NOT violate H_corr(2,T): [1.956, 3.142]
+
+(C2) INVLO Sec. 3 item 2, psi(t) = 2^t, alpha = 1
+  e = [1, 4, 8, 13]; u = [3, 37, 769, 32771]; x = [1.5, 2.3125, 3.003906, 4.000366]
+  relations with ||k||_1 <= 80: 10; shortest: [(-12, -13, 16, 0), (12, 13, -16, 0), (-37, 24, 0, 0)]; GLI(psi)/divisibility violations: 0
+  shortest relation with top index n*=2: k = (-37, 24, 0, 0), length 61; |k_n*| = 24 >= 2^(e_n* - e_(n*-1)) = 8 >= psi(x_n*) = 4.97
+  shortest relation with top index n*=3: k = (-12, -13, 16, 0), length 41; |k_n*| = 16 >= 2^(e_n* - e_(n*-1)) = 16 >= psi(x_n*) = 8.02
+  shortest relation with top index n*=4: k = (-6, -6, -35, 32), length 79; |k_n*| = 32 >= 2^(e_n* - e_(n*-1)) = 32 >= psi(x_n*) = 16.00
+  gcd(u_m 2^(e_m'-e_m), u_m') = 1 for all m < m': True  (so <x_m, x_m'> = 2^(-e_m') Z; index 1)
+
+(C3) {beta, 3beta, 5beta}: shortest relation
+  shortest relation length 4, e.g. k = (-3, 1, 0) (claim: none of length <= 3)
+
+(C4) Remark P4(b): L log L >= C_2 T / (alpha^2 delta)
+  C_2 T/(alpha^2 delta) = 1.2596e+06; smallest L with L log L >= that: 1.0863e+05 (file: 1.1e5)
+
+(C5) Lemma D(b) for the true bands Gamma cap (T, 2T] of L(s, chi_{-4}), M = 1/2, m_gamma = 1
+  T=  20: #I =    9 (#I/T = 0.450); a/b = 0.557; theta = 0.7332; D-bound = 2.672 + 1.82e+00; Gaussian peak 1/sqrt(pi Sigma) = 2.672; (T/log T)^(1/2)/M = 5.17
+  T=  50: #I =   30 (#I/T = 0.600); a/b = 0.523; theta = 0.7604; D-bound = 3.690 + 1.84e-02; Gaussian peak 1/sqrt(pi Sigma) = 3.690; (T/log T)^(1/2)/M = 7.15
+  T= 100: #I =   72 (#I/T = 0.720); a/b = 0.504; theta = 0.7759; D-bound = 4.723 + 1.51e-06; Gaussian peak 1/sqrt(pi Sigma) = 4.723; (T/log T)^(1/2)/M = 9.32
+  T= 200: #I =  167 (#I/T = 0.835); a/b = 0.501; theta = 0.7781; D-bound = 6.209 + 1.62e-16; Gaussian peak 1/sqrt(pi Sigma) = 6.209; (T/log T)^(1/2)/M = 12.29
+  T= 300: #I =  270 (#I/T = 0.900); a/b = 0.501; theta = 0.7782; D-bound = 7.338 + 1.51e-27; Gaussian peak 1/sqrt(pi Sigma) = 7.338; (T/log T)^(1/2)/M = 14.50

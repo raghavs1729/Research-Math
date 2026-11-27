@@ -1,0 +1,91 @@
+\section{Further facts under GRH alone, and a reduction to finite models}\label{sec:reduction}
+
+\subsection{Smoothing, level sets and bands}
+
+\begin{theorem}[analytic smoothing; GRH, NCZ; \rd{1 read}]\label{thm:smooth}
+Let $k:\RR\to\RR$ be measurable with $\int(1+|u|)|k(u)|du<\infty$, $|\hat k(\xi)|\le Ce^{-a|\xi|}$ for some $a>0$, and $\hat k(\gamma_0)\ne0$ for some $\gamma_0\in\Gamma$. Then $E^k_M(y)=\int E_M(e^{y-u})k(u)\,du$ (with $E_M(e^v)=0$ for $v<\log2$) has a limiting distribution, the law of the continuous function $F^k_M=\hat k(0)+\re\sum_\gamma m_\gamma r_\gamma\hat k(\gamma)e_\gamma$, and this law is absolutely continuous.
+\end{theorem}
+
+\begin{proof}
+The limiting distribution follows from the $B^2$-approximation of $E_M(e^y)$ by $F_{M,T}(\iota(y))$ \cite[Theorem~1.3(a)]{GO}, which survives convolution with $k$ because $\int(1+|u|)|k|<\infty$, and from (I1) for the continuous function $F^k_M$. For every $\theta$, $t\mapsto F^k_M(\tau_t\theta)$ extends holomorphically to $|\im t|<a$ and is non-constant (its Bohr coefficient at $\gamma_0$ is $m_{\gamma_0}\frac{2M}{M+i\gamma_0}\hat k(\gamma_0)\theta_{\gamma_0}\ne0$), so Lemma~\ref{lem:analytic}, invariance of $\hA$ under $\tau_t$ and Fubini give absolute continuity.
+\end{proof}
+
+So every analytic mollification of the race in $\log x$ has a density under GRH alone; the obstacle is the lack of smoothness at scale $0$.
+
+\begin{proposition}[no level set has interior; GRH, NCZ; \rd{1 read}]\label{prop:interior}
+For every $M>0$, $c\in\RR$ and every nonempty open $U\subset\cA$: $\hA(U\setminus\{F_M=c\})>0$.
+\end{proposition}
+
+\begin{proof}
+Suppose $F_M=c$ a.e.\ on $U$, and choose nonempty open $U''\subset U'\subset U$ and $\delta,\delta_0>0$ with $\tau_tU'\subset U$ for $|t|<\delta$ and $\tau_tU''\subset U'$ for $|t|<\delta_0$. For $\eta\in C_c^\infty((-\delta,\delta))$ put $W_\eta(\theta)=\frac12\int\eta+\sum_{g\in\pm\Gamma}m_g\theta_g\int\eta(t)e^{igt}dt$, a continuous function. Comparing coefficients, $\int F_M(\tau_t\theta)(-\eta'(t)+M\eta(t))dt=2MW_\eta(\theta)$ a.e., and the left side is $cM\int\eta$ for a.e.\ $\theta\in U'$; so $2W_\eta=c\int\eta$ on $U'$ (by continuity). By (I1) there are arbitrarily large $y$ with $\iota(y)\in U''$, hence a $t_0=\log p$ ($p\nmid q$ prime) with $\iota(t_0)\in U'$. At $\theta=\iota(t_0)$, (I5) with $\eta(\cdot-t_0)$ gives $\frac c2\int\eta=\frac12\int\eta-\sum_n\Lambda(n)\chi(n)n^{-1/2}\eta(\log n-t_0)+\int\eta(t-t_0)\Omega(t)dt$. Take $\eta(t)=\eta_1(t/\eps)$ with $\eta_1\ge0$, $\eta_1(0)=1$, and let $\eps\to0$: every term tends to $0$ except $-\chi(p)(\log p)/\sqrt p\ne0$.
+\end{proof}
+
+\begin{proposition}[finite-order smoothing creates no atoms; GRH, NCZ; \rd{1 read}]\label{prop:finiteorder}
+Let $\kappa>0$ and $K_\kappa f(\theta)=\int_0^\infty\kappa e^{-\kappa u}f(\tau_{-u}\theta)du$, and take the continuous version of $K_\kappa F_M$. Then $\{K_\kappa F_M=c\}\subset\{F_M=c\}$ up to a null set, for every $c$.
+\end{proposition}
+
+\begin{proof}
+For a.e.\ $\theta$, $g_\theta(t)=K_\kappa F_M(\tau_t\theta)$ is locally absolutely continuous with $g_\theta'=\kappa(f_\theta-g_\theta)$ a.e., where $f_\theta(t)=F_M(\tau_t\theta)$. The derivative of an absolutely continuous function vanishes a.e.\ on each level set, so $f_\theta=g_\theta=c$ for a.e.\ $t$ with $g_\theta(t)=c$; conclude by Fubini.
+\end{proof}
+
+\begin{proposition}[band densities; GRH, NCZ; \rd{1 read}]\label{prop:band}
+$\nu_M(\{c\})=\lim_{\eps\downarrow0}\dlow\{x:|E_M(x)-c|<\eps\}=\lim_{\eps\downarrow0}\dup\{x:|E_M(x)-c|\le\eps\}$. So $\nu_{1/2}(\{0\})=0$ for $\chi_{-4}$ iff for every $\eta>0$ there is $\eps>0$ such that $\{x:|\pi(x;4,3)-\pi(x;4,1)|\le\eps\sqrt x/\log x\}$ has upper logarithmic density $<\eta$.
+\end{proposition}
+
+\begin{proof}
+\eqref{eq:portmanteau}, and $\nu_M((c-\eps,c+\eps))\downarrow\nu_M(\{c\})$, $\nu_M([c-\eps,c+\eps])\downarrow\nu_M(\{c\})$.
+\end{proof}
+
+\begin{corollary}[ties; GRH; \rd{2 reads}]\label{cor:ties}
+Assume GRH$(\chi_{-4})$. The set of exact ties $\pi(x;4,3)=\pi(x;4,1)$ has upper logarithmic density $\le\nu_{1/2}(\{0\})<0.0891$; under GRH together with any of the hypotheses of Section~\ref{sec:sufficient} it has logarithmic density $0$.
+\end{corollary}
+
+\begin{proof}
+Ties lie in every band $\{|E_{1/2}|\le\eps\}$; apply \eqref{eq:portmanteau}, Theorem~\ref{thm:cert}, and the absence of atoms.
+\end{proof}
+
+\begin{remark}[ties]\label{rem:ties}
+Problem~13 of \cite{HKMN} asks for an \emph{unconditional} proof that ties have density $0$; we do not address the unconditional question, and we do not prove density $0$ for ties, or for near-ties $|\pi(x;4,3)-\pi(x;4,1)|\le K$, under GRH alone. Excluding ties beyond the band would need a local limit statement for sums $\sum_{t<p\le t+u}\chi(p)$ over short intervals (\file{density/DENSITY.md}, Remark~6.4).
+\end{remark}
+
+Under GRH, an atom also forces balance in multiplicative short intervals (\file{density/DENSITY.md}, Proposition~6.2, \rd{1 read}): if $\nu_{1/2}(\{0\})=\eta>0$ for $\chi_{-4}$, then for every $\eps>0$ and small $h$ the inequality $|\theta(xe^h;4,3)-\theta(x;4,3)-\theta(xe^h;4,1)+\theta(x;4,1)|<2\eps e^{h/2}\sqrt x$ holds on a set of lower logarithmic density $\ge\eta-\omega(h)$, with $\omega(h)\to0$; this is at a scale $\eps$ arbitrarily small compared with the root mean square $\asymp(h\log(1/h))^{1/2}$ of the same quantity.
+
+\subsection{Reduction to finite integer models}
+
+\begin{lemma}[reduction to finite models; GRH, NCZ; \rd{1 read}]\label{lem:reduction}
+$F_{M,T}$ is a trigonometric polynomial on the finite-dimensional torus $\cA_T$, the closure of $\{(e^{i\gamma y})_{\gamma\le T}\}$, and its law under $\lambda_{\cA_T}$ is that of $F_{M,T}\circ\pi_T$ under $\hA$. For all $\eps>0$ and $T$,
+\[
+\nu_M((-\eps,\eps))\le\lambda_{\cA_T}\{|F_{M,T}|<2\eps\}+V_M^{>T}/\eps^2 .
+\]
+\end{lemma}
+
+\begin{proof}
+$\{|F_M|<\eps\}\subset\{|F_{M,T}\circ\pi_T|<2\eps\}\cup\{|F_M-F_{M,T}\circ\pi_T|\ge\eps\}$, and Chebyshev's inequality.
+\end{proof}
+
+Let $\cC(M,A_0,s)$ be the class of finite \emph{integer models}: a finite $\Gamma'\subset(0,\infty)$, integers $m_\gamma\ge1$ with $\sum_{\gamma\in\Gamma'\cap(t,t+1]}m_\gamma\le A_0\log(t+3)$ for all $t\ge0$ and $\sum m_\gamma8M^2/(M^2+\gamma^2)\le s$, with $F_{\Gamma'}=1+\re\sum_{\gamma\in\Gamma'}m_\gamma r_\gamma(M)e_\gamma$ on its closure torus. No condition is imposed on the relations among the $\gamma$. Put $\omega(\eps)=\sup_{\cC(M,A_0,s)}\lambda\{|F_{\Gamma'}|<\eps\}$.
+
+\begin{conjecture}[U; open]\label{conj:U}
+For $M=\frac12$, some admissible constant $A_0$ in (I7) for $\chi_{-4}$, and $s=0.1556\ge\sigma_{1/2}^2(\chi_{-4})=0.155568\ldots$: $\omega(\eps)\to0$ as $\eps\to0$.
+\end{conjecture}
+
+By Lemma~\ref{lem:reduction}, Conjecture~\ref{conj:U} implies that under GRH$(\chi_{-4})$ alone $\nu_{1/2}(\{0\})=0$ and the logarithmic density of $\{x:\pi(x;4,3)>\pi(x;4,1)\}$ exists: every truncation $F_{1/2,T}$ lies in the class, whatever the relations among the true ordinates. In this form the unknown group generated by the zeros disappears, and what remains is a Littlewood--Offord-type anti-concentration statement with \emph{dependent} phases (Haar measure on an arbitrary subtorus). Two remarks on its sharpness (made by the referee of this lemma). Without integrality it fails if $A_0\gtrsim2$: Example~\ref{ex:real} below at $M=0.05$, rescaled to the classical weight on the spectrum $10\NN$, has $\sigma^2=0.1439$, positive real weights $\{4.868,\frac12\}$, an atom of mass $\frac13$, and obeys the counting law with constant about $1.96$. With multiplicities growing like $(\log\gamma)^{5/2}$ (and $A_0\log$ replaced by $A(\log)^{5/2}$) it fails by Theorem~\ref{thm:intatom} (that $\sigma^2\lesssim0.125$ in this rescaled example is the referee's estimate, not separately certified).
+
+\begin{lemma}[compactness; no hypothesis; \rd{1 read}]\label{lem:compact}
+Fix $M>0$, a compact set $\mathcal K$ of real sequences (product topology) with $\sup_{m\in\mathcal K}\sum_{n>N}m_n^2/n^2\to0$ and closed under truncation, and a compact $C\subset\RR\setminus(1+2\ZZ)$. For the cyclic models $F_m=1+\re\sum_nm_n\frac{4M}{M+in}e^{int}$ on $\TT$, the following are equivalent: \textup{(a)} $\lambda\{F_m=c\}=0$ for all $m\in\mathcal K$, $c\in C$; \textup{(b)} $\sup_{m\in\mathcal K,c\in C}\lambda\{|F_m-c|<\eps\}\to0$ as $\eps\to0$.
+\end{lemma}
+
+(Examples: all integer sequences with $|m_n|\le B$, or with $0\le m_n\le A\log(n+2)$. Proof outline: a coordinatewise limit of near-atoms is an atom, by uniform $L^2$ tails and the portmanteau theorem; \file{density/DENSITY.md}, Lemma~9.18.)
+
+\begin{corollary}[a special case of Conjecture~\ref{conj:U}; no hypothesis; \rd{1 read}]\label{cor:Ucase}
+For $Y\ge1$ let $\cC_V(M,A_0,s;Y)$ be the set of models in $\cC(M,A_0,s)$ in which some ordinate $\gamma\le Y$ is a vertex of $\mathrm{conv}(\pm\Gamma')$, and $V^*(M,A_0)=8M^2A_0^2\sum_{t\ge0}\log^2(t+3)/(M^2+t^2)$. Then for $0<\eps<1$ and real $c$,
+\[
+\sup_{\cC_V(M,A_0,s;Y)}\lambda\{|F_{\Gamma'}-c|<\eps\}\le\frac{\frac12\log\frac{M^2+Y^2}{4M^2}+\frac12\log^+((1-c)^2+V^*(M,A_0))+\frac1{2e}}{\log(1/\eps)} .
+\]
+\end{corollary}
+
+\begin{proof}
+Lemmas~\ref{lem:JN} and \ref{lem:smallball} with $|m_\gamma|\ge1$ at the vertex, and $V_{\Gamma'}\le V^*$ (group the ordinates into unit intervals and use the counting law).
+\end{proof}
+
+The class $\cC_V$ is the ``easy'' part: it contains every model with one ordinate $\le Y$ outside the $\QQ$-span of the others, and no rank-one model with top ordinate $>Y$. In rank one with a dense spectrum the Jensen--Newton bound loses a full $\log T$, and this loss is real for integer models (\file{density3/MAHLER.md}, Propositions~5.1, 5.2); the vertex data used by Lemma~\ref{lem:JN} are the same in the real-weight class, where the analogue of Conjecture~\ref{conj:U} fails, so arguments based on them alone cannot prove it.
