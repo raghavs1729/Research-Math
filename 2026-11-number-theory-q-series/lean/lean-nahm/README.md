@@ -161,7 +161,7 @@ Lean `leanprover/lean4:v4.33.0-rc2`, Mathlib `51e6992efd06126df61a496bebf8f49482
 
     curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
     export PATH="$HOME/.elan/bin:$PATH"
-    cd monotonicity/lean-krtw && lake exe cache get     # Mathlib binaries; never build Mathlib from source
+    cd lean/lean-krtw && lake exe cache get     # Mathlib binaries; never build Mathlib from source
     cd ../lean-nahm && mkdir -p .lake && ln -sfn ../../lean-krtw/.lake/packages .lake/packages
     lake build                                         # "declaration uses sorry" only from NahmStatement.lean (deliberate)
     lake env lean scripts/PrintAxioms.lean

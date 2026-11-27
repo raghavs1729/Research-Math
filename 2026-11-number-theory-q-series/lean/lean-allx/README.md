@@ -237,7 +237,7 @@ up to 10⁷. The conclusion "R(x) > 0 for every x > 3" is the same.
 | lean-chebyshev | `../lean-chebyshev` in this repository (path dependency; `ChebLib`) |
 
 ```
-cd monotonicity/lean-allx
+cd lean/lean-allx
 lake exe cache get                               # Mathlib oleans; never build Mathlib from source
 lake build AllxChallenge AllxSolution            # zeta23 modules, ChebLib, then this project
 lake env lean scripts/PrintAxioms.lean           # axiom audit, expected output in logs/print-axioms.txt

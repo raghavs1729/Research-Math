@@ -62,8 +62,9 @@ Yoshida; for $E_6$ six identities, which rest on a theorem of Cao, Rosengren and
 $C(E_8)^{-1}$, $C(E_6)^{-1}$, $C(E_7)^{-1}$ arise from small matrices by iterating a known Durfee-rectangle
 fusion lemma, which reduces the sums to Andrews--Gordon, Rogers--Ramanujan and Zagier sums and, for
 $E_7$, to a rank-four sum evaluated with Bailey's lemma and the $q$-Chu--Vandermonde sum. The same
-argument gives an infinite family of identities. The matrix identities and fusion chains for $E_8$ and $E_6$ are checked in
-Lean. An appendix records three misprints in Sun--Wang. The results, proofs, code and Lean files were
+argument gives an infinite family of identities. The five $E_8$ identities and the $E_7$ identity, with the
+Andrews--Gordon identities they use, are fully machine-checked in Lean as identities of formal power series;
+$E_6$ is not formalized. An appendix records three misprints in Sun--Wang. The results, proofs, code and Lean files were
 produced by AI (Anthropic's Claude models) directed by the author and checked by independent AI referees
 and the Lean kernel; no human expert has refereed this work yet.
 \end{abstract}
@@ -235,11 +236,15 @@ available; since the proofs are short and use known tools, an unindexed independ
 excluded. An anticipation of Theorem~\ref{thm:family} in the Bailey-lattice literature was not checked.
 
 \subsection{Formalization}
-The finite and algebraic ingredients are checked in Lean~4 with Mathlib~\cite{Lean4,Mathlib}: the printed
-matrices are $C(E_8)^{-1}$ and $C(E_6)^{-1}$; the fusion chains produce exactly these matrices and the
-stated linear terms; the quadratic-form identity behind the fusion lemma; and the Durfee identity
-(§\ref{sec:lean}). The infinite-series identities themselves are not yet formalized; a separate effort
-towards this is in progress.
+In Lean~4 with Mathlib~\cite{Lean4,Mathlib} (§\ref{sec:lean}), with the Cartan matrices taken verbatim
+from Mathlib, the following are machine-checked as identities of formal power series: Corollary~\ref{cor:E8}
+(the $E_8$ vacuum identity and its four companions), Theorem~\ref{thm:E7} (the $E_7$ identity, in
+$q^{1/4}$), and the Andrews--Gordon identities for every modulus $2k+1$ and every $i$, which the $E_8$ proof
+needs and Mathlib does not have. The fusion lemma for infinite sums, Bailey's lemma and the change of base
+of the Bailey lattice are proved there as well. Separately, the printed matrices $C(E_8)^{-1}$, $C(E_6)^{-1}$,
+the $E_8$ and $E_6$ fusion chains and the Durfee identity are checked. Not formalized: the $E_6$ identities
+(which rest on~\cite{CRW}), Theorem~\ref{thm:E8} for general rational $b$, Theorem~\ref{thm:family}, and
+modularity.
 
 \subsection{Organisation}
 §\ref{sec:lemmas}: setting and the two lemmas. §§\ref{sec:E8}, \ref{sec:E6}, \ref{sec:E7}: the three
@@ -669,8 +674,26 @@ to know which other Nahm sums $C(X)\otimes C(Y)^{-1}$ reduce by fusion to sums o
 
 \section{The Lean formalization}\label{sec:lean}
 
-The Lean~4 project \fpath{RRFusion}, in the public repository at
-\repo\fpath{02-exceptional-nahm-sums/lean/} (pins: Lean \texttt{leanprover/lean4:v4.33.0-rc2}, Mathlib
+There are two Lean~4 projects, both in the public repository and both with the pins below.
+
+\emph{The series identities.} The project \fpath{Nahm}, at \repo\fpath{lean/lean-nahm/}, proves in the
+ring $\Q[[X]]$ (and over an arbitrary field) the Andrews--Gordon identities in the product form
+of~\cite[Theorem~1]{Andrews74} for all $k\ge2$, $1\le i\le k$ (\texttt{Nahm.andrews\_gordon},
+\texttt{Nahm.andrews\_gordon\_field}); the $E_8$ vacuum identity and its four companions, i.e.\
+Corollary~\ref{cor:E8} (\texttt{Nahm.e8\_vacuum}, \texttt{Nahm.e8\_vacuum\_field},
+\texttt{Nahm.e8\_companion\_1}, \dots, \texttt{\_4}), with $C(E_8)$ equal to Mathlib's
+\texttt{CartanMatrix.E}$_8$ and the vectors $B^{(i)}$ transported to Mathlib's labelling; and
+Theorem~\ref{thm:E7} in $X=q^{1/4}$, in a one-sided form and in the printed bilateral form multiplied by~$2$
+(\texttt{Nahm.e7\_identity}, \texttt{Nahm.e7\_identity\_bilateral}, \texttt{Nahm.e7\_identity\_bilateral\_field}),
+with $C(E_7)$ equal to \texttt{CartanMatrix.E}$_7$. The $21$ statements are collected in a statement file
+that imports only Mathlib; a script checks that they are proved verbatim, and \verb|#print axioms| gives
+\texttt{[propext, Classical.choice, Quot.sound]} for each. Bailey's lemma is derived rather than quoted, the
+general $i$ of Andrews--Gordon is obtained through the Bailey lattice, and Proposition~\ref{prop:cn} is proved
+by a $q$-binomial argument instead of $q$-Chu--Vandermonde; no gap was found in §§\ref{sec:lemmas},
+\ref{sec:E8}, \ref{sec:E7}. A computable mirror of the definitions reproduces the first $41$ coefficients
+of every side, compared with values computed independently in Python.
+
+\emph{The finite ingredients.} The project \fpath{RRFusion}, at \repo\fpath{lean/rr-identities/lean/} (pins: Lean \texttt{leanprover/lean4:v4.33.0-rc2}, Mathlib
 commit \texttt{51e6992efd06\allowbreak126df61a496bebf8\allowbreak f49482a4e129}), machine-checks the finite and algebraic
 ingredients of §§\ref{sec:lemmas}--\ref{sec:E6}. It uses no \texttt{sorry}, no additional axiom and no
 \texttt{native\_decide}; \verb|#print axioms| gives \texttt{[propext, Classical.choice, Quot.sound]} for
@@ -698,12 +721,14 @@ $\sum_{c=0}^{\min(a,b)}q^{(a-c)(b-c)}\qbin ac\qbin bc(q)_c=1$; \texttt{durfee\_i
 $\Q(q)$. (Proved by induction on the $q$-Pascal recurrence, not by the generating-function proof of
 Lemma~\ref{lem:durfee}.)
 \end{itemize}
-\emph{Not formalized} (as of this version): Lemma~\ref{lem:fusion} for infinite sums (summability,
-admissibility, the regrouping); the Andrews--Gordon, Rogers--Ramanujan and Cao--Rosengren--Wang identities;
-the power-series identities of Theorems~\ref{thm:E8}--\ref{thm:family}; the $E_7$ chain and
-§§\ref{sec:E7}--\ref{sec:family}; modularity. A separate effort is formalizing the full identities. To
-rebuild: install \texttt{elan}, then in the project folder run \texttt{lake exe cache get} and
-\texttt{lake build}.
+\emph{Not formalized} (as of this version): the $E_6$ identities (Theorem~\ref{thm:E6}, Corollary~\ref{cor:E6})
+and the Cao--Rosengren--Wang theorem they use; Theorem~\ref{thm:E8} for general $b\in\Q^4$ (the project proves
+it for the nonnegative integer vectors that cover Corollary~\ref{cor:E8}); Theorem~\ref{thm:family}; the
+refined forms; modularity and the identification with Virasoro characters; the analytic reading $|q|<1$
+(everything is an identity of formal power series). What a reader must still check is that the definitions
+in the statement file say what the printed identities say. To rebuild: install \texttt{elan}, then in
+\fpath{lean/lean-krtw/} run \texttt{lake exe cache get}, and in each project folder run \texttt{lake build};
+the commands for the audit scripts are in the repository file \fpath{VERIFY.md}.
 
 \section{Numerical verification}\label{sec:num}
 None of the following is used in the proofs. Paths are relative to
@@ -791,7 +816,7 @@ three examples}, arXiv:2508.12468 (2025).
 (2026).
 
 \bibitem{CF} I.~Cherednik and B.~Feigin, \emph{Rogers--Ramanujan type identities and Nil-DAHA}, Adv.
-Math. \textbf{248} (2013); arXiv:1209.1978.
+Math. \textbf{248} (2013), 1050--1088; arXiv:1209.1978.
 
 \bibitem{Lean4} L.~de~Moura and S.~Ullrich, \emph{The Lean~4 theorem prover and programming language},
 in: Automated Deduction -- CADE 28, Lecture Notes in Comput. Sci. \textbf{12699}, Springer, 2021,

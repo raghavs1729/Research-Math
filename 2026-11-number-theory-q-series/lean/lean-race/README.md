@@ -300,7 +300,7 @@ out, and the prime sums have finitely many nonzero terms.
 
 ```bash
 export PATH="$HOME/.elan/bin:$PATH"
-cd monotonicity/lean-race
+cd lean/lean-race
 lake exe cache get     # Mathlib oleans; do not build Mathlib from source
 lake build             # RaceLib, RaceChallengeDeps, RaceChallenge, RaceSolution
 lake env lean scripts/PrintAxioms.lean

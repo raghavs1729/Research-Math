@@ -342,7 +342,7 @@ not spell out that second derivation of the sign, since the discrete one already
 | lean-chebyshev | `../lean-chebyshev` in this repository (path dependency; `ChebLib`) |
 
 ```
-cd monotonicity/lean-cheb-allx
+cd lean/lean-cheb-allx
 lake exe cache get                               # Mathlib oleans; never build Mathlib from source
 lake build ChebAllxChallenge ChebAllxSolution    # zeta23 modules, ChebLib, AllxLib, then this project
 lake env lean scripts/PrintAxioms.lean           # axiom audit, expected output in logs/print-axioms.txt

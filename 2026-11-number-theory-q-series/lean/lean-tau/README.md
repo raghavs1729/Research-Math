@@ -102,7 +102,7 @@ of `../lean-krtw`.
 
     curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
     export PATH="$HOME/.elan/bin:$PATH"
-    cd monotonicity/lean-tau
+    cd lean/lean-tau
     lake exe cache get          # Mathlib binaries; never build Mathlib from source
     lake build                  # "declaration uses sorry" comes from TauStatement.lean only (deliberate)
     lake env lean scripts/PrintAxioms.lean

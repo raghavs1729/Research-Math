@@ -129,7 +129,7 @@ window). Part II (15 statements) is new here.
 | zeta23 | `https://github.com/anthropics/formal-math`, commit `11b6c7e3c927df2658f513b6b68ea7f8929c62c5`, `subDir = "zeta23"` (Apache-2.0) |
 
 ```
-cd monotonicity/lean-chebyshev
+cd lean/lean-chebyshev
 lake exe cache get                                   # Mathlib oleans; never build Mathlib from source
 lake build ChebyshevChallenge ChebyshevSolution      # builds the needed zeta23 modules, then this project
 lake env lean scripts/PrintAxioms.lean               # axiom audit, expected output in logs/print-axioms.txt

@@ -202,7 +202,7 @@ Lean `leanprover/lean4:v4.33.0-rc2`, Mathlib `51e6992efd06126df61a496bebf8f49482
 
     curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
     export PATH="$HOME/.elan/bin:$PATH"
-    cd monotonicity/lean-krtw
+    cd lean/lean-krtw
     lake exe cache get          # Mathlib binaries; never build Mathlib from source
     lake build                  # the warnings "declaration uses sorry" come from KRTWStatement.lean only (deliberate)
     lake env lean scripts/PrintAxioms.lean

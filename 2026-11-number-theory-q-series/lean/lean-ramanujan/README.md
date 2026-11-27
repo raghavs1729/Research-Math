@@ -205,7 +205,7 @@ How the criterion is proved (`Explicit.lean`, 480 lines, every constant explicit
 
 ```bash
 export PATH="$HOME/.elan/bin:$PATH"
-cd monotonicity/lean-ramanujan
+cd lean/lean-ramanujan
 lake exe cache get     # Mathlib oleans; do not build Mathlib from source
 lake build             # RamanujanLib, RamanujanStatement, RamanujanSolution
 lake env lean scripts/PrintAxioms.lean

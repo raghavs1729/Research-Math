@@ -138,8 +138,9 @@ theorem coeff_melzerTerm_eq_zero {K : Type*} [Field K] (x : K⟦X⟧) {k : ℕ} 
 
 This is the first of the four "conjectural Andrews–Gordon-type identities" displayed after
 Conjecture 4.9 of S. Kanade, M. C. Russell, S. Tsuchioka, S. O. Warnaar, *Remarks on the conjectures
-of Capparelli, Meurman, Primc and Primc*, arXiv:2404.03851v2 (Selecta Math., 2026); it was
-proved there for `k ≤ 2` and conjectured for `k ≥ 3`.  (There the sum runs over all `r_i, s_i ≥ 0`
+of Capparelli, Meurman, Primc and Primc*, arXiv:2404.03851v2 (Selecta Math., 2026); it is
+conjectural there for `k ≥ 3`.  For `k ≤ 2` it follows from results there (for `k = 2`: Theorem 4.10
+and identity (4.7), with the theorem of Meurman and Primc).  (There the sum runs over all `r_i, s_i ≥ 0`
 with the convention `1/(q)_n := 0` for `n < 0`; that is the same sum.)
 
 In Lean: `q = X`; `krtwSum 1 k` is the left side (defined by its coefficients, see `krtwSum`);
