@@ -52,14 +52,14 @@ Everything under `lean/` builds with `lake build` and uses only Lean's three sta
 
 In `papers/`: PDFs and LaTeX sources (single author, AI disclosure on page one).
 
-| Paper | Folder |
-|---|---|
-| An Andrews–Gordon-type identity of Kanade, Russell, Tsuchioka and Warnaar: a proof for every level, fully formalized in Lean | `papers/krtw-identity/` |
-| Modular Nahm sums for the inverse Cartan matrices of E6, E7 and E8 | `papers/nahm-sums-e6-e7-e8/` |
-| Closed forms for the unidentified ζ(5)-level continued fractions of the Ramanujan Machine | `papers/zeta5-continued-fractions/` |
-| Factorial reduction for the Euler family of polynomial continued fractions | `papers/factorial-reduction/` |
-| Ramanujan's tau function: a sign theorem at every x and excluded values | `papers/ramanujan-tau/` |
-| Chebyshev's bias without linear independence: certified bounds, the possible atom at zero, and barriers | `papers/chebyshev-bias-without-li/` |
+| Paper | DOI | Folder |
+|---|---|---|
+| An Andrews–Gordon-type identity of Kanade, Russell, Tsuchioka and Warnaar: a proof for every level, fully formalized in Lean | [10.5281/zenodo.24580916](https://doi.org/10.5281/zenodo.24580916) | `papers/krtw-identity/` |
+| Modular Nahm sums for the inverse Cartan matrices of E6, E7 and E8 | [10.5281/zenodo.24581514](https://doi.org/10.5281/zenodo.24581514) | `papers/nahm-sums-e6-e7-e8/` |
+| Closed forms for the unidentified ζ(5)-level continued fractions of the Ramanujan Machine | [10.5281/zenodo.24581558](https://doi.org/10.5281/zenodo.24581558) | `papers/zeta5-continued-fractions/` |
+| Factorial reduction for the Euler family of polynomial continued fractions | [10.5281/zenodo.24581584](https://doi.org/10.5281/zenodo.24581584) | `papers/factorial-reduction/` |
+| Ramanujan's tau function: a sign theorem at every x and excluded values | [10.5281/zenodo.24581588](https://doi.org/10.5281/zenodo.24581588) | `papers/ramanujan-tau/` |
+| Chebyshev's bias without linear independence: certified bounds, the possible atom at zero, and barriers | [10.5281/zenodo.24581611](https://doi.org/10.5281/zenodo.24581611) | `papers/chebyshev-bias-without-li/` |
 
 File paths inside the documents refer to the working layout; see [`PATHS.md`](PATHS.md).
 
