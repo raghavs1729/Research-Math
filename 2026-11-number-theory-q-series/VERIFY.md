@@ -28,6 +28,8 @@ lake exe cache get
 lake build
 lake env lean scripts/PrintAxioms.lean
 ./scripts/compare_statements.sh
+lake env lean scripts/Sanity.lean          # first 41 coefficients of both sides
+python3 scripts/sanity_independent.py      # the same coefficients, computed independently
 ```
 
 ### τ(n) ≠ ±461, ±599 (Diophantine core)

@@ -1,0 +1,1 @@
+"sanity: all #guard checks passed; e8 vacuum coefficients [1, 1, 2, 3, 5, 6, 9, 12, 17, 22, 30, 38], e7 [1, 0, 0, 1, 1, 0, 0, 2, 2, 0, 0, 3]"
