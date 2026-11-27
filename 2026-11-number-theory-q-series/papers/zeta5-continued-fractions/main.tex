@@ -1,0 +1,961 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[hidelinks,pdftitle={Closed forms for the unidentified zeta(5)-level continued fractions of the Ramanujan Machine},pdfauthor={Raghav Sharma}]{hyperref}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-\do\_\do.}
+\emergencystretch=2.5em
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\newcommand{\PCF}{\operatorname{PCF}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\at}{\tilde a}
+\newcommand{\repo}{2026-11-number-theory-q-series/03-ramanujan-machine-zeta5}
+\newcommand{\file}[1]{\nolinkurl{2026-11-number-theory-q-series/03-ramanujan-machine-zeta5/#1}}
+\newcommand{\hF}[5]{{}_{#1}F_{#2}\!\left(\left.\begin{matrix}#3\\#4\end{matrix}\,\right|\,#5\right)}
+
+\begin{document}
+
+\title[The unidentified $\zeta(5)$-level fractions of the Ramanujan Machine]{Closed forms for the unidentified $\zeta(5)$-level continued fractions of the Ramanujan Machine}
+
+\author{Raghav Sharma}
+\email{raghavsharma1729@gmail.com}
+
+\subjclass[2020]{Primary 11J70, 11F67; Secondary 11Y65, 33C20, 11F11, 11M06}
+\keywords{Polynomial continued fractions, Ramanujan Machine, $\zeta(5)$, Ap\'ery limits, Eisenstein series, Eichler integrals, critical $L$-values, hypergeometric Calabi--Yau periods, Zudilin's relations}
+
+\begin{abstract}
+Table~1 of Elimelech et al.\ (PNAS 2024) lists three polynomial continued fractions with partial denominators of degree~5 and partial numerators $-64n^{10}$ whose limits $1.20426\ldots$, $2.45174\ldots$, $22.8410\ldots$ were found by PSLQ not to fit any combination of zeta values. We determine all three. The first equals $96/(372\zeta(5)-\pi^5)$: its convergents are coefficients of $\theta_3^8$ and of an Eichler integral of a weight-6 Eisenstein series, and the limit is a Mellin transform. The second equals $8L(f,1)/(186\zeta(5)L(f,1)-\pi^4L(f,2))$ with $f=\eta(2\tau)^4\eta(4\tau)^4$, equivalently a rational function of $\zeta(5)$, $\pi$, $S_0={}_4F_3(\tfrac12,\tfrac12,\tfrac12,\tfrac12;1,1,1;1)$ and a companion series $S_1$; the proof uses the exterior square of the hypergeometric operator, Mellin transforms of solutions holomorphic at the conifold point, and a bilateral sum as in work of Zudilin. The third is a rational function of $\zeta(5)$, $\pi$, $S_0$, $S_1$ and $Z_0={}_5F_4(\tfrac12,\tfrac12,\tfrac12,\tfrac12,1;1,1,1,2;1)$, obtained via a gauge map and a Legendre-type relation. We also note that Zudilin's relations $L(f,k)/F_k(1)\in\Q$ (SIGMA 2018) for $(r,t)=(\tfrac12,\tfrac12)$ follow from published results, and we prove them, with explicit constants, for $(\tfrac12,\tfrac14)$ and $(\tfrac12,\tfrac13)$. High-precision numerical checks accompany every result. An appendix records a few misprints in published tables.
+\end{abstract}
+
+\maketitle
+
+\noindent\fbox{\parbox{0.97\linewidth}{\small\textbf{Disclosure.} The results, proofs and computer code in this paper were produced by AI (Anthropic's Claude models), directed by the author. Every proof was checked by independent AI referees instructed to find errors, working with their own code. The paper has not yet been refereed by a human expert. Code and referee reports: \url{https://github.com/raghavs1729/Research-Math}, folder \nolinkurl{\repo}.}}
+
+\section{Introduction}
+
+\subsection{The three constants}
+Throughout, for sequences $(a_n)_{n\ge0}$, $(b_n)_{n\ge1}$ we write
+\[
+\PCF[a_n,b_n]=a_0+\cfrac{b_1}{a_1+\cfrac{b_2}{a_2+\cdots}}=\lim_{n\to\infty}\frac{p_n}{q_n},
+\]
+where $u_n=a_nu_{n-1}+b_nu_{n-2}$ for $n\ge1$, $(p_{-1},p_0)=(1,a_0)$ and $(q_{-1},q_0)=(0,1)$. Put $\sigma_d(n):=n^d+(n+1)^d$ (this notation is used only in Table~\ref{tab:three}).
+
+In \S3.6 of \cite{EDCK} (``Results for $\zeta(5)$ and the quest to prove its irrationality''), Elimelech, David, De la Cruz Mengual, Kalisch, Berndt, Shalyt, Silberstein, Hadad and Kaminer list in their Table~1 the continued fractions of degree $(5,10)$ found by their Distributed Factorial Reduction algorithm. Three rows have $b_n=-64n^{10}$ and are given only numerically, with the comment ``Three of the discovered formulas in the table did not fit any combination of zetas (in numerical tests using PSLQ) and are thus presented with their numerical values''; their Table~4 (Appendix~C) repeats them with ``we did not find a closed-form expression for them''. We reproduce them in Table~\ref{tab:three} below.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+ & $a_n$ & printed value & closed form\\
+\midrule
+$U_1$ & $8\sigma_5(n)-15\sigma_3(n)+9(2n+1)$ & $1.20426\ldots$ & Theorem~\ref{thm:U1}\\
+$U_2$ & $8\sigma_5(n)-12\sigma_3(n)+7(2n+1)$ & $2.45174\ldots$ & Theorem~\ref{thm:U2}, Corollary~\ref{cor:U2L}\\
+$U_3$ & $8\sigma_5(n)+20\sigma_3(n)-5(2n+1)$ & $22.8410\ldots$ & Theorem~\ref{thm:U3}\\
+\bottomrule
+\end{tabular}
+\caption{The three rows of Table~1 of \cite{EDCK} with $b_n=-64n^{10}$ that are given only numerically.}\label{tab:three}
+\end{table}
+
+\begin{theorem}[$U_1$]\label{thm:U1}
+Let $a_n=8(n^5+(n+1)^5)-15(n^3+(n+1)^3)+9(2n+1)$ and $b_n=-64n^{10}$. The continued fraction converges and
+\[
+\PCF[a_n,b_n]=\frac{96}{372\zeta(5)-\pi^5}=1.20425342115593211519838394\ldots
+\]
+Moreover, with
+\[
+w_n=\frac1{64^n}\sum_{k=0}^n\binom{2k}{k}^3\binom{2n-2k}{n-k}^3=[x^n]\,{}_2F_1(\tfrac14,\tfrac14;1;x)^4,
+\]
+one has $p_{n-1}=8^nn!^5w_n$ for all $n\ge0$, and
+\[
+\sum_{n\ge0}\frac{1}{(n+1)^5w_nw_{n+1}}=\frac{372\zeta(5)-\pi^5}{12}.
+\]
+The convergence is slow: $p_n/q_n-\PCF[a_n,b_n]\sim c/n$ with $c=4608\pi^9/(\Gamma(\frac14)^8(372\zeta(5)-\pi^5)^2)=0.72394\ldots$.
+\end{theorem}
+
+The printed $1.20426$ is not a truncation of the limit $1.2042534\ldots$; it is what convergents of depth between about $4\cdot10^4$ and $1.1\cdot10^5$ give, which is consistent with the rate $0.724/n$.
+
+For $U_2$ and $U_3$ put $A_k:=\binom{2k}{k}^4/256^k=((\frac12)_k/k!)^4$ and
+\begin{align*}
+S_0&:=\sum_{k\ge0}A_k={}_4F_3(\tfrac12,\tfrac12,\tfrac12,\tfrac12;1,1,1;1)=1.1186363871641870683\ldots,\\
+S_1&:=\sum_{k\ge0}A_k\bigl(H_{2k}-H_k-\log2\bigr)=-0.7090013674619294375\ldots,\\
+Z_0&:=\sum_{k\ge0}\frac{A_k}{k+1}={}_5F_4(\tfrac12,\tfrac12,\tfrac12,\tfrac12,1;1,1,1,2;1)=1.0433551893343198886\ldots,
+\end{align*}
+where $H_m$ is the $m$-th harmonic number. All terms of $S_1$ are negative ($H_{2k}-H_k<\log 2$) and of size $O(k^{-3})$.
+
+\begin{theorem}[$U_2$]\label{thm:U2}
+Let $a_n=8(n^5+(n+1)^5)-12(n^3+(n+1)^3)+7(2n+1)$ and $b_n=-64n^{10}$. The continued fraction converges and
+\[
+\frac1{\PCF[a_n,b_n]}=\frac{93}{4}\zeta(5)+\frac{\pi^6}{64}\,\frac{S_0}{S_1},\qquad
+\PCF[a_n,b_n]=\frac{64S_1}{1488\zeta(5)S_1+\pi^6S_0}=2.45174606462878\ldots
+\]
+Moreover $p_{n-1}=8^nn!^5w_n$ with $w_n=\sum_{k=0}^nA_kA_{n-k}\bigl(1+4(2k-n)(\delta_k-\delta_{n-k})\bigr)$, $\delta_k:=H_{2k}-H_k$, and $\sum_{n\ge0}1/((n+1)^5w_nw_{n+1})=8/\PCF[a_n,b_n]$.
+\end{theorem}
+
+\begin{corollary}[$L$-value form]\label{cor:U2L}
+Let $f(\tau)=\eta(2\tau)^4\eta(4\tau)^4$, the newform of weight $4$ and level $8$. Then $S_0=16L(f,2)/\pi^2$ and $S_1=-2L(f,1)$, and therefore
+\[
+\PCF[a_n,b_n]=\frac{8L(f,1)}{186\zeta(5)L(f,1)-\pi^4L(f,2)},\qquad \frac1{\PCF[a_n,b_n]}=\frac{93}{4}\zeta(5)-\frac{\pi^4}{8}\frac{L(f,2)}{L(f,1)}.
+\]
+\end{corollary}
+
+The identity for $S_0$ is due to Zagier \cite{Zag7} and to Rogers--Wan--Zucker \cite[(30)]{RWZ}; the identity for $S_1$ follows in a few lines from formulas of Borwein--Straub--Wan \cite{BSW} and Rogers--Wan--Zucker \cite[(31)]{RWZ} (Proposition~\ref{prop:Z} below gives a self-contained proof).
+
+\begin{theorem}[$U_3$]\label{thm:U3}
+Let $a_n=8(n^5+(n+1)^5)+20(n^3+(n+1)^3)-5(2n+1)$ and $b_n=-64n^{10}$, and put $\Omega:=4+\pi^2(Z_0-2S_0)$ $(=-7.7834942513\ldots<0)$. The continued fraction converges and
+\[
+\frac1{\PCF[a_n,b_n]}=\frac{93}{4}\zeta(5)-4+\frac{\pi^6}{64}\,\frac{S_0\Omega}{1+S_1\Omega},\qquad \PCF[a_n,b_n]=22.8410085657679856159\ldots
+\]
+Equivalently, with $f$ as in Corollary~\ref{cor:U2L}, $\Omega=4+\pi^2Z_0-32L(f,2)$ and
+\[
+\frac1{\PCF[a_n,b_n]}=\frac{93}{4}\zeta(5)-4+\frac{\pi^4}{4}\,\frac{L(f,2)\Omega}{1-2L(f,1)\Omega}
+=\frac1{U_2}-4+\frac{\pi^4L(f,2)}{8L(f,1)(1-2L(f,1)\Omega)},
+\]
+where $U_2$ is the constant of Theorem~\ref{thm:U2}.
+\end{theorem}
+
+So $U_1$ is a $\zeta(5)$-constant after all, but with a $\pi^5$ term, which was presumably not in the basis of the PSLQ search of \cite{EDCK}. $U_2$ and $U_3$ also involve two periods of the weight-4 form $f$ (and, for $U_3$, the number $Z_0$); we do not prove that they are \emph{not} combinations of zeta values, and nothing is proved here about the arithmetic nature of $Z_0$. A PSLQ search at 60 digits found no integer relation (coefficients up to $10^6$) between $Z_0$, $L(f,1)$, $L(f,2)$, powers of $\pi$ and $1$.
+
+\subsection{Zudilin's relations}
+Let $(r,t)$ be one of the fourteen pairs of Zudilin's Table~1 \cite{Zud}, let $f$ be the corresponding weight-4 newform (for these fourteen families the hypergeometric motive is attached to $f$ by \cite[Theorem~2]{LTYZ}, using the modularity of rigid Calabi--Yau threefolds over $\Q$ \cite{GY,DM}), and define $F_0(1),\dots,F_3(1)$ by \cite[(5)]{Zud}:
+\begin{multline}\label{eq:Zud5}
+\frac{1}{\Gamma(r)\Gamma(1-r)\Gamma(t)\Gamma(1-t)}\sum_{n\ge0}\frac{\Gamma(r+\varepsilon+n)\Gamma(1-r+\varepsilon+n)\Gamma(t+\varepsilon+n)\Gamma(1-t+\varepsilon+n)}{\Gamma(1+\varepsilon+n)^4}\\
+=\sum_{j=0}^3F_j(1)\varepsilon^j+O(\varepsilon^4).
+\end{multline}
+(Zudilin writes the bilateral sum over $n\in\Z$; the terms with $n<0$ are $O(\varepsilon^4)$ because of the factor $\Gamma(1+\varepsilon+n)^{-4}$.) In \cite[(6)]{Zud} he writes ``numerical calculations suggest conjectural inclusions $L(f,1)/F_1(1)\in\Q$, $L(f,2)/F_2(1)\in\Q$ and $L(f,3)/F_3(1)\in\Q$'', and in Remark~2: ``None of the relations in (6) seem to be proved.''
+
+\begin{theorem}\label{thm:Zud}
+The three relations \cite[(6)]{Zud} hold for the following pairs, with the constants $L(f,k)/F_k(1)$, $k=1,2,3$, shown ($\eta_m:=\eta(m\tau)$):
+\begin{center}\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+$(r,t)$ & $f$ (LMFDB label) & constants & proof\\
+\midrule
+$(\frac12,\frac12)$ & $\eta_2^4\eta_4^4$ \ (8.4.a.a) & $-\frac1{16},\ \frac1{32},\ -\frac3{256}$ & Prop.~\ref{prop:Z} (published ingredients)\\[3pt]
+$(\frac12,\frac14)$ & $\eta_4^{16}/(\eta_2^4\eta_8^4)$ \ (16.4.a.a) & $-\frac18,\ \frac1{32},\ -\frac3{448}$ & Theorem~\ref{thm:Z2}\\[3pt]
+$(\frac12,\frac13)$ & $\eta_6^{14}/(\eta_2^3\eta_{18}^3)-3\eta_2^3\eta_6^2\eta_{18}^3$ \ (36.4.a.a) & $-\frac13,\ \frac1{18},\ -\frac1{90}$ & Theorem~\ref{thm:Z3}\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{theorem}
+
+The first line is \emph{not} a new theorem: every analytic ingredient is published (see \S\ref{sec:credit}), and what we add is only the assembly and the constants. For the other two pairs we found no proof in the literature; the ingredients are classical. (The constants $-\frac18,\frac1{32},-\frac3{448}$ also occur in \S5 of \cite{Zud}, but for a different example: a ${}_6F_5$ family and a weight-6 form of level 8. The coincidence is accidental as far as we can tell; a reader checking Theorem~\ref{thm:Z2} against \cite{Zud} should not compare with that example.)
+
+\subsection{Prior work and what is new}\label{sec:credit}
+\emph{The continued fractions.} The rows of Table~\ref{tab:three} are numerical in both arXiv versions of \cite{EDCK}. We searched (November 2026) the databases and dictionaries of Cohen \cite{Coh1,Coh2,Coh3}, which contain many $\zeta(5)$-fractions with $b_n=-n^{10}$ or $-16n^{10}$ and, in \cite{Coh1}, degree-3 analogues $28\zeta(3)\pm\pi^3$; Yamamoto's proofs of the $-n^{10}$ rows of Table~1 \cite{Yam}; later papers of the Ramanujan Machine group; and the papers citing \cite{EDCK}. We found no closed form for any of the three constants. ``New'' below means ``not found after these searches''; the supplement of the PNAS version was not accessible to us.
+The numerator sequence of $U_1$ is not new: OEIS A397472 \cite{OEIS}, contributed by A.~Shvets in June 2026, lists $64^nw_n=1,16,496,19456,\dots$ with the binomial formula, the order-5 recurrence and the asymptotics. It does not mention the continued fraction, the second solution, the limit, $\zeta(5)$ or $\pi^5$. So what is new for $U_1$ is the identification of the continued fraction with this sequence and the evaluation of the limit.
+The method for $U_1$ --- Ap\'ery-type limits from modular parametrisations and Eichler integrals --- goes back to Beukers \cite{Beu}; Shvets \cite{Shv1,Shv2} uses the same family of methods for other sequences in 2026. The mechanism by which $\pi^5$ appears is that of Ramanujan's formula for $\zeta(2k+1)$ \cite[ch.~14, Entry~21]{Ber}.
+
+\emph{The $L$-values.} $S_0=16L(f,2)/\pi^2$ is due to Zagier \cite{Zag7} and, independently, to Rogers, Wan and Zucker \cite[(30)]{RWZ} (see \cite[(4)]{Zud}). The identity $S_1=-2L(f,1)$ follows from published formulas: Borwein, Straub and Wan \cite{BSW} give $W_4(-1)=-(4/\pi)S_1$ (the display after (29) of the 2010 preprint version of \cite{BSW}; their inner sum is $\log2-(H_{2n}-H_n)$) and $W_4(-1)=(4/\pi^3)\int_0^1K'(k)^2\dd k$ ((65) there); and Rogers--Wan--Zucker \cite[(31)]{RWZ} express $L(f,1)$ through $\int_0^1K^2=\frac12\int_0^1K'^2$ (the last equality is in \cite{BSW}, see also \cite[(3)]{Wan}). An earlier version of our work missed \cite{BSW} and claimed the identity as new; this was corrected after an AI referee pointed out \cite{BSW}.
+Proposition~\ref{prop:bilateral} (the relations $\tau_2=2\pi^2\tau_0$, $\tau_3=\frac{4\pi^2}{3}\tau_1$ below) is not new either: it is the case $(r,t)=(\frac12,\frac12)$ of Zudilin's Lemma~3 and Remarks~2 and~5 \cite{Zud}, whose method (a bilateral hypergeometric sum that is periodic in the parameter, which Zudilin attributes to Golyshev and Mellit) we follow; we include the proof to keep the argument self-contained.
+Bönisch, Klemm, Scheidegger and Zagier \cite[\S4]{BKSZ} prove, for the family ${}_4F_3(\frac12,\frac12,\frac12,\frac12;1,1,1;x)$, that the periods of the conifold fibre are periods and quasi-periods of $f$ up to multiplicative constants; the exact rational entries of their transition matrix are numerical identifications. Bönisch, Golyshev and Klemm \cite{BGK} prove the analogous identification for the quintic family.
+The same level-8 case $(\frac12,\frac12)$ is also the subject of Golyshev--Zagier \cite{GZ} (interpolated Ap\'ery numbers and quasi-periods) and Osburn--Straub \cite{OS}. For $(\frac12,\frac14)$ the $L$-values of $f$ are known in terms of $S_0,S_1$ by \cite[(30), (31)]{RWZ}, and Example~6.1 of \cite{EHMM3} rederives $L(f,1)$ by the same twist mechanism as our Proposition~\ref{prop:twist}, for the $\varepsilon^0$ coefficient. For $(\frac12,\frac13)$ the closest item we know is an unpublished result of Hsu, Tu and Yang quoted in \cite[Example~6.2]{EHMM3}, which expresses $L(g,2)$ for the form $g$ of Theorem~\ref{thm:Z3} (numerically the newform 12.4.a.a; its level is not used in this paper) through two ${}_4F_3(1)$-values that are not Frobenius coefficients.
+
+\emph{What is new.} The closed forms of $U_1,U_2,U_3$ (Theorems~\ref{thm:U1}, \ref{thm:U2}, \ref{thm:U3}); the gauge map and the Legendre-type relation used for $U_3$ (\S\ref{sec:U3}); and Theorems~\ref{thm:Z2}, \ref{thm:Z3}, which are a new assembly of known techniques.
+
+\subsection{Organisation}
+\S\ref{sec:prelim} collects two elementary lemmas used for all three fractions. \S\S\ref{sec:U1}--\ref{sec:U3} prove Theorems~\ref{thm:U1}--\ref{thm:U3}. \S\ref{sec:Z} treats Zudilin's relations. \S\ref{sec:num} describes the computer verification. Appendix~\ref{app:errata} lists misprints we found in published tables of the Ramanujan Machine papers.
+
+Several proofs contain finite algebraic identities (identities of differential operators, of polynomials, or of rational functions) that were verified by exact computer algebra; each is stated explicitly and the script that checks it is named. All such scripts are in the public repository \cite{code}; paths are given relative to its root.
+
+\section{Two elementary lemmas}\label{sec:prelim}
+
+In all three cases $a_n=8\at(n)$ for a polynomial $\at$ of degree 5, and $b_n=-64n^{10}$. Consider the recurrence
+\begin{equation}\label{eq:R}
+(n+1)^5X_{n+1}+n^5X_{n-1}=\at(n)X_n\qquad(n\ge1).
+\end{equation}
+
+\begin{lemma}\label{lem:gauge}
+If $(c_n)_{n\ge0}$ satisfies \eqref{eq:R}, then $U_{n-1}:=8^nn!^5c_n$ satisfies $U_n=a_nU_{n-1}-64n^{10}U_{n-2}$ for $n\ge1$. Consequently, if $w,v$ solve \eqref{eq:R} with $w_0=1$, $w_1=\at(0)$, $v_0=0$, $v_1=\frac18$, then $p_{n-1}=8^nn!^5w_n$ and $q_{n-1}=8^nn!^5v_n$ for all $n\ge0$.
+\end{lemma}
+
+\begin{proof}
+$U_n=8^{n+1}n!^5(\at(n)c_n-n^5c_{n-1})=a_nU_{n-1}-8^{n+1}n!^5n^5c_{n-1}$, and $64n^{10}U_{n-2}=64n^{10}8^{n-1}(n-1)!^5c_{n-1}=8^{n+1}n!^5n^5c_{n-1}$. The initial values match: $p_{-1}=1=w_0$, $p_0=a_0=8w_1$, $q_{-1}=0=v_0$, $q_0=1=8v_1$.
+\end{proof}
+
+\begin{lemma}\label{lem:cas}
+If $w,v$ are as in Lemma~\ref{lem:gauge}, then $w_nv_{n+1}-w_{n+1}v_n=1/(8(n+1)^5)$ for $n\ge0$. Hence, whenever $w_nw_{n+1}\neq0$,
+\begin{equation}\label{eq:cas}
+\frac{v_{n+1}}{w_{n+1}}-\frac{v_n}{w_n}=\frac1{8(n+1)^5w_nw_{n+1}},
+\end{equation}
+and $q_n/p_n=v_{n+1}/w_{n+1}$.
+\end{lemma}
+
+\begin{proof}
+Multiplying the recurrences for $w$ and $v$ crosswise gives $(n+1)^5D_n=n^5D_{n-1}$ for $D_n:=w_nv_{n+1}-w_{n+1}v_n$, and $D_0=w_0v_1-w_1v_0=\frac18$.
+\end{proof}
+
+In particular, if all $w_n>0$, then $v_n/w_n$ increases strictly, $v_n>0$ for $n\ge1$, and $q_n/p_n$ increases to a limit $\ell\in(0,\infty]$ with
+\begin{equation}\label{eq:ell}
+8\ell=\sum_{n\ge0}\frac{1}{(n+1)^5w_nw_{n+1}}.
+\end{equation}
+The continued fraction converges to $1/\ell$ (to $0$ if $\ell=\infty$).
+
+\section{The first constant}\label{sec:U1}
+
+\subsection{Classical facts}
+Let $\theta=x\frac{\dd}{\dd x}$. For $t>0$ let $q=e^{-\pi t}$ (so $\tau=it$ and $q=e^{\pi i\tau}$) and
+\[
+\theta_2=2\sum_{n\ge0}q^{(n+1/2)^2},\quad \theta_3=1+2\sum_{n\ge1}q^{n^2},\quad\theta_4=1+2\sum_{n\ge1}(-1)^nq^{n^2},\quad \lambda=\frac{\theta_2^4}{\theta_3^4},
+\]
+and $E_6(q)=1-504\sum_{n\ge1}\sigma_5(n)q^n$, where now $\sigma_5(n)=\sum_{d\mid n}d^5$ (and $\sigma_5(r)=0$ for $r\notin\Z$). The following facts are classical; see \cite[ch.~21--22]{WW}, \cite[ch.~15, 20, 23]{DLMF}, \cite{Zag123}.
+\begin{enumerate}[label=(C\arabic*)]
+\item $\theta_3^4=\theta_2^4+\theta_4^4$; hence $1-\lambda=\theta_4^4/\theta_3^4$.
+\item $t\mapsto\lambda(it)$ is a decreasing bijection $(0,\infty)\to(0,1)$, $\lambda(i)=\frac12$, and ${}_2F_1(\frac12,\frac12;1;\lambda(it))=\theta_3(it)^2$.
+\item $q\,\frac{\dd\lambda}{\dd q}=\lambda(1-\lambda)\theta_3^4$, i.e.\ $\frac{\dd}{\dd t}\lambda(it)=-\pi\lambda(1-\lambda)\theta_3^4$.
+\item $\theta_3(i/t)^2=t\,\theta_3(it)^2$, $\theta_2(i/t)^2=t\,\theta_4(it)^2$, $\theta_4(i/t)^2=t\,\theta_2(it)^2$.
+\item $E_6(q^2)=\frac12(\theta_2^4+\theta_3^4)(\theta_3^4+\theta_4^4)(\theta_4^4-\theta_2^4)$ (with $\theta_j=\theta_j(q)$), and the duplication formulas $\theta_3(2\tau)^2=\frac12(\theta_3^2+\theta_4^2)$, $\theta_4(2\tau)^2=\theta_3\theta_4$, $\theta_2(2\tau)^2=\frac12(\theta_3^2-\theta_4^2)$, $\theta_3(\tau/2)^2=\theta_3^2+\theta_2^2$, $\theta_4(\tau/2)^2=\theta_3^2-\theta_2^2$, $\theta_2(\tau/2)^2=2\theta_2\theta_3$.
+\item (Quadratic transformation, \cite[15.8.18]{DLMF}) ${}_2F_1(\frac14,\frac14;1;4z(1-z))={}_2F_1(\frac12,\frac12;1;z)$ for $0\le z\le\frac12$.
+\item $\sum_{n\ge1}\sigma_5(n)n^{-s}=\zeta(s)\zeta(s-5)$ for $\Re s>6$; $\zeta(0)=-\frac12$, $\zeta(-1)=-\frac1{12}$, $\zeta(4)=\pi^4/90$.
+\item (Abelian lemma) If $\alpha_n>0$, the series $\sum\alpha_nx^n$, $\sum\beta_nx^n$ converge for $|x|<1$, $\sum\alpha_nx^n\to+\infty$ as $x\to1^-$, and $\beta_n/\alpha_n\to\ell\in[0,\infty)$, then $\sum\beta_nx^n/\sum\alpha_nx^n\to\ell$ as $x\to1^-$.
+\end{enumerate}
+(The formula in (C5) is checked against the $q$-series to $O(q^{300})$ in \file{U1/verify/v2_series_checks.py}; see also Remark~\ref{rem:sturm} for a proof of Lemma~\ref{lem:B} that avoids it.)
+
+For $U_1$ one has
+\[
+\at(n)=\frac{a_n}8=2(n+\tfrac12)^5+\tfrac54(n+\tfrac12)^3+\tfrac1{16}(n+\tfrac12),
+\]
+and we put
+\[
+L:=\theta^5-2x\,(\theta+\tfrac12)\bigl((\theta+\tfrac12)^4+\tfrac58(\theta+\tfrac12)^2+\tfrac1{32}\bigr)+x^2(\theta+1)^5 .
+\]
+For a power series, $L\sum c_nx^n=\sum_n\bigl(n^5c_n-\at(n-1)c_{n-1}+(n-1)^5c_{n-2}\bigr)x^n$. Finally let
+\[
+F:=\theta_2^4\theta_4^4(\theta_4^4-\theta_2^4)=\sum_{n\ge1}a^\circ_nq^n=16q-512q^2+3904q^3-\cdots,\qquad \Phi:=\frac12\sum_{n\ge1}\frac{a^\circ_n}{n^5}q^n.
+\]
+
+\subsection{Two lemmas}
+\begin{lemma}[operator identity]\label{lem:A}
+Let $u$ be a zero-free solution, on an interval $I\subset(0,1)$, of $x(1-x)u''+(1-\frac32x)u'-\frac1{16}u=0$ (the equation of ${}_2F_1(\frac14,\frac14;1;x)$), let $T'=1/(x\sqrt{1-x}\,u^2)$ on $I$, and let $h$ be five times differentiable on $T(I)$. Then
+\[
+L\bigl[u^4\,h(T)\bigr]=\frac{h^{(5)}(T)}{\sqrt{1-x}\;u^6}.
+\]
+\end{lemma}
+
+\begin{proof}
+This is an identity in the differential ring generated by $x$, $\sqrt{1-x}$, $u$, $u'$ and $h^{(k)}(T)$, in which $u''$ is eliminated by the hypergeometric equation and $\frac{\dd}{\dd x}h^{(k)}(T)=h^{(k+1)}(T)T'$; $u,u'$ and the $h^{(k)}$ are free symbols. It is verified by exact symbolic computation in \file{U1/verify/v1_operator_identity.py}. Conceptually it is Bol's identity: $W=1/(x\sqrt{1-x})$ is the Wronskian of the hypergeometric equation, $T'=W/u^2$, the functions $u^4T^j$ $(0\le j\le4)$ span the kernel of the symmetric fourth power $L$, whose leading coefficient is $x^5(1-x)^2$, and $L[u^4h(T)]=x^5(1-x)^2T'^5u^4h^{(5)}(T)$.
+\end{proof}
+
+\begin{lemma}[Eisenstein series]\label{lem:B}
+$a^\circ_n=16\bigl(\sigma_5(n)-65\sigma_5(n/2)+64\sigma_5(n/4)\bigr)$, i.e.\ $63F=-2E_6(q)+130E_6(q^2)-128E_6(q^4)$. Moreover $F(i/t)=-t^6F(it)$ for $t>0$.
+\end{lemma}
+
+\begin{proof}
+Put $A=\theta_3^4$, $B=\theta_4^4$, $C=\theta_2^4$ (at $\tau$), so $A=B+C$ by (C1). By (C5), applied at $\tau$, $2\tau$ and $\tau/2$,
+\begin{align*}
+E_6(q^2)&=\tfrac12(C+A)(A+B)(B-C),\\
+E_6(q^4)&=\tfrac1{64}(A+B)\bigl(36AB-(A+B)^2\bigr),\\
+E_6(q)&=(A+C)\bigl((A+C)^2-36AC\bigr);
+\end{align*}
+in the second line the only irrational quantity $\theta_3^2\theta_4^2$ occurs squared, as $AB$, and similarly $\theta_2^2\theta_3^2$ occurs as $AC$ in the third. After substituting $A=B+C$, the identity $63\,CB(B-C)=-2E_6(q)+130E_6(q^2)-128E_6(q^4)$ is a polynomial identity in $B,C$ (\file{U1/verify/v2_series_checks.py}). Comparing coefficients gives $a^\circ_n$. By (C4), $\theta_2^4$ and $\theta_4^4$ are interchanged under $t\mapsto1/t$ up to the factor $t^2$, so $F(i/t)=t^6\theta_4^4\theta_2^4(\theta_2^4-\theta_4^4)=-t^6F(it)$.
+\end{proof}
+
+\begin{remark}\label{rem:sturm}
+In the variable $Q=e^{\pi i\tau}=e^{2\pi i\tau'}$, $\tau=2\tau'$, the series $\theta_3^4,\theta_4^4$ are modular forms of weight 2 on $\Gamma_0(4)$, hence so is $\theta_2^4$; therefore $F$ and $E_6(Q^d)$, $d\mid4$, lie in $M_6(\Gamma_0(4))$, whose Sturm bound is $6\cdot[\mathrm{SL}_2(\Z):\Gamma_0(4)]/12=3$. The coefficient comparison to $Q^{300}$ in \file{U1/verify/v2_series_checks.py} therefore also proves Lemma~\ref{lem:B} without (C5).
+\end{remark}
+
+\subsection{Generating functions}
+Let $u(x)={}_2F_1(\frac14,\frac14;1;x)=\sum u_nx^n$, $u_n=((\frac14)_n/n!)^2>0$, and
+\[
+P(x):=u(x)^4=\sum_{n\ge0}w_nx^n\quad(|x|<1),\qquad w_0=1,\ w_n>0.
+\]
+By Clausen's formula ${}_2F_1(a,b;a+b+\frac12;x)^2={}_3F_2(2a,2b,a+b;2a+2b,a+b+\frac12;x)$ \cite[16.12.2]{DLMF} with $a=b=\frac14$ and $(\frac12)_k/k!=\binom{2k}k4^{-k}$, one has $u^2=\sum_k\binom{2k}k^3(x/64)^k$, which gives the binomial-sum form of $w_n$ in Theorem~\ref{thm:U1}. (It is not used in the proof.)
+
+For $x\in(0,1)$ let $t=t(x)\in(1,\infty)$ be defined by $x=4\lambda(it)(1-\lambda(it))$. By (C2), (C3), $t\mapsto x$ is a real-analytic decreasing bijection $(1,\infty)\to(0,1)$ with $\dd x/\dd t\ne0$, so $t(x)$ is real-analytic on $(0,1)$ by the inverse function theorem; and $\sqrt{1-x}=1-2\lambda$. By (C6) and (C2),
+\begin{equation}\label{eq:Ptheta}
+u(x)=\theta_3(it)^2,\qquad P(x)=\theta_3(it)^8\qquad(0<x<1).
+\end{equation}
+Put $T(x):=-\pi t(x)$. By (C3), $\dd x/\dd t=4(1-2\lambda)\cdot(-\pi\lambda(1-\lambda)\theta_3^4)=-\pi x\sqrt{1-x}\,u^2$, hence $T'=1/(x\sqrt{1-x}\,u^2)$, and Lemma~\ref{lem:A} applies.
+\begin{itemize}
+\item With $h\equiv1$: $LP=0$ on $(0,1)$. Since $LP$ is a convergent power series, it vanishes identically, so $n^5w_n=\at(n-1)w_{n-1}-(n-1)^5w_{n-2}$ for all $n\ge1$ ($w_{-1}=0$): $w$ solves \eqref{eq:R} with $w_1=\at(0)=\frac14$.
+\item With $h(T):=\frac12\sum a^\circ_ne^{nT}/n^5$, i.e.\ $h(T(x))=\Phi(it(x))$: $h^{(5)}(T)=F/2$, and Lemma~\ref{lem:A} gives, for $\tilde Q(x):=\theta_3(it)^8\Phi(it)$,
+\begin{equation}\label{eq:LQ}
+L\tilde Q=\frac{F}{2(1-2\lambda)\theta_3^{12}}=\frac{\theta_2^4\theta_4^4}{2\theta_3^8}=\frac{\lambda(1-\lambda)}2=\frac x8\qquad(0<x<1),
+\end{equation}
+using $1-2\lambda=(\theta_4^4-\theta_2^4)/\theta_3^4$.
+\end{itemize}
+The function $\tilde Q$ is the restriction to $(0,\varepsilon)$ of a function analytic at $x=0$. Indeed, $\lambda=\frac12(1-\sqrt{1-x})$ is analytic at $0$; the series $\lambda=\theta_2^4/\theta_3^4=16q-128q^2+\cdots$ is a convergent power series in $q$ with nonzero linear term, hence biholomorphic near $q=0$; for real $q\in(0,e^{-\pi})$ it is strictly monotone, so for small $x>0$ the real nome $q=e^{-\pi t(x)}$ is the value of the analytic inverse branch $q(\lambda)=\lambda/16+O(\lambda^2)$; and $\theta_3^8\Phi=8q+O(q^2)$ is a convergent power series in $q$. Hence $\tilde Q=\sum_{n\ge1}v_nx^n$ near $0$, with $v_0=0$, $v_1=\frac18$ (as $x=64q+O(q^2)$), and by \eqref{eq:LQ} $v$ solves \eqref{eq:R}. By Lemma~\ref{lem:gauge}:
+
+\begin{proposition}
+$p_{n-1}=8^nn!^5w_n$ and $q_{n-1}=8^nn!^5v_n$ for all $n\ge0$.
+\end{proposition}
+
+\subsection{Convergence and reduction to a boundary value}
+By Lemma~\ref{lem:cas}, $q_n/p_n=v_{n+1}/w_{n+1}$ increases to $\ell=\sum_{n\ge0}1/(8(n+1)^5w_nw_{n+1})\in(0,\infty]$.
+
+\emph{Lower bound for $w_n$.} Since $u^3$ has nonnegative coefficients and constant term $1$, $w_n\ge u_n$; and $(\frac14)_n/n!=\prod_{j\le n}(1-\frac3{4j})\ge\frac14\prod_{2\le j\le n}(1-\frac1j)^{3/4}=\frac14n^{-3/4}$ by Bernoulli's inequality. So $w_n\ge n^{-3/2}/16$ $(n\ge1)$, $1/(w_nw_{n+1})\le256(n+1)^3$, $\ell<\infty$, and the continued fraction \emph{converges} to $1/\ell\in(0,\infty)$. Moreover $0<v_n\le\ell w_n$, so $Q(x):=\sum v_nx^n$ has radius of convergence $\ge1$; $Q=\tilde Q$ near $0$, hence on $(0,1)$, both being real-analytic there. Also $\sum nw_n=\infty$.
+
+Since $(n+1)v_{n+1}/((n+1)w_{n+1})\to\ell$, (C8) applied to $P'$ and $Q'$ (with $\alpha_n=(n+1)w_{n+1}$) gives
+\begin{equation}\label{eq:abel}
+\ell=\lim_{x\to1^-}\frac{Q'(x)}{P'(x)}.
+\end{equation}
+Write $g(t)=\theta_3(it)^8$ and $\varphi(t)=\Phi(it)=\frac12\sum a^\circ_ne^{-\pi nt}/n^5$, both real-analytic on $(0,\infty)$; as functions of $t\in(1,\infty)$, $P=g$ and $Q=g\varphi$. Since $\dd x/\dd t\neq0$ and $P'>0$ on $(0,1)$, also $g_t\neq0$ on $(1,\infty)$, and
+\[
+\frac{Q'(x)}{P'(x)}=\frac{(g\varphi)_t}{g_t}=\varphi+\frac{g\,\varphi_t}{g_t}.
+\]
+By (C4), $g(1/t)=t^4g(t)$; differentiating at $t=1$ gives $g_t(1)=-2g(1)\neq0$. Letting $t\to1^+$ (i.e.\ $x\to1^-$) in \eqref{eq:abel},
+\begin{equation}\label{eq:boundary}
+\ell=\varphi(1)-\tfrac12\varphi_t(1)=\sum_{n\ge1}a^\circ_n\,\frac{e^{-\pi n}(2+\pi n)}{4n^5}.
+\end{equation}
+
+\subsection{Evaluation}
+For $n\ge1$, $\int_1^\infty(t-1)^3(t+1)e^{-\pi nt}\dd t=12e^{-\pi n}(2+\pi n)/(\pi n)^5$. Since $|a^\circ_n|\le2080\sigma_5(n)$, termwise integration is justified, and \eqref{eq:boundary} becomes
+\begin{equation}\label{eq:mellin}
+\ell=\frac{\pi^5}{48}\int_1^\infty(t-1)^3(t+1)F(it)\dd t=\frac{\pi^5}{48}\bigl(M(5)-2M(4)\bigr),\qquad M(s):=\int_1^\infty(t^{s-1}-t^{5-s})F(it)\dd t,
+\end{equation}
+because $(t-1)^3(t+1)=(t^4-1)-2(t^3-t)$. $M$ is entire since $F(it)=O(e^{-\pi t})$. By Lemma~\ref{lem:B}, $F(it)=O(t^{-6}e^{-\pi/t})$ as $t\to0^+$ and the substitution $t\mapsto1/t$ gives $-\int_1^\infty t^{5-s}F(it)\dd t=\int_0^1t^{s-1}F(it)\dd t$ for every $s$; hence $M(s)=\int_0^\infty t^{s-1}F(it)\dd t$. For $\Re s>6$ the series may be integrated termwise (absolute convergence), and by Lemma~\ref{lem:B} and (C7)
+\[
+M(s)=\Gamma(s)\pi^{-s}\sum_{n\ge1}a^\circ_nn^{-s}=16\,\Gamma(s)\pi^{-s}\zeta(s)\zeta(s-5)\bigl(1-65\cdot2^{-s}+64\cdot4^{-s}\bigr).
+\]
+Both sides are meromorphic, so the identity holds wherever the right side is regular, in particular at $s=4,5$ (in fact the right side is entire: the pole of $\zeta(s-5)$ at $s=6$ is cancelled by $1-\frac{65}{64}+\frac1{64}=0$, that of $\zeta(s)$ at $s=1$ by $\zeta(-4)=0$, and the poles of $\Gamma$ by zeros of the other factors). Hence
+\begin{align*}
+M(5)&=16\cdot24\cdot\pi^{-5}\zeta(5)\zeta(0)\bigl(1-\tfrac{65}{32}+\tfrac1{16}\bigr)=\frac{186\,\zeta(5)}{\pi^5},\\
+M(4)&=16\cdot6\cdot\pi^{-4}\zeta(4)\zeta(-1)\bigl(1-\tfrac{65}{16}+\tfrac14\bigr)=\frac14,
+\end{align*}
+and $\ell=\frac{\pi^5}{48}\bigl(\frac{186\zeta(5)}{\pi^5}-\frac12\bigr)=\frac{372\zeta(5)-\pi^5}{96}$. The continued fraction equals $1/\ell$, and the series identity of Theorem~\ref{thm:U1} is \eqref{eq:ell}.
+
+\subsection{The rate of convergence}
+\begin{proposition}\label{prop:rate}
+$w_n=Cn^{-3/2}\bigl(1+O(n^{-1/2})\bigr)$ with $C=\Gamma(\frac14)^4/(2\pi^{9/2})=0.50040\ldots$, and $p_n/q_n-1/\ell\sim c/n$ with $c=1/(8C^2\ell^2)=4608\pi^9/(\Gamma(\frac14)^8(372\zeta(5)-\pi^5)^2)$.
+\end{proposition}
+
+\begin{proof}
+$u$ is analytic in $\C\setminus[1,\infty)$, and by the connection formula for $c-a-b=\frac12\notin\Z$ \cite[\S15.8(ii)]{DLMF}, near $x=1$ (off the cut)
+\[
+u(x)=\alpha\,{}_2F_1(\tfrac14,\tfrac14;\tfrac12;1-x)+\beta(1-x)^{1/2}{}_2F_1(\tfrac34,\tfrac34;\tfrac32;1-x),
+\]
+with $\alpha=\sqrt\pi/\Gamma(\frac34)^2=\Gamma(\frac14)^2/(2\pi^{3/2})$ and $\beta=\Gamma(-\frac12)/\Gamma(\frac14)^2=-2\sqrt\pi/\Gamma(\frac14)^2$.
+So $P=u^4=\alpha^4+4\alpha^3\beta(1-x)^{1/2}+O(|1-x|)$ in a $\Delta$-domain at $1$, and the transfer theorem of Flajolet--Odlyzko \cite{FO} gives $w_n=4\alpha^3\beta\,n^{-3/2}/\Gamma(-\frac12)+O(n^{-2})=Cn^{-3/2}+O(n^{-2})$ with $C=4\alpha^3/\Gamma(\frac14)^2=\Gamma(\frac14)^4/(2\pi^{9/2})$. By \eqref{eq:cas}, $\ell-v_m/w_m=\sum_{k\ge m}1/(8(k+1)^5w_kw_{k+1})=1/(8C^2m)+O(m^{-3/2})$, and $p_n/q_n-1/\ell=(\ell-r)/(\ell r)$ with $r=v_{n+1}/w_{n+1}\to\ell$.
+\end{proof}
+
+\begin{remark}\label{rem:U1}
+(1) Formula \eqref{eq:boundary} is a Ramanujan-type identity:
+$\sum_{n\ge1}(\sigma_5(n)-65\sigma_5(n/2)+64\sigma_5(n/4))(2+\pi n)e^{-\pi n}n^{-5}=(372\zeta(5)-\pi^5)/384$.
+(2) Heuristically, PSLQ over zeta values failed because the limit is a value of the Eichler integral of an Eisenstein series, whose period polynomial has coefficients in $\Q\zeta(5)+\Q\pi^5$, as in Ramanujan's formula for $\zeta(5)$. (3) The sequence $w_n$ was recognised from the local exponents $\{0,1,2,\frac12,\frac32\}$ of the associated fifth-order equation at $x=1$ (an arithmetic progression, the signature of a symmetric fourth power); variation of constants then suggested $\PCF=3\big/\int_0^1K(z)^3(2K(1-z)-K(z))(1-2z)\dd z$ ($K$ the complete elliptic integral with parameter $z$), which we verified to 60 digits but do not prove.
+\end{remark}
+
+\section{The second constant}\label{sec:U2}
+
+\subsection{Notation}
+Let $\theta=x\frac{\dd}{\dd x}$, $s=1-x$,
+\[
+L_4:=\theta^4-x(\theta+\tfrac12)^4,\qquad L_5:=\theta^5-2x(\theta+\tfrac12)\bigl((\theta+\tfrac12)^4+(\theta+\tfrac12)^2+\tfrac1{16}\bigr)+x^2(\theta+1)^5,
+\]
+and $\at(u):=2(u+\frac12)\bigl((u+\frac12)^4+(u+\frac12)^2+\frac1{16}\bigr)$; then $\at(n)=a_n/8$ for $U_2$, and $L_5\sum c_nx^n=\sum(n^5c_n-\at(n-1)c_{n-1}+(n-1)^5c_{n-2})x^n$. Put
+\[
+N(\varepsilon):=\Bigl(\frac{\Gamma(1+\varepsilon)}{\Gamma(\frac12+\varepsilon)}\Bigr)^4,\quad Y(\varepsilon):=\sum_{k\ge0}\Bigl(\frac{(\frac12+\varepsilon)_k}{(1+\varepsilon)_k}\Bigr)^4=\sum_iY_i\varepsilon^i,\quad \Xi(\varepsilon):=2\zeta(3,\tfrac12+\varepsilon)N(\varepsilon),
+\]
+with $\zeta(s,a)$ the Hurwitz zeta function and $N(\varepsilon)=\sum N_i\varepsilon^i$. The series $Y$ converges locally uniformly for $\Re\varepsilon>-\frac12$ (terms $O(k^{-2})$), $Y(0)=S_0$, and $Y'(0)=\sum A_k\lambda_k$ with $\lambda_k:=4\sum_{j<k}(\frac1{j+1/2}-\frac1{j+1})=8(H_{2k}-H_k)$; also $N'(0)/N(0)=4(\psi(1)-\psi(\frac12))=8\log2$. Hence
+\begin{equation}\label{eq:D}
+D:=Y'(0)-8\log2\cdot Y(0)=8S_1<0.
+\end{equation}
+
+\emph{Frobenius basis at $0$.} Let $A_k(\varepsilon):=((\frac12+\varepsilon)_k/(1+\varepsilon)_k)^4$ and $\Phi(x,\varepsilon):=\sum_kA_k(\varepsilon)x^{k+\varepsilon}$. Then $L_4\Phi=\varepsilon^4x^\varepsilon$, so $y_j:=[\varepsilon^j]\Phi$ $(0\le j\le3)$ solve $L_4y=0$ on $(0,1)$, and
+\begin{equation}\label{eq:frob}
+y_j=\sum_{i\le j}\frac{\log^ix}{i!}\varphi_{j-i}(x),\qquad \varphi_m(x)=\sum_k[\varepsilon^m]A_k(\varepsilon)\,x^k,\quad\varphi_0(0)=1,\ \varphi_m(0)=0\ (m\ge1);
+\end{equation}
+they form a basis of solutions. In particular $y_0=\sum A_kx^k$ and $y_1=y_0\log x+\sum A_k\lambda_kx^k$.
+
+\subsection{The exterior square and the sequences}
+\begin{lemma}\label{lem:wedge}
+If $f,h$ solve $L_4y=0$ on an interval, then $m:=f\,\theta h-h\,\theta f$ satisfies $L_5m=0$.
+\end{lemma}
+\begin{proof}
+Exact computation in $\Q(x)[f,\theta f,\theta^2f,\theta^3f,h,\dots,\theta^3h]$ with $\theta^4$ eliminated by $L_4$ (\file{U2/verify/v1_wedge_identity.py}). ($L_5$ is the exterior square of $L_4$.)
+\end{proof}
+
+\begin{proposition}\label{prop:U2seq}
+Let $\psi_0:=y_0\,\theta y_1-y_1\,\theta y_0$. Then $\psi_0=\sum_{n\ge0}w_nx^n$, a power series of radius $1$, with
+\[
+w_n=\sum_{k=0}^nA_kA_{n-k}\bigl(1+(2k-n)\lambda_k\bigr)=\sum_{k=0}^nA_kA_{n-k}\Bigl(1+\tfrac{(2k-n)(\lambda_k-\lambda_{n-k})}2\Bigr),
+\]
+so that $w_n\ge A_n\ge1/(16n^2)$ for $n\ge1$,
+and $w$ solves \eqref{eq:R} with $w_0=1$, $w_1=\at(0)=\frac38$. Hence $p_{n-1}=8^nn!^5w_n$, and with $v$ as in Lemma~\ref{lem:gauge}, $q_{n-1}=8^nn!^5v_n$ and \eqref{eq:cas} holds.
+\end{proposition}
+\begin{proof}
+With $g_1:=\sum A_k\lambda_kx^k$, $\theta y_1=\theta y_0\cdot\log x+y_0+\theta g_1$, so $\psi_0=y_0^2+y_0\theta g_1-g_1\theta y_0$, whose $x^n$-coefficient is the first sum; the second follows by symmetrising in $k\leftrightarrow n-k$. Since $\lambda_k$ increases, $(2k-n)(\lambda_k-\lambda_{n-k})\ge0$; and $(\frac12)_n/n!\ge1/(2\sqrt n)$. By Lemma~\ref{lem:wedge}, $L_5\psi_0=0$, which is \eqref{eq:R}. The rest is Lemmas~\ref{lem:gauge} and~\ref{lem:cas}.
+\end{proof}
+
+Consequently $q_n/p_n$ increases to $\ell\in(0,\infty]$; convergence ($\ell<\infty$) is proved in Corollary~\ref{cor:minimal}.
+
+\subsection{Solutions holomorphic at the conifold point}
+In the variable $s=1-x$ one has $\theta=-(1-s)\frac{\dd}{\dd s}$, and the coefficient of $s^p$ in $L_4\sum c_ms^m$ equals $(p+1)(p+2)^2(p+3)c_{p+3}$ plus a linear form in $c_0,\dots,c_{p+2}$ (\file{U2/verify/v2_local_and_boundary.py}). Hence for arbitrary $c_0,c_1,c_2$ there is a unique formal solution $\sum c_ms^m$. It converges for $|s|<1$: with $\delta=s\frac{\dd}{\dd s}$, $s^3L_4=(1-s)^4\delta^4+\sum_{i\le3}P_i(s)\delta^i$ with polynomials $P_i$, so $L_4y=0$ is equivalent to a first-order system $s\,W'=\mathcal A(s)W$ for $W=(y,\delta y,\delta^2y,\delta^3y)$ with $\mathcal A=\sum\mathcal A_js^j$ holomorphic in $|s|<1$. A formal solution $W=\sum W_ms^m$ satisfies $(m-\mathcal A_0)W_m=\sum_{j\ge1}\mathcal A_jW_{m-j}$; for $m$ large, $\|(m-\mathcal A_0)^{-1}\|\le2/m$, and the usual majorant argument shows that $\sum W_ms^m$ converges wherever $\sum\|\mathcal A_j\|s^j$ does (cf.\ \cite[ch.~4]{CL}). Define the solutions
+\[
+\nu:=s+\tfrac34s^2+\tfrac{29}{48}s^3+\cdots,\quad r:=s^2+\tfrac54s^3+\tfrac{377}{288}s^4+\cdots,\quad \mu:=\nu\,\theta r-r\,\theta\nu=-s^2-\tfrac32s^3-\tfrac{169}{96}s^4-\cdots;
+\]
+$\mu$ solves $L_5\mu=0$ by Lemma~\ref{lem:wedge}. They are real-analytic on $(0,1]$; near $x=0$ each of $\nu,r$ is a combination of $y_0,\dots,y_3$, hence $O(|\log x|^3)$ with its $\theta$-derivatives, and $\mu=O(\log^4x)$.
+
+\begin{lemma}[boundary terms]\label{lem:bdry}
+Let $\Psi$ solve $L_4\Psi=0$ on $(0,1)$ and be holomorphic at $x=1$; put $\Psi_i:=\theta^iF(1)$ and $\hat \Psi(u):=\int_0^1\Psi(x)x^{u-1}\dd x$ $(u>0)$. Then
+\[
+u^4\hat \Psi(u)-(u+\tfrac12)^4\hat \Psi(u+1)=\Psi_2+\tfrac12\Psi_1-u(u+\tfrac12)\Psi_0.
+\]
+\end{lemma}
+\begin{proof}
+$\int_0^1x^c\theta G\dd x=G(1)-(c+1)\int_0^1x^cG\dd x$ for $c>-1$ and $G=O(|\log x|^k)$ at $0$. Apply this four times to each term of $0=\int_0^1x^{u-1}L_4\Psi\dd x$: the $\theta^4$-term contributes $\Psi_3-uF_2+u^2\Psi_1-u^3\Psi_0$ and the $x(\theta+\frac12)^4$-term $-\Psi_3+(u-1)\Psi_2+(\frac12-u^2)\Psi_1+(u^3-u^2-\frac u2)\Psi_0$ to the boundary part, whose sum is $-(\Psi_2+\frac12\Psi_1-u(u+\frac12)\Psi_0)$ (\file{U2/verify/v2_local_and_boundary.py}).
+\end{proof}
+
+For $\nu$, $(\Psi_0,\Psi_1,\Psi_2)=(0,-1,\frac12)$ and the right side is $0$; for $r$, $(0,0,2)$ and the right side is $2$.
+
+\begin{proposition}\label{prop:mellinnu}
+For $u>0$: $\hat\nu(u)=\Gamma(u)^4/\Gamma(u+\frac12)^4=N(u)/u^4$ and $\hat r(u)=2Y(u)/u^4$.
+\end{proposition}
+\begin{proof}
+$\Gamma_4(u):=\Gamma(u)^4/\Gamma(u+\frac12)^4$ satisfies $u^4\Gamma_4(u)=(u+\frac12)^4\Gamma_4(u+1)$ and $\Gamma_4(u)\sim u^{-2}$ as $u\to+\infty$.
+(i) By Lemma~\ref{lem:bdry}, $\hat\nu/\Gamma_4$ has period $1$ on $(0,\infty)$. As $u\to+\infty$, $\hat\nu(u)=\int_{1/2}^1((1-x)+O((1-x)^2))x^{u-1}\dd x+O(2^{-u}u^{-1})=u^{-2}(1+o(1))$, so $\hat\nu/\Gamma_4\to1$; a $1$-periodic function with a limit at $+\infty$ is constant.
+(ii) $R_0(u):=2Y(u)/u^4$ satisfies $u^4R_0(u)-(u+\frac12)^4R_0(u+1)=2Y(u)-2(\frac{u+1/2}{u+1})^4Y(u+1)=2$, because $(\frac{u+1/2}{u+1})^4(\frac{(u+3/2)_k}{(u+2)_k})^4=(\frac{(u+1/2)_{k+1}}{(u+1)_{k+1}})^4$. So $(\hat r-R_0)/\Gamma_4$ has period $1$. Now $\hat r(u)=O(u^{-3})$ since $r=O((1-x)^2)$ near $1$, and $0<Y(u)\le u+2$: indeed $\frac{(u+1/2)_k}{(u+1)_k}=\prod_{j<k}(1-\frac{1/2}{u+1+j})\le(\frac{u+1}{u+1+k})^{1/2}$, so $Y(u)\le(u+1)^2\sum_{k\ge0}(u+1+k)^{-2}\le u+2$. Hence $(\hat r-R_0)/\Gamma_4=O(u^{-3})\cdot O(u^2)\to0$, and it vanishes.
+\end{proof}
+
+\subsection{The minimal solution}
+Put $g(u):=\int_0^1\mu(x)x^u\dd x$ for $u>-1$.
+
+\begin{proposition}\label{prop:g}
+\textup{(i)} $u^5g(u-1)+(u+1)^5g(u+1)=\at(u)g(u)$ for $u>0$.
+\textup{(ii)} Let $\mu_4:=\lim_{x\to0}\mu(x)/\log^4x$. Then $g(1)=\at(0)g(0)-24\mu_4$.
+\textup{(iii)} $g(n)=g(0)w_n-192\mu_4v_n$ for all integers $n\ge0$, and $g(n)=O(n^{-3})$.
+\end{proposition}
+\begin{proof}
+(i) Integrating $0=\int_0^1x^{u-1}L_5\mu\dd x$ by parts as in Lemma~\ref{lem:bdry} gives $0=-u^5g(u-1)+\at(u)g(u)-(u+1)^5g(u+1)+B_5(u)$, where the boundary polynomial is $B_5(u)=\frac12(u+\frac12)(M_0+2M_1)$ in terms of $M_i:=\theta^i\mu(1)$ (the coefficients of $M_2,M_3,M_4$ cancel; \file{U2/verify/v2_local_and_boundary.py}). From the local series, $(M_i)_{i=0}^4=(0,0,-2,3,-\frac94)$, so $B_5\equiv0$.
+(ii) By \eqref{eq:frob}, near $0$, $\mu$ is a polynomial of degree $\le4$ in $\log x$ with constant coefficients plus terms $O(x|\log x|^5)$ (these come from the $\varphi_m$ and their $\theta$-derivatives and are $O(1)$ on $(0,\frac12]$); so $\mu=\mu_4\log^4x+O(1+|\log x|^3)$. Since $\int_0^1\log^ix\cdot x^{u-1}\dd x=(-1)^ii!/u^{i+1}$, $u^5g(u-1)\to24\mu_4$ as $u\to0^+$; now let $u\to0^+$ in (i), $g$ being continuous on $(-1,\infty)$.
+(iii) By (i) at integers, $(g(n))$ satisfies \eqref{eq:R} for $n\ge1$, as do $w$ and $v$; the right side takes the values $g(0)$ at $n=0$ and $g(0)\at(0)-24\mu_4$ at $n=1$, which agree with $g(0)$, $g(1)$ by (ii). Finally $|\mu|\le C(1-x)^2$ on $[\frac12,1]$ and $|\mu|\le C\log^4x$ on $(0,\frac12]$ give $g(n)=O(n^{-3})+O(2^{-n})$.
+\end{proof}
+
+\begin{corollary}\label{cor:minimal}
+If $\mu_4\neq0$, then $\ell=\lim v_n/w_n=g(0)/(192\mu_4)<\infty$, $g(0)\neq0$, and $\PCF[a_n,b_n]=192\mu_4/g(0)$.
+\end{corollary}
+\begin{proof}
+$v_n/w_n=(g(0)-g(n)/w_n)/(192\mu_4)$ and $g(n)/w_n=O(n^{-3}n^2)\to0$ by Proposition~\ref{prop:U2seq}. As $\ell>0$, $g(0)\neq0$.
+\end{proof}
+
+\subsection{Frobenius coordinates}
+For $u>0$, $\hat y_j(u)=[\varepsilon^j]\sum_kA_k(\varepsilon)/(k+\varepsilon+u)$; the interchange is justified by $|A_k(\varepsilon)|\le C(k+1)^{-2}$, uniformly for complex $|\varepsilon|\le\frac14$ (as $(\frac12+\varepsilon)_k/(1+\varepsilon)_k\sim\frac{\Gamma(1+\varepsilon)}{\Gamma(1/2+\varepsilon)}k^{-1/2}$), and Cauchy's formula. The term $k=0$ is $[\varepsilon^j](\varepsilon+u)^{-1}=(-1)^ju^{-j-1}$; the others are analytic at $u=0$. So if $\rho=\sum_jc_jy_j$, then $\hat\rho(u)=\sum_j(-1)^jc_ju^{-j-1}+(\text{analytic at }0)$. Comparing with Proposition~\ref{prop:mellinnu} ($N,Y$ analytic at $0$):
+\begin{equation}\label{eq:coords}
+\nu=\sum_j(-1)^jN_{3-j}\,y_j,\qquad r=2\sum_j(-1)^jY_{3-j}\,y_j.
+\end{equation}
+
+\begin{proposition}\label{prop:mu4}
+$\mu_4=(N_0Y_1-N_1Y_0)/6=N(0)D/6=4S_1/(3\pi^2)\neq0$ and $g(0)=-2[\varepsilon^3]\bigl(\Xi(\varepsilon)Y(-\varepsilon)\bigr)$. Hence
+\begin{equation}\label{eq:pcfcoef}
+\PCF[a_n,b_n]=\frac{16\,[\varepsilon^1]\bigl(N(\varepsilon)Y(-\varepsilon)\bigr)}{[\varepsilon^3]\bigl(\Xi(\varepsilon)Y(-\varepsilon)\bigr)}.
+\end{equation}
+\end{proposition}
+\begin{proof}
+By \eqref{eq:frob} the highest power of $\log x$ in $y_j\theta y_k$ is $\log^{j+k-1}x$, with coefficient $1/(j!(k-1)!)$. In $\mu=\sum_{j,k}c_j(\nu)c_k(r)(y_j\theta y_k-y_k\theta y_j)$ the power $\log^4x$ comes only from $(j,k)=(2,3),(3,2)$, with coefficients $\pm(\frac14-\frac16)=\pm\frac1{12}$; so $\mu_4=(c_2(\nu)c_3(r)-c_3(\nu)c_2(r))/12=(N_1(-2Y_0)+N_0(2Y_1))/12$. With $N_1=8\log2\cdot N_0$, \eqref{eq:D} and $N_0=\pi^{-2}$ this is $N(0)D/6=4S_1/(3\pi^2)<0$.
+Next, for small $\varepsilon$, using $\int_0^1x^c\theta\nu\dd x=-(c+1)\hat\nu(c+1)$ (as $\nu(1)=0$) and Proposition~\ref{prop:mellinnu},
+\[
+\int_0^1(\nu\,\theta\Phi-\Phi\,\theta\nu)\dd x=\sum_kA_k(\varepsilon)(2k+2\varepsilon+1)\hat\nu(k+\varepsilon+1)=N(\varepsilon)\sum_k\frac{2k+2\varepsilon+1}{(k+\varepsilon+\frac12)^4}=\Xi(\varepsilon),
+\]
+since $A_k(\varepsilon)\Gamma(k+\varepsilon+1)^4/\Gamma(k+\varepsilon+\frac32)^4=N(\varepsilon)/(k+\varepsilon+\frac12)^4$. (Justification: for $|\varepsilon|\le\frac14$, $|\nu|\le C(1-x)$, $|\theta\nu|\le C$ on $[\frac12,1]$ and $|\nu|,|\theta\nu|\le C(1+|\log x|^3)$ on $(0,\frac12]$; hence $\int_0^1(|\nu|(k+1)+|\theta\nu|)x^{k-1/4}\dd x\le C_1/k$ for $k\ge1$, and with $|A_k(\varepsilon)|\le C(k+1)^{-2}$ the double series--integral converges absolutely, uniformly in $\varepsilon$. So Fubini applies, the integral is analytic in $\varepsilon$, and coefficients may be extracted termwise.) Taking $[\varepsilon^j]$: $\int_0^1(\nu\theta y_j-y_j\theta\nu)\dd x=\xi_j:=[\varepsilon^j]\Xi$, and by \eqref{eq:coords} $g(0)=\sum_jc_j(r)\xi_j=2\sum_j(-1)^jY_{3-j}\xi_j=-2[\varepsilon^3](\Xi(\varepsilon)Y(-\varepsilon))$. Finally \eqref{eq:pcfcoef} is Corollary~\ref{cor:minimal} with $192\mu_4=32(N_0Y_1-N_1Y_0)=-32[\varepsilon^1](N(\varepsilon)Y(-\varepsilon))$.
+\end{proof}
+
+\subsection{A bilateral sum}
+Write $(Y/N)(u)=\sum_i\tau_iu^i$ near $u=0$; then $\tau_0=\pi^2S_0$ and $\tau_1=\pi^2D=8\pi^2S_1$.
+
+\begin{proposition}[Zudilin \cite{Zud}]\label{prop:bilateral}
+$\tau_2=2\pi^2\tau_0$ and $\tau_3=\frac{4\pi^2}3\tau_1$. More precisely, for $-\frac12<\Re u<1$, $u\neq\frac12$,
+\[
+\frac{Y(u)}{N(u)}+\tan^4(\pi u)\,\frac{Y(\frac12-u)}{N(\frac12-u)}=\sec^2(\pi u)\Bigl(\tau_0\sec^2(\pi u)+\frac{\tau_1}\pi\tan(\pi u)\Bigr).
+\]
+\end{proposition}
+\begin{proof}
+Let $\mathcal B(u):=\sum_{k\in\Z}(\Gamma(u+k+\frac12)/\Gamma(u+k+1))^4$. For $k\to+\infty$ the terms are $O(k^{-2})$. For $k=-m$ the reflection formulas give $\Gamma(z+\frac12)/\Gamma(z+1)=-\tan(\pi z)\Gamma(-z)/\Gamma(\frac12-z)$, so the term is $\tan^4(\pi u)(\Gamma(m-u)/\Gamma(m+\frac12-u))^4=O(m^{-2})$. Hence $\mathcal B$ is meromorphic with period $1$, with poles at most on $\frac12+\Z$ (the zeros of $1/\Gamma(u+k+1)$ are zeros of the terms), and $\mathcal B(u)=Y(u)/N(u)+\tan^4(\pi u)Y(\frac12-u)/N(\frac12-u)$ (in the part $m\ge1$ put $m=k+1$).
+At $u=0$: $\mathcal B(u)=\sum_{i\le3}\tau_iu^i+O(u^4)$. At $u=\frac12$, with $v=\frac12-u$: $\tan^4(\pi u)=\cot^4(\pi v)=(\pi v)^{-4}(1-\frac{4\pi^2}3v^2+O(v^4))$, so the principal part of $\mathcal B$ is $\pi^{-4}[\tau_0v^{-4}+\tau_1v^{-3}+(\tau_2-\frac{4\pi^2}3\tau_0)v^{-2}+(\tau_3-\frac{4\pi^2}3\tau_1)v^{-1}]$. At $\pm i\infty$: for $|\Im u|\ge1$ and $\Re u\in[0,1]$ every term is $O(|u+k|^{-2})$ uniformly (Stirling for $k\ge0$; the reflected form and $|\tan\pi u|\le\coth\pi$ for $k<0$), so $\mathcal B(u)=O(1/|\Im u|)$.
+The functions $\Sigma_2=\pi^2\sec^2\pi u=v^{-2}+\frac{\pi^2}3+O(v^2)$, $\Sigma_3=\pi^3\sec^2\pi u\tan\pi u=v^{-3}+O(v)$, $\Sigma_4=\pi^4\sec^4\pi u=v^{-4}+\frac{2\pi^2}3v^{-2}+O(1)$ have period $1$ and tend to $0$ at $\pm i\infty$. Put $\mathcal B_0:=\pi^{-4}[\tau_0\Sigma_4+\tau_1\Sigma_3+(\tau_2-2\pi^2\tau_0)\Sigma_2]$ and $c:=\pi^{-4}(\tau_3-\frac{4\pi^2}3\tau_1)$. Then $E:=\mathcal B-\mathcal B_0-c\pi\tan(\pi u)$ is entire, $1$-periodic and bounded, hence constant; its limits at $\pm i\infty$ are $\mp i\pi c$, so $c=0$ and $E=0$. Evaluating $\mathcal B=\mathcal B_0$ at $u=0$ gives $\tau_0=\tau_0+\pi^{-2}(\tau_2-2\pi^2\tau_0)$.
+\end{proof}
+
+\subsection{End of the proof of Theorem~\ref*{thm:U2}}
+$N(\varepsilon)N(-\varepsilon)=(\varepsilon\cot\pi\varepsilon)^4=\pi^{-4}(1-\frac{4\pi^2}3\varepsilon^2+O(\varepsilon^4))$ and, from $\zeta(s,\frac12)=(2^s-1)\zeta(s)$,
+\[
+\zeta(3,\tfrac12+\varepsilon)=7\zeta(3)-\tfrac{\pi^4}2\varepsilon+186\zeta(5)\varepsilon^2-\tfrac{2\pi^6}3\varepsilon^3+O(\varepsilon^4).
+\]
+Writing $N(\varepsilon)Y(-\varepsilon)=N(\varepsilon)N(-\varepsilon)\cdot(Y/N)(-\varepsilon)$ and using Proposition~\ref{prop:bilateral} (\file{U2/verify/v5_final_algebra.py}, exact):
+\begin{align*}
+[\varepsilon^1]\bigl(N(\varepsilon)Y(-\varepsilon)\bigr)&=-\tau_1/\pi^4,\\
+[\varepsilon^3]\bigl(\Xi(\varepsilon)Y(-\varepsilon)\bigr)&=\tfrac2{\pi^4}\Bigl\{7\zeta(3)\bigl(-\tau_3+\tfrac{4\pi^2}3\tau_1\bigr)-\tfrac{\pi^4}2\bigl(\tau_2-\tfrac{4\pi^2}3\tau_0\bigr)-186\zeta(5)\tau_1-\tfrac{2\pi^6}3\tau_0\Bigr\}\\
+&=-\tfrac2{\pi^4}\bigl(\pi^6\tau_0+186\zeta(5)\tau_1\bigr);
+\end{align*}
+the $\zeta(3)$-term vanishes by the second relation of Proposition~\ref{prop:bilateral}. By \eqref{eq:pcfcoef},
+\[
+\PCF[a_n,b_n]=\frac{8\tau_1}{\pi^6\tau_0+186\zeta(5)\tau_1}=\frac{8D}{\pi^6S_0+186\zeta(5)D},\qquad\frac1{\PCF[a_n,b_n]}=\frac{93}4\zeta(5)+\frac{\pi^6}{64}\frac{S_0}{S_1}.
+\]
+The series identity is \eqref{eq:ell}. Corollary~\ref{cor:U2L} follows from Proposition~\ref{prop:Z}. \qed
+
+\begin{remark}
+(1) Numerically $w_n\sim c_w/n$ with $c_w=16L(f,1)/\pi^2=-D/\pi^2$ (300 digits); no asymptotic analysis of $w_n$ is needed or carried out. (2) Heuristically, $\nu$ is the vanishing period at the conifold point $x=1$, $r$ is the solution vanishing to second order there, and $g$ is the minimal solution of \eqref{eq:R} continued to real $u$; the pole of order 5 of $g$ at $u=-1$ produces the inhomogeneity $-24\mu_4$ that separates $p_n$ from $q_n$.
+\end{remark}
+
+\section{The third constant}\label{sec:U3}
+
+We keep the notation of \S\ref{sec:U2}: $\at$, $L_4$, $N$, $A_k(\varepsilon)$, $Y$, $\Xi$, $y_j$, $\nu$, $r$, $\mu$, $g$, $w$, $v$ (the latter two are the $U_2$-sequences), $\mu_4=4S_1/(3\pi^2)$, $g(n)=g(0)w_n-192\mu_4v_n$, $g(0)/(192\mu_4)=1/U_2$, and $\tau_i$ with $\tau_2=2\pi^2\tau_0$, $\tau_3=\frac{4\pi^2}3\tau_1$. New:
+\[
+Z(u):=\sum_{k\ge0}\frac{A_k(u)}{u+k+1}\ \ (\Re u>-\tfrac12),\qquad Y_*(u):=\frac{u^3}2-\frac{Y(u)}{16}+\frac{Z(u)}{32}=\sum_iY_{*,i}u^i,
+\]
+and $(Z/N)(u)=\sum_i\zeta_iu^i$ near $u=0$ (here $\zeta_i$ are Taylor coefficients, not zeta values).
+Since $A_{k+1}(u)=\kappa(u)A_k(u+1)$ with $\kappa(u):=(\frac{u+1/2}{u+1})^4$,
+\begin{equation}\label{eq:shift}
+Y(u)-\kappa(u)Y(u+1)=1,\qquad Z(u)-\kappa(u)Z(u+1)=\frac1{u+1}.
+\end{equation}
+
+\subsection{The sequences and the gauge map}
+Let $\at_3(n):=a_n/8=2T(T^4+5T^2+\frac{25}{16})$, $T=n+\frac12$, and let $R_j(X)_n:=(n+1)^5X_{n+1}+n^5X_{n-1}-\at_j(n)X_n$ with $\at_2:=\at$. Define $w^{(3)},v^{(3)}$ by $R_3=0$ $(n\ge1)$, $w^{(3)}_0=1$, $w^{(3)}_1=\at_3(0)=\frac{23}8$, $v^{(3)}_0=0$, $v^{(3)}_1=\frac18$. By Lemma~\ref{lem:gauge}, $p_{n-1}=8^nn!^5w^{(3)}_n$ and $q_{n-1}=8^nn!^5v^{(3)}_n$.
+
+\begin{lemma}\label{lem:U3conv}
+$w^{(3)}_n$ is increasing and $\ge1$; $v^{(3)}_n/w^{(3)}_n$ is increasing; the continued fraction converges to $1/\ell_3$, $\ell_3:=\lim v^{(3)}_n/w^{(3)}_n\in(0,\infty]$.
+\end{lemma}
+\begin{proof}
+$\at_3(n)-(n+1)^5-n^5=\frac58(2n+1)(4n^2+4n+3)>0$. If $w^{(3)}_n\ge w^{(3)}_{n-1}>0$ then $(n+1)^5w^{(3)}_{n+1}\ge(\at_3(n)-n^5)w^{(3)}_n>(n+1)^5w^{(3)}_n$; and $w^{(3)}_1>w^{(3)}_0$. The rest is Lemma~\ref{lem:cas}.
+\end{proof}
+
+\begin{lemma}[gauge map]\label{lem:gaugemap}
+For a sequence $X$ put $G(X)_n:=P_1(n)X_n+32(n+1)^5X_{n+1}$ with $P_1(n):=-(2n+1)(16n^4+56n^3+76n^2+46n+11)$. For every sequence $X$ and $n\ge1$,
+\[
+R_3(G(X))_n=P_1(n-1)\,R_2(X)_n+32(n+1)^5\,R_2(X)_{n+1}.
+\]
+In particular $G$ maps solutions of $R_2=0$ to solutions of $R_3=0$, and $G(w)=w^{(3)}$, $G(v)=v^{(3)}+4w^{(3)}$.
+\end{lemma}
+\begin{proof}
+The displayed identity is an identity between linear forms in $X_{n-1},\dots,X_{n+2}$ with polynomial coefficients (\file{U3/verify/u3_exact.py}, part (g); \file{U2/verify/v6_u3_gauge.py}). Both sides of each of the last two equalities solve $R_3=0$ for $n\ge1$, so it suffices to compare them at $n=0,1$: $G(w)_0=-11+32\cdot\frac38=1$, $G(w)_1=-615\cdot\frac38+1024\cdot\frac{467}{2048}=\frac{23}8$, $G(v)_0=4$, $G(v)_1=-\frac{615}8+1024\cdot\frac{177}{2048}=\frac{93}8=\frac18+4\cdot\frac{23}8$.
+\end{proof}
+
+\subsection{A third solution holomorphic at the conifold point}
+Let $r_*$ be the solution of $L_4$ holomorphic at $x=1$ with $(c_0,c_1,c_2)=(1,0,-\frac1{16})$:
+\[
+r_*=1-\tfrac1{16}s^2-\tfrac7{96}s^3-\cdots,\qquad\mu_*:=\nu\,\theta r_*-r_*\,\theta\nu=1+\tfrac12s+\tfrac38s^2+\tfrac5{16}s^3+\cdots,
+\]
+and $g_*(u):=\int_0^1\mu_*(x)x^u\dd x$ for $u>-1$.
+(\file{U3/verify/u3_exact.py}, parts (a), (c).)
+
+\begin{proposition}\label{prop:rstar}
+For $u>0$, $\hat r_*(u)=2Y_*(u)/u^4=1/u-(2Y(u)-Z(u))/(16u^4)$; consequently $r_*=2\sum_j(-1)^jY_{*,3-j}\,y_j$.
+\end{proposition}
+\begin{proof}
+$(\theta^ir_*(1))_{i=0,1,2}=(1,0,-\frac18)$, so by Lemma~\ref{lem:bdry} $u^4\hat r_*(u)-(u+\frac12)^4\hat r_*(u+1)=-\frac18-u(u+\frac12)$. By \eqref{eq:shift} $R_*(u):=2Y_*(u)/u^4$ satisfies the same relation: $u^4R_*(u)-(u+\frac12)^4R_*(u+1)=u^3-\frac{(u+1/2)^4}{u+1}-\frac18+\frac1{16(u+1)}=-\frac18-u(u+\frac12)$ (\file{U3/verify/u3_exact.py}, part (b)). Hence $(\hat r_*-R_*)/\Gamma_4$ has period $1$. As $u\to+\infty$, $\hat r_*(u)-1/u=\int_0^1(r_*-1)x^{u-1}\dd x=O(u^{-3})$ and $R_*(u)-1/u=O(u^{-3})$, because $0<Z\le Y\le u+2$; with $1/\Gamma_4(u)\sim u^2$ the periodic function tends to $0$, so it vanishes. The coordinates follow as in \eqref{eq:coords}.
+\end{proof}
+
+\begin{proposition}\label{prop:gstar}
+\textup{(i)} $u^5g_*(u-1)+(u+1)^5g_*(u+1)=\at(u)g_*(u)$ for $u>0$.
+\textup{(ii)} With $\mu^*_4:=\lim_{x\to0}\mu_*/\log^4x$: $g_*(1)=\at(0)g_*(0)-24\mu_4^*$, and for all $n\ge0$
+\begin{equation}\label{eq:gstar}
+g_*(n)=g_*(0)w_n-192\mu_4^*v_n .
+\end{equation}
+\textup{(iii)} $\mu_4^*=(N_0Y_{*,1}-N_1Y_{*,0})/6=-\frac16[\varepsilon^1](N(\varepsilon)Y_*(-\varepsilon))$ and $g_*(0)=-2[\varepsilon^3](\Xi(\varepsilon)Y_*(-\varepsilon))$.
+\end{proposition}
+\begin{proof}
+As in Propositions~\ref{prop:g} and~\ref{prop:mu4} with $r$ replaced by $r_*$. In (i) the boundary polynomial is $B_5(u)=\frac12(u+\frac12)(M_0+2M_1)$ with $M_i=\theta^i\mu_*(1)$; for $\mu_\rho=\nu\theta\rho-\rho\theta\nu$, $M_0=\rho(1)$ and $M_1=-\rho(1)/2$ (from $\nu(1)=0$, $\theta\nu(1)=-1$, $\theta^2\nu(1)=\frac12$), so $B_5\equiv0$ for every $\rho$ holomorphic at $1$; here $(M_i)_{i=0}^4=(1,-\frac12,\frac14,-\frac18,\frac7{128})$. (ii) uses only the behaviour at $x=0$ ($\mu_*=\mu_4^*\log^4x+O(1+|\log x|^3)$) and boundedness on $[\frac12,1]$; the bound $g(n)=O(n^{-3})$ of Proposition~\ref{prop:g} fails for $g_*$ (indeed $g_*(n)\sim1/n$) and is not used. (iii) uses only the Frobenius coordinates of $r_*$ and the identity $\int_0^1(\nu\theta y_j-y_j\theta\nu)\dd x=\xi_j$, which involves only $\nu$ and the $y_j$.
+\end{proof}
+
+\begin{lemma}[asymptotics]\label{lem:asym}
+\textup{(i)} $g(n)=-2n^{-3}+O(n^{-4})$, $g(n+1)-g(n)=6n^{-4}+O(n^{-5})$, $g_*(n)=n^{-1}+O(n^{-2})$, $g_*(n+1)-g_*(n)=-n^{-2}+O(n^{-3})$.
+\textup{(ii)} $G(g_*)_n=O(1/n)$.
+\end{lemma}
+\begin{proof}
+Let $\beta_j(n):=\int_0^1s^jx^n\dd x=j!\,n!/(n+j+1)!$. If $m$ is continuous on $(0,1]$, $O(\log^4x)$ at $0$, and $|m|\le Cs^j$ on $[\frac12,1]$, then $\int_0^1|m|x^n\dd x\le C\beta_j(n)+O(2^{-n})=O(n^{-j-1})$.
+(i) follows from $\mu=-s^2-\frac32s^3+O(s^4)$, $\mu_*=1+\frac12s+O(s^2)$ and $g(n+1)-g(n)=-\int\mu sx^n$, $g_*(n+1)-g_*(n)=-\int\mu_*sx^n$.
+(ii) For $X(n)=\int_0^1m(x)x^n\dd x$ one has $G(X)_n=\int_0^1m(x)x^n(c(n)-32(n+1)^5s)\dd x$ with $c(n):=P_1(n)+32(n+1)^5=32n^4+112n^3+152n^2+92n+21$. Write $\mu_*=\sum_{j\le3}m_js^j+\rho_4$ with $(m_0,\dots,m_3)=(1,\frac12,\frac38,\frac5{16})$ and $|\rho_4|\le Cs^4$ on $[\frac12,1]$. The contribution of $\rho_4$ is $O(n^4\beta_4(n)+n^5\beta_5(n))=O(1/n)$. The polynomial part contributes the rational function
+\[
+\sum_{j\le3}m_jG(\beta_j)_n=\frac{6712n^4+23412n^3+31402n^2+18297n+4015}{8(n+1)(n+2)(n+3)(n+4)(n+5)}\sim\frac{839}{n}
+\]
+(\file{U3/verify/u3_exact.py}, part (d)). Individually $G(\beta_0)_n\sim16n^2$, $G(\beta_1)_n\sim-32n^2$, $G(\beta_2)_n\sim-128n$, $G(\beta_3)_n\to-576$; the terms of order $n^2$, $n$ and $1$ cancel for these $m_j$ (the constant term only because $m_3=\frac5{16}$).
+\end{proof}
+
+Up to scaling and adding multiples of $\nu$ (which do not change $\mu_*$), the choice $c_2=-\frac1{16}$ in $r_*$ is the one for which this cancellation occurs: replacing $r_*$ by $r_*+\lambda r$ adds $\lambda G(g)_n=128\lambda n+O(1)$.
+
+\subsection{\texorpdfstring{The value in terms of $g_*(0)$ and $\mu_4^*$}{The value in terms of g*(0) and mu4*}}
+\begin{proposition}\label{prop:ell3}
+If $\mu_4^*\neq0$, then $\ell_3=g_*(0)/(192\mu_4^*)-4$; in particular $\ell_3<\infty$.
+\end{proposition}
+\begin{proof}
+Apply $G$ to \eqref{eq:gstar} and use Lemma~\ref{lem:gaugemap}: $G(g_*)_n=(g_*(0)-768\mu_4^*)w^{(3)}_n-192\mu_4^*v^{(3)}_n$. Divide by $w^{(3)}_n\ge1$ and let $n\to\infty$; the left side tends to $0$ by Lemma~\ref{lem:asym}(ii).
+\end{proof}
+
+\subsection{A Legendre-type relation}
+\begin{proposition}\label{prop:legendre}
+$g(0)\mu_4^*-\mu_4g_*(0)=\frac16$.
+\end{proposition}
+\begin{proof}
+For sequences put $C[X,X']_n:=X_nX'_{n+1}-X_{n+1}X'_n$. By $g=g(0)w-192\mu_4v$, \eqref{eq:gstar} and Lemma~\ref{lem:cas},
+$C[g,g_*]_n=-192(g(0)\mu_4^*-\mu_4g_*(0))\,C[w,v]_n=-24(g(0)\mu_4^*-\mu_4g_*(0))/(n+1)^5$. On the other hand $C[g,g_*]_n=g(n)(g_*(n+1)-g_*(n))-(g(n+1)-g(n))g_*(n)=-4n^{-5}+O(n^{-6})$ by Lemma~\ref{lem:asym}(i). Multiply by $(n+1)^5$ and let $n\to\infty$.
+\end{proof}
+
+\subsection{\texorpdfstring{The bilateral sum for $Z$}{The bilateral sum for Z}}
+Let $\gamma(z):=(\Gamma(z+\frac12)/\Gamma(z+1))^4$; then $\gamma(z)=\tan^4(\pi z)\gamma(-z-\frac12)$ and $\gamma(u+k)=A_k(u)/N(u)$. Put $\mathcal B_Z(u):=\sum_{k\in\Z}\gamma(u+k)/(u+k+1)$.
+
+\begin{proposition}\label{prop:TZ}
+With $t:=\tan(\pi u)$, $\mathcal B_Z(u)=(1+t^2)(e_0+e_1t+e_2t^2)$ for a constant $e_1$, where $e_0=\pi^2Z_0$ and $e_2=e_0+8$; and
+\begin{equation}\label{eq:zeta}
+\zeta_0=e_0,\quad\zeta_1=\pi e_1,\quad\zeta_2=\pi^2(e_0+e_2),\quad\zeta_3=\tfrac{4\pi^3}3e_1-16\pi^2 .
+\end{equation}
+\end{proposition}
+\begin{proof}
+\emph{Convergence and poles.} For $k\ge0$ the terms are $O(k^{-3})$; for $k=-m\le-1$ the term is $\tan^4(\pi u)\gamma(m-u-\frac12)/(u-m+1)=O(m^{-3})$, locally uniformly. The simple pole of $1/(u+k+1)$ at $u=-k-1$ is cancelled by the zero of $\gamma(u+k)$. So $\mathcal B_Z$ is meromorphic of period $1$ with poles at most on $\frac12+\Z$, of order $\le4$.
+\emph{Decomposition.} The part $k\ge0$ is $Z(u)/N(u)$. In the part $k=-m$ put $m=j+1$, $v:=\frac12-u$: then $\gamma(m-u-\frac12)=A_j(v)/N(v)$ and $u-m+1=-(v+j-\frac12)$, so
+\begin{equation}\label{eq:TZdec}
+\mathcal B_Z(u)=\frac{Z(u)}{N(u)}-\tan^4(\pi u)\frac{\tilde Z(v)}{N(v)},\qquad\tilde Z(v):=\sum_{j\ge0}\frac{A_j(v)}{v+j-\frac12}.
+\end{equation}
+\emph{At $u=0$.} Only the term $j=0$ of $\tilde Z$ is singular at $v=\frac12$; it contributes $\tan^4(\pi u)/(uN(\frac12-u))=16\pi^2u^3+O(u^4)$ (as $N(\frac12)=\pi^2/16$), the rest being $O(u^4)$. So $\mathcal B_Z(u)=\zeta_0+\zeta_1u+\zeta_2u^2+(\zeta_3+16\pi^2)u^3+O(u^4)$.
+\emph{At $\pm i\infty$.} Uniformly for $\Re u\in[0,1]$, $|\Im u|\ge1$, each term is $O(|u+k|^{-3})$, so $\mathcal B_Z(u)=O(|\Im u|^{-2})$.
+\emph{Liouville.} As in Proposition~\ref{prop:bilateral}, subtracting the combination of $\sec^2$, $\sec^2\tan$, $\sec^4$ (in $\pi u$) with the same principal part at $u=\frac12$ to order $v^{-2}$, and $c\,\pi\tan(\pi u)$ for the $v^{-1}$ term, leaves a bounded entire periodic function with limits $\mp i\pi c$ at $\pm i\infty$; so $c=0$ and $\mathcal B_Z$ lies in the span of $\sec^2=1+t^2$, $\sec^2\tan=(1+t^2)t$, $\sec^4=(1+t^2)^2$, i.e.\ has the stated form.
+\emph{$e_0$ and \eqref{eq:zeta}.} $t=\pi u+(\pi u)^3/3+O(u^5)$ gives $(1+t^2)(e_0+e_1t+e_2t^2)=e_0+\pi e_1u+\pi^2(e_0+e_2)u^2+\frac{4\pi^3}3e_1u^3+O(u^4)$; compare with the expansion at $u=0$. $\zeta_0=Z(0)/N(0)=\pi^2Z_0$.
+\emph{$e_2$.} As $u\to\frac12$, $\mathcal B_Z(u)/t^4\to e_2$; in \eqref{eq:TZdec} $Z/N$ is analytic at $\frac12$ and $\tilde Z(v)/N(v)\to\pi^2\sum_jA_j/(j-\frac12)$, so $e_2=-\pi^2\sum_jA_j/(j-\frac12)$. With $H(k):=A_kk^3/(k-\frac12)$,
+\[
+H(k+1)-H(k)=A_k\Bigl(\frac{(k+\frac12)^3}{k+1}-\frac{k^3}{k-\frac12}\Bigr)=-\frac18A_k\Bigl(\frac1{k+1}+\frac1{k-\frac12}\Bigr)
+\]
+(\file{U3/verify/u3_exact.py}, part (e)), $H(0)=0$ and $H(k)\to1/\pi^2$ (as $A_k\sim1/(\pi^2k^2)$). Summing over $k\ge0$: $Z_0+\sum_kA_k/(k-\frac12)=-8/\pi^2$, i.e.\ $e_2=\pi^2Z_0+8$.
+\end{proof}
+
+\subsection{End of the proof of Theorem~\ref*{thm:U3}}
+As in \S\ref{sec:U2}, write $N(\varepsilon)Y_*(-\varepsilon)=-N(\varepsilon)\varepsilon^3/2+N(\varepsilon)N(-\varepsilon)\bigl(-(Y/N)(-\varepsilon)/16+(Z/N)(-\varepsilon)/32\bigr)$ and insert Proposition~\ref{prop:bilateral} and \eqref{eq:zeta}. Coefficient extraction (\file{U3/verify/u3_algebra.py}, exact) gives, with $E_1:=e_1/\pi^3-2\tau_1/\pi^4$,
+\begin{align*}
+192\mu_4^*&=-32[\varepsilon^1]\bigl(N(\varepsilon)Y_*(-\varepsilon)\bigr)=E_1,\\ g_*(0)&=-2[\varepsilon^3]\bigl(\Xi(\varepsilon)Y_*(-\varepsilon)\bigr)=\tfrac{93}4\zeta(5)E_1+\tfrac{\pi^2}{16}(e_0+e_2-4\tau_0)
+\end{align*}
+(the $\zeta(3)$-terms cancel). By Proposition~\ref{prop:TZ}, $e_0+e_2-4\tau_0=2\pi^2Z_0+8-4\pi^2S_0=2\Omega$, so
+\begin{equation}\label{eq:gstar0}
+g_*(0)=\tfrac{93}4\zeta(5)E_1+\tfrac{\pi^2\Omega}8 .
+\end{equation}
+Insert \eqref{eq:gstar0}, $\mu_4^*=E_1/192$, $\mu_4=4S_1/(3\pi^2)$ and $g(0)=192\mu_4(\frac{93}4\zeta(5)+\frac{\pi^6S_0}{64S_1})$ into Proposition~\ref{prop:legendre}: the $\zeta(5)$-terms cancel and
+\begin{equation}\label{eq:E1}
+\frac16=\mu_4\Bigl(E_1\frac{\pi^6S_0}{64S_1}-\frac{\pi^2\Omega}8\Bigr)=\frac{E_1\pi^4S_0}{48}-\frac{S_1\Omega}6,\qquad\text{i.e.}\qquad E_1=\frac{8(1+S_1\Omega)}{\pi^4S_0}.
+\end{equation}
+\emph{Signs.} $S_0>0$, $S_1<0$, and $\Omega<0$ because $2S_0-Z_0=\sum A_k(2-\frac1{k+1})\ge A_0=1>4/\pi^2$. So $1+S_1\Omega>1$, $E_1>0$ and $\mu_4^*\neq0$. By Proposition~\ref{prop:ell3}, \eqref{eq:gstar0} and \eqref{eq:E1},
+\[
+\ell_3=\frac{g_*(0)}{E_1}-4=\frac{93}4\zeta(5)-4+\frac{\pi^2\Omega}{8E_1}=\frac{93}4\zeta(5)-4+\frac{\pi^6}{64}\frac{S_0\Omega}{1+S_1\Omega},
+\]
+and $1/\PCF[a_n,b_n]=\ell_3$ by Lemma~\ref{lem:U3conv}. The other forms follow from $S_0=16L(f,2)/\pi^2$, $S_1=-2L(f,1)$ and $1/U_2=\frac{93}4\zeta(5)+\frac{\pi^6S_0}{64S_1}$, since $\frac{\pi^6S_0}{64}\bigl(\frac \Omega{1+S_1\Omega}-\frac1{S_1}\bigr)=-\frac{\pi^6S_0}{64S_1(1+S_1\Omega)}$. \qed
+
+\begin{remark}\label{rem:Z0}
+(1) By-products: $e_1=8(1+4S_1+\pi^2S_1Z_0)/(\pi S_0)$, so the first four Taylor coefficients of $Z/N$ at $0$ are explicit in $S_0,S_1,Z_0,\pi$; and $\sum_kA_k/(k+1)=2\sum_kA_k/(1-2k)-8/\pi^2$.
+(2) $Z_0=\int_0^1{}_4F_3(\frac12,\frac12,\frac12,\frac12;1,1,1;x)\dd x$, and numerically $Z_0=(16/\pi^3)\int_0^1K'(k)(E(k)-(1-k^2)K(k))k^{-2}\dd k$ ($K,E$ complete elliptic integrals of modulus $k$). In the language of \cite[\S4]{BKSZ} this is the kind of integral that produces quasi-periods of $f$, and \eqref{eq:E1} would be the corresponding Legendre relation; this reading is an interpretation, not something proved here.
+(3) $G(g)_n\sim128n$, whereas $G(g_*)_n=O(1/n)$; numerically $G(g_*)_n$ decays like $n^{-5}$ and the convergents approach the limit like $n^{-6}$, but minimality of $G(g_*)$ is neither proved nor needed.
+\end{remark}
+
+\section{Zudilin's relations}\label{sec:Z}
+
+Throughout this section $K(k)=\int_0^{\pi/2}(1-k^2\sin^2\phi)^{-1/2}\dd\phi=\frac\pi2\sum_na_nk^{2n}$ with $a_n:=((\frac12)_n/n!)^2$, $k'=\sqrt{1-k^2}$, $K'(k)=K(k')$, and $h_n:=H_{2n}-H_n-\log2$, so that $A_n=a_n^2$ and $S_1=\sum a_n^2h_n$. Theta functions are Jacobi's, with nome $e^{\pi i\sigma}$.
+
+\subsection{\texorpdfstring{The case $(\frac12,\frac12)$: a verification from known ingredients}{The case (1/2,1/2): a verification from known ingredients}}
+\begin{proposition}\label{prop:Z}
+Let $f(\tau)=\eta(2\tau)^4\eta(4\tau)^4$. Then
+\[
+L(f,1)=-\frac{S_1}2=\frac1{2\pi^2}\int_0^1K'(k)^2\dd k,\qquad L(f,2)=\frac{\pi^2}{16}S_0=\frac1{2\pi}\int_0^1K(k)K'(k)\dd k,
+\]
+and for $(r,t)=(\frac12,\frac12)$: $F_0(1)=S_0$, $F_1(1)=8S_1$, $F_2(1)=2\pi^2S_0$, $F_3(1)=\frac{32\pi^2}3S_1$; hence $L(f,1)/F_1(1)=-\frac1{16}$, $L(f,2)/F_2(1)=\frac1{32}$, $L(f,3)/F_3(1)=-\frac3{256}$.
+\end{proposition}
+
+As explained in \S\ref{sec:credit}, every analytic step below is already in the literature (\cite[(30), (31)]{RWZ}, \cite{BSW}, \cite[Remarks~2, 5]{Zud}); we give a short self-contained proof. Classical facts: (Z1) $\theta_2(\sigma)=2\eta(2\sigma)^2/\eta(\sigma)$, $\theta_3(\sigma)=\eta(\sigma)^5/(\eta(\sigma/2)^2\eta(2\sigma)^2)$, $\theta_4(\sigma)=\eta(\sigma/2)^2/\eta(\sigma)$; (Z2) for $\sigma=iy$, $y>0$, with $k:=\theta_2^2/\theta_3^2$ one has $k'=\theta_4^2/\theta_3^2$, $\theta_3^2=2K(k)/\pi$, $y=K'(k)/K(k)$, $y\mapsto k$ is a decreasing bijection $(0,\infty)\to(0,1)$, and $\dd y/\dd k=-\pi/(2kk'^2K(k)^2)$ (Legendre's relation) \cite[ch.~2]{BB}; (Z3) $K'(k)=\sum_na_nk^{2n}(\log(1/k)-2h_n)$ for $0<k<1$ \cite[19.12.1]{DLMF}, where $h_n<0$ because $H_{2n}-H_n$ is an even partial sum of the alternating harmonic series; (Z4) $\eta(-1/\tau)=(\tau/i)^{1/2}\eta(\tau)$; (Z5) Gauss's summation of ${}_2F_1(a,b;c;1)$.
+
+\begin{lemma}\label{lem:Lmoments}
+$L(f,1)=\frac1{2\pi^2}\int_0^1K'^2$, $L(f,2)=\frac1{2\pi}\int_0^1KK'$, $L(f,3)=\frac{\pi^2}4L(f,1)$.
+\end{lemma}
+\begin{proof}
+By (Z1), $\theta_2\theta_3\theta_4=2\eta^3$, so $f(\tau)=\theta_2^4\theta_3^2\theta_4^2(2\tau)/16$, and by (Z2) $f(iy/2)=k^2k'K(k)^4/\pi^4$. By (Z4), $f(-1/(8\tau))=64\tau^4f(\tau)$; hence $\Lambda(s):=\int_0^\infty f(it)t^{s-1}\dd t=(2\pi)^{-s}\Gamma(s)L(f,s)$ is entire and $\Lambda(4-s)=8^{s-2}\Lambda(s)$; at $s=3$ this gives $L(f,3)=\frac{\pi^2}4L(f,1)$. Substituting $y=K'/K$:
+$L(f,1)=\pi\int_0^\infty f(iy/2)\dd y=\frac1{2\pi^2}\int_0^1kK(k)^2/k'\dd k=\frac1{2\pi^2}\int_0^1K'(\kappa)^2\dd\kappa$ ($\kappa=k'$), and likewise $L(f,2)=\pi^2\int_0^\infty f(iy/2)y\dd y=\frac1{2\pi}\int_0^1K(\kappa)K'(\kappa)\dd\kappa$.
+\end{proof}
+
+\begin{lemma}\label{lem:Kmoments}
+For $s>-1$, $M(s):=\int_0^1K'(k)k^s\dd k=\frac\pi4\Gamma(\frac{s+1}2)^2/\Gamma(\frac s2+1)^2$. In particular $M(2n)=\frac{\pi^2}4a_n$ and $M'(2n)=-\int_0^1K'(k)k^{2n}\log(1/k)\dd k=\frac{\pi^2}2a_nh_n$.
+\end{lemma}
+\begin{proof}
+$K'(k)=\frac\pi2\sum_ma_m(1-k^2)^m$; with $x=k^2$, $c=\frac{s+1}2$ and Tonelli,
+\[M(s)=\frac\pi4\sum_ma_m\,m!\,\Gamma(c)/\Gamma(c+m+1)=\frac\pi{4c}{}_2F_1(\frac12,\frac12;c+1;1)=\frac\pi4\frac{\Gamma(c)^2}{\Gamma(c+\frac12)^2}\]
+by (Z5). Differentiation under the integral is legitimate, and $M'(s)/M(s)=\psi(\frac{s+1}2)-\psi(\frac s2+1)$ equals $2h_n$ at $s=2n$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:Z}]
+By Tonelli and Lemma~\ref{lem:Kmoments}, $\int_0^1KK'=\frac\pi2\sum a_nM(2n)=\frac{\pi^3}8S_0$, and, using (Z3) (all terms positive),
+$\int_0^1K'^2=\sum_na_n\bigl(\int_0^1K'k^{2n}\log\frac1k\dd k-2h_nM(2n)\bigr)=\sum_na_n\bigl(-\frac{\pi^2}2a_nh_n-\frac{\pi^2}2a_nh_n\bigr)=-\pi^2S_1$. With Lemma~\ref{lem:Lmoments} this gives $L(f,1)$ and $L(f,2)$.
+For $r=t=\frac12$, $\Gamma(r)\Gamma(1-r)\Gamma(t)\Gamma(1-t)=\pi^2$, and the left side of \eqref{eq:Zud5} is $\pi^{-2}Y(\varepsilon)/N(\varepsilon)$ in the notation of \S\ref{sec:U2}; so $F_j(1)=\tau_j/\pi^2$, i.e.\ $F_0(1)=S_0$, $F_1(1)=8S_1$, and by Proposition~\ref{prop:bilateral} $F_2(1)=2\pi^2S_0$, $F_3(1)=\frac{4\pi^2}3F_1(1)$. The ratios follow; the denominators are nonzero since $S_0>0>S_1$.
+\end{proof}
+
+\subsection{\texorpdfstring{The cases $(\frac12,\frac14)$ and $(\frac12,\frac13)$}{The cases (1/2,1/4) and (1/2,1/3)}}
+For $r=\frac12$ and $0<t<\frac12$, \eqref{eq:Zud5} reads $F(\varepsilon):=\frac1{\pi\Gamma(t)\Gamma(1-t)}\sum_{n\ge0}\frac{\Gamma(\frac12+\varepsilon+n)^2\Gamma(t+\varepsilon+n)\Gamma(1-t+\varepsilon+n)}{\Gamma(1+\varepsilon+n)^4}=\sum_jF_j\varepsilon^j+O(\varepsilon^4)$, where we write $F_j$ for $F_j(1)$. Let $\eta_m:=\eta(m\tau)$ and $f_2:=\eta_2^4\eta_4^4$ (the form of Proposition~\ref{prop:Z}).
+
+\begin{theorem}[$(r,t)=(\frac12,\frac14)$]\label{thm:Z2}
+Let $f=\eta_4^{16}/(\eta_2^4\eta_8^4)$. Then
+\[
+F_1=-\frac{32}\pi L(f_2,2)=-8L(f,1),\quad F_2=32\pi L(f_2,1)=32L(f,2),\quad F_3=\frac{7\pi^2}3F_1=-\frac{448}3L(f,3);
+\]
+equivalently $F_1=-2\pi S_0$, $F_2=-16\pi S_1$.
+\end{theorem}
+
+\begin{theorem}[$(r,t)=(\frac12,\frac13)$]\label{thm:Z3}
+Let $f=\eta_6^{14}/(\eta_2^3\eta_{18}^3)-3\eta_2^3\eta_6^2\eta_{18}^3$ and $g:=\eta_2^6\eta_6^2+9\eta_2^3\eta_6^2\eta_{18}^3$. Then $f=g\otimes\chi_{-3}$ and
+\[
+F_1=-\frac{12\sqrt3}\pi L(g,2)=-3L(f,1),\quad F_2=8\sqrt3\,\pi L(g,1)=18L(f,2),\quad F_3=\frac{5\pi^2}3F_1=-90L(f,3).
+\]
+\end{theorem}
+
+In both cases the proof also gives $F_0$ as an \emph{incomplete} period: $F_0^{(1/2,1/4)}=64\int_{1/\sqrt8}^\infty f_2(it)\dd t$ and $F_0^{(1/2,1/3)}=12\sqrt3\int_{1/\sqrt3}^\infty g(it/2)\dd t$. We expect, but do not prove, that $F_0$ is not a rational multiple of an $L$-value of $f$ (cf.\ \cite[Remark~2]{Zud}).
+
+\subsubsection{\texorpdfstring{Three lemmas for $r=\frac12$}{Three lemmas for r=1/2}}
+Let $c(s):=\Gamma(s+\frac12)/(\Gamma(\frac12)\Gamma(s+1))$ and $u_t(s):=\frac{\Gamma(s+\frac12)\Gamma(s+t)\Gamma(s+1-t)}{\Gamma(\frac12)\Gamma(t)\Gamma(1-t)\Gamma(s+1)^3}$, so $F(\varepsilon)=\sum_{n\ge0}c(n+\varepsilon)u_t(n+\varepsilon)$; let
+\[
+U(x,\varepsilon):=\sum_{n\ge0}u_t(n+\varepsilon)x^{n+\varepsilon},\qquad U_j:=[\varepsilon^j]U,\qquad D_t:=\theta^3-x(\theta+\tfrac12)(\theta+t)(\theta+1-t),
+\]
+the operator of ${}_3F_2(\frac12,t,1-t;1,1;x)$.
+
+\begin{lemma}\label{lem:Zint}
+$F_j=\frac1\pi\int_0^1U_j(x)\frac{\dd x}{\sqrt{x(1-x)}}$ for $j\ge0$.
+\end{lemma}
+\begin{proof}
+$c(s)=\frac1\pi\int_0^1x^s\frac{\dd x}{\sqrt{x(1-x)}}$ for $\Re s>-\frac12$. For complex $|\varepsilon|\le\frac18$ (inside the disc $|\varepsilon|<t$ of holomorphy of $u_t$), $|u_t(n+\varepsilon)|\le C(n+1)^{-3/2}$, so $\sum_n|u_t(n+\varepsilon)|x^{n-1/8}\le C'x^{-1/8}$, which is integrable against $\dd x/\sqrt{x(1-x)}$. Fubini and Cauchy's formula give the claim.
+\end{proof}
+
+\begin{lemma}\label{lem:Uj}
+$D_tU_j=0$ on $(0,1)$ for $j=0,1,2$, and as $x\to0^+$: $U_0=1+o(1)$, $U_1=\log(x/M_t)+o(1)$, $U_2=\frac12\log^2(x/M_t)+c_t+o(1)$, with $M_{1/4}=256$, $M_{1/3}=108$, $c_t=\pi^2/(2\sin^2\pi t)$. A solution of $D_tv=0$ on $(0,\delta)$ with $v(x)\to0$ as $x\to0^+$ vanishes identically.
+\end{lemma}
+\begin{proof}
+$u_t(s+1)(s+1)^3=u_t(s)(s+\frac12)(s+t)(s+1-t)$ gives $D_tU=\varepsilon^3u_t(\varepsilon)x^\varepsilon$. Next, $U=u_t(\varepsilon)x^\varepsilon(1+xR(x,\varepsilon))$ with $R$ bounded for $|\varepsilon|\le\frac18$, $x\le\frac12$, and $\log u_t(\varepsilon)=-\varepsilon\log M_t+c_t\varepsilon^2+O(\varepsilon^3)$, using $\psi(\frac12)=\psi(1)-2\log2$, $\psi(t)+\psi(1-t)-2\psi(1)=-6\log2$ resp.\ $-3\log3$, $\psi'(t)+\psi'(1-t)=\pi^2/\sin^2\pi t$ and $\psi'(\frac12)=3\psi'(1)=\pi^2/2$. The local exponents at $0$ are $0,0,0$, so the solutions are spanned by functions with leading terms $1,\log x,\log^2x$, and no nontrivial combination tends to $0$.
+\end{proof}
+
+\begin{lemma}\label{lem:F3F1}
+For $0<t<\frac12$: $F_3=(\csc^2\pi t+\frac13)\pi^2F_1$.
+\end{lemma}
+\begin{proof}
+Let $\mathcal B(u):=\frac1{\pi\Gamma(t)\Gamma(1-t)}\sum_{n\in\Z}\frac{\Gamma(\frac12+u+n)^2\Gamma(t+u+n)\Gamma(1-t+u+n)}{\Gamma(1+u+n)^4}$. For $n\to+\infty$ the terms are $O(n^{-2})$; for $n=-m$ the reflection formula $\Gamma(\rho+u-m)/\Gamma(1+u-m)=-\frac{\sin\pi u}{\sin\pi(u+\rho)}\frac{\Gamma(m-u)}{\Gamma(m+1-\rho-u)}$ shows that the term is $\frac{\sin^4\pi u}{\prod_\rho\sin\pi(u+\rho)}\prod_\rho\frac{\Gamma(m-u)}{\Gamma(m+1-\rho-u)}$, $\rho\in\{\frac12,\frac12,t,1-t\}$, which is $O(m^{-2})$. Hence $\mathcal B$ is meromorphic and $1$-periodic, with at most a double pole at $u\equiv\frac12$ and simple poles at $u\equiv\pm t$ (mod 1); the terms with $n<0$ vanish to order $4$ at $u=0$, so $\mathcal B(u)=F(u)+O(u^4)$. For $|\Im u|\ge1$, uniformly in $\Re u$, each term is $O(|u+n|^{-2})$: for the terms with $n\ge0$ this follows from Stirling's formula, which holds uniformly in $|\arg z|\le\pi-\delta$ and applies since $|\Im(u+n)|\ge1$; for $n<0$ use the reflected form, in which the trigonometric factor is bounded. So $\mathcal B(u)=O(1/|\Im u|)$. Subtracting principal parts leaves a bounded entire periodic function, so
+\[
+\mathcal B(u)=A\pi^2\sec^2\pi u+C_0\pi\cot\pi(u+\tfrac12)+C_1\pi\cot\pi(u+t)+C_2\pi\cot\pi(u-t)+K_0,
+\]
+and the limits at $\pm i\infty$ ($\cot\to\mp i$) give $K_0=0$ and $C_0+C_1+C_2=0$. With $\varsigma_\rho:=\csc^2\pi\rho$, $\pi\cot\pi(u+\rho)=\pi\cot\pi\rho-\pi^2\varsigma_\rho u+\pi^3\cot\pi\rho\,\varsigma_\rho u^2-\frac{\pi^4}3\varsigma_\rho(3\varsigma_\rho-2)u^3+\cdots$ (\file{Z/verify/z2_symbolic.py}), $\varsigma_{1/2}=1$, $\varsigma_{-t}=\varsigma_t$, and $\sec^2$ is even. Hence $F_1=-\pi^2(C_0+(C_1+C_2)\varsigma_t)=-\pi^2(C_1+C_2)(\varsigma_t-1)$ and $F_3=-\frac{\pi^4}3(C_0+(C_1+C_2)\varsigma_t(3\varsigma_t-2))=-\frac{\pi^4}3(C_1+C_2)(\varsigma_t-1)(3\varsigma_t+1)$.
+\end{proof}
+
+\subsubsection{Classical facts}
+Jacobi thetas at $\sigma=iy$ (nome $e^{-\pi y}$), $k:=\theta_2^2/\theta_3^2$, $k'=\theta_4^2/\theta_3^2$.
+(J1) $\frac2\pi K(k)=\theta_3^2$, $K'(k)/K(k)=y$, $\dd k/\dd y=-\frac\pi2k\theta_4^4$; $K(\sqrt\lambda)$ and $K(\sqrt{1-\lambda})$ solve $H_{1/2}$: $\lambda(1-\lambda)w''+(1-2\lambda)w'-\frac14w=0$. So $\theta_3^2$ and $y\theta_3^2$ solve $H_{1/2}$ as functions of $\lambda=k^2$.
+(J2) $\theta_2^2(\sigma)=\frac12(\theta_3^2-\theta_4^2)(\sigma/2)$, $\theta_3^2(\sigma)=\frac12(\theta_3^2+\theta_4^2)(\sigma/2)$, $\theta_4^2(\sigma)=\theta_3\theta_4(\sigma/2)$, $\theta_3^4=\theta_2^4+\theta_4^4$; hence $k(2y)=(1-k'(y))/(1+k'(y))$ and $k'(1/y)=k(y)$.
+(J3) $f_2(\tau)=\theta_2^4\theta_3^2\theta_4^2(2\tau)/16$ and $f_2(-1/(8\tau))=64\tau^4f_2(\tau)$ (Lemma~\ref{lem:Lmoments}).
+Borweins' cubic theta functions at $\tau=iy$, $q=e^{-2\pi y}$: $a=\sum_{m,n}q^{m^2+mn+n^2}$, $b=\eta(\tau)^3/\eta(3\tau)$, $c=3\eta(3\tau)^3/\eta(\tau)$ \cite{BBG,BBG2}.
+(B1) $a^3=b^3+c^3$; $a(q)=b(q)+3c(q^3)$; with $h:=c^3/a^3\in(0,1)$, ${}_2F_1(\frac13,\frac23;1;h)=a$ for all $y>0$.
+(B2) $a(-1/(3\tau))=-i\sqrt3\,\tau\,a(\tau)$, $b(-1/(3\tau))=-i\sqrt3\,\tau\,c(\tau)$; hence $h(1/(3y))=1-h(y)$, and $a$ and ${}_2F_1(\frac13,\frac23;1;1-h)=\sqrt3\,y\,a$ solve $H_{1/3}$: $h(1-h)w''+(1-2h)w'-\frac29w=0$.
+Transformations in operator form, each verified as an exact identity in $\Q(h,t)[w,w']$ with $w''$ eliminated (\file{Z/verify/z2_symbolic.py}, (S1)--(S3)):
+(T1, Clausen) if $w_1,w_2$ solve $H_t$ in the variable $h$, then $w_1w_2$ is annihilated by $D_t$ in the variable $x=4h(1-h)$;
+(T2, Pfaff) if $w$ solves $H_{1/2}$, so does $(1-\lambda)^{-1/2}w(\lambda/(\lambda-1))$;
+(T3, Whipple) if $v$ solves $D_{1/4}$ in the variable $X$, then $(1-z)^{-1/2}v(-4z/(1-z)^2)$ solves $D_{1/2}$ in the variable $z$.
+
+\subsubsection{\texorpdfstring{The parametrisation for $t=\frac14$}{The parametrisation for t=1/4}}
+For $y>0$ put $P:=\theta_3^4+\theta_2^4$, $z:=-4\theta_2^4\theta_3^4/\theta_4^8=-4k^2/k'^4$ and $X:=-4z/(1-z)^2=16\theta_2^4\theta_3^4\theta_4^8/P^4$ (note $1-z=P^2/\theta_4^8$).
+
+\begin{proposition}\label{prop:paramA}
+\textup{(i)} $y\mapsto X$ is a decreasing bijection $(\sqrt2,\infty)\to(0,1)$, and $\log(X/256)=-\pi y+O(e^{-\pi y})$.
+\textup{(ii)} On $y>\sqrt2$: $U_0(X)=P$, $U_1(X)=-\pi yP$, $U_2(X)=(\frac{\pi^2y^2}2+\pi^2)P$.
+\textup{(iii)} $\dd X/\dd y=-4\pi\theta_2^2\theta_3^2\theta_4^4\sqrt{X(1-X)}/P$.
+\end{proposition}
+\begin{proof}
+(i), (iii): by (J1), $\frac{\dd}{\dd y}\log k^2=-\pi\theta_4^4$, so $\frac{\dd z}{\dd y}=z\cdot(-\pi\theta_4^4)\frac{1+k^2}{1-k^2}=-\pi zP>0$; $z$ increases from $-\infty$ to $0$, and $z=-1$ iff $k'^2=2k$ iff $k=\sqrt2-1$. By (J2), $k(\sqrt2)=(1-k(\sqrt2))/(1+k(\sqrt2))$, so $k(\sqrt2)=\sqrt2-1$ and $z(\sqrt2)=-1$. On $z\in(-1,0)$, $\frac{\dd X}{\dd z}=-4(1+z)/(1-z)^3<0$ and $\sqrt{X(1-X)}=2\sqrt{-z}(1+z)/(1-z)^2$; hence $\frac{\dd X}{\dd y}=-2\pi\sqrt{-z}\,P\sqrt{X(1-X)}/(1-z)$, which is (iii) because $\sqrt{-z}=2\theta_2^2\theta_3^2/\theta_4^4$. The asymptotics follow from $\theta_2^4=16e^{-\pi y}(1+O(e^{-2\pi y}))$.
+(ii): by (J1) and (T2) with $\lambda=k^2$ and $\lambda/(\lambda-1)=-\theta_2^4/\theta_4^4=:\lambda_-$, the functions $(1-\lambda_-)^{-1/2}\theta_3^2=\theta_4^2$ and $y\theta_4^2$ solve $H_{1/2}$ in the variable $\lambda_-$ ((T2) is an involution). By (T1), $\theta_4^4\cdot\{1,y,y^2\}$ are annihilated by $D_{1/2}$ in the variable $z=4\lambda_-(1-\lambda_-)$. By (T3), $v\mapsto(1-z)^{-1/2}v(X(z))$ maps the solution space of $D_{1/4}$ on $X\in(0,1)$ injectively, hence (both have dimension 3) bijectively, onto that of $D_{1/2}$ on $z\in(-1,0)$; so $(1-z)^{1/2}\theta_4^4\{1,y,y^2\}=P\{1,y,y^2\}$ solve $D_{1/4}$ as functions of $X$. By (i), as $y\to\infty$, $P\to1$, $-\pi yP-\log(X/256)\to0$ and $(\frac{\pi^2y^2}2+\pi^2)P-\frac12\log^2(X/256)-\pi^2\to0$; Lemma~\ref{lem:Uj} gives (ii).
+\end{proof}
+
+\begin{corollary}\label{cor:A}
+With $p_0=1$, $p_1=-\pi y$, $p_2=\frac{\pi^2y^2}2+\pi^2$: $F_j=4\int_{\sqrt2}^\infty p_j(y)\,\theta_2^2\theta_3^2\theta_4^4(iy)\dd y=64\int_{1/\sqrt8}^\infty p_j(4t)f_2(it)\dd t$ for $j=0,1,2$.
+\end{corollary}
+\begin{proof}
+Lemma~\ref{lem:Zint}, Proposition~\ref{prop:paramA}, and $\theta_2^2\theta_3^2\theta_4^4(\sigma)=\frac14\theta_2^4\theta_3^2\theta_4^2(\sigma/2)=4f_2(\sigma/4)$ by (J2), (J3); then $y=4t$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:Z2}, first part]
+Let $\rho_m:=\int_0^\infty f_2(it)t^m\dd t=m!(2\pi)^{-m-1}L(f_2,m+1)$ (proof of Lemma~\ref{lem:Lmoments}). The substitution $t\mapsto1/(8t)$ and (J3) give $\int_0^{1/\sqrt8}f_2(it)t\dd t=\int_{1/\sqrt8}^\infty f_2(it)t\dd t$ and $\int_0^{1/\sqrt8}f_2(it)\dd t=\int_{1/\sqrt8}^\infty8t^2f_2(it)\dd t$. Hence, by Corollary~\ref{cor:A},
+\begin{align*}
+F_1&=-256\pi\int_{1/\sqrt8}^\infty tf_2(it)\dd t=-128\pi\rho_1=-\frac{32}\pi L(f_2,2),\\ F_2&=64\pi^2\int_{1/\sqrt8}^\infty(8t^2+1)f_2(it)\dd t=64\pi^2\rho_0=32\pi L(f_2,1),
+\end{align*}
+and $F_3=\frac{7\pi^2}3F_1$ by Lemma~\ref{lem:F3F1}. With Proposition~\ref{prop:Z}, $F_1=-2\pi S_0$ and $F_2=-16\pi S_1$. The $L$-values of $f$ are computed in Proposition~\ref{prop:twist}.
+\end{proof}
+
+\subsubsection{\texorpdfstring{The case $t=\frac13$}{The case t=1/3}}
+For $y>0$ put $x:=4h(1-h)$, $h=c^3/a^3$, and $g_0(\tau):=a(q)\eta(\tau)^3\eta(3\tau)^3$.
+
+\begin{proposition}\label{prop:paramB}
+\textup{(i)} $\dd h/\dd y=-2\pi h(1-h)a^2$; $y\mapsto x$ is a decreasing bijection $(1/\sqrt3,\infty)\to(0,1)$; $\log(x/108)=-2\pi y+O(e^{-2\pi y})$.
+\textup{(ii)} On $y>1/\sqrt3$: $U_0(x)=a^2$, $U_1(x)=-2\pi ya^2$, $U_2(x)=(2\pi^2y^2+\frac{2\pi^2}3)a^2$.
+\textup{(iii)} $\dd x/\dd y=-12\sqrt3\,\pi\,\eta(iy)^3\eta(3iy)^3\sqrt{x(1-x)}/a$.
+\end{proposition}
+\begin{proof}
+(i) $w_1=a$ and $w_2=\sqrt3ya$ solve $H_{1/3}$ in the variable $h$; as functions of $y$, the chain rule gives $\mathcal W(h(y))\,h'(y)=\sqrt3a^2$ for their Wronskian $\mathcal W$ with respect to $h$, and Abel's formula gives $\mathcal W=C/(h(1-h))$. As $y\to\infty$, $h=27q(1+O(q))$ and $y=-\log q/(2\pi)$, so $C=-\sqrt3/(2\pi)$ and $h'=-2\pi h(1-h)a^2<0$. Thus $h$ decreases from $1$ to $0$, $h(1/\sqrt3)=\frac12$ by (B2), and $x=4h(1-h)$ increases with $h$ on $(0,\frac12)$.
+(iii) $\dd x/\dd y=4(1-2h)\dd h/\dd y$, $\sqrt{x(1-x)}=2\sqrt{h(1-h)}(1-2h)$, $\sqrt{h(1-h)}=(bc)^{3/2}/a^3=3\sqrt3\eta(\tau)^3\eta(3\tau)^3/a^3$.
+(ii) By (T1), $a^2\{1,y,y^2\}$ are annihilated by $D_{1/3}$ in the variable $x$; compare asymptotics using (i) and Lemma~\ref{lem:Uj}.
+\end{proof}
+
+By Lemma~\ref{lem:Zint}, with $p_0=1$, $p_1=-2\pi y$, $p_2=2\pi^2(y^2+\frac13)$: $F_j=12\sqrt3\int_{1/\sqrt3}^\infty p_j(y)g_0(iy)\dd y$. By (B1), $g_0=(b(q)+3c(q^3))\eta_1^3\eta_3^3=\eta_1^6\eta_3^2+9\eta_1^3\eta_3^2\eta_9^3$, so $g(\tau)=g_0(2\tau)$ is the form of Theorem~\ref{thm:Z3}; write $g=\sum\alpha_nq^n$ ($\alpha_n=0$ for even $n$). By (B2) and (Z4), $g_0(-1/(3\tau))=9\tau^4g_0(\tau)$. Hence $g_0(iy)=O(e^{-\pi y})$ at $\infty$ and $O(y^{-4}e^{-\pi/(3y)})$ at $0$, $\rho_m:=\int_0^\infty g_0(iy)y^m\dd y=m!\pi^{-m-1}L(g,m+1)$ (this defines the continuation of $L(g,s)=\sum\alpha_nn^{-s}$), and $y\mapsto1/(3y)$ gives $\int_0^{1/\sqrt3}g_0y\dd y=\int_{1/\sqrt3}^\infty g_0y\dd y$, $\int_0^{1/\sqrt3}g_0\dd y=\int_{1/\sqrt3}^\infty3y^2g_0\dd y$ and $\rho_2=\rho_0/3$. Therefore
+\begin{align*}
+F_1&=-24\sqrt3\pi\int_{1/\sqrt3}^\infty yg_0(iy)\dd y=-12\sqrt3\pi\rho_1=-\frac{12\sqrt3}\pi L(g,2),\\ F_2&=24\sqrt3\pi^2\int_{1/\sqrt3}^\infty(y^2+\tfrac13)g_0(iy)\dd y=8\sqrt3\pi^2\rho_0=8\sqrt3\pi L(g,1),
+\end{align*}
+and $F_3=\frac{5\pi^2}3F_1$ by Lemma~\ref{lem:F3F1}. ($g_0(iy)>0$, so $\rho_0,\rho_1>0$.)
+
+\subsubsection{The twists}
+\begin{lemma}\label{lem:twistid}
+\textup{(a)} $\eta_4^{16}/(\eta_2^4\eta_8^4)=f_2\otimes\chi_{-4}$, and $f_2(\tau/(4\tau+1))=-(4\tau+1)^4f_2(\tau)$.
+\textup{(b)} $\eta_6^{14}/(\eta_2^3\eta_{18}^3)-3\eta_2^3\eta_6^2\eta_{18}^3=g\otimes\chi_{-3}$, and $g_0(\tau/(3\tau+1))=-(3\tau+1)^4g_0(\tau)$, $g_0(\tau+1)=-g_0(\tau)$.
+\end{lemma}
+\begin{proof}
+\emph{Transformation laws.} $f_2(\tau+\frac12)=-f_2(\tau)$ (only odd powers of $q$ occur) and $g_0(\tau+1)=-g_0(\tau)$ ($\eta_1^3\eta_3^3$ has the factor $q^{1/2}$). With $W_N:\tau\mapsto-1/(N\tau)$ and $T^\alpha:\tau\mapsto\tau+\alpha$, the map $\tau\mapsto\tau/(4\tau+1)$ is $W_8T^{-1/2}W_8^{-1}$ and $\tau\mapsto\tau/(3\tau+1)$ is $W_3T^{-1}W_3^{-1}$; conjugate by the Fricke relations $f_2(-1/(8\tau))=64\tau^4f_2(\tau)$, $g_0(-1/(3\tau))=9\tau^4g_0(\tau)$.
+\emph{Identities of forms.} In (a), the eta quotient lies in $M_4(\Gamma_0(16))$ and $f_2\in M_4(\Gamma_0(8))$; in (b), each of the eta quotients $\eta_6^{14}\eta_2^{-3}\eta_{18}^{-3}$, $\eta_2^3\eta_6^2\eta_{18}^3$ and $\eta_2^6\eta_6^2$ satisfies the congruence and character conditions of Gordon--Hughes--Newman \cite[Thm.~1.64]{Ono} and is holomorphic at all cusps of $\Gamma_0(36)$ by Ligozat's formula \cite{Lig}, \cite[Thm.~1.65]{Ono} (\file{Z/verify/z2_symbolic.py}, (S5)), so both $f$ and $g$ lie in $M_4(\Gamma_0(36))$. Twisting a form in $M_4(\Gamma_0(N))$ by a primitive quadratic character of conductor $m$ gives a form in $M_4(\Gamma_0(Nm^2))$ \cite[Prop.~3.64]{Shi}. So both sides of (a) lie in $M_4(\Gamma_0(128))$ and both sides of (b) in $M_4(\Gamma_0(324))$, whose Sturm bounds \cite{Stu} are $64$ and $216$. The $q$-expansions agree for $n<400$ (\file{Z/verify/z2_numeric.py}).
+\end{proof}
+
+\begin{proposition}\label{prop:twist}
+\textup{(a)} For $f=f_2\otimes\chi_{-4}$: $L(f,1)=\frac4\pi L(f_2,2)$, $L(f,2)=\pi L(f_2,1)$, $L(f,3)=\frac\pi2L(f_2,2)$ (these are \cite[(30), (31)]{RWZ}, proved there by other means).
+\textup{(b)} For $f=g\otimes\chi_{-3}$: $L(f,1)=\frac{4\sqrt3}\pi L(g,2)$, $L(f,2)=\frac{4\sqrt3\pi}9L(g,1)$, $L(f,3)=\frac{2\sqrt3\pi}9L(g,2)$.
+\end{proposition}
+\begin{proof}
+(b) $\chi_{-3}(n)=(\zeta^n-\zeta^{-n})/(i\sqrt3)$ with $\zeta=e^{2\pi i/3}$, so $f(\tau)=(g(\tau+\frac13)-g(\tau-\frac13))/(i\sqrt3)$; with $g(\tau)=g_0(2\tau)$, $g_0(w\pm1)=-g_0(w)$ and real coefficients, $f(it)=\frac2{\sqrt3}\Im g_0(\frac13+2it)$. Put $\gamma:=\begin{psmallmatrix}1&0\\3&1\end{psmallmatrix}$; $\gamma(0)=0$, $\gamma(\infty)=\frac13$, and $g_0(\frac13+2it)=-(i/(6t))^4g_0(\gamma^{-1}(\frac13+2it))$ with $\Im\gamma^{-1}(\frac13+2it)=1/(18t)$, so $f(it)$ decays exponentially as $t\to0$ too, and $\Lambda_f(s):=\int_0^\infty f(it)t^{s-1}\dd t=\Gamma(s)(2\pi)^{-s}L(f,s)$ for all $s$. For $j=0,1,2$,
+\[
+\Lambda_f(j+1)=\frac2{\sqrt3}2^{-j-1}\Im I_j,\qquad I_j:=\int_0^\infty g_0(\tfrac13+iy)y^j\dd y=i^{-j-1}\int_{1/3}^{i\infty}g_0(w)(w-\tfrac13)^j\dd w.
+\]
+By Cauchy's theorem on the ideal triangle with vertices $0,\frac13,i\infty$, $\int_{1/3}^{i\infty}=\int_0^{i\infty}-\int_0^{1/3}$, the last integral along $\gamma(i\R_+)$. (The integrand is a cusp form for a congruence subgroup and decays exponentially at the three cusps; in the local coordinate at each cusp the triangle becomes a vertical half-strip of bounded width, so the contributions of truncating arcs tend to $0$.) With $w=\gamma\tau$: $w-\frac13=-1/(3(3\tau+1))$, $\dd w=\dd\tau/(3\tau+1)^2$, $g_0(w)=-(3\tau+1)^4g_0(\tau)$, so $\int_0^{1/3}g_0(w)(w-\frac13)^j\dd w=(-1)^{j+1}3^{-j}\int_0^{i\infty}g_0(\tau)(3\tau+1)^{2-j}\dd\tau$. With $r_m:=\int_0^{i\infty}g_0(\tau)\tau^m\dd\tau=i^{m+1}\rho_m$ and $\rho_2=\rho_0/3$:
+\begin{align*}
+j=0:&\ \textstyle\int_{1/3}^{i\infty}=r_0+(9r_2+6r_1+r_0)=-i\rho_0-6\rho_1,&& I_0=-\rho_0+6i\rho_1;\\
+j=1:&\ \textstyle\int_{1/3}^{i\infty}=(r_1-\frac{r_0}3)-\frac13(3r_1+r_0)=-\frac23i\rho_0,&& I_1=\tfrac23i\rho_0;\\
+j=2:&\ \textstyle\int_{1/3}^{i\infty}=(r_2-\frac23r_1+\frac{r_0}9)+\frac{r_0}9=-\frac{i\rho_0}9+\frac23\rho_1,&& I_2=\tfrac{\rho_0}9+\tfrac23i\rho_1.
+\end{align*}
+Hence $\Lambda_f(1)=2\sqrt3\rho_1$, $\Lambda_f(2)=\rho_0/(3\sqrt3)$, $\Lambda_f(3)=\rho_1/(6\sqrt3)$; insert $\rho_0=L(g,1)/\pi$, $\rho_1=L(g,2)/\pi^2$.
+(a) Likewise $f(it)=\Im f_2(\frac14+it)$, $\gamma=\begin{psmallmatrix}1&0\\4&1\end{psmallmatrix}$, $w-\frac14=-1/(4(4\tau+1))$, $f_2(\gamma\tau)=-(4\tau+1)^4f_2(\tau)$, $\rho_m:=\int_0^\infty f_2(it)t^m\dd t$, $\rho_2=\rho_0/8$, $\Lambda_f(j+1)=\Im I_j$ with $I_j=i^{-j-1}\int_{1/4}^{i\infty}f_2(w)(w-\frac14)^j\dd w$; one finds $\int_{1/4}^{i\infty}=2r_0+8r_1+16r_2=-8\rho_1$, $-\frac{r_0}2$, $r_2-\frac{r_1}2+\frac{r_0}8=\frac{\rho_1}2$ for $j=0,1,2$, so $I_0=8i\rho_1$, $I_1=\frac{i\rho_0}2$, $I_2=\frac{i\rho_1}2$, and $\Lambda_f(1)=8\rho_1$, $\Lambda_f(2)=\rho_0/2$, $\Lambda_f(3)=\rho_1/2$, with $\rho_0=L(f_2,1)/(2\pi)$, $\rho_1=L(f_2,2)/(4\pi^2)$.
+\end{proof}
+
+\begin{proof}[End of the proofs of Theorems~\ref{thm:Z2} and~\ref{thm:Z3}]
+For $(\frac12,\frac14)$: $L(f,1)/F_1=\frac{4/\pi}{-32/\pi}=-\frac18$, $L(f,2)/F_2=\frac\pi{32\pi}=\frac1{32}$, $L(f,3)/F_3=\frac{\pi/2}{(7\pi^2/3)(-32/\pi)}=-\frac3{448}$. For $(\frac12,\frac13)$: $L(f,1)/F_1=\frac{4\sqrt3/\pi}{-12\sqrt3/\pi}=-\frac13$, $L(f,2)/F_2=\frac{4\sqrt3\pi/9}{8\sqrt3\pi}=\frac1{18}$, $L(f,3)/F_3=\frac{2\sqrt3\pi/9}{(5\pi^2/3)(-12\sqrt3/\pi)}=-\frac1{90}$. All $L$-values involved are nonzero because $f_2(it)>0$ and $g_0(iy)>0$.
+\end{proof}
+
+\begin{remark}
+(1) For $r=\frac12$ the summand factors as $c(s)u_t(s)$, and the moment representation of $c$ (Lemma~\ref{lem:Zint}) keeps the first three Frobenius coefficients inside the periods of the symmetric square; for $t=\frac14,\frac13$ the function ${}_3F_2(\frac12,t,1-t;1,1;x)$ is a weight-2 modular form in a Fricke-symmetric Hauptmodul, the path $x\in(0,1)$ runs from the Fricke fixed point to the cusp, and $F_1,F_2$ become complete Mellin integrals of a form ($f_2$, resp.\ $g$) of which Zudilin's $f$ is a quadratic twist. The odd twist exchanges the parity of the critical values, which is why $F_1$ pairs with $L(f,1)$ although it is an $s=2$ value of the untwisted form.
+(2) For $(\frac12,\frac16)$ one has ${}_3F_2(\frac12,\frac16,\frac56;1,1;1728/j)=E_4^{1/2}$, and the corresponding integrand is not a holomorphic modular form; the cases with $r\ne\frac12$ need a different splitting. For the other eleven cases we found none of the relations (6) proved in the literature (our survey is recorded in \file{Z/LITERATURE-13.md}). In eight of them the root number is $-1$, so $L(f,2)=0$, and the relation for $k=2$ holds with ratio $0$ provided $F_2(1)\neq0$, which we checked only numerically. The relations for $k=1$ and $k=3$ are equivalent in every case, by \cite[Remark~5]{Zud} and Manin's periods theorem \cite{Man}, provided $F_1(1)$ and $L(f,1)$ do not vanish (again checked only numerically).
+\end{remark}
+
+\section{Numerical verification}\label{sec:num}
+
+All computations are reproducible from the scripts in \cite{code} (Python with \texttt{mpmath} and \texttt{sympy}); paths are relative to the repository root. Two kinds of checks were made: exact checks of every finite algebraic identity used in the proofs, and high-precision numerical checks of every analytic step and of the final formulas. In addition each result was re-checked by at least one independent AI referee with its own code (reports \file{U1/REFEREE-U1.md}, \file{U1/AUDIT-2.md}, \file{U2/AUDIT.md}, \file{U2/REFEREE-2-U2.md}, \file{U3/AUDIT.md}, \file{U3/REFEREE-2-U3.md}, \file{Z/AUDIT.md}, \file{Z/REFEREE-2-Z2Z3.md}).
+
+\begin{itemize}[leftmargin=1.3em]
+\item \emph{$U_1$.} \file{U1/verify/v1_operator_identity.py}: Lemma~\ref{lem:A}, exact. \file{U1/verify/v2_series_checks.py}: the recurrence, $p_{n-1}=8^nn!^5w_n$ and $q_{n-1}=8^nn!^5v_n$ for $n\le40$ in exact rational arithmetic, and the theta/Eisenstein identity of Lemma~\ref{lem:B} to $O(q^{300})$. \file{U1/verify/v3_numerics.py}: the continued fraction, evaluated by an independent method, agrees with $96/(372\zeta(5)-\pi^5)$ to 300 digits; $M(4)=\frac14$, $M(5)=186\zeta(5)/\pi^5$ to 50 digits. The referee's \file{U1/audit/a1_cf_numeric.py} evaluates the fraction from the recurrence with Richardson extrapolation and finds agreement to about 498 digits; \file{U1/audit/a5_source_value.py} reproduces the printed $1.20426$ from convergents of depth $4\cdot10^4$--$1.1\cdot10^5$.
+\item \emph{$U_2$.} \file{U2/verify/v1_wedge_identity.py} (Lemma~\ref{lem:wedge}), \file{U2/verify/v2_local_and_boundary.py} (local series, Lemma~\ref{lem:bdry}, $B_5\equiv0$), \file{U2/verify/v3_series_checks.py} (Proposition~\ref{prop:U2seq}, $n\le60$), \file{U2/verify/v5_final_algebra.py} (\S\ref{sec:U2} end), all exact; \file{U2/verify/v4_numerics.py}: every analytic statement of \S\ref{sec:U2} to 15--50 digits and the final formula against a 300-digit value of the fraction (the high-precision constants are read from \file{code/u_consts.pkl} and \file{code/f8_L.pkl}, which are produced by the scripts in the same folder, e.g.\ \file{code/u2_consts.py}); the $L$-value form of Corollary~\ref{cor:U2L} to 299 digits. A referee computed $L(f,1)$, $L(f,2)$ independently with PARI/GP (\texttt{lfunmf}) and confirmed $S_0=16L(f,2)/\pi^2$, $S_1=-2L(f,1)$ to 30 digits, and the closed form against exact convergents ($n\le3000$, Richardson) to 31 digits.
+\item \emph{$U_3$.} \file{U3/verify/u3_exact.py} (all algebraic identities of \S\ref{sec:U3}), \file{U3/verify/u3_algebra.py} (the coefficient extraction), \file{U2/verify/v6_u3_gauge.py} (Lemma~\ref{lem:gaugemap}), exact; \file{U3/verify/u3_numerics.py}: the analytic statements to 13--50 digits and the final formula against a 48-digit value of the fraction (read from \file{code/u_consts.pkl}, as above). Independent checks: \file{U3/audit/a2_numerics.py} (fraction from the recurrence to $n=1.28\cdot10^5$ with Richardson extrapolation, agreement $7.7\cdot10^{-35}$); a second referee found agreement $9.7\cdot10^{-48}$ from exact convergents to $n=6000$.
+\item \emph{Zudilin's relations.} \file{Z/verify/z_checks.py}: Proposition~\ref{prop:Z} to 25 digits and the $q$-series identities exactly to $O(q^{400})$; \file{Z/audit/audit_numerics.py}, \file{Z/audit/rwz_7f6.py}: independent check to 40 digits, including the Borwein--Straub--Wan and Rogers--Wan--Zucker forms. \file{Z/verify/z2_symbolic.py} (the transformations (T1)--(T3), the cotangent expansion, cusp orders) and \file{Z/verify/z2_numeric.py} (each step of Theorems~\ref{thm:Z2}, \ref{thm:Z3} to 15--30 digits, the twist identities for $n<400$); \file{Z/audit2/a1_frobenius.py}: independent evaluation of $F_0,\dots,F_3$ for both cases to 38 digits. The referee of Theorems~\ref{thm:Z2}, \ref{thm:Z3} computed the $L$-values with PARI/GP and the $F_j$ from \eqref{eq:Zud5} by two independent extrapolations; the six ratios agree with the stated rationals to 52--54 digits (at least 40 digits certified by the agreement of the two runs), while deliberately wrong variants (untwisted forms, swapped cases, an index shift) give no relation.
+\end{itemize}
+
+\appendix
+\section{Some misprints in published tables}\label{app:errata}
+
+While checking the literature around Table~\ref{tab:three} we noticed a few printed entries in tables of other Ramanujan Machine papers that do not match the stated formulas. We list them here in case they are useful to the authors and to readers; they do not diminish the value of these papers, whose conjectures are what made the present work possible. Each item was checked by our own evaluation to at least 40 digits; items~1 and~5 are proved; the corrected values in items~2 and~3 are numerical identifications (PSLQ); item~4 is a consistency check of the printed data.
+
+\begin{enumerate}[leftmargin=1.5em]
+\item \cite[Table~3, arXiv v2]{BHK} (notation $\mathcal C[f_n]=1+f_1/(1+f_2/(1+\cdots))$, $R_2=\sqrt{\pi e/2}\operatorname{erf}(1/\sqrt2)$): the row $\mathcal C[n/(2n(n+1))]=1/(2R_2-1)$ $(=0.549\ldots)$ should read $1/(2R_2-2)=1.2174747521\ldots$. This follows from Perron's continued fraction for ratios of contiguous Kummer functions \cite[vol.~II]{Per}; a $\mathcal C$-fraction with positive terms exceeds $1$, so the printed value cannot be right.
+\item Same table: $\mathcal C[(1-2n)/(4(n+2)(n+3))]$ is printed as $(R_2+1)/(6R_2-1)$ $(=0.3229\ldots)$; the fraction equals $0.9783165014\ldots$, which agrees with $(R_2+1)/(6R_2-6)$ to 40 digits.
+\item \cite[Table~3, arXiv v2]{ESMA}: the row with sign pattern $\{-1,-1,-1,1,1\}$ and partial denominators $1,112,2,143,1,2,2,45,\dots$ is printed as $(-12047J_1(1)+6928J_0(1))/(8(1777J_0(1)+3090J_1(1)))$ $(\approx7.6\cdot10^{-9})$; the fraction equals $0.9910312496\ldots$, which is $(6928J_0(1)-12047J_1(1))/(8(3090J_1(1)-1777J_0(1)))$ to 60 digits (note $3090J_1(1)-1777J_0(1)=J_6(1)$), i.e.\ one sign in the denominator differs.
+\item \cite[Table~1, arXiv v2]{ESMA}: in the row $(-3+5e)/(-6+6e)=1+1/(36+1/(2-1/(4-\cdots)))$ with signs $\{1,1,-1,-1\}$, the displayed fraction is consistent with the value, but the printed list of partial denominators $[2,2,18,3,3,4,3,5,2,2,6,2,\dots]$ gives $2.4862094076\ldots$; expanding $(5e-3)/(6e-6)$ with the printed signs gives $[1,36,2,4,1,8,28,2,1,12,2,2,5,180,\dots]$, so the printed list presumably belongs to another row.
+\item \cite[Table~3]{RM} (arXiv v4): in the row $3/(4e-10)=3+4/(8+20/(15+\cdots))$ the partial numerators are printed as $b_n=-(n+3)n^2$; the displayed fraction and the value correspond to $b_n=+(n+3)n^2$ (with the minus sign the value is $2.37297\ldots$). With the plus sign the identity is a rescaling of $\PCF[n+2,n]=1/(2e-5)$ and is classical.
+\end{enumerate}
+Scripts: \file{RL/verify/rl_checks.py}, \file{ESMA/verify/esma_numeric.py}, \file{E/verify/e_checks.py}.
+
+\section*{Acknowledgements}
+The results, proofs and computer code in this paper were produced by AI (Anthropic's Claude models), directed by the author; the proofs were checked by independent AI referees, and the paper has not yet been refereed by a human expert. Responsibility for any error rests with the author, who would be grateful for corrections. The author thanks the Ramanujan Machine group for making their conjectures and data public, and W.~Zudilin for the precise formulation of the relations (6) in \cite{Zud}. A companion paper \cite{Sha2} treats the factorial-reduction conjectures of \cite{BDNM}, which underlie the search algorithm of \cite{EDCK}; an earlier project of the author, on a different topic, is \cite{Sha}.
+
+\begin{thebibliography}{99}
+
+\bibitem{BHK} I.~Beit-Halachmi and I.~Kaminer, \emph{The Ramanujan Library --- automated discovery on the hypergraph of integer relations}, ICLR 2025; arXiv:2412.12361.
+
+\bibitem{BDNM} N.~Ben David, G.~Nimri, U.~Mendlovic, Y.~Manor, C.~De la Cruz Mengual and I.~Kaminer, \emph{On the connection between irrationality measures and polynomial continued fractions}, Arnold Math.\ J.\ 10 (2024), 529--566; doi:10.1007/s40598-024-00250-z; arXiv:2111.04468.
+
+\bibitem{Ber} B.~C.~Berndt, \emph{Ramanujan's Notebooks, Part II}, Springer, New York, 1989.
+
+\bibitem{Beu} F.~Beukers, \emph{Irrationality proofs using modular forms}, Ast\'erisque 147--148 (1987), 271--283.
+
+\bibitem{BGK} K.~B\"onisch, V.~Golyshev and A.~Klemm, \emph{Fibering out Calabi--Yau motives}, arXiv:2510.03939.
+
+\bibitem{BKSZ} K.~B\"onisch, A.~Klemm, E.~Scheidegger and D.~Zagier, \emph{D-brane masses at special fibres of hypergeometric families of Calabi--Yau threefolds, modular forms, and periods}, Comm.\ Math.\ Phys.\ 405 (2024), no.~6, Paper 134; arXiv:2203.09426.
+
+\bibitem{BB} J.~M.~Borwein and P.~B.~Borwein, \emph{Pi and the AGM}, Wiley, New York, 1987.
+
+\bibitem{BBG} J.~M.~Borwein, P.~B.~Borwein and F.~G.~Garvan, \emph{Some cubic modular identities of Ramanujan}, Trans.\ Amer.\ Math.\ Soc.\ 343 (1994), 35--47.
+
+\bibitem{BBG2} B.~C.~Berndt, S.~Bhargava and F.~G.~Garvan, \emph{Ramanujan's theories of elliptic functions to alternative bases}, Trans.\ Amer.\ Math.\ Soc.\ 347 (1995), 4163--4244.
+
+\bibitem{BSW} J.~M.~Borwein, A.~Straub and J.~Wan, \emph{Three-step and four-step random walk integrals}, Exp.\ Math.\ 22 (2013), 1--14; doi:10.1080/10586458.2013.748379 (preprint 2010; equation numbers in the text refer to the preprint).
+
+\bibitem{CL} E.~A.~Coddington and N.~Levinson, \emph{Theory of Ordinary Differential Equations}, McGraw--Hill, New York, 1955.
+
+\bibitem{code} R.~Sharma, \emph{Research-Math} (code, data and referee reports), \url{https://github.com/raghavs1729/Research-Math}, folder \nolinkurl{\repo}.
+
+\bibitem{Coh1} H.~Cohen, \emph{Elementary continued fractions for linear combinations of zeta and $L$ values}, arXiv:2212.01095.
+
+\bibitem{Coh2} H.~Cohen, \emph{A database of continued fractions of polynomial type}, arXiv:2409.06086.
+
+\bibitem{Coh3} H.~Cohen, \emph{Continued fractions of polynomial type: theory and encyclopedic dictionary}, arXiv:2607.06581.
+
+\bibitem{DLMF} \emph{NIST Digital Library of Mathematical Functions}, \url{https://dlmf.nist.gov}, F.~W.~J.~Olver et al., eds.
+
+\bibitem{DM} L.~Dieulefait and J.~Manoharmayum, \emph{Modularity of rigid Calabi--Yau threefolds over $\mathbb Q$}, in: Calabi--Yau Varieties and Mirror Symmetry, Fields Inst.\ Commun.\ 38, Amer.\ Math.\ Soc., 2003, 159--166.
+
+\bibitem{EHMM3} B.~Grove, L.~Long, E.~Rosen and F.-T.~Tu, \emph{The explicit hypergeometric modularity method III}, arXiv:2607.25173.
+
+\bibitem{EDCK} R.~Elimelech, O.~David, C.~De la Cruz Mengual, R.~Kalisch, W.~Berndt, M.~Shalyt, M.~Silberstein, Y.~Hadad and I.~Kaminer, \emph{Algorithm-assisted discovery of an intrinsic order among mathematical constants}, Proc.\ Natl.\ Acad.\ Sci.\ USA 121 (2024), no.~25, e2321440121; doi:10.1073/pnas.2321440121; arXiv:2308.11829.
+
+\bibitem{FO} P.~Flajolet and A.~Odlyzko, \emph{Singularity analysis of generating functions}, SIAM J.\ Discrete Math.\ 3 (1990), 216--240.
+
+\bibitem{GY} F.~Q.~Gouv\^ea and N.~Yui, \emph{Rigid Calabi--Yau threefolds over $\mathbb Q$ are modular}, Expo.\ Math.\ 29 (2011), 142--149.
+
+\bibitem{GZ} V.~Golyshev and D.~Zagier, \emph{Interpolated Ap\'ery numbers, quasiperiods of modular forms, and motivic gamma functions}, in: Integrability, Quantization, and Geometry II, Proc.\ Sympos.\ Pure Math.\ 103.2, Amer.\ Math.\ Soc., 2021.
+
+\bibitem{Lig} G.~Ligozat, \emph{Courbes modulaires de genre 1}, Bull.\ Soc.\ Math.\ France, M\'em.\ 43 (1975).
+
+\bibitem{LTYZ} L.~Long, F.-T.~Tu, N.~Yui and W.~Zudilin, \emph{Supercongruences for rigid hypergeometric Calabi--Yau threefolds}, Adv.\ Math.\ 393 (2021), 108058; arXiv:1705.01663.
+
+\bibitem{Man} Ju.~I.~Manin, \emph{Periods of parabolic forms and $p$-adic Hecke series}, Mat.\ Sb.\ 92 (1973), 378--401; English transl.\ Math.\ USSR-Sb.\ 21 (1973), 371--393.
+
+\bibitem{OEIS} OEIS Foundation, \emph{The On-Line Encyclopedia of Integer Sequences}, sequence A397472 (A.~Shvets, 2026), \url{https://oeis.org/A397472}.
+
+\bibitem{Ono} K.~Ono, \emph{The Web of Modularity: Arithmetic of the Coefficients of Modular Forms and $q$-series}, CBMS Regional Conf.\ Ser.\ Math.\ 102, Amer.\ Math.\ Soc., 2004.
+
+\bibitem{OS} R.~Osburn and A.~Straub, \emph{Interpolated sequences and critical $L$-values of modular forms}, in: Elliptic Integrals, Elliptic Functions and Modular Forms in Quantum Field Theory, Texts Monogr.\ Symbol.\ Comput., Springer, Vienna, 2019, 327--349; arXiv:1806.05207.
+
+\bibitem{Per} O.~Perron, \emph{Die Lehre von den Kettenbr\"uchen}, 3rd ed., vol.~II, Teubner, Stuttgart, 1957.
+
+\bibitem{RM} G.~Raayoni, S.~Gottlieb, Y.~Manor, G.~Pisha, Y.~Harris, U.~Mendlovic, D.~Haviv, Y.~Hadad and I.~Kaminer, \emph{Generating conjectures on fundamental constants with the Ramanujan Machine}, Nature 590 (2021), 67--73; doi:10.1038/s41586-021-03229-4; arXiv:1907.00205.
+
+\bibitem{ESMA} O.~Razon, Y.~Harris, S.~Gottlieb, D.~Carmon, O.~David and I.~Kaminer, \emph{Automated search for conjectures on mathematical constants using analysis of integer sequences}, Proc.\ ICML 2023, PMLR 202, 28809--28842; arXiv:2212.09470.
+
+\bibitem{RWZ} M.~Rogers, J.~G.~Wan and I.~J.~Zucker, \emph{Moments of elliptic integrals and critical $L$-values}, Ramanujan J.\ 37 (2015), 113--130; doi:10.1007/s11139-014-9584-5; arXiv:1303.2259.
+
+\bibitem{Sha} R.~Sharma, \emph{Rubinstein--Sarnak densities for weighted prime number races}, Zenodo, doi:10.5281/zenodo.21947101.
+
+\bibitem{Sha2} R.~Sharma, \emph{Factorial reduction for the Euler family of polynomial continued fractions}, preprint, 2026.
+
+\bibitem{Shi} G.~Shimura, \emph{Introduction to the Arithmetic Theory of Automorphic Functions}, Princeton University Press, 1971.
+
+\bibitem{Shv1} A.~Shvets, \emph{The Domb Ap\'ery-limit and a proof of the Ramanujan Machine conjecture Z2}, arXiv:2604.06239.
+
+\bibitem{Shv2} A.~Shvets, \emph{Eta-products, Eichler integrals, and the level-8 Ap\'ery limit}, arXiv:2604.14219.
+
+\bibitem{Stu} J.~Sturm, \emph{On the congruence of modular forms}, in: Number Theory (New York, 1984--85), Lecture Notes in Math.\ 1240, Springer, 1987, 275--280.
+
+\bibitem{Wan} J.~G.~Wan, \emph{Moments of products of elliptic integrals}, Adv.\ in Appl.\ Math.\ 48 (2012), 121--141; doi:10.1016/j.aam.2011.04.007; arXiv:1101.1132.
+
+\bibitem{WW} E.~T.~Whittaker and G.~N.~Watson, \emph{A Course of Modern Analysis}, 4th ed., Cambridge University Press, 1927.
+
+\bibitem{Yam} S.~Yamamoto, \emph{Proof and generalization of conjectures of Ramanujan Machine}, arXiv:2403.09729.
+
+\bibitem{Zag7} D.~Zagier, \emph{The arithmetic and topology of differential equations}, in: European Congress of Mathematics (Berlin, 2016), Eur.\ Math.\ Soc., Z\"urich, 2018, 717--776.
+
+\bibitem{Zag123} D.~Zagier, \emph{Elliptic modular forms and their applications}, in: The 1-2-3 of Modular Forms, Universitext, Springer, Berlin, 2008, 1--103.
+
+\bibitem{Zud} W.~Zudilin, \emph{A hypergeometric version of the modularity of rigid Calabi--Yau manifolds}, SIGMA 14 (2018), 086, 16 pp.; doi:10.3842/SIGMA.2018.086; arXiv:1805.00544.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,309 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage[hidelinks,pdftitle={Factorial reduction for the Euler family of polynomial continued fractions},pdfauthor={Raghav Sharma}]{hyperref}
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-\do\_\do.}
+\emergencystretch=2.5em
+
+\newtheorem{theorem}{Theorem}
+\renewcommand{\thetheorem}{\Alph{theorem}}
+\newtheorem{conjecture}{Conjecture}
+\renewcommand{\theconjecture}{1.\arabic{conjecture}}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{proposition}[lemma]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[lemma]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[lemma]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\PCF}{\operatorname{PCF}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\GCD}{\mathrm{GCD}}
+\newcommand{\den}{\operatorname{den}}
+\newcommand{\lcm}{\operatorname{lcm}}
+\newcommand{\rad}{\operatorname{rad}}
+\newcommand{\repo}{2026-11-number-theory-q-series/03-ramanujan-machine-zeta5}
+\newcommand{\file}[1]{\nolinkurl{2026-11-number-theory-q-series/03-ramanujan-machine-zeta5/#1}}
+
+\begin{document}
+
+\title{Factorial reduction for the Euler family of polynomial continued fractions}
+\author{Raghav Sharma}
+\email{raghavsharma1729@gmail.com}
+\subjclass[2020]{Primary 11J70; Secondary 11A05, 11B37, 11Y65}
+\keywords{Polynomial continued fractions, factorial reduction, greatest common divisor of convergents, Euler continued fractions, Ramanujan Machine}
+
+\begin{abstract}
+A polynomial continued fraction $a_0+b_1/(a_1+b_2/(a_2+\cdots))$ has factorial reduction if the gcd of the numerator and denominator of its $n$-th convergent is, for infinitely many $n$, as large as $c^n\,n!^{\deg a}$. Ben David, Nimri, Mendlovic, Manor, De la Cruz Mengual and Kaminer (Arnold Math.\ J.\ 2024) conjectured that this happens exactly for certain families. We prove their Conjecture~1.3 --- factorial reduction for the ``Euler family'' $b_n=-H_1(n)H_2(n)$, $a_n=H_1(n+1)+H_2(n)$ --- whenever the shifted roots are not positive integers, with an exact formula for the gcd; this extends an example of O.~David. Outside this range the printed conjecture is false. We prove the ``if'' half of their Conjecture~1.4 (degree $(1,2)$) when the roots of $b_n$ are not both positive integers (it fails otherwise), and, for the two-step gcd $\GCD2_n=\gcd(p_n,q_n,p_{n-1},q_{n-1})$ that they introduce, the full characterisation: for non-terminating fractions of degree $(1,2)$, $\GCD2_n$ has factorial size if and only if $a_n$ lies in the conjectured families (one misprint corrected), and is at most $C^n\sqrt{n!}$ otherwise. The key step is a characteristic-$p$ argument showing that certain primes never divide two consecutive gcds. Hence their Conjecture~3 ($\GCD2_n\doteq\GCD_n$), for non-terminating fractions of degree $(1,2)$, would imply the ``only if'' halves of Conjectures~1.1 and~1.4 there. We also list printed statements that fail as stated.
+\end{abstract}
+
+\maketitle
+
+\noindent\fbox{\parbox{0.97\linewidth}{\small\textbf{Disclosure.} The results, proofs and computer code in this paper were produced by AI (Anthropic's Claude models), directed by the author. The proofs were checked by independent AI referees instructed to find errors, working with their own code. The paper has not yet been refereed by a human expert. Code and referee reports: \url{https://github.com/raghavs1729/Research-Math}, folder \nolinkurl{\repo/FR}.}}
+
+\section{Introduction}
+
+\subsection{Definitions and the conjectures}
+For polynomials $a,b$ we write $\PCF[a_n,b_n]=a_0+b_1/(a_1+b_2/(a_2+\cdots))$, with convergents $p_n/q_n$ given by $u_n=a_nu_{n-1}+b_nu_{n-2}$ $(n\ge1)$, $(p_{-1},p_0)=(1,a_0)$, $(q_{-1},q_0)=(0,1)$, and put $\GCD_n:=\gcd(p_n,q_n)$. Following \cite[\S2.1]{BDNM}, $\PCF[a_n,b_n]$ (with integer-valued $a,b$) has \emph{factorial reduction} (FR) if
+\[
+\limsup_{n\to\infty}\frac1n\log\frac{\GCD_n}{n!^{\deg a}}>-\infty .
+\]
+The authors of \cite{BDNM} work with integer polynomials and notes that the rational formulation is equivalent ``by multiplying $a_n$ and $b_n$ by a constant''. Accordingly, for $a,b\in\Q[n]$ we say that $\PCF[a_n,b_n]$ has FR if $\PCF[ca_n,c^2b_n]$ has FR for one (equivalently every) integer $c\ge1$ making $ca$, $c^2b$ integer-valued; this does not depend on $c$, because this ``inflation'' multiplies $(p_n,q_n)$ by $(c^{n+1},c^n)$. The conjectures of \cite[\S2.3]{BDNM} read:
+
+\begin{conjecture}
+Given a polynomial $b_n$, there exists an $a_n$ for which $\PCF[a_n,b_n]$ has FR if and only if $b_n$ is decomposable to linear factors over $\Q$.
+\end{conjecture}
+\begin{conjecture}
+For each $b_n$ that is decomposable to linear factors over $\Q$, there exists at least one infinite family of $a_n$'s for which every $\PCF[a_n,b_n]$ has FR. Such a family is presented in Conjecture~1.3.
+\end{conjecture}
+\begin{conjecture}
+For any $d\in\mathbb N$, and $B,x_1,\dots,x_{2d}\in\Q$, the following $\PCF[a_n,b_n]$ has FR:
+\[
+b_n=B\prod_{i=1}^{2d}(n-x_i),\qquad a_n=\frac Bm\prod_{i=1}^d(n+1-x_i)-m\prod_{i=d+1}^{2d}(n-x_i)
+\]
+for any $m\in\Q\setminus\{0,\pm\sqrt{|B|}\}$.
+\end{conjecture}
+\begin{conjecture}
+For every $b_n$ of the form $b_n=B(n-x_1)(n-x_2)$ with $B,x_1,x_2\in\Q$, $\PCF[a_n,b_n]$ has FR if and only if $a_n$ belongs to one (or more) of the families
+\begin{equation}\label{eq:fam}
+a_n^{(k)}=\Bigl(\frac Bm-m\Bigr)n+k\quad\text{(Eq.~6)},\qquad a_n^{(k)}=k(2n-x_1-x_2+1)\quad\text{(Eq.~7)},
+\end{equation}
+for any $k\in\Q\setminus\{0\}$ and $m\in\Q\setminus\{0,\pm\sqrt{|B|}\}$.
+\end{conjecture}
+
+In \S2.6 of \cite{BDNM} the authors also define $\GCD2_n:=\gcd(p_n,q_n,p_{n-1},q_{n-1})$, note that $\GCD2_n\mid\GCD2_{n+1}$ and $\GCD2_n\mid\GCD_n$, and state \emph{Conjecture~3}: for any PCF, $\GCD2_n\doteq\GCD_n$ (``same exponential order'', which we read as $\frac1n\log(\GCD_n/\GCD2_n)\to0$; only the consequence that both have the same $\limsup$ of $\frac1n\log(\cdot/n!^{\deg a})$ is used below). The family of Conjecture~1.3 is the ``Euler family'' studied by O.~David \cite{Dav}: with
+\[
+H_1(n):=\frac Bm\prod_{i\le d}(n-x_i),\qquad H_2(n):=-m\prod_{i>d}(n-x_i),
+\]
+one has $a_n=H_1(n+1)+H_2(n)$ and $b_n=-H_1(n)H_2(n)$.
+
+\subsection{Results}
+Put $\Pi_j(n):=\prod_{i=1}^nH_j(i)$ and $\sigma_n:=\sum_{k=0}^n\Pi_2(k)/\Pi_1(k+1)$.
+
+\begin{theorem}[Conjecture~1.3 on its non-degenerate range]\label{thm:A}
+Let $d\ge1$, $B,m\in\Q\setminus\{0\}$ and $x_1,\dots,x_{2d}\in\Q$ with $x_1,\dots,x_d\notin\{1,2,3,\dots\}$. Then
+\[
+q_n=\Pi_1(n+1)\,\sigma_n,\qquad p_n=\Pi_1(n+1)\bigl(1+H_2(0)\sigma_n\bigr),
+\]
+so that $p_n$ and $q_n$ never vanish simultaneously ($p_n-H_2(0)q_n=\Pi_1(n+1)\neq0$). If $H_1,H_2$ are integer-valued, then $\GCD_n=|\Pi_1(n+1)|/\den(\sigma_n)$ for every $n$. There are $C,c>0$ with $\den(\sigma_n)\le C^{n+1}$ and $\GCD_n\ge c^n\,n!^d$ for all $n$; in particular the fraction has FR. No condition $m\neq\pm\sqrt{|B|}$ is needed.
+\end{theorem}
+
+The case $B=0$ ($b\equiv0$, $q_n=\prod_{i\le n}a_i$) is trivial and excluded. When some $x_i$ with $i\le d$ is a positive integer the fraction terminates ($b_{x_i}=0$), and then the printed conjecture can fail:
+
+\begin{proposition}[a counterexample to Conjecture~1.3 as printed]\label{prop:counter}
+Let $d=2$, $B=-\frac34$, $m=1$, $(x_1,x_2,x_3,x_4)=(-2,1,-2,2)$, i.e.\ $b_n=-\frac34(n+2)^2(n-1)(n-2)$, $a_n=-\frac34(n+3)n-(n+2)(n-2)$. Then $p_n=q_n=0$ for all $n\ge1$, so $\GCD_n=0$ and the fraction does not have FR. The same holds for its integer inflation ($B=-12$, $m=4$).
+\end{proposition}
+\begin{proof}
+$a_0=4$, $a_1=0$ and $b_1=b_2=0$, so $p_1=q_1=0$; then $p_2=a_2p_1+b_2p_0=0$, $q_2=0$, and inductively $p_n=q_n=0$.
+\end{proof}
+
+\begin{corollary}[Conjecture~1.2 and the ``if'' half of Conjecture~1.1, partially]\label{cor:12}
+If $b_n=B\prod_{i=1}^{2d}(n-x_i)$ with $B\in\Q\setminus\{0\}$, $x_i\in\Q$, and at least $d$ of the $x_i$ (with multiplicity) are not positive integers, then the $a_n$ of Theorem~\ref{thm:A}, $m\in\Q\setminus\{0\}$, form an infinite family with FR.
+\end{corollary}
+
+\begin{proof}
+Order the roots so that $x_1,\dots,x_d\notin\Z_{\ge1}$; the coefficients $B/m-m$ of $n^d$ in $a_n$ take infinitely many values as $m$ varies.
+\end{proof}
+
+For degree $(1,2)$ write $a_n=An+k$, $b_n=Bn^2+Cn+E$ and
+\[
+D:=A^2+4B,\qquad\omega:=2kB-A(B+C).
+\]
+If $b_n=B(n-x_1)(n-x_2)$ then $(B+C)/B=1-x_1-x_2$, so $\omega=0$ iff $k=\frac A2(1-x_1-x_2)$, i.e.\ iff $a_n$ has the shape (Eq.~7); and for $A\neq0$, $A=B/m-m$ with $m\in\Q\setminus\{0,\pm\sqrt{|B|}\}$ iff $D$ is a nonzero rational square ($m=(-A\pm\sqrt D)/2$; $m=\pm\sqrt{|B|}$ forces $A=0$ or $D=0$), i.e.\ iff $a_n$ has the shape (Eq.~6) \emph{for some $k\in\Q$, $k=0$ included}.
+
+\begin{theorem}[the ``if'' half of Conjecture~1.4]\label{thm:B}
+Let $A,k,B,x_1,x_2\in\Q$, $A\ne0$, $B\neq0$, $D\neq0$, not both $x_i$ positive integers, $a_n=An+k$, $b_n=B(n-x_1)(n-x_2)$. If \textup{(i)} $D$ is the square of a rational number, or \textup{(ii)} $\omega=0$, then $\GCD_n\ge c^n\,n!$ for every $n$ with $(p_n,q_n)\neq(0,0)$, and the fraction has FR.
+\end{theorem}
+
+If neither $x_i$ is a positive integer, $(p_n,q_n)\neq(0,0)$ for all $n$, because $p_nq_{n-1}-p_{n-1}q_n=\pm\prod_{i\le n}b_i\neq0$. If one root is a positive integer $N$, then for $n\ge N-1$ one has $(p_n,q_n)=t_n(p_{N-1},q_{N-1})$ with $t_{N-1}=1$, $t_n=a_nt_{n-1}+b_nt_{n-2}$ and $b_n\neq0$ for $n>N$, so $t_n,t_{n+1}$ never both vanish; this suffices for the $\limsup$. The case $D=0$ of (Eq.~7) ($A=2\kappa$, $B=-\kappa^2$) is the Euler family with $d=1$, $m=-\kappa$, and is covered by Theorem~\ref{thm:A}; the case $D=0$ of (Eq.~6) is excluded in the conjecture itself.
+
+The next three theorems concern the converse. Let $P_n:=\gcd(p_n,q_n,p_{n+1},q_{n+1})=\gcd(\GCD_n,\GCD_{n+1})=\GCD2_{n+1}$; so $P_n\mid P_{n+1}$.
+
+\begin{theorem}[no persistence]\label{thm:C}
+Let $a_n=An+k$, $b_n=Bn^2+Cn+E$ with integers $A,k,B,C,E$, $B\neq0$, and let $p$ be a prime with $p\nmid\omega$ such that $D$ is not a nonzero square modulo $p$ (i.e.\ $p\mid D$ or $(\frac Dp)=-1$). Then there is no $n\ge0$ with $p\mid\GCD_n$ and $p\mid\GCD_{n+1}$; i.e.\ $p\nmid\GCD2_n$ for all $n$.
+\end{theorem}
+
+The hypotheses imply that $p$ is odd and $p\nmid B$ (if $p\mid B$ then $D\equiv A^2$, so $p\mid A$ and $p\mid\omega$; if $p=2$ then $D$, hence $A$, hence $\omega$ is even). Both hypotheses are needed: when either is dropped, persistent prime factors occur in most of the cases tested (\S\ref{sec:num}).
+
+\begin{theorem}[upper bounds for $\GCD2$]\label{thm:D}
+Let $a,b$ be as in Theorem~\ref{thm:C}, with $b_n\neq0$ for all $n\ge1$. There is $C_0$ such that for all $n$:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item if $b$ is irreducible over $\Q$: $P_n\le C_0^n\,(n!)^{1/2}$, for every $A,k$;
+\item if $\omega\neq0$ and $D$ is not a square in $\Q$: $P_n\le C_0^n\,(n!)^{1/2}$;
+\item if $\omega\neq0$ and $D=0$: $P_n\le C_0^n$.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Conjecture~1.4 for $\GCD2$]\label{thm:E}
+Let $A\neq0$, $B\neq0$, $b_n=B(n-x_1)(n-x_2)$ with $x_1,x_2\in\Q$ not positive integers, and $a_n=An+k$. The following are equivalent:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $D$ is a nonzero rational square or $\omega=0$; equivalently, $a_n$ belongs to family (Eq.~6) or (Eq.~7), where $k=0$ is allowed in (Eq.~6);
+\item there is $c>0$ with $P_n\ge c^n\,n!$ for all $n$;
+\item $\limsup_n\frac1n\log(P_n/n!)>-\infty$.
+\end{enumerate}
+If they fail, $P_n\le C_0^n(n!)^{1/2}$ for all $n$.
+\end{theorem}
+
+If instead $b$ is an irreducible quadratic, then $P_n\le C_0^n(n!)^{1/2}$ for every $a_n=An+k$, by Theorem~\ref{thm:D}(1).
+
+Thus Conjecture~1.4 holds with $\GCD2$ in place of $\GCD$ (for non-terminating fractions, with $k=0$ allowed in (Eq.~6)), and \emph{Conjecture~3 of \cite{BDNM}, restricted to non-terminating fractions of degree $(1,2)$, would imply the ``only if'' halves of Conjecture~1.4 and, for $\deg b=2$, of Conjecture~1.1.} We do not prove these halves for $\GCD_n$: a prime as in Theorem~\ref{thm:C} may still divide a single $\GCD_n$ (a ``transient'' factor), and we have no bound for the total size of such factors (\S\ref{sec:open}).
+
+Section~\ref{sec:printed} lists the printed statements that are false as stated: (Eq.~6) must allow $k=0$ (a misprint-level correction, with non-terminating counterexamples such as $\PCF[n,2(n+1)(n+2)]$), and several statements fail for terminating fractions.
+
+\subsection{Prior work}
+Theorem~\ref{thm:A} is elementary. The identity $q_n=\Pi_1(n+1)\sigma_n$ is Euler's classical conversion between such continued fractions and series and is used throughout David's work on the Euler family \cite{Dav}. The first arXiv version of \cite{Dav} (August 2023, titled ``Introduction to polynomial continued fractions''; the passage is not in later versions) introduces factorial reduction informally and proves, in its Example~35, the special case $H_1(n)=H_2(n)=n^d$ (the $\zeta(d)$-fractions $\PCF[n^d+(n+1)^d,-n^{2d}]$): $(n!/\lcm(1,\dots,n))^d$ divides $\gcd(p_n,q_n)$. In that case Theorem~\ref{thm:A} gives $\GCD_n=(n+1)!^d/\den\bigl(\sum_{k\le n}(k+1)^{-d}\bigr)$, consistent with his divisibility. The two-step gcd $\GCD2$ and Conjecture~3 are due to \cite{BDNM}. We searched (November 2026) the literature citing \cite{BDNM}, including the journal version, which still states the conjectures as open, and found no proof of any of Conjectures~1.1--1.4. ``New'' means ``not found after this search''. Factorial reduction is used as a search filter in \cite{EDCK}.
+
+\section{A lemma on denominators}
+
+\begin{lemma}\label{lem:den}
+Let $\alpha\in\Q$ and $\beta\in\Q\setminus\Z_{\le0}$. There is an integer $C\ge1$ such that for every $n\ge0$ the numbers $(\alpha)_k/(\beta)_k$ and $(\alpha)_k/(\beta)_{k+1}$, $0\le k\le n$, have a common denominator $\le C^{n+1}$.
+\end{lemma}
+\begin{proof}
+Write $\alpha=a/e$, $\beta=b/f$ in lowest terms with $e,f\ge1$. Then $(\alpha)_k/(\beta)_k=(f/e)^k\prod_{j<k}(a+je)/\prod_{j<k}(b+jf)$. Let $p$ be prime. If $p\nmid f$, then for each $t\ge1$ exactly one class of $j\bmod p^t$ has $p^t\mid b+jf$, so $\#\{j<k:p^t\mid b+jf\}\le\lfloor k/p^t\rfloor+1$, and this is $0$ when $p^t>|b|+kf$ (note $b+jf\neq0$); hence $v_p(\prod_{j<k}(b+jf))\le v_p(k!)+\lfloor\log_p(|b|+kf)\rfloor$. If $p\mid f$, $v_p(\prod(b+jf))=0$. Likewise $v_p(\prod_{j<k}(a+je))\ge v_p(k!)$ if $p\nmid e$. Therefore
+\[
+v_p\Bigl(\frac{(\alpha)_k}{(\beta)_k}\Bigr)\ge-k\,v_p(e)-[p\mid e]\,v_p(k!)-[p\nmid f]\lfloor\log_p(|b|+kf)\rfloor\ge-k\bigl(v_p(e)+[p\mid e]\bigr)-\lfloor\log_p(|b|+kf)\rfloor .
+\]
+So the denominator of $(\alpha)_k/(\beta)_k$ divides $(e\rad(e))^k\lcm(1,\dots,|b|+kf)$, and $\lcm(1,\dots,M)\le3^M$ \cite{Han}. For $(\alpha)_k/(\beta)_{k+1}$ multiply by one more factor $\lcm(1,\dots,|b|+nf)$. Take $C=e\rad(e)\,3^{2(|b|+f)}$.
+\end{proof}
+
+Products of $d$ such ratios and powers of fixed rationals again have common denominators $\le C^{n+1}$.
+
+\section{Proof of Theorem~\ref{thm:A}}
+
+By inflation (which multiplies $H_1,H_2$ by $c$ and corresponds to $(B,m)\mapsto(c^2B,cm)$) we may assume $H_1,H_2$ integer-valued. By hypothesis $\Pi_1(n)\neq0$ for all $n$.
+
+\emph{Solutions.} $U_n:=\Pi_1(n+1)$ satisfies $U_n=a_nU_{n-1}+b_nU_{n-2}$, since $a_n\Pi_1(n)-H_1(n)H_2(n)\Pi_1(n-1)=(H_1(n+1)+H_2(n)-H_2(n))\Pi_1(n)$. Writing a solution as $u_n=\Pi_1(n+1)s_n$ gives $H_1(n+1)(s_n-s_{n-1})=H_2(n)(s_{n-1}-s_{n-2})$, i.e.\ $s_n-s_{n-1}=(s_0-s_{-1})H_1(1)\Pi_2(n)/\Pi_1(n+1)$. The initial values of $q$ ($s_{-1}=0$, $s_0=1/H_1(1)$) and of $p$ ($s_{-1}=1$, $s_0=a_0/H_1(1)=1+H_2(0)/H_1(1)$) give the formulas for $q_n$ and $p_n$.
+
+\emph{The gcd.} $\gcd(p_n,q_n)=\gcd(\Pi_1(n+1),q_n)$ since $H_2(0)\in\Z$. Write $\sigma_n=P/Q$ in lowest terms and $N=\Pi_1(n+1)\in\Z\setminus\{0\}$. As $q_n=NP/Q\in\Z$ and $\gcd(P,Q)=1$, $Q\mid N$, and $\gcd(N,(N/Q)P)=(|N|/Q)\gcd(Q,P)=|N|/Q$.
+
+\emph{Size.} $\Pi_2(k)/\Pi_1(k+1)=(-m)^k(m/B)^{k+1}\prod_{i>d}(1-x_i)_k/\prod_{i\le d}(1-x_i)_{k+1}$ is a product of $d$ ratios as in Lemma~\ref{lem:den} (with $1-x_i\notin\Z_{\le0}$ for $i\le d$) and of powers of two fixed rationals, so $\den(\sigma_n)\le C^{n+1}$. And $|\Pi_1(n+1)|=|B/m|^{n+1}\prod_{i\le d}|(1-x_i)_{n+1}|\ge c_1^{n+1}n!^d$, since $|(1-x)_{n+1}|=\prod_{j=1}^{n+1}|j-x|$ with all factors $\ge\delta>0$ and $|j-x|\ge j/2$ for $j\ge2|x|$. Hence $\GCD_n\ge(c_1/C)^{n+1}n!^d$. \qed
+
+\begin{remark}
+For the example of \cite{BDNM} $\PCF[2n^2+2n+1,-n^4]$ ($B=m=-1$, all $x_i=0$) the theorem gives $\GCD_n=(n+1)!^2/\den(\sum_{k\le n}(k+1)^{-2})$. In the excluded range, when $(p_n,q_n)$ does not vanish identically for large $n$, the same argument applied to the fraction shifted past the last positive-integer root of $H_1$ still gives FR in the $\limsup$ sense; we do not formulate this as a theorem.
+\end{remark}
+
+\section{Proof of Theorem~\ref{thm:B}}
+
+By symmetry assume $x_1\notin\Z_{\ge1}$. Inflation maps $(A,k,B)\mapsto(cA,ck,c^2B)$ and preserves (i) and (ii), so assume $a,b$ integer-valued. For a solution $u$ of the recurrence put $c_j:=u_{j-1}/(1-x_1)_j$ $(j\ge0)$. Dividing the recurrence by $(1-x_1)_{j-1}$:
+\[
+(j-x_1)c_j=(A(j-1)+k)c_{j-1}+B(j-1-x_2)c_{j-2}\qquad(j\ge2).
+\]
+For $\mathcal C(z)=\sum c_jz^j$ (formal), $\vartheta=z\frac{\mathrm d}{\mathrm dz}$ and $\Delta(z):=1-Az-Bz^2=(1-\lambda_1z)(1-\lambda_2z)$ ($\lambda_1\neq\lambda_2$ the roots of $\lambda^2=A\lambda+B$), this reads
+\[
+\Delta\cdot(\vartheta-x_1)\mathcal C=\bigl((k+Ax_1)z+B(1+x_1-x_2)z^2\bigr)\mathcal C+r_0+r_1z,\qquad r_0=-x_1c_0,\ r_1=(1-x_1)c_1-kc_0 .
+\]
+Let $W:=(1-\lambda_1z)^{-\alpha_1}(1-\lambda_2z)^{-\alpha_2}$ with $\alpha_1+\alpha_2=1+x_1-x_2$ and $\alpha_1\lambda_1+\alpha_2\lambda_2=k+Ax_1$; then $\Delta\,\vartheta W=((k+Ax_1)z+B(1+x_1-x_2)z^2)W$, and $\mathcal C=WV$ with $(\vartheta-x_1)V=(r_0+r_1z)/(\Delta W)=:\sum_je_jz^j$, i.e.
+\[
+c_n=\sum_{i+j=n}g_i\frac{e_j}{j-x_1},\qquad W=\sum g_iz^i,\qquad\sum_je_jz^j=(r_0+r_1z)(1-\lambda_1z)^{\alpha_1-1}(1-\lambda_2z)^{\alpha_2-1}
+\]
+(if $x_1=0$ then $r_0=e_0=0$ and the term $j=0$ is replaced by $c_0$).
+\emph{Case (i):} $\lambda_1,\lambda_2\in\Q$, hence $\alpha_1,\alpha_2\in\Q$, and $(1-\lambda z)^{-\alpha}=\sum_i(\alpha)_i\lambda^iz^i/i!$.
+\emph{Case (ii):} the two linear equations give $\alpha_1=\alpha_2=\alpha:=\frac12(1+x_1-x_2)\in\Q$ exactly when $\alpha(\lambda_1+\lambda_2)=k+Ax_1$, i.e.\ $k=\frac A2(1-x_1-x_2)$; then $W=\Delta^{-\alpha}=\sum_i\frac{(\alpha)_i}{i!}(Az+Bz^2)^i$ and $1/(\Delta W)=\Delta^{\alpha-1}$.
+In both cases Lemma~\ref{lem:den} (with $\beta=1$) shows that $g_0,\dots,g_n$ and $e_0,\dots,e_n$ have common denominators $\le C^{n+1}$; the numerators of $j-x_1$ $(j\le n)$ have $\lcm\le C^{n+1}$; and $c_0,c_1$ are fixed rationals for $u=p$ and $u=q$. So there are integers $D_n\le C_2^{n+1}$ with $D_nc^{(p)}_j,D_nc^{(q)}_j\in\Z$ for $j\le n+1$.
+Write $x_1=a/e$ in lowest terms; $(1-x_1)_{n+1}=M_n/e^{n+1}$ with $M_n=\prod_{j=1}^{n+1}(je-a)\in\Z\setminus\{0\}$ and $|M_n|\ge c_1^{n+1}n!$. From $p_n=M_nc^{(p)}_{n+1}/e^{n+1}$ and $q_n=M_nc^{(q)}_{n+1}/e^{n+1}$, $M_n$ divides $e^{n+1}D_np_n$ and $e^{n+1}D_nq_n$, hence $e^{n+1}D_n\GCD_n$. So whenever $(p_n,q_n)\neq(0,0)$, $\GCD_n\ge|M_n|/(e^{n+1}D_n)\ge c^{n+1}n!$. \qed
+
+\begin{remark}
+If neither (i) nor (ii) holds (and $D\ne0$), $\lambda_1,\lambda_2$ are conjugate quadratic irrationals and $\alpha_1\neq\alpha_2$ are conjugate irrationals; the coefficients $(\alpha)_i/i!$ then have unbounded denominators at every prime inert in $\Q(\sqrt D)$. This is the expected mechanism for the failure of FR; Theorem~\ref{thm:C} makes it precise for $\GCD2$.
+\end{remark}
+
+\section{\texorpdfstring{The converse in degree $(1,2)$}{The converse in degree (1,2)}}
+
+Throughout, $a_n=An+k$, $b_n=Bn^2+Cn+E$ with integers $A,k,B,C,E$, $B\neq0$ (the rational case reduces to this by inflation), $\Delta_b:=C^2-4BE$, and $\Phi_n:=p_nq_{n-1}-p_{n-1}q_n=(-1)^{n-1}\prod_{i\le n}b_i$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:C}]
+Work in $\F=\F_p$. Suppose the contrary and take $n$ minimal; let $V_m:=(p_m,q_m)$. Since $V_{-1}=(1,0)$ and $V_0=(a_0,1)$, $n\ge1$, and $V_n\equiv V_{n+1}\equiv0$.
+\emph{Step 1.} $V_{n+1}=a_{n+1}V_n+b_{n+1}V_{n-1}$ gives $b_{n+1}V_{n-1}\equiv0$; by minimality $V_{n-1}\not\equiv0$, so $b_{n+1}\equiv0$.
+\emph{Step 2.} Some $i\in[1,n]$ has $b_i\equiv0$, since otherwise $\Phi_n\not\equiv0$, contradicting $V_n\equiv0$. Let $n'$ be the largest such $i$.
+\emph{Step 3.} Since $b_{n'}\equiv0$, $V_{n'}\equiv a_{n'}V_{n'-1}$, hence $V_m\equiv t_mV_{n'-1}$ for $m\ge n'-1$, where $t_{n'-1}=1$, $t_{n'}=a_{n'}$, $t_m=a_mt_{m-1}+b_mt_{m-2}$ $(m>n')$. Also $V_{n'-1}\not\equiv0$ (else $V_{n'-1}\equiv V_{n'}\equiv0$ with $n'-1<n$). Hence $t_n=0$.
+\emph{Step 4.} As $p\nmid B$, $b\equiv B(m-x)(m-x')$ in $\F[m]$ with $x\equiv n'$. The indices $m$ with $b_m\equiv0$ are those $\equiv x$ or $\equiv x'$; $n'<n+1$ are consecutive such indices, so $n+1\le n'+p$ and $n+1\equiv x'$ (if $n+1=n'+p$, no index of the class of $x'$ lies strictly between, so $x'=x$).
+\emph{Step 5.} Put $\gamma_j:=t_{j-1}/\prod_{i=n'+1}^j(i-x)$ for $n'\le j\le n$ (the factors are nonzero as $n'<i<n'+p$) and $\gamma_j:=0$ otherwise; $\gamma_{n'}=1$. Then for all $j\in\Z$
+\begin{equation}\label{eq:R}
+(j-x)\gamma_j=(A(j-1)+k)\gamma_{j-1}+B(j-1-x')\gamma_{j-2}.
+\end{equation}
+Indeed: for $j<n'$ both sides vanish; for $j=n'$ both sides are $0$ ($n'\equiv x$); for $n'<j\le n$ divide the recurrence of $t$ at $m=j-1$ by $\prod_{i=n'+1}^{j-1}(i-x)$ (for $j=n'+1$ use $t_{n'}=a_{n'}$); for $j=n+1$ the right side equals $t_n/\prod_{i=n'+1}^n(i-x)=0$; for $j=n+2$ it is $B(n+1-x')\gamma_n=0$ by Step~4; for $j>n+2$ both sides vanish.
+\emph{Step 6.} $\Gamma(z):=\sum\gamma_jz^j\in\F[z]$ is a nonzero polynomial, and \eqref{eq:R} says, with $\vartheta=z\frac{\mathrm d}{\mathrm dz}$,
+\[
+\Delta(z)\,\vartheta\Gamma=\mathcal N(z)\,\Gamma,\qquad\Delta:=1-Az-Bz^2,\quad\mathcal N:=x+kz+B(1-x')z^2 .
+\]
+\emph{Step 7.} Over an algebraic closure $\Gamma=z^{n'}\prod_\zeta(1-z/\zeta)^{m_\zeta}$, so $\mathcal N/\Delta=\vartheta\Gamma/\Gamma=n'+\sum_\zeta m_\zeta-\sum_\zeta m_\zeta/(1-z/\zeta)$: a rational function with at most simple poles whose coefficients at $1/(1-z/\zeta)$ lie in the prime field $\F_p$. If $p\mid D$: $\Delta=(1-\lambda z)^2$ with $\lambda=A/2\neq0$, so $(1-\lambda z)\mid\mathcal N$, i.e.\ $0=\mathcal N(1/\lambda)=\omega/(2B\lambda)$ (using $x+x'=-C/B$), contradicting $p\nmid\omega$. If $(\frac Dp)=-1$: $\Delta=(1-\lambda_1z)(1-\lambda_2z)$ with $\lambda_1\neq\lambda_2$ in $\F_{p^2}$, $(\lambda_1-\lambda_2)^2=D$, and $\mathcal N/\Delta=c+\alpha_1/(1-\lambda_1z)+\alpha_2/(1-\lambda_2z)$ with $\alpha_1-\alpha_2=\omega/(B(\lambda_1-\lambda_2))$ (\file{FR/verify/fr_only_if.py}, part (a)). By the above $\alpha_1,\alpha_2\in\F_p$, and $\alpha_1\neq\alpha_2$ as $\omega\not\equiv0$; so $\lambda_1-\lambda_2=\omega/(B(\alpha_1-\alpha_2))\in\F_p$, i.e.\ $D$ is a square mod $p$, a contradiction.
+\end{proof}
+
+(In other words, the proof shows that a prime can divide two consecutive gcds only if the rank-one equation $\Delta\vartheta W=\mathcal NW$ --- the one solved by $W$ in the proof of Theorem~\ref{thm:B} --- has a polynomial solution mod $p$.)
+
+\begin{lemma}\label{lem:val}
+Assume $b_i\neq0$ for all $i\ge1$. \textup{(a)} For every prime $p$ there is $C_p$ with $v_p(\prod_{i\le N}b_i)\le C_pN$ for all $N\ge1$. \textup{(b)} There are a finite set $S$ of primes and $c_2$ such that for $p\notin S$: $v_p(\prod_{i\le N}b_i)\le2N/(p-1)+2\log_p(c_2N^2)$. \textup{(c)} There are a finite set $S_0$ and $c_1$ such that every prime $p$ dividing $b_i$ and $b_j$ for some $1\le i<j\le N$ satisfies $p\le c_1N$ or $p\in S_0$.
+\end{lemma}
+\begin{proof}
+(b) If $\Delta_b\neq0$ and $p\nmid2B\Delta_b$, the congruence $b_i\equiv0\pmod{p^t}$ has at most $2$ solutions mod $p^t$ (simple roots mod $p$, Hensel), so $\#\{i\le N:p^t\mid b_i\}\le2(N/p^t+1)$, and this is $0$ when $p^t>\max_{i\le N}|b_i|$, which is $\le c_2N^2$; sum over $t\ge1$. If $\Delta_b=0$, $b_i=B_0(ei-a)^2$ with $\gcd(a,e)=1$, and the same count holds for $p\nmid e\cdot\mathrm{num}(B_0)\den(B_0)$.
+(a) For the finitely many remaining primes: if $\Delta_b=0$ or $b$ splits, use $b_i=B_0(e_1i-a_1)(e_2i-a_2)$ ($p\mid e_j$ gives $v_p(e_ji-a_j)=0$; otherwise argue as in (b); $B_0$ contributes $Nv_p(B_0)$). In general $4Bb_i=Y_i^2-\Delta_b$ with $Y_i=2Bi+C$; let $v:=v_p(\Delta_b)$. If $p^t\mid Y^2-\Delta_b$ and $t>v$, then $v_p(Y^2)=v$, $Y=p^{v/2}Y_1$, and $Y_1^2\equiv\Delta_b/p^v\pmod{p^{t-v}}$ has at most $4$ solutions mod $p^{t-v}$; so $i$ lies in at most $4$ classes modulo $p^{t-c}$, $c:=v/2+v_p(2B)$ (when $t\ge c$). Hence $\#\{i\le N:p^t\mid4Bb_i\}\le4(Np^{c-t}+1)$ for $t>v$ and $\le N$ for $t\le v$; sum over $t\le\log_p(4|B|c_2N^2)$.
+(c) $p\mid b_i-b_j=(i-j)(B(i+j)+C)$. If $B(i+j)+C\neq0$, then $p\le\max(N,2|B|N+|C|)$. If $B(i+j)+C=0$, then $i<-C/B$, and $p$ divides one of the finitely many nonzero integers $b_i$, $1\le i<-C/B$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:D}]
+$P_n^2\mid\GCD_n\GCD_{n+1}\mid\Phi_{n+1}=\pm\prod_{i\le n+1}b_i$, so $v_p(P_n)\le\frac12v_p(\prod_{i\le N}b_i)$ with $N:=n+1$. If $p\mid P_n$, then $p\mid\GCD_m,\GCD_{m+1}$ for some $m\le n$, and Steps~1--2 of the proof of Theorem~\ref{thm:C} (which use nothing about $a_n$), applied to the minimal such $m$, show that $b$ has two zeros mod $p$ at indices $\le N$; so $p\le c_1N$ or $p\in S_0$ (Lemma~\ref{lem:val}(c)), and $b$ has a root mod $p$. Let $\mathcal Q$ be the set of primes $p\notin S\cup S_0\cup\{2\}$, $p\nmid B$, that divide some $P_n$ and, in cases (2) and (3) only, do not divide $\omega$ (in case (1) $\omega$ may vanish and plays no role); in each case only finitely many primes are excluded. In case (1), $\mathcal Q\subset\{p:(\frac{\Delta_b}p)=1\}$ by the last remark; by Theorem~\ref{thm:C}, $\mathcal Q\subset\{p:(\frac Dp)=1\}$ in case (2), and $\mathcal Q=\emptyset$ in case (3). By Lemma~\ref{lem:val},
+\[
+\log P_n\le\sum_{p\in\mathcal Q,\,p\le c_1N}\Bigl(\frac N{p-1}+\log_p(c_2N^2)\Bigr)\log p+O(N)=N\sum_{p\in\mathcal Q,\,p\le c_1N}\frac{\log p}p+O(N)
+\]
+(the finitely many other primes contribute $O(N)$ by Lemma~\ref{lem:val}(a), and $\sum_{p\le c_1N}\log(c_2N^2)=O(N)$). For a non-square integer $d$ (negative or non-squarefree allowed), $\chi:=(\frac{4d}\cdot)$ is a real non-principal Dirichlet character modulo $4|d|$ with $\chi(p)=(\frac dp)$ for odd $p\nmid d$; by Mertens' theorem $\sum_{p\le y}\frac{\log p}p=\log y+O(1)$, and $\sum_{p\le y}\chi(p)\frac{\log p}p=O(1)$ because $L(1,\chi)\neq0$ \cite[ch.~4]{Dav80}. So $\sum_{p\le y,\,(d/p)=1}\frac{\log p}p=\frac12\log y+O(1)$. Hence $\log P_n\le\frac12N\log N+O(N)$ in cases (1), (2), and $\log P_n=O(N)$ in case (3); and $N^{N/2}\le C_0^n(n!)^{1/2}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:E}]
+(a)$\Rightarrow$(b): if $D$ is a nonzero square or $\omega=0\neq D$, then in the proof of Theorem~\ref{thm:B}, $M_n\mid e^{n+1}D_n\GCD_n$ with $M_n\mid M_{n+1}$ and $D_n\le C_2^{n+1}$, so $M_n$ divides $e^{n+2}\lcm(D_n,D_{n+1})\cdot\gcd(\GCD_n,\GCD_{n+1})$, whence $P_n\ge|M_n|/(e^{n+2}C_2^{2n+3})\ge c^nn!$ (here $(p_n,q_n)\neq(0,0)$ for all $n$ because $\Phi_n\neq0$). The remaining case $D=0=\omega$ is the Euler family (Theorem~\ref{thm:A} with $d=1$, $m=-\kappa$, $\kappa=A/2$); after inflation by a suitable integer $c$, which makes $H_1,H_2$ integer-valued and multiplies $P_n$ by a factor between $c^n$ and $c^{n+2}$, $\GCD_n=|\Pi_1(n+1)|/\den(\sigma_n)$ and $\Pi_1(n+1)\mid\Pi_1(n+2)$, so $P_n\ge|\Pi_1(n+1)|/\lcm(\den\sigma_n,\den\sigma_{n+1})\ge c^nn!$. (b)$\Rightarrow$(c) is trivial. (c)$\Rightarrow$(a): if (a) fails, then $\omega\neq0$ and $D$ is $0$ or not a rational square, and Theorem~\ref{thm:D}(2), (3) gives $P_n\le C_0^n(n!)^{1/2}$.
+\end{proof}
+
+\section{Printed statements that fail}\label{sec:printed}
+
+The authors of \cite{BDNM} write (\S2.1) ``Unless stated otherwise, we focus on `balanced-degree' PCFs'' ($\deg b=2\deg a$), and it assumes $b_n\neq0$ (``to guarantee that the PCF is infinite'') only in Appendix~B, for its Theorems~1 and~2; the conjectures of \S2.3 are printed ``for every $b_n$''. The following examples are balanced-degree and were checked in exact arithmetic (\file{FR/verify/fr_only_if.py}, part (c); \file{FR/audit2/a2_examples.py}). Items 1--3 concern terminating fractions, which the authors presumably did not intend to include; item 0 is a misprint-level correction of (Eq.~6). We record them so that the conjectures can be stated in a form that is true.
+
+\begin{enumerate}[label=\arabic*., start=0, leftmargin=1.5em]
+\item \emph{Non-terminating; $k=0$ in (Eq.~6).} $\PCF[n,2(n+1)(n+2)]$ ($A=1$, $B=2=m(A+m)$ with $m=1$, $D=9$, $k=0$, $b_n>0$) has FR by Theorem~\ref{thm:B}(i) but lies in neither printed family. Likewise $\PCF[7n,8n^2-2]$, the $k=0$ member of the (Eq.~6) example of \cite{BDNM} ``for $m=1$ and any $k\in\Z$''. So the exclusion $k\neq0$ should apply to (Eq.~7) only (where $k=0$ gives $a_n\equiv0$). This was found by an AI referee.
+\item \emph{Terminating; ``only if'' of Conjecture~1.4.} $\PCF[n+1,n(n-1)]$ ($b_1=0$): $p_n=q_n=t_n$ with $t_0=1$, $t_1=2$, $t_n=(n+1)t_{n-1}+n(n-1)t_{n-2}\ge(n+1)!$, so $\GCD_n\ge(n+1)!$; but $D=5$ is not a square and $a_n\neq2kn$. More generally, if $b_N=0$ then $(p_n,q_n)=t_n(p_{N-1},q_{N-1})$ for $n\ge N-1$, and $\GCD_n\ge|t_n|$, which typically has factorial size whatever $a_n$ is. Numerically, for this fraction $(\log\GCD2_{n+1}-\log n!)/n=-2.09,-2.39,-2.80$ at $n=50,100,199$, so it also appears to contradict Conjecture~3 as printed (``for any PCF''); this is numerical only.
+\item \emph{Terminating; ``only if'' of Conjecture~1.1.} $\PCF[n^2+1,(n-1)^2(n^2-2)]$: again $p_n=q_n=t_n$ with $|t_n|\ge\prod_{i\le n}(i^2+1)\ge n!^2$, so FR holds with $\deg a=2$, although $b$ has the irreducible factor $n^2-2$.
+\item \emph{Terminating; ``if'' of Conjecture~1.4.} $\PCF[n-3,2(n-1)(n-3)]$ is in (Eq.~6) ($B=2$, $m=1$, $k=-3$) and $p_n=q_n=0$ for all $n\ge2$; $\PCF[n-1,-(n-1)(n-2)]$ is in (Eq.~7) ($k=\frac12$) and $p_n=q_n=0$ for all $n\ge1$. Both roots of $b$ are positive integers, the case excluded in Theorem~\ref{thm:B}.
+\end{enumerate}
+To these add the counterexample of Proposition~\ref{prop:counter} to Conjecture~1.3. Outside the balanced-degree setting the definition degenerates (for constant $a_n$, $n!^{\deg a}=1$); e.g.\ $\PCF[1,(n+1)^2]$ has $A=0$, $D=4$ and $\GCD2$ of factorial size. Theorems~\ref{thm:C}--\ref{thm:E} assume $A\neq0$ where it matters.
+
+\section{What remains open, and a search}\label{sec:open}
+
+FR in the sense of \cite{BDNM} means $\GCD_n\ge c^nn!$ for infinitely many $n$, whereas Theorem~\ref{thm:D} bounds only $\GCD2_{n+1}=\gcd(\GCD_n,\GCD_{n+1})$, the part of $\GCD_n$ that persists. A prime as in Theorem~\ref{thm:C} can still divide a single $\GCD_n$ (in the notation of its proof, $t_n\equiv0$ with $t_{n\pm1}\not\equiv0$), and $v_p(\GCD_n)$ can then be as large as $v_p(\prod_{i\le n}b_i)\approx2n/(p-1)$ as far as we can prove; heuristically such factors contribute $n^{O(1)}$. So, for non-terminating fractions of degree $(1,2)$ with $A\neq0$:
+\begin{itemize}[leftmargin=1.3em]
+\item \emph{proved:} outside the (corrected) families, $\GCD2_{n+1}\le C_0^n(n!)^{1/2}$; a factorial lower bound for $\GCD_n$ cannot come from common factors shared by two consecutive convergents, which is how it arises in every known non-terminating case;
+\item \emph{reduction:} Conjecture~3 of \cite{BDNM} for these fractions, together with Theorem~\ref{thm:E}, gives the ``only if'' half of Conjecture~1.4 (corrected family) and, with Theorem~\ref{thm:D}(1), that of Conjecture~1.1 for $\deg b=2$, $\deg a=1$;
+\item \emph{open:} $\limsup\frac1n\log(\GCD_n/n!)=-\infty$ outside the families, i.e.\ Conjecture~3 in this range. Conjecture~2 of \cite{BDNM} is not treated here.
+\end{itemize}
+
+\emph{Search.} In exact integer arithmetic we examined all $a_n=An+k$, $b_n=Bn^2+Cn+E$ with $1\le A\le12$, $|k|\le12$, $1\le|B|\le8$, $|C|,|E|\le8$ (1.39 million fractions; \file{FR/search/fr_search12.py}, \file{FR/search/fr_stage2.py}). With $s(n):=\max_{n-3\le m\le n}(\log\GCD_m-\log m!)/m$ (a window of four consecutive indices, to catch transient factors), evaluated at $n=40,80$, about 1.2 million fractions have $s(80)\le s(40)-0.40$ and were discarded as non-FR; the remaining 186\,913 were re-examined at $n=160,320,640$. Every non-terminating fraction in a corrected family (16\,254 cases, $k=0$ included in (Eq.~6)) has $s$ bounded; every remaining non-terminating fraction outside the families (23\,975 with $b$ split over $\Q$, 55\,088 with $b$ irreducible) has $s(n)$ decreasing steadily, by $0.25$--$0.7$ per doubling of $n$ (the slowest, $(A,k,B,C,E)=(8,10,-7,1,4)$, gives $-2.04,-2.58,-2.84,-3.08$). No counterexample to the ``only if'' halves was found among non-terminating fractions. The observed size outside the families is $\GCD_n\approx C^n(n!)^\vartheta$ with $\vartheta\approx\frac12$ for split $b$, consistent with Theorem~\ref{thm:D} being sharp.
+
+\section{Verification}\label{sec:num}
+Scripts (in \cite{code}, folder \nolinkurl{\repo/FR}): \file{FR/verify/fr_euler_family.py} checks the formulas of Theorem~\ref{thm:A} and $\GCD_n=|\Pi_1(n+1)|/\den(\sigma_n)$ exactly for $n\le50$ and 60 random parameter sets ($d\le3$); \file{FR/verify/fr_counterexample.py} checks Proposition~\ref{prop:counter} exactly for $n\le200$; \file{FR/verify/fr_degree1_families.py} checks the closed form in the proof of Theorem~\ref{thm:B} against the recurrence exactly ($j\le120$, 50 random parameter sets), and shows $\frac1n\log(\GCD_n/n!)$ bounded in the families and decreasing outside; \file{FR/verify/fr_only_if.py} checks the algebra of Theorem~\ref{thm:C} with \texttt{sympy}, tests Theorem~\ref{thm:C} by brute force (11\,064 pairs (fraction, prime $p<400$), $n\le3000$: no violation; for primes modulo which $D$ is a nonzero square, consecutive gcds divisible by $p$ occur in 6\,621 of 11\,769 pairs), and checks the examples of \S\ref{sec:printed}. An independent referee (\file{FR/REFEREE-FR.md}) re-checked Theorem~\ref{thm:A} on 40 further parameter sets ($d\le4$, $n\le300$); a second referee (\file{FR/AUDIT-2.md}, scripts in \nolinkurl{\repo/FR/audit2}) tested Theorem~\ref{thm:C} on $2\times108\,000$ (fraction, prime) pairs with $n\le5000$ without violation, found persistent factors in most pairs when either hypothesis is dropped, and reproduced the search spot checks.
+
+\section*{Acknowledgements}
+The results, proofs and computer code in this paper were produced by AI (Anthropic's Claude models), directed by the author; the proofs were checked by independent AI referees, and the paper has not yet been refereed by a human expert. The author thanks the authors of \cite{BDNM} for formulating precise conjectures, and O.~David for \cite{Dav}. A companion paper by the author treats three continued fractions of \cite{EDCK} \cite{Sha2}.
+
+\begin{thebibliography}{9}
+
+\bibitem{BDNM} N.~Ben David, G.~Nimri, U.~Mendlovic, Y.~Manor, C.~De la Cruz Mengual and I.~Kaminer, \emph{On the connection between irrationality measures and polynomial continued fractions}, Arnold Math.\ J.\ 10 (2024), 529--566; doi:10.1007/s40598-024-00250-z; arXiv:2111.04468.
+
+\bibitem{Dav80} H.~Davenport, \emph{Multiplicative Number Theory}, 3rd ed., Grad.\ Texts in Math.\ 74, Springer, New York, 2000.
+
+\bibitem{Dav} O.~David, \emph{On Euler polynomial continued fractions}, arXiv:2308.02567 (version~1, August 2023: \emph{Introduction to polynomial continued fractions}).
+
+\bibitem{EDCK} R.~Elimelech, O.~David, C.~De la Cruz Mengual, R.~Kalisch, W.~Berndt, M.~Shalyt, M.~Silberstein, Y.~Hadad and I.~Kaminer, \emph{Algorithm-assisted discovery of an intrinsic order among mathematical constants}, Proc.\ Natl.\ Acad.\ Sci.\ USA 121 (2024), no.~25, e2321440121; arXiv:2308.11829.
+
+\bibitem{Han} D.~Hanson, \emph{On the product of the primes}, Canad.\ Math.\ Bull.\ 15 (1972), 33--37.
+
+\bibitem{code} R.~Sharma, \emph{Research-Math} (code, data and referee reports), \url{https://github.com/raghavs1729/Research-Math}, folder \nolinkurl{\repo}.
+
+\bibitem{Sha2} R.~Sharma, \emph{Closed forms for the unidentified $\zeta(5)$-level continued fractions of the Ramanujan Machine}, preprint, 2026.
+
+\end{thebibliography}
+\end{document}
